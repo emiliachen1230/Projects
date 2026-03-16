@@ -3,184 +3,256 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Project Four</title>
+  <title>Project Four — Rondo Door Bell Interaction Device</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #f7f6f2;
-      --surface: #ffffff;
-      --text: #151515;
-      --muted: #666666;
-      --line: #d9d6cf;
-      --container: 1240px;
-      --shadow: 0 12px 40px rgba(0,0,0,.06);
+    :root{
+      --bg:#ece9e2;
+      --panel:#f6f3ee;
+      --line:#d0c8be;
+      --text:#121212;
+      --muted:#5d5953;
+      --dark:#111914;
+      --shadow:0 20px 60px rgba(17,17,17,.08);
     }
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family:"Inter","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
       background:var(--bg);
       color:var(--text);
-      line-height:1.65;
+      font-family:"Inter","Noto Sans TC","Microsoft JhengHei",sans-serif;
+      -webkit-font-smoothing:antialiased;
     }
-    .container{width:min(calc(100% - 32px),var(--container));margin:0 auto}
-    a{color:inherit}
+    a{color:inherit;text-decoration:none}
+    .container{width:min(calc(100% - 32px),1380px);margin:0 auto}
     .topbar{
-      position:sticky;top:0;z-index:10;
-      backdrop-filter:blur(12px);
-      background:rgba(247,246,242,.88);
-      border-bottom:1px solid rgba(21,21,21,.08);
+      position:sticky;top:0;z-index:20;
+      background:rgba(236,233,226,.8);
+      backdrop-filter:blur(16px);
+      border-bottom:1px solid rgba(18,18,18,.08);
     }
     .topbar-inner{
-      display:flex;align-items:center;justify-content:space-between;gap:16px;
-      min-height:72px;
+      min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px;
     }
-    .nav-links{display:flex;gap:18px;flex-wrap:wrap}
-    .nav-links a{text-decoration:none;color:#444}
-    .hero{padding:48px 0 20px}
-    .hero-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:24px}
-    .info,.image-panel,.section-card{
-      background:var(--surface);
-      border:1px solid rgba(21,21,21,.08);
+    .topbar strong{
+      font-family:"Cormorant Garamond",serif;
+      font-size:30px;
+      letter-spacing:.05em;
+    }
+    .topbar nav{display:flex;gap:24px;font-size:13px;text-transform:uppercase;letter-spacing:.08em}
+    .hero{
+      padding:28px 0;
+      display:grid;
+      grid-template-columns:1.05fr 1.45fr;
+      gap:22px;
+    }
+    .panel{
+      background:var(--panel);
+      border:1px solid rgba(18,18,18,.08);
       border-radius:24px;
       box-shadow:var(--shadow);
     }
-    .info{padding:28px}
-    .kicker{margin:0 0 10px;color:var(--muted);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
-    .title{margin:0;font-size:clamp(34px,5vw,64px);line-height:.95;letter-spacing:-.04em}
-    .subtitle{margin:10px 0 0;font-size:18px;color:#2f2f2f}
-    .meta-list{display:grid;gap:14px;margin-top:22px}
-    .meta-item{padding-top:14px;border-top:1px solid rgba(21,21,21,.08)}
-    .meta-item h3{margin:0 0 6px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-    .meta-item p{margin:0;font-size:15px}
-    .image-panel{padding:18px}
+    .info{padding:30px}
+    .kicker{
+      margin:0 0 12px;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      color:var(--muted);
+    }
+    h1{
+      margin:0;
+      font-family:"Cormorant Garamond",serif;
+      font-size:clamp(46px,5vw,78px);
+      line-height:.92;
+      letter-spacing:-.02em;
+    }
+    .subtitle{
+      margin:12px 0 0;
+      font-size:16px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:#2f2b27;
+    }
+    .lead{
+      margin:24px 0 0;
+      color:#36322d;
+      line-height:1.9;
+      font-size:15px;
+    }
+    .meta{
+      display:grid;
+      gap:16px;
+      margin-top:28px;
+    }
+    .meta-item{
+      border-top:1px solid var(--line);
+      padding-top:14px;
+    }
+    .meta-item h3{
+      margin:0 0 6px;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      color:var(--muted);
+    }
+    .meta-item p{margin:0;line-height:1.8;font-size:14px}
+    .visual{
+      padding:18px;
+      display:grid;
+      gap:18px;
+    }
     .hero-image{
-      width:100%;aspect-ratio:1/1;border-radius:18px;object-fit:cover;background:#e7e2d9;
+      width:100%;
+      aspect-ratio:1/1;
+      object-fit:cover;
+      border-radius:18px;
+      box-shadow:var(--shadow);
     }
-    section{padding:12px 0}
-    .section-card{padding:24px}
-    .section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:14px}
-    .section-head h2{margin:0;font-size:28px;line-height:1;letter-spacing:-.03em}
-    .section-head p{margin:0;color:var(--muted);max-width:700px}
-    .feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-    .feature{padding:16px;border:1px solid rgba(21,21,21,.08);border-radius:18px;background:#faf9f6}
-    .feature h3{margin:0 0 8px;font-size:16px}
-    .feature p{margin:0;color:#555;font-size:14px}
-    .full-text{display:grid;gap:12px}
-    .full-text p{margin:0}
-    .back-row{padding:18px 0 44px}
-    .back-link{text-decoration:none;border-bottom:1px solid rgba(0,0,0,.35)}
-    @media (max-width:960px){
-      .hero-grid,.feature-grid{grid-template-columns:1fr}
+    .section{
+      padding:0 0 22px;
     }
-    @media (max-width:700px){
-      .container{width:min(calc(100% - 20px),1240px)}
-      .info,.image-panel,.section-card{padding:18px}
-      .topbar-inner{min-height:64px;align-items:flex-start;padding:12px 0}
-      .nav-links{gap:12px}
+    .section .panel{padding:28px}
+    .section-head{
+      display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:16px
+    }
+    .section-head h2{
+      margin:0;
+      font-family:"Cormorant Garamond",serif;
+      font-size:38px;
+      line-height:1;
+    }
+    .section-head p{
+      margin:0;
+      color:var(--muted);
+      max-width:720px;
+      line-height:1.8;
+    }
+    .text-grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:20px;
+    }
+    .text-grid p{margin:0;color:#36322d;line-height:1.92}
+    .feature-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+      margin-top:18px;
+    }
+    .feature{
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:18px;
+      background:rgba(255,255,255,.34);
+    }
+    .feature h3{
+      margin:0 0 8px;
+      font-family:"Cormorant Garamond",serif;
+      font-size:28px;
+      line-height:1;
+    }
+    .feature p{
+      margin:0;
+      color:#45413b;
+      line-height:1.8;
+      font-size:14px;
+    }
+    .back{
+      padding:0 0 42px;
+      font-size:14px;
+      color:#2e2a25;
+    }
+    @media (max-width:980px){
+      .hero,.text-grid,.feature-grid{grid-template-columns:1fr}
+    }
+    @media (max-width:620px){
+      .container{width:min(calc(100% - 20px),1380px)}
+      .info,.section .panel{padding:20px}
+      .topbar-inner{min-height:66px}
+      .topbar strong{font-size:24px}
     }
   </style>
 </head>
 <body>
-  <div class="topbar">
+  <header class="topbar">
     <div class="container topbar-inner">
       <strong>Project Four</strong>
-      <nav class="nav-links">
-        <a href="index.html#projects">Projects</a>
-        <a href="home.html">Home</a>
+      <nav>
+        <a href="index.html">Projects</a>
+        <a href="#overview">Overview</a>
       </nav>
     </div>
-  </div>
+  </header>
 
-  <main>
+  <main class="container">
     <section class="hero">
-      <div class="container hero-grid">
-        <div class="info">
-          <p class="kicker">Selected Work / 2022</p>
-          <h1 class="title">Rondo Door Bell<br>Interaction Device</h1>
-          <p class="subtitle">Product x PCB</p>
+      <div class="panel info">
+        <p class="kicker">Selected work / 2022</p>
+        <h1>Rondo Door Bell<br>Interaction Device</h1>
+        <p class="subtitle">Product x PCB</p>
+        <p class="lead">
+          Rondo rethinks the door bell as an interactive musical object. It transforms the act of arrival into an event of sound, contact, and atmosphere, turning a functional signal into a relational interface.
+        </p>
 
-          <div class="meta-list">
-            <div class="meta-item">
-              <h3>Category</h3>
-              <p>Interactive product / musical device / prototype</p>
-            </div>
-            <div class="meta-item">
-              <h3>Keywords</h3>
-              <p>Arduino, Bluetooth, sound interaction, object interface</p>
-            </div>
-            <div class="meta-item">
-              <h3>Concept</h3>
-              <p>把門鈴從單一訊號變成一種可感知、可互動、可傳遞情緒的聲音裝置。</p>
-            </div>
+        <div class="meta">
+          <div class="meta-item">
+            <h3>Keywords</h3>
+            <p>Arduino, Bluetooth, sound interaction, object interface, prototype.</p>
+          </div>
+          <div class="meta-item">
+            <h3>Material</h3>
+            <p>Ebony, brass, plastic, PCB, fabricated components.</p>
+          </div>
+          <div class="meta-item">
+            <h3>Technical</h3>
+            <p>Programming, embedded interaction, circuit board design, prototyping, CNC-based fabrication.</p>
           </div>
         </div>
+      </div>
 
-        <div class="image-panel">
-          <img
-            class="hero-image"
-            src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=80"
-            alt="Project Four preview image"
-          />
-        </div>
+      <div class="panel visual">
+        <img class="hero-image" src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=80" alt="Project Four main visual">
       </div>
     </section>
 
-    <section>
-      <div class="container section-card">
+    <section id="overview" class="section">
+      <div class="panel">
         <div class="section-head">
           <h2>Overview</h2>
-          <p>這頁就是你原本希望點圖後進去的作品詳情頁版本。之後你可以把圖片、文案、技術細節換成自己真正的內容。</p>
+          <p>A more composed and exhibition-like project page, designed to feel aligned with the homepage rather than like a generic placeholder.</p>
         </div>
-        <div class="full-text">
-          <p>
-            Rondo 是一個以音樂互動為核心的裝置。它把門鈴這種日常物件重新設計成可被感知、可被演奏的介面，讓「有人到來」不只是提示，而是帶有情緒、節奏與身體性的事件。
-          </p>
-          <p>
-            裝置整合感測、按鍵、聲音輸出與電子電路，透過簡單但明確的互動邏輯，讓使用者能夠在進入空間的那一刻接觸到聲音。它不是單純播放聲音，而是把聲音變成一種關係媒介。
-          </p>
-        </div>
-      </div>
-    </section>
 
-    <section>
-      <div class="container section-card">
-        <div class="section-head">
-          <h2>Features</h2>
-          <p>你之後可以每一件作品都維持這種結構，網站會很整齊。</p>
+        <div class="text-grid">
+          <p>
+            The project places music at the threshold of space. Instead of treating sound as decoration or secondary feedback, it becomes the central carrier of welcome, presence, and emotion. By combining key-based interaction with sensing and audio output, Rondo produces a small but distinct shift in everyday ritual.
+          </p>
+          <p>
+            Formally, the object borrows from the visual language of brass instruments. Technically, it brings together electronics, material construction, and interface thinking. The result is not simply a product prototype, but a device that stages sound as contact.
+          </p>
         </div>
 
         <div class="feature-grid">
           <div class="feature">
             <h3>Interaction</h3>
-            <p>以按鍵、感測與聲音回饋建立物件和使用者之間的即時互動。</p>
+            <p>Users trigger sound through touch and entry. The device responds with tonal output rather than a neutral alert.</p>
           </div>
           <div class="feature">
-            <h3>Material / Form</h3>
-            <p>可在此描述材質、形式語彙、外觀如何回應作品概念。</p>
+            <h3>Form</h3>
+            <p>The object references horn and wind-instrument morphology, giving the interface a recognizable acoustic identity.</p>
           </div>
           <div class="feature">
-            <h3>Technical</h3>
-            <p>Arduino、Bluetooth、prototype circuit、embedded interaction。</p>
+            <h3>System</h3>
+            <p>Embedded programming, circuit design, and material fabrication are integrated into one coherent interaction object.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="container section-card">
-        <div class="section-head">
-          <h2>Notes</h2>
-          <p>這裡可以放創作說明、研究脈絡、展示紀錄或過程圖。</p>
-        </div>
-        <div class="full-text">
-          <p>你現在如果先求能上線，這種一頁一作品是最穩的做法。</p>
-          <p>之後你再慢慢把 Project One 到 Project Six 都換成真的內容就好。</p>
-        </div>
-      </div>
-    </section>
-
-    <div class="container back-row">
-      <a class="back-link" href="index.html#projects">← Back to Projects</a>
+    <div class="back">
+      <a href="index.html">← Back to Projects</a>
     </div>
   </main>
 </body>

@@ -1,512 +1,732 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Emilia Chen — Projects</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet" />
+  <title>Projects — Emilia Chen</title>
+  <meta name="description" content="Portfolio projects by Emilia Chen" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #ffffff;
-      --bg-soft: #f7f5f1;
-      --bg-dark: #1d231c;
-      --text: #1d231c;
-      --muted: #5c645b;
-      --line: #d9ddd8;
-      --accent: #000000;
-      --font-serif: "Times New Roman", Times, serif;
-      --font-sans: "Geist", Arial, sans-serif;
-      --max-width: 1280px;
-      --nav-h: 84px;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--font-serif);
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { display: block; max-width: 100%; }
-    .container { width: min(calc(100% - 48px), var(--max-width)); margin: 0 auto; }
-
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(0,0,0,.06);
-    }
-    .navbar__inner {
-      min-height: var(--nav-h);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-    .navbar__logo {
-      font-family: var(--font-serif);
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: .02em;
-    }
-    .navbar__nav {
-      display: flex;
-      align-items: center;
-      gap: 36px;
-      font-family: var(--font-sans);
-      font-size: 16px;
-    }
-    .navbar__nav a {
-      color: var(--text);
-      opacity: .82;
-      transition: opacity .2s ease;
-    }
-    .navbar__nav a:hover { opacity: 1; }
-
-    .hero {
-      padding: 64px 0 36px;
-      border-bottom: 1px solid var(--line);
-    }
-    .hero__grid {
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 28px;
-      align-items: end;
-    }
-    .hero__eyebrow {
-      font-family: var(--font-sans);
-      font-size: 12px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 12px;
-    }
-    .hero__title {
-      font-size: clamp(42px, 7vw, 92px);
-      line-height: .94;
-      letter-spacing: -.05em;
-    }
-    .hero__desc {
-      margin-top: 18px;
-      max-width: 700px;
-      font-family: var(--font-sans);
-      font-size: 17px;
-      line-height: 1.75;
-      color: var(--muted);
-    }
-    .hero__panel {
-      background: var(--bg-soft);
-      border: 1px solid var(--line);
-      padding: 24px;
-      border-radius: 18px;
-    }
-    .hero__panel p {
-      font-family: var(--font-sans);
-      font-size: 15px;
-      line-height: 1.8;
-      color: var(--muted);
+    :root{
+      --bg:#ece9e2;
+      --panel:#efede8;
+      --line:#d1cbc2;
+      --text:#111111;
+      --muted:#5e5a54;
+      --dark:#0f1711;
+      --dark-2:#152219;
+      --accent:#b9b0a5;
+      --shadow:0 20px 60px rgba(17,17,17,.08);
+      --radius:20px;
+      --container:1440px;
     }
 
-    .section {
-      padding: 40px 0;
-    }
-    .section--projects {
-      padding-top: 32px;
-    }
-    .section-head {
-      display: grid;
-      grid-template-columns: .75fr 1.25fr;
-      gap: 28px;
-      align-items: end;
-      margin-bottom: 28px;
-    }
-    .section-head__title {
-      font-size: clamp(32px, 5vw, 64px);
-      line-height: .95;
-      letter-spacing: -.04em;
-    }
-    .section-head__body {
-      font-family: var(--font-sans);
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.85;
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:"Inter","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
     }
 
-    .service-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-      margin-bottom: 34px;
-    }
-    .service-card {
-      border-top: 1px solid var(--text);
-      padding-top: 14px;
-    }
-    .service-card__title {
-      font-family: var(--font-sans);
-      font-size: 14px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-    .service-card__text {
-      font-family: var(--font-sans);
-      font-size: 15px;
-      line-height: 1.8;
-      color: var(--muted);
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
+    .container{width:min(calc(100% - 32px),var(--container));margin:0 auto}
+
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(236,233,226,.78);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(17,17,17,.08);
     }
 
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 30px 22px;
-    }
-    .project-card {
-      min-width: 0;
-    }
-    .project-link {
-      display: block;
-    }
-    .project-image-wrap {
-      aspect-ratio: 1 / 1;
-      overflow: hidden;
-      border: 1px solid rgba(0,0,0,.08);
-      background: #f2f2f2;
-    }
-    .project-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform .24s ease, opacity .24s ease;
-    }
-    .project-link:hover .project-image {
-      transform: scale(1.025);
-      opacity: .94;
-    }
-    .project-meta {
-      padding-top: 14px;
-    }
-    .project-num {
-      font-family: var(--font-sans);
-      font-size: 12px;
-      letter-spacing: .16em;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-    .project-title {
-      font-size: 28px;
-      line-height: 1.04;
-      margin-bottom: 6px;
-    }
-    .project-sub {
-      font-family: var(--font-sans);
-      font-size: 14px;
-      color: var(--text);
-      letter-spacing: .04em;
-      text-transform: uppercase;
+    .header-inner{
+      min-height:76px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
     }
 
-    .about {
-      border-top: 1px solid var(--line);
-      padding-top: 56px;
-    }
-    .about__grid {
-      display: grid;
-      grid-template-columns: .95fr 1.05fr;
-      gap: 36px;
-      align-items: center;
-    }
-    .about__images {
-      position: relative;
-      min-height: 560px;
-    }
-    .about__img-main {
-      width: min(100%, 420px);
-      aspect-ratio: 0.92;
-      object-fit: cover;
-      margin-left: auto;
-    }
-    .about__img-over {
-      position: absolute;
-      left: 0;
-      bottom: 34px;
-      width: min(56%, 250px);
-      aspect-ratio: 0.82;
-      object-fit: cover;
-      border: 12px solid var(--bg);
-      box-shadow: 0 14px 40px rgba(0,0,0,.08);
-    }
-    .about__name {
-      font-size: clamp(36px, 5vw, 76px);
-      line-height: .95;
-      letter-spacing: -.04em;
-      margin-bottom: 18px;
-    }
-    .about__bio {
-      display: grid;
-      gap: 14px;
-      font-family: var(--font-sans);
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.9;
-      max-width: 680px;
+    .brand{
+      font-family:"Cormorant Garamond",serif;
+      font-size:30px;
+      font-weight:700;
+      letter-spacing:.06em;
     }
 
-    .footer {
-      margin-top: 64px;
-      background: var(--bg-dark);
-      color: #fff;
-      padding: 24px 0;
-    }
-    .footer__inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      font-family: var(--font-sans);
-      font-size: 14px;
-    }
-    .footer__nav {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
+    .nav{
+      display:flex;
+      gap:28px;
+      align-items:center;
+      flex-wrap:wrap;
     }
 
-    @media (max-width: 980px) {
-      .hero__grid,
-      .section-head,
-      .about__grid,
-      .service-grid,
-      .project-grid {
-        grid-template-columns: 1fr;
-      }
-      .about__images {
-        min-height: auto;
-      }
-      .about__img-main {
-        margin-left: 0;
-      }
-      .about__img-over {
-        position: static;
-        width: min(62%, 260px);
-        margin-top: 16px;
-        border: 0;
-        box-shadow: none;
-      }
+    .nav a{
+      position:relative;
+      font-size:13px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:#28251f;
+      padding:4px 0;
     }
-    @media (max-width: 680px) {
-      .container { width: min(calc(100% - 24px), var(--max-width)); }
-      .navbar__inner {
-        min-height: 72px;
-        align-items: flex-start;
-        justify-content: flex-start;
-        flex-direction: column;
-        padding: 14px 0;
-      }
-      .navbar__nav {
-        gap: 18px;
-        font-size: 15px;
-      }
-      .hero {
-        padding-top: 36px;
-      }
-      .project-title {
-        font-size: 24px;
-      }
+
+    .nav a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-2px;
+      width:100%;
+      height:1px;
+      background:#111;
+      transform:scaleX(0);
+      transform-origin:right;
+      transition:transform .28s ease;
+    }
+
+    .nav a:hover::after,
+    .nav a.active::after{
+      transform:scaleX(1);
+      transform-origin:left;
+    }
+
+    .hero{
+      padding:0;
+      border-bottom:1px solid var(--line);
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.1fr 2.4fr;
+      min-height:280px;
+      background:linear-gradient(90deg,var(--dark),var(--dark-2));
+      color:#f6f2ec;
+    }
+
+    .hero-side{
+      border-right:1px solid rgba(255,255,255,.08);
+      padding:24px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .hero-side small{
+      color:rgba(255,255,255,.62);
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      font-size:11px;
+    }
+
+    .hero-side p{
+      margin:0;
+      color:rgba(255,255,255,.7);
+      font-size:13px;
+      line-height:1.7;
+      max-width:320px;
+    }
+
+    .hero-main{
+      display:grid;
+      place-items:center;
+      padding:32px;
+      text-align:center;
+    }
+
+    .hero-kicker{
+      margin:0 0 14px;
+      color:rgba(255,255,255,.64);
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-size:12px;
+    }
+
+    .hero-title{
+      margin:0;
+      font-family:"Cormorant Garamond",serif;
+      font-size:clamp(54px,7vw,92px);
+      line-height:.95;
+      font-weight:700;
+      letter-spacing:-.02em;
+    }
+
+    .hero-subtitle{
+      margin:16px 0 0;
+      color:rgba(255,255,255,.7);
+      font-size:15px;
+    }
+
+    .projects{
+      display:grid;
+      grid-template-columns:1.1fr 2.4fr;
+      border-bottom:1px solid var(--line);
+    }
+
+    .projects-intro{
+      padding:34px 24px;
+      border-right:1px solid var(--line);
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
+      gap:18px;
+      min-height:100%;
+    }
+
+    .section-label{
+      margin:0;
+      color:var(--muted);
+      font-size:12px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+
+    .section-title{
+      margin:0;
+      font-family:"Cormorant Garamond",serif;
+      font-size:56px;
+      line-height:.94;
+      letter-spacing:-.02em;
+      font-weight:700;
+    }
+
+    .projects-intro p{
+      margin:0;
+      color:#4c4943;
+      max-width:340px;
+      line-height:1.75;
+      font-size:14px;
+    }
+
+    .project-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+    }
+
+    .project-card{
+      position:relative;
+      min-height:430px;
+      background:var(--panel);
+      border-left:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      padding:22px 22px 18px;
+      overflow:hidden;
+      transition:background .35s ease, transform .35s ease;
+    }
+
+    .project-card:nth-child(3n+1){border-left:none}
+
+    .project-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(17,17,17,0) 35%, rgba(17,17,17,.55) 100%);
+      opacity:0;
+      transition:opacity .35s ease;
+      pointer-events:none;
+      z-index:1;
+    }
+
+    .project-card:hover{
+      background:#e7e3dc;
+      transform:translateY(-4px);
+    }
+
+    .project-card:hover::before{opacity:1}
+
+    .project-head{
+      position:relative;
+      z-index:2;
+      margin-bottom:18px;
+      transition:transform .35s ease, color .35s ease;
+    }
+
+    .project-card:hover .project-head{
+      transform:translateY(-4px);
+    }
+
+    .project-no{
+      margin:0 0 4px;
+      font-family:"Cormorant Garamond",serif;
+      font-size:64px;
+      line-height:.9;
+      color:var(--accent);
+      font-weight:700;
+      letter-spacing:.03em;
+    }
+
+    .project-name{
+      margin:0 0 8px;
+      font-family:"Cormorant Garamond",serif;
+      font-size:34px;
+      line-height:1;
+      font-weight:700;
+      letter-spacing:-.015em;
+    }
+
+    .project-type{
+      margin:0;
+      font-size:13px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:#33302b;
+    }
+
+    .thumb-wrap{
+      position:absolute;
+      left:22px;
+      right:22px;
+      bottom:20px;
+      aspect-ratio:1 / 1;
+      overflow:hidden;
+      background:#ded8cf;
+      z-index:0;
+      transform:translateY(0);
+      transition:transform .45s ease, filter .45s ease;
+      box-shadow:var(--shadow);
+    }
+
+    .thumb-wrap img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform .55s ease;
+    }
+
+    .project-card:hover .thumb-wrap{
+      transform:translateY(-6px);
+      filter:saturate(1.04) contrast(1.02);
+    }
+
+    .project-card:hover .thumb-wrap img{
+      transform:scale(1.03);
+    }
+
+    .project-cta{
+      position:absolute;
+      left:22px;
+      right:22px;
+      bottom:26px;
+      z-index:2;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      color:#fff;
+      opacity:0;
+      transform:translateY(12px);
+      transition:opacity .35s ease, transform .35s ease;
+      pointer-events:none;
+    }
+
+    .project-card:hover .project-cta{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    .project-cta span{
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+
+    .arrow{
+      width:34px;
+      height:34px;
+      border:1px solid rgba(255,255,255,.35);
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      font-size:14px;
+    }
+
+    .about{
+      display:grid;
+      grid-template-columns:1.1fr 2.4fr;
+      border-bottom:1px solid var(--line);
+    }
+
+    .about-side{
+      padding:34px 24px;
+      border-right:1px solid var(--line);
+    }
+
+    .about-content{
+      display:grid;
+      grid-template-columns:1.08fr .92fr;
+      min-height:620px;
+    }
+
+    .about-text{
+      padding:40px 34px 34px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:30px;
+    }
+
+    .about-text p{
+      margin:0;
+      font-size:15px;
+      line-height:1.95;
+      color:#37342f;
+      max-width:720px;
+    }
+
+    .about-facts{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+    }
+
+    .fact{
+      padding-top:14px;
+      border-top:1px solid var(--line);
+    }
+
+    .fact h3{
+      margin:0 0 8px;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      color:var(--muted);
+      font-weight:600;
+    }
+
+    .fact p{
+      margin:0;
+      font-size:14px;
+      line-height:1.75;
+    }
+
+    .about-visual{
+      position:relative;
+      border-left:1px solid var(--line);
+      overflow:hidden;
+      min-height:100%;
+      background:
+        radial-gradient(circle at 25% 20%, rgba(255,255,255,.58), transparent 30%),
+        linear-gradient(160deg, #dbd5cc, #cfc8bc 45%, #b7b0a4);
+    }
+
+    .about-visual::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(120deg, rgba(17,17,17,.14), transparent 35%),
+        linear-gradient(180deg, transparent 40%, rgba(17,17,17,.22));
+      mix-blend-mode:multiply;
+    }
+
+    .portrait-card{
+      position:absolute;
+      inset:auto 10% 10% auto;
+      width:min(72%, 420px);
+      aspect-ratio:4 / 5;
+      border-radius:26px;
+      background:rgba(255,255,255,.24);
+      border:1px solid rgba(255,255,255,.36);
+      box-shadow:0 20px 60px rgba(17,17,17,.12);
+      backdrop-filter:blur(8px);
+      display:flex;
+      align-items:flex-end;
+      padding:20px;
+      color:#fff;
+    }
+
+    .portrait-card p{
+      margin:0;
+      font-size:13px;
+      line-height:1.7;
+      color:rgba(255,255,255,.9);
+    }
+
+    .footer{
+      background:linear-gradient(90deg,var(--dark),var(--dark-2));
+      color:#fff;
+      padding:26px 0 110px;
+    }
+
+    .footer-grid{
+      display:grid;
+      grid-template-columns:1fr auto auto;
+      gap:50px;
+      align-items:start;
+    }
+
+    .footer-brand{
+      display:flex;
+      gap:40px;
+      font-family:"Cormorant Garamond",serif;
+      font-size:44px;
+      letter-spacing:.24em;
+      line-height:1;
+    }
+
+    .footer-links,
+    .footer-contact{
+      font-size:13px;
+      line-height:1.9;
+      color:rgba(255,255,255,.86);
+    }
+
+    .footer-links a{
+      display:block;
+      text-decoration:underline;
+      text-decoration-color:rgba(255,255,255,.26);
+      text-underline-offset:4px;
+    }
+
+    [data-reveal]{
+      opacity:0;
+      transform:translateY(24px);
+      transition:opacity .8s ease, transform .8s ease;
+    }
+
+    [data-reveal].is-visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @media (max-width:1180px){
+      .hero-grid,.projects,.about{grid-template-columns:1fr}
+      .projects-intro,.about-side,.hero-side{border-right:none;border-bottom:1px solid var(--line)}
+      .about-content{grid-template-columns:1fr}
+      .about-visual{border-left:none;border-top:1px solid var(--line);min-height:480px}
+    }
+
+    @media (max-width:860px){
+      .project-grid{grid-template-columns:1fr 1fr}
+      .project-card:nth-child(3n+1){border-left:1px solid var(--line)}
+      .project-card:nth-child(2n+1){border-left:none}
+      .footer-grid{grid-template-columns:1fr;gap:20px}
+      .footer-brand{font-size:34px;gap:24px}
+    }
+
+    @media (max-width:620px){
+      .container{width:min(calc(100% - 20px),var(--container))}
+      .header-inner{min-height:68px}
+      .brand{font-size:24px}
+      .nav{gap:14px}
+      .hero-main{padding:26px 16px}
+      .hero-title{font-size:54px}
+      .section-title{font-size:44px}
+      .project-grid{grid-template-columns:1fr}
+      .project-card{min-height:400px}
+      .project-card:nth-child(n){border-left:none}
+      .about-text{padding:26px 18px}
+      .about-facts{grid-template-columns:1fr}
+      .portrait-card{width:78%}
     }
   </style>
 </head>
 <body>
-  <header class="navbar">
-    <div class="container navbar__inner">
-      <a class="navbar__logo" href="#projects">A. D. P.</a>
-      <nav class="navbar__nav" aria-label="Primary navigation">
-        <a href="#projects">Projects</a>
-        <a href="#about-me">About Me</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top">A. D. P.</a>
+      <nav class="nav">
+        <a class="active" href="#projects">Projects</a>
+        <a href="#about">About Me</a>
       </nav>
     </div>
   </header>
 
-  <main>
+  <main id="top">
     <section class="hero">
-      <div class="container hero__grid">
-        <div>
-          <p class="hero__eyebrow">Portfolio / Selected Work</p>
-          <h1 class="hero__title">Projects</h1>
-          <p class="hero__desc">
-            我把原本的 Services 內容和 Gallery 的九宮格作品入口融合成首頁。現在首頁就是 Projects，
-            上面先講你在做什麼，下面直接進到九個作品；每一張圖都可以點進去，Project Four 已經接到整理後的作品頁。
-          </p>
-        </div>
-        <div class="hero__panel">
+      <div class="container hero-grid">
+        <aside class="hero-side" data-reveal>
+          <div>
+            <small>Selected works</small>
+          </div>
           <p>
-            This homepage combines service-oriented thinking with a project-based entry structure.
-            It keeps the site direct: what you do, how you work, and where each project can be opened.
+            A curated body of work moving across interface, product, system design, visual identity, and artistic research.
           </p>
+        </aside>
+
+        <div class="hero-main" data-reveal>
+          <div>
+            <p class="hero-kicker">Portfolio</p>
+            <h1 class="hero-title">Projects</h1>
+            <p class="hero-subtitle">
+              A refined index of nine works. Each image opens its own project page.
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="projects" class="section section--projects">
-      <div class="container">
-        <div class="section-head">
-          <h2 class="section-head__title">Projects</h2>
-          <div class="section-head__body">
-            從概念形成、互動機制、視覺表現到原型落地，我的工作橫跨產品、介面、系統與裝置。
-            這裡保留了原本 gallery 的作品瀏覽邏輯，但把它提升成首頁主體，讓網站一打開就直接進入作品。
+    <section id="projects" class="projects">
+      <aside class="projects-intro" data-reveal>
+        <p class="section-label">Practice</p>
+        <h2 class="section-title">Systems,<br>interfaces,<br>materials.</h2>
+        <p>
+          This homepage merges the structured clarity of a service layout with the visual density of a project gallery. The result is more editorial, quieter, and more deliberate.
+        </p>
+        <p>
+          Hover over each project to reveal motion and entry feedback. Click any image to open the corresponding page.
+        </p>
+      </aside>
+
+      <div class="project-grid">
+        <a class="project-card" href="project-one.html" data-reveal>
+          <div class="project-head">
+            <p class="project-no">01</p>
+            <h3 class="project-name">Project One</h3>
+            <p class="project-type">APP x System x CIS</p>
+          </div>
+          <div class="thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80" alt="Project One">
+          </div>
+          <div class="project-cta"><span>Open project</span><div class="arrow">↗</div></div>
+        </a>
+
+        <a class="project-card" href="project-two.html" data-reveal>
+          <div class="project-head">
+            <p class="project-no">02</p>
+            <h3 class="project-name">Project Two</h3>
+            <p class="project-type">APP x Product</p>
+          </div>
+          <div class="thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80" alt="Project Two">
+          </div>
+          <div class="project-cta"><span>Open project</span><div class="arrow">↗</div></div>
+        </a>
+
+        <a class="project-card" href="project-three.html" data-reveal>
+          <div class="project-head">
+            <p class="project-no">03</p>
+            <h3 class="project-name">Project Three</h3>
+            <p class="project-type">APP x System</p>
+          </div>
+          <div class="thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80" alt="Project Three">
+          </div>
+          <div class="project-cta"><span>Open project</span><div class="arrow">↗</div></div>
+        </a>
+
+        <a class="project-card" href="project-four.html" data-reveal>
+          <div class="project-head">
+            <p class="project-no">04</p>
+            <h3 class="project-name">Project Four</h3>
+            <p class="project-type">Product x PCB</p>
+          </div>
+          <div class="thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80" alt="Project Four">
+          </div>
+          <div class="project-cta"><span>Open project</span><div class="arrow">↗</div></div>
+        </a>
+
+        <a class="project-card" href="project-five.html" data-reveal>
+          <div class="project-head">
+            <p class="project-no">05</p>
+            <h3 class="project-name">Project Five</h3>
+            <p class="project-type">Product</p>
+          </div>
+          <div class="thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1517705008128-361805f42e86?auto=format&fit=crop&w=1200&q=80" alt="Project Five">
+          </div>
+          <div class="project-cta"><span>Open project</span><div class="arrow">↗</div></div>
+        </a>
+
+        <a class="project-card" href="project-six.html" data-reveal>
+          <div class="project-head">
+            <p class="project-no">06</p>
+            <h3 class="project-name">Project Six</h3>
+            <p class="project-type">Product</p>
+          </div>
+          <div class="thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1549187774-b4e9b0445b41?auto=format&fit=crop&w=1200&q=80" alt="Project Six">
+          </div>
+          <div class="project-cta"><span>Open project</span><div class="arrow">↗</div></div>
+        </a>
+
+        <a class="project-card" href="project-seven.html" data-reveal>
+          <div class="project-head">
+            <p class="project-no">07</p>
+            <h3 class="project-name">Project Seven</h3>
+            <p class="project-type">Research</p>
+          </div>
+          <div class="thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80" alt="Project Seven">
+          </div>
+          <div class="project-cta"><span>Open project</span><div class="arrow">↗</div></div>
+        </a>
+
+        <a class="project-card" href="project-eight.html" data-reveal>
+          <div class="project-head">
+            <p class="project-no">08</p>
+            <h3 class="project-name">Project Eight</h3>
+            <p class="project-type">Visual System</p>
+          </div>
+          <div class="thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80" alt="Project Eight">
+          </div>
+          <div class="project-cta"><span>Open project</span><div class="arrow">↗</div></div>
+        </a>
+
+        <a class="project-card" href="project-nine.html" data-reveal>
+          <div class="project-head">
+            <p class="project-no">09</p>
+            <h3 class="project-name">Project Nine</h3>
+            <p class="project-type">Interactive Work</p>
+          </div>
+          <div class="thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80" alt="Project Nine">
+          </div>
+          <div class="project-cta"><span>Open project</span><div class="arrow">↗</div></div>
+        </a>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <aside class="about-side" data-reveal>
+        <p class="section-label">Author</p>
+        <h2 class="section-title">About<br>Me</h2>
+      </aside>
+
+      <div class="about-content">
+        <div class="about-text" data-reveal>
+          <div>
+            <p>
+              Emilia Chen works across interaction design, systems thinking, visual identity, and interdisciplinary research. Her practice moves between engineering precision and aesthetic construction, treating interfaces, products, and images as cultural forms rather than neutral tools.
+            </p>
+            <p>
+              She is interested in how technology reorganizes perception, memory, and communication, and develops works that connect software, material form, and visual language. The approach is both technical and reflective, grounded in making, analysis, and iterative experimentation.
+            </p>
+          </div>
+
+          <div class="about-facts">
+            <div class="fact">
+              <h3>Focus</h3>
+              <p>Interaction design, new media, systems, visual culture, artistic research.</p>
+            </div>
+            <div class="fact">
+              <h3>Method</h3>
+              <p>Prototyping, UI/UX, computational thinking, branding, front-end implementation.</p>
+            </div>
+            <div class="fact">
+              <h3>Perspective</h3>
+              <p>Cross-disciplinary work connecting technology, design, aesthetics, and critical inquiry.</p>
+            </div>
+            <div class="fact">
+              <h3>Contact</h3>
+              <p>Update this section with your email, GitHub, Instagram, or CV link.</p>
+            </div>
           </div>
         </div>
 
-        <div class="service-grid" aria-label="Project overview">
-          <article class="service-card">
-            <h3 class="service-card__title">Product Thinking</h3>
-            <p class="service-card__text">
-              從需求、使用情境與形式語言出發，把抽象概念轉成可以使用、可以被感知的實體或數位物件。
+        <div class="about-visual" data-reveal>
+          <div class="portrait-card">
+            <p>
+              A restrained visual field for portrait, author image, or manifesto text. You can later replace this area with your own photograph or artwork.
             </p>
-          </article>
-          <article class="service-card">
-            <h3 class="service-card__title">Interface / System</h3>
-            <p class="service-card__text">
-              處理操作邏輯、畫面結構、資訊關係與互動節奏，讓功能、敘事與體驗可以同時成立。
-            </p>
-          </article>
-          <article class="service-card">
-            <h3 class="service-card__title">Prototype / Realization</h3>
-            <p class="service-card__text">
-              不只停在提案，而是推進到原型、測試與呈現，讓 ideas 真的變成可被驗證的結果。
-            </p>
-          </article>
-        </div>
-
-        <div class="project-grid">
-          
-        <article class="project-card">
-          <a class="project-link" href="project-one.html" aria-label="Open Project One">
-            <div class="project-image-wrap">
-              <img class="project-image" src="https://www.figma.com/api/mcp/asset/b29f6d9d-6d94-49bd-97ce-eb103acc274b" alt="Project One" />
-            </div>
-            <div class="project-meta">
-              <p class="project-num">01</p>
-              <h3 class="project-title">Project One</h3>
-              <p class="project-sub">APP x System x CIS</p>
-            </div>
-          </a>
-        </article>
-        <article class="project-card">
-          <a class="project-link" href="project-two.html" aria-label="Open Project Two">
-            <div class="project-image-wrap">
-              <img class="project-image" src="https://www.figma.com/api/mcp/asset/55a19781-699f-416f-936f-c9ff87a53e24" alt="Project Two" />
-            </div>
-            <div class="project-meta">
-              <p class="project-num">02</p>
-              <h3 class="project-title">Project Two</h3>
-              <p class="project-sub">APP x Product</p>
-            </div>
-          </a>
-        </article>
-        <article class="project-card">
-          <a class="project-link" href="project-three.html" aria-label="Open Project Three">
-            <div class="project-image-wrap">
-              <img class="project-image" src="https://www.figma.com/api/mcp/asset/abcee27a-d051-4700-af34-f6e7aeee9122" alt="Project Three" />
-            </div>
-            <div class="project-meta">
-              <p class="project-num">03</p>
-              <h3 class="project-title">Project Three</h3>
-              <p class="project-sub">APP x System</p>
-            </div>
-          </a>
-        </article>
-        <article class="project-card">
-          <a class="project-link" href="project-four.html" aria-label="Open Project Four">
-            <div class="project-image-wrap">
-              <img class="project-image" src="https://www.figma.com/api/mcp/asset/609e6396-b68c-4da0-a06a-9ff5eef3dd73" alt="Project Four" />
-            </div>
-            <div class="project-meta">
-              <p class="project-num">04</p>
-              <h3 class="project-title">Project Four</h3>
-              <p class="project-sub">Product x PCB</p>
-            </div>
-          </a>
-        </article>
-        <article class="project-card">
-          <a class="project-link" href="project-five.html" aria-label="Open Project Five">
-            <div class="project-image-wrap">
-              <img class="project-image" src="https://www.figma.com/api/mcp/asset/de6e9dfb-e29e-43f0-b0ef-7e47d4fa2d7b" alt="Project Five" />
-            </div>
-            <div class="project-meta">
-              <p class="project-num">05</p>
-              <h3 class="project-title">Project Five</h3>
-              <p class="project-sub">Product</p>
-            </div>
-          </a>
-        </article>
-        <article class="project-card">
-          <a class="project-link" href="project-six.html" aria-label="Open Project Six">
-            <div class="project-image-wrap">
-              <img class="project-image" src="https://www.figma.com/api/mcp/asset/612ac0a4-63e9-424c-8adc-c480f279b30d" alt="Project Six" />
-            </div>
-            <div class="project-meta">
-              <p class="project-num">06</p>
-              <h3 class="project-title">Project Six</h3>
-              <p class="project-sub">Product</p>
-            </div>
-          </a>
-        </article>
-        <article class="project-card">
-          <a class="project-link" href="project-seven.html" aria-label="Open Project Seven">
-            <div class="project-image-wrap">
-              <img class="project-image" src="https://www.figma.com/api/mcp/asset/f5d69dbf-2226-4efe-ad55-e198bec034d4" alt="Project Seven" />
-            </div>
-            <div class="project-meta">
-              <p class="project-num">07</p>
-              <h3 class="project-title">Project Seven</h3>
-              <p class="project-sub">Product</p>
-            </div>
-          </a>
-        </article>
-        <article class="project-card">
-          <a class="project-link" href="project-eight.html" aria-label="Open Project Eight">
-            <div class="project-image-wrap">
-              <img class="project-image" src="https://www.figma.com/api/mcp/asset/b29f6d9d-6d94-49bd-97ce-eb103acc274b" alt="Project Eight" />
-            </div>
-            <div class="project-meta">
-              <p class="project-num">08</p>
-              <h3 class="project-title">Project Eight</h3>
-              <p class="project-sub">Brand CIS</p>
-            </div>
-          </a>
-        </article>
-        <article class="project-card">
-          <a class="project-link" href="project-nine.html" aria-label="Open Project Nine">
-            <div class="project-image-wrap">
-              <img class="project-image" src="https://www.figma.com/api/mcp/asset/b29f6d9d-6d94-49bd-97ce-eb103acc274b" alt="Project Nine" />
-            </div>
-            <div class="project-meta">
-              <p class="project-num">09</p>
-              <h3 class="project-title">Project Nine</h3>
-              <p class="project-sub">Personal Logo</p>
-            </div>
-          </a>
-        </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="about-me" class="section about" aria-label="About Emilia Chen">
-      <div class="container about__grid">
-        <div class="about__images">
-          <img class="about__img-main" src="https://www.figma.com/api/mcp/asset/46f926d8-7159-4cd6-9fad-d05ab7584134" alt="Portrait of Emilia Chen" />
-          <img class="about__img-over" src="https://www.figma.com/api/mcp/asset/a94f412a-5803-4a7d-b021-3cdef5855d6c" alt="Detail portrait of Emilia Chen" />
-        </div>
-        <div>
-          <h2 class="about__name">About Me</h2>
-          <div class="about__bio">
-            <p>I&#x27;m a passionate Product and UI/UX Designer/Engineer.</p><p>I design user-centered solutions that are functional and visually appealing.</p><p>With experience in leading projects from concept to completion,</p><p>I prioritize inclusivity, accessibility, and effective communication to create impactful user experiences.</p>
           </div>
         </div>
       </div>
@@ -514,13 +734,55 @@
   </main>
 
   <footer class="footer">
-    <div class="container footer__inner">
-      <p>© 2026 All Rights Reserved</p>
-      <nav class="footer__nav" aria-label="Footer navigation">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <span>A.</span>
+        <span>D.</span>
+        <span>P.</span>
+      </div>
+
+      <div class="footer-links">
         <a href="#projects">Projects</a>
-        <a href="#about-me">About Me</a>
-      </nav>
+        <a href="#about">About Me</a>
+      </div>
+
+      <div class="footer-contact">
+        <div>Emilia Chen</div>
+        <div>Portfolio Website</div>
+        <div>Update with email / social links</div>
+      </div>
     </div>
   </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('[data-reveal]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    reveals.forEach((el, i) => {
+      el.style.transitionDelay = `${Math.min(i * 60, 360)}ms`;
+      observer.observe(el);
+    });
+
+    const navLinks = document.querySelectorAll('.nav a');
+    const sections = [...navLinks].map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+        });
+      });
+    }, { threshold: 0.45 });
+
+    sections.forEach(section => sectionObserver.observe(section));
+  </script>
 </body>
 </html>
