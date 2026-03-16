@@ -10,8 +10,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#ece9e2;
-      --panel:#efede8;
+      --bg:#ffffff;
+      --panel:#ffffff;
       --line:#d1cbc2;
       --text:#111111;
       --muted:#5e5a54;
@@ -42,9 +42,9 @@
       position:sticky;
       top:0;
       z-index:50;
-      background:rgba(236,233,226,.78);
+      background:rgba(255,255,255,.82);
       backdrop-filter:blur(18px);
-      border-bottom:1px solid rgba(17,17,17,.08);
+      border-bottom:1px solid rgba(17,17,17,.06);
     }
 
     .header-inner{
@@ -99,7 +99,7 @@
 
     .hero{
       padding:0;
-      border-bottom:1px solid var(--line);
+      
     }
 
     .hero-grid{
@@ -167,12 +167,12 @@
     .projects{
       display:grid;
       grid-template-columns:1.1fr 2.4fr;
-      border-bottom:1px solid var(--line);
+      padding:28px 0 18px;
     }
 
     .projects-intro{
       padding:34px 24px;
-      border-right:1px solid var(--line);
+      
       display:flex;
       flex-direction:column;
       justify-content:flex-start;
@@ -214,15 +214,13 @@
       position:relative;
       min-height:430px;
       background:var(--panel);
-      border-left:1px solid var(--line);
-      border-bottom:1px solid var(--line);
+      border:none;
       padding:22px 22px 18px;
       overflow:hidden;
       transition:background .35s ease, transform .35s ease;
     }
 
-    .project-card:nth-child(3n+1){border-left:none}
-
+    
     .project-card::before{
       content:"";
       position:absolute;
@@ -235,7 +233,7 @@
     }
 
     .project-card:hover{
-      background:#e7e3dc;
+      background:#fafafa;
       transform:translateY(-4px);
     }
 
@@ -286,7 +284,7 @@
       bottom:20px;
       aspect-ratio:1 / 1;
       overflow:hidden;
-      background:#ded8cf;
+      background:#f3f3f3;
       z-index:0;
       transform:translateY(0);
       transition:transform .45s ease, filter .45s ease;
@@ -349,12 +347,11 @@
     .about{
       display:grid;
       grid-template-columns:1.1fr 2.4fr;
-      border-bottom:1px solid var(--line);
+      padding:18px 0 0;
     }
 
     .about-side{
       padding:34px 24px;
-      border-right:1px solid var(--line);
     }
 
     .about-content{
@@ -407,12 +404,12 @@
 
     .about-visual{
       position:relative;
-      border-left:1px solid var(--line);
+      
       overflow:hidden;
       min-height:100%;
       background:
         radial-gradient(circle at 25% 20%, rgba(255,255,255,.58), transparent 30%),
-        linear-gradient(160deg, #dbd5cc, #cfc8bc 45%, #b7b0a4);
+        linear-gradient(160deg, #f8f8f8, #eeeeee 45%, #dddddd);
     }
 
     .about-visual::before{
@@ -452,6 +449,7 @@
       background:linear-gradient(90deg,var(--dark),var(--dark-2));
       color:#fff;
       padding:26px 0 110px;
+      margin-top:28px;
     }
 
     .footer-grid{
@@ -504,9 +502,7 @@
 
     @media (max-width:860px){
       .project-grid{grid-template-columns:1fr 1fr}
-      .project-card:nth-child(3n+1){border-left:1px solid var(--line)}
-      .project-card:nth-child(2n+1){border-left:none}
-      .footer-grid{grid-template-columns:1fr;gap:20px}
+            .footer-grid{grid-template-columns:1fr;gap:20px}
       .footer-brand{font-size:34px;gap:24px}
     }
 
@@ -520,8 +516,7 @@
       .section-title{font-size:44px}
       .project-grid{grid-template-columns:1fr}
       .project-card{min-height:400px}
-      .project-card:nth-child(n){border-left:none}
-      .about-text{padding:26px 18px}
+            .about-text{padding:26px 18px}
       .about-facts{grid-template-columns:1fr}
       .portrait-card{width:78%}
     }
