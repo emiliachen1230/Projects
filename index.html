@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emilia Chen — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400&display=swap" rel="stylesheet" />
+  <style>
+    /* =====================================================
+       DESIGN TOKENS
+    ===================================================== */
+    :root {
+      --color-bg-white:   #ffffff;
+      --color-bg-dark:    #1d231c;
+      --color-bg-black:   #000000;
+      --color-text-dark:  #1d231c;
+      --color-text-white: #ffffff;
+      --color-text-black: #000000;
+      --color-text-muted: #aeabab;
+
+      --font-serif: "Times New Roman", Times, serif;
+      --font-sans:  "Geist", Arial, sans-serif;
+      --font-arial: Arial, sans-serif;
+
+      --fs-12: 12px;
+      --fs-14: 14px;
+      --fs-16: 16px;
+      --fs-18: 18px;
+      --fs-24: 24px;
+      --fs-32: 32px;
+      --fs-50: 50px;
+      --fs-64: 64px;
+      --fs-75: 75px;
+
+      --sp-2:   2px;
+      --sp-10:  10px;
+      --sp-20:  20px;
+      --sp-25:  25px;
+      --sp-37:  37px;
+      --sp-40:  40px;
+      --sp-56:  56px;
+      --sp-100: 100px;
+      --sp-136: 136px;
+      --sp-144: 144px;
+      --sp-241: 241px;
+
+      --max-width:    1280px;
+      --navbar-h:     80px;
+    }
+
+    /* =====================================================
+       RESET
+    ===================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html  { scroll-behavior: smooth; }
+    body  { background: var(--color-bg-white); color: var(--color-text-dark); font-family: var(--font-serif); overflow-x: hidden; }
+    a     { text-decoration: none; color: inherit; }
+    img   { display: block; }
+    p     { margin: 0; }
+    address { font-style: normal; }
+
+    /* =====================================================
+       NAVBAR
+    ===================================================== */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: var(--navbar-h);
+      background: var(--color-bg-white);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--sp-56);
+    }
+    .navbar__logo {
+      font-family: var(--font-serif); font-size: var(--fs-24); font-weight: 700;
+      color: var(--color-text-dark); letter-spacing: .5px; line-height: 1; white-space: nowrap;
+    }
+    .navbar__nav { display: flex; align-items: center; gap: var(--sp-40); }
+    .navbar__link {
+      font-family: var(--font-sans); font-size: var(--fs-16); font-weight: 400;
+      color: var(--color-text-dark); letter-spacing: -.32px; line-height: 1.3;
+      transition: opacity .2s;
+    }
+    .navbar__link:hover { opacity: .55; }
+
+    /* Hamburger button */
+    .navbar__hamburger {
+      display: none; flex-direction: column; justify-content: center; align-items: center;
+      gap: 5px; width: 40px; height: 40px; background: none; border: none; cursor: pointer; padding: 6px;
+    }
+    .navbar__bar {
+      display: block; width: 24px; height: 2px; background: var(--color-text-dark);
+      transition: transform .3s ease, opacity .3s ease; transform-origin: center;
+    }
+    .navbar__hamburger[aria-expanded="true"] .navbar__bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .navbar__hamburger[aria-expanded="true"] .navbar__bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .navbar__hamburger[aria-expanded="true"] .navbar__bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile menu */
+    .navbar__mobile {
+      display: none; flex-direction: column;
+      position: fixed; top: var(--navbar-h); left: 0; right: 0; z-index: 199;
+      background: var(--color-bg-white);
+      border-top: 1px solid rgba(0,0,0,.08);
+      max-height: 0; overflow: hidden;
+      transition: max-height .4s ease, padding .35s ease;
+      padding: 0 var(--sp-56);
+    }
+    .navbar__mobile.is-open { max-height: 260px; padding: var(--sp-20) var(--sp-56); }
+    .navbar__mobile-link {
+      font-family: var(--font-sans); font-size: var(--fs-18); font-weight: 400;
+      color: var(--color-text-dark); letter-spacing: -.32px; line-height: 1.4;
+    }
+    .navbar__mobile-link:hover { opacity: .55; }
+
+    /* =====================================================
+       PAGE
+    ===================================================== */
+    .page { display: flex; flex-direction: column; align-items: center; width: 100%; }
+    .main { display: flex; flex-direction: column; align-items: center; width: 100%; }
+
+    /* =====================================================
+       HERO  (Image section 1)
+    ===================================================== */
+    .hero { display: flex; flex-direction: column; align-items: flex-end; width: 100%; padding-top: var(--navbar-h); }
+    .hero__inner { display: flex; flex-direction: column; align-items: flex-end; width: 100%; background: var(--color-bg-white); }
+    .hero__title-block {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      width: 100%; min-height: 656px; padding: 33px var(--sp-10) var(--sp-10);
+    }
+    .hero__content { display: flex; flex-direction: column; align-items: center; gap: var(--sp-37); }
+    .hero__headings { display: flex; flex-direction: column; align-items: center; color: var(--color-text-dark); text-align: center; }
+    .hero__h1 {
+      font-family: var(--font-serif); font-size: var(--fs-64); font-weight: 700;
+      line-height: 1.3; letter-spacing: -1.28px; white-space: nowrap;
+    }
+    .hero__tagline { line-height: 0; letter-spacing: -.48px; color: var(--color-text-dark); text-align: center; }
+    .hero__tagline .t-lg { font-family: var(--font-serif); font-size: var(--fs-50); font-weight: 400; line-height: 1.3; }
+    .hero__tagline .t-sm { font-family: var(--font-serif); font-size: var(--fs-24); font-weight: 400; line-height: 1.3; }
+    .hero__desc-wrap { display: inline-grid; place-items: start; }
+    .hero__desc {
+      background: var(--color-text-dark); display: flex; align-items: center; justify-content: center;
+      width: 315px; height: 107px; padding: 22px 50px;
+    }
+    .hero__desc p {
+      font-family: var(--font-arial); font-size: var(--fs-12); font-weight: 400;
+      line-height: 1.23; color: var(--color-text-white); letter-spacing: .96px; width: 215px;
+    }
+
+    /* =====================================================
+       ACTIVITIES  (Image section 6)
+    ===================================================== */
+    .activities {
+      display: flex; align-items: center; justify-content: center;
+      width: 100%; max-width: var(--max-width); min-height: 650px; padding: var(--sp-136) 0;
+    }
+    .activities__inner { display: flex; align-items: center; justify-content: center; }
+    .activities__col {
+      display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end;
+      height: 450px; width: 150px; padding: 0 var(--sp-25);
+      font-family: var(--font-serif); font-size: var(--fs-18); font-weight: 400;
+      color: var(--color-text-black); text-align: center; letter-spacing: .9px; line-height: 1.25;
+    }
+    .activities__col--right { align-items: flex-start; }
+    .activities__divider { width: 26.645px; height: 504px; flex-shrink: 0; object-fit: cover; }
+
+    /* =====================================================
+       ABOUT  (Image section 2)
+    ===================================================== */
+    .about {
+      display: flex; align-items: center; justify-content: center;
+      width: 100%; max-width: var(--max-width); min-height: 675px; padding: var(--sp-136) 0;
+    }
+    .about__inner { display: flex; flex-direction: column; align-items: center; gap: var(--sp-25); }
+    .about__images {
+      display: grid; grid-template-columns: 155px; grid-template-rows: 200px;
+      place-items: start; padding: var(--sp-20) 0; width: 155px;
+    }
+    .about__img-main  { grid-area: 1/1; width: 155px; height: 200px; object-fit: cover; position: relative; z-index: 1; }
+    .about__img-over  { grid-area: 1/1; width: 95px; height: 141px; object-fit: cover; margin-top: 40.5px; margin-left: 36.5px; position: relative; z-index: 2; }
+    .about__name {
+      font-family: var(--font-serif); font-size: var(--fs-32); font-weight: 700;
+      color: var(--color-text-black); text-align: center; letter-spacing: 1.6px; line-height: 1.25;
+    }
+    .about__bio { text-align: center; color: var(--color-text-black); letter-spacing: .8px; }
+    .about__bio p { line-height: 1.25; }
+    .about__bio .b-lg { font-family: var(--font-serif); font-size: var(--fs-24); font-weight: 400; line-height: 1.25; }
+    .about__bio .b-sm { font-family: var(--font-sans); font-size: var(--fs-16); font-weight: 400; line-height: 1.25; }
+
+    /* =====================================================
+       PROJECTS  (Image section 8)
+    ===================================================== */
+    .projects {
+      background: var(--color-bg-black); position: relative;
+      display: flex; align-items: flex-start;
+      width: 100%; max-width: var(--max-width); min-height: 575px;
+      padding: var(--sp-136) var(--sp-56); overflow: hidden;
+    }
+    .projects__track {
+      position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%);
+      display: flex; gap: var(--sp-20); align-items: flex-start;
+      padding: var(--sp-100) var(--sp-56);
+      overflow-x: auto; overflow-y: hidden;
+      scrollbar-width: none; -ms-overflow-style: none;
+    }
+    .projects__track::-webkit-scrollbar { display: none; }
+    .projects__item { display: flex; flex-direction: column; gap: var(--sp-10); align-items: flex-start; flex-shrink: 0; width: 250px; }
+    .projects__num {
+      font-family: var(--font-serif); font-size: var(--fs-75); font-weight: 700;
+      color: var(--color-text-muted); text-align: center; letter-spacing: 2.25px; line-height: 1.25; width: 100%;
+    }
+    .projects__img-wrap { width: 100%; aspect-ratio: 1/1; overflow: hidden; }
+    .projects__img-wrap--bordered { border: .5px solid var(--color-text-white); }
+    .projects__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .projects__link {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+      width: 100%;
+    }
+    .projects__link:hover .projects__img,
+    .projects__link:focus-visible .projects__img {
+      transform: scale(1.02);
+      opacity: .96;
+    }
+    .projects__img { transition: transform .25s ease, opacity .25s ease; }
+
+    .projects__info {
+      display: flex; flex-direction: column; gap: 2.5px; align-items: flex-start;
+      text-align: center; color: var(--color-text-white); width: 100%; line-height: 1.25;
+    }
+    .projects__info--center { align-items: center; }
+    .projects__title  { font-family: var(--font-serif); font-size: var(--fs-24); font-weight: 700; letter-spacing: .72px; line-height: 1.25; width: 100%; }
+    .projects__sub    { font-family: var(--font-serif); font-size: var(--fs-18); font-weight: 400; letter-spacing: .54px; line-height: 1.25; }
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+    .footer {
+      background: var(--color-bg-dark); display: flex; flex-direction: column;
+      gap: var(--sp-241); align-items: center;
+      padding: var(--sp-40) var(--sp-40) 0; width: 100%;
+    }
+    .footer__head { display: flex; align-items: flex-start; justify-content: space-between; width: 100%; }
+    .footer__logo { width: 332.602px; height: 27.616px; object-fit: contain; flex-shrink: 0; }
+    .footer__right {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      width: 557px; gap: var(--sp-20); white-space: nowrap;
+    }
+    .footer__nav { display: flex; flex-direction: column; gap: var(--sp-2); width: 297px; }
+    .footer__nav-link {
+      font-family: var(--font-sans); font-size: var(--fs-16); font-weight: 400;
+      color: var(--color-text-white); letter-spacing: -.32px; line-height: 1.3;
+    }
+    .footer__nav-link:hover { opacity: .7; }
+    .footer__contact { display: flex; flex-direction: column; gap: var(--sp-40); }
+    .footer__addr {
+      font-family: var(--font-sans); font-size: var(--fs-16); font-weight: 400;
+      color: var(--color-text-white); letter-spacing: -.32px; line-height: 1.3;
+    }
+    .footer__addr p:first-child { margin-bottom: 4px; }
+    .footer__row { display: flex; flex-direction: column; gap: var(--sp-2); }
+    .footer__ct, .footer__cl {
+      font-family: var(--font-sans); font-size: var(--fs-16); font-weight: 400;
+      color: var(--color-text-white); letter-spacing: -.32px; line-height: 1.3;
+    }
+    .footer__bottom { display: flex; align-items: flex-end; justify-content: space-between; padding: var(--sp-40) 0; width: 100%; }
+    .footer__socials { display: flex; align-items: center; gap: 11.977px; }
+    .footer__soc { display: block; flex-shrink: 0; }
+    .footer__soc--fb { width: 8.761px;  height: 15.66px; }
+    .footer__soc--ig { width: 14.982px; height: 14.982px; }
+    .footer__soc--tt { width: 14.982px; height: 14.982px; overflow: hidden; position: relative; }
+    .footer__soc--tt img { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 13.033px; height: 15.038px; }
+    .footer__soc--yt { width: 17.721px; height: 11.587px; }
+    .footer__soc-img { width: 100%; height: 100%; object-fit: contain; }
+    .footer__copy {
+      font-family: var(--font-sans); font-size: var(--fs-14); font-weight: 400;
+      color: var(--color-text-white); letter-spacing: -.14px; line-height: 1; white-space: nowrap;
+    }
+
+    /* =====================================================
+       TABLET  (≤1024px)
+    ===================================================== */
+    @media (max-width: 1024px) {
+      .navbar__nav        { display: none; }
+      .navbar__hamburger  { display: flex; }
+      .navbar__mobile     { display: flex; }
+      .navbar             { padding: 0 var(--sp-40); }
+      .navbar__mobile.is-open { padding: var(--sp-20) var(--sp-40); }
+      .hero__h1           { font-size: 46px; white-space: normal; text-align: center; letter-spacing: -.92px; }
+      .hero__tagline .t-lg { font-size: 38px; }
+      .hero__tagline .t-sm { font-size: 20px; }
+      .hero__title-block  { min-height: auto; padding: 60px var(--sp-20); }
+      .activities         { padding: 60px var(--sp-20); min-height: auto; }
+      .about              { padding: 60px var(--sp-20); min-height: auto; }
+      .projects           { padding: 60px var(--sp-40); min-height: 460px; }
+      .projects__track    { padding: 60px var(--sp-40); }
+      .footer__right      { width: auto; gap: var(--sp-40); }
+    }
+
+    /* =====================================================
+       MOBILE  (≤768px)
+    ===================================================== */
+    @media (max-width: 768px) {
+      :root { --navbar-h: 64px; }
+      .navbar             { padding: 0 var(--sp-20); }
+      .navbar__mobile.is-open { padding: var(--sp-20); }
+      .navbar__logo       { font-size: var(--fs-18); }
+      .hero__h1           { font-size: var(--fs-32); letter-spacing: -.64px; }
+      .hero__tagline .t-lg { font-size: var(--fs-24); }
+      .hero__tagline .t-sm { font-size: var(--fs-14); }
+      .hero__desc         { width: 280px; height: auto; padding: var(--sp-20) var(--sp-25); }
+      .hero__desc p       { width: auto; }
+      .activities         { padding: var(--sp-40) var(--sp-10); }
+      .activities__col    { width: 110px; padding: 0 var(--sp-10); font-size: var(--fs-14); }
+      .activities__divider { height: 380px; }
+      .about              { padding: var(--sp-40) var(--sp-20); }
+      .about__bio .b-sm   { font-size: var(--fs-14); }
+      .about__bio .b-lg   { font-size: var(--fs-18); }
+      .projects           { padding: var(--sp-40) 0; min-height: 380px; }
+      .projects__track    { padding: var(--sp-40) var(--sp-20); }
+      .projects__item     { width: 200px; }
+      .projects__num      { font-size: 56px; }
+      .footer             { padding: var(--sp-40) var(--sp-20) 0; gap: var(--sp-56); }
+      .footer__head       { flex-direction: column; gap: var(--sp-40); }
+      .footer__logo       { width: 200px; height: auto; }
+      .footer__right      { flex-direction: column; width: 100%; gap: var(--sp-40); white-space: normal; }
+      .footer__nav        { width: auto; }
+      .footer__bottom     { flex-direction: column; align-items: flex-start; gap: var(--sp-20); padding: var(--sp-40) 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar" role="banner">
+    <a class="navbar__logo" href="#projects">A. D. P.</a>
+    <nav class="navbar__nav" aria-label="Primary navigation">
+      <a class="navbar__link" href="#about-me">About Me</a>
+      <a class="navbar__link" href="#projects">Projects</a>
+    </nav>
+    <button class="navbar__hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span class="navbar__bar"></span>
+      <span class="navbar__bar"></span>
+      <span class="navbar__bar"></span>
+    </button>
+  </header>
+
+  <nav id="mobile-nav" class="navbar__mobile" aria-label="Mobile navigation">
+    <a class="navbar__mobile-link" href="#about-me">About Me</a>
+    <a class="navbar__mobile-link" href="#projects">Projects</a>
+  </nav>
+
+  <!-- PAGE -->
+  <div class="page">
+    <main class="main" tabindex="-1">
+
+      <!-- HERO -->
+      <figure class="hero">
+        <div class="hero__inner">
+          <div class="hero__title-block">
+            <div class="hero__content">
+              <div class="hero__headings">
+                <h1 class="hero__h1">Where Ideas Become Real</h1>
+                <p class="hero__tagline" aria-label="Engineering · Material · Idea · Logic · Interaction · Art">
+                  <span class="t-lg">E</span><span class="t-sm">ngineering · </span><span class="t-lg">M</span><span class="t-sm">aterial · </span><span class="t-lg">I</span><span class="t-sm">dea · </span><span class="t-lg">L</span><span class="t-sm">ogic · </span><span class="t-lg">I</span><span class="t-sm">nteraction · </span><span class="t-lg">A</span><span class="t-sm">rt</span>
+                </p>
+              </div>
+              <div class="hero__desc-wrap">
+                <div class="hero__desc">
+                  <p>I design at the intersection of engineering and interaction.<br />From concept to prototype, I focus on making ideas work.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </figure>
+
+      <!-- ACTIVITIES -->
+      <section class="activities" aria-label="Activities and interests">
+        <div class="activities__inner">
+          <div class="activities__col">
+            <p>Piano</p><p>Wind Band</p><p>&nbsp;</p><p>&nbsp;</p><p>Dance Club</p><p>&nbsp;</p><p>&nbsp;</p>
+          </div>
+          <img class="activities__divider" src="https://www.figma.com/api/mcp/asset/2cd99af7-cb4e-4ce2-a41b-2879b71df8fd" alt="Decorative vertical divider" />
+          <div class="activities__col activities__col--right">
+            <p>&nbsp;&nbsp;</p><p>&nbsp;</p><p>Art/Painting</p><p>Product</p><p>&nbsp;</p><p>UI/UX</p><p>&nbsp;</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects" class="projects" aria-label="Selected projects">
+      <div class="projects__track">
+
+        <article class="projects__item">
+          <a class="projects__link" href="project-one.html" aria-label="Open Project One">
+          <p class="projects__num">01</p>
+          <div class="projects__img-wrap projects__img-wrap--bordered">
+            <img class="projects__img" src="https://www.figma.com/api/mcp/asset/b29f6d9d-6d94-49bd-97ce-eb103acc274b" alt="Project One" />
+          </div>
+          <div class="projects__info projects__info--center">
+            <p class="projects__title">Project One</p>
+            <p class="projects__sub">APP x System x CIS</p>
+          </div>
+                  </a>
+        </article>
+
+        <article class="projects__item">
+          <a class="projects__link" href="project-two.html" aria-label="Open Project Two">
+          <p class="projects__num">02</p>
+          <div class="projects__img-wrap">
+            <img class="projects__img" src="https://www.figma.com/api/mcp/asset/55a19781-699f-416f-936f-c9ff87a53e24" alt="Project Two" />
+          </div>
+          <div class="projects__info">
+            <p class="projects__title">Project Two</p>
+            <p class="projects__sub">APP x Product</p>
+          </div>
+                  </a>
+        </article>
+
+        <article class="projects__item">
+          <a class="projects__link" href="project-three.html" aria-label="Open Project Three">
+          <p class="projects__num">03</p>
+          <div class="projects__img-wrap">
+            <img class="projects__img" src="https://www.figma.com/api/mcp/asset/abcee27a-d051-4700-af34-f6e7aeee9122" alt="Project Three" />
+          </div>
+          <div class="projects__info">
+            <p class="projects__title">Project Three</p>
+            <p class="projects__sub">APP x System</p>
+          </div>
+                  </a>
+        </article>
+
+        <article class="projects__item">
+          <a class="projects__link" href="project-four.html" aria-label="Open Project Four">
+          <p class="projects__num">04</p>
+          <div class="projects__img-wrap">
+            <img class="projects__img" src="https://www.figma.com/api/mcp/asset/609e6396-b68c-4da0-a06a-9ff5eef3dd73" alt="Project Four" />
+          </div>
+          <div class="projects__info">
+            <p class="projects__title">Project Four</p>
+            <p class="projects__sub">Product x PCB</p>
+          </div>
+                  </a>
+        </article>
+
+        <article class="projects__item">
+          <a class="projects__link" href="project-five.html" aria-label="Open Project Five">
+          <p class="projects__num">05</p>
+          <div class="projects__img-wrap">
+            <img class="projects__img" src="https://www.figma.com/api/mcp/asset/de6e9dfb-e29e-43f0-b0ef-7e47d4fa2d7b" alt="Project Five" />
+          </div>
+          <div class="projects__info">
+            <p class="projects__title">Project Five</p>
+            <p class="projects__sub">Product</p>
+          </div>
+                  </a>
+        </article>
+
+        <article class="projects__item">
+          <a class="projects__link" href="project-six.html" aria-label="Open Project Six">
+          <p class="projects__num">06</p>
+          <div class="projects__img-wrap">
+            <img class="projects__img" src="https://www.figma.com/api/mcp/asset/612ac0a4-63e9-424c-8adc-c480f279b30d" alt="Project Six" />
+          </div>
+          <div class="projects__info">
+            <p class="projects__title">Project Six</p>
+            <p class="projects__sub">Product</p>
+          </div>
+                  </a>
+        </article>
+
+        <article class="projects__item">
+          <a class="projects__link" href="project-seven.html" aria-label="Open Project Seven">
+          <p class="projects__num">07</p>
+          <div class="projects__img-wrap">
+            <img class="projects__img" src="https://www.figma.com/api/mcp/asset/f5d69dbf-2226-4efe-ad55-e198bec034d4" alt="Project Seven" />
+          </div>
+          <div class="projects__info">
+            <p class="projects__title">Project Seven</p>
+            <p class="projects__sub">Product</p>
+          </div>
+                  </a>
+        </article>
+
+        <article class="projects__item">
+          <a class="projects__link" href="project-eight.html" aria-label="Open Project Eight">
+          <p class="projects__num">08</p>
+          <div class="projects__img-wrap projects__img-wrap--bordered">
+            <img class="projects__img" src="https://www.figma.com/api/mcp/asset/b29f6d9d-6d94-49bd-97ce-eb103acc274b" alt="Project Eight" />
+          </div>
+          <div class="projects__info projects__info--center">
+            <p class="projects__title">Project Eight</p>
+            <p class="projects__sub">Brand CIS</p>
+          </div>
+                  </a>
+        </article>
+
+        <article class="projects__item">
+          <a class="projects__link" href="project-nine.html" aria-label="Open Project Nine">
+          <p class="projects__num">09</p>
+          <div class="projects__img-wrap">
+            <img class="projects__img" src="https://www.figma.com/api/mcp/asset/b29f6d9d-6d94-49bd-97ce-eb103acc274b" alt="Project Nine" />
+          </div>
+          <div class="projects__info">
+            <p class="projects__title">Project Nine</p>
+            <p class="projects__sub">Personal Logo</p>
+          </div>
+                  </a>
+        </article>
+
+      </div>
+    </section>
+
+      <!-- ABOUT -->
+      <section id="about-me" class="about" aria-label="About Emilia Chen">
+        <div class="about__inner">
+          <div class="about__images">
+            <img class="about__img-main" src="https://www.figma.com/api/mcp/asset/46f926d8-7159-4cd6-9fad-d05ab7584134" alt="Silhouette portrait of Emilia Chen" />
+            <img class="about__img-over" src="https://www.figma.com/api/mcp/asset/a94f412a-5803-4a7d-b021-3cdef5855d6c" alt="Portrait detail" />
+          </div>
+          <h2 class="about__name">Emilia Chen</h2>
+          <div class="about__bio">
+            <p><span class="b-lg">I</span><span class="b-sm">'m a passionate Product and UI/UX </span><span class="b-lg">D</span><span class="b-sm">esigner/</span><span class="b-lg">E</span><span class="b-sm">ngineer.</span></p>
+            <p class="b-sm">I design user-centered solutions that are functional and visually appealing.</p>
+            <p class="b-sm">With experience in leading projects from concept to completion,</p>
+            <p class="b-sm">I prioritize inclusivity, accessibility, and effective communication to create impactful user experiences.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer__head">
+        <img class="footer__logo" src="https://www.figma.com/api/mcp/asset/20a666d1-8618-4928-83e9-5050a62fe894" alt="ADP logo" />
+        <div class="footer__right">
+          <nav class="footer__nav" aria-label="Footer navigation">
+            <a class="footer__nav-link" href="#about-me">About Me</a>
+            <a class="footer__nav-link" href="#projects">Projects</a>
+          </nav>
+          <address class="footer__contact">
+            <div class="footer__addr">
+              <p>4827 Candyland Lane<br />Raleigh</p>
+              <p>NC 27609</p>
+            </div>
+            <div class="footer__row">
+              <span class="footer__ct">hello@figma.com</span>
+              <a class="footer__cl" href="tel:6465554561">(646) 555-4561</a>
+            </div>
+          </address>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <div class="footer__socials">
+          <a class="footer__soc footer__soc--fb" href="https://www.facebook.com/figmadesign/" aria-label="Visit us on Facebook" target="_blank" rel="noopener noreferrer">
+            <img class="footer__soc-img" src="https://www.figma.com/api/mcp/asset/0f9761ee-971e-4d40-bd43-e129fb11c737" alt="Facebook" />
+          </a>
+          <a class="footer__soc footer__soc--ig" href="https://www.instagram.com/figma/" aria-label="Follow us on Instagram" target="_blank" rel="noopener noreferrer">
+            <img class="footer__soc-img" src="https://www.figma.com/api/mcp/asset/03c717a3-b7ab-4d6d-a306-cce02e5b6ba1" alt="Instagram" />
+          </a>
+          <a class="footer__soc footer__soc--tt" href="https://www.tiktok.com/@figma" aria-label="Watch us on TikTok" target="_blank" rel="noopener noreferrer">
+            <img src="https://www.figma.com/api/mcp/asset/99dec503-fe32-485c-ad24-bf8ca8b55bb2" alt="TikTok" />
+          </a>
+          <a class="footer__soc footer__soc--yt" href="https://www.youtube.com/figmadesign" aria-label="Subscribe to our YouTube" target="_blank" rel="noopener noreferrer">
+            <img class="footer__soc-img" src="https://www.figma.com/api/mcp/asset/0fbdd251-f997-4dfd-86ac-6b604f4063e6" alt="YouTube" />
+          </a>
+        </div>
+        <p class="footer__copy">© 2026 All Rights Reserved</p>
+      </div>
+    </footer>
+
+  </div><!-- /.page -->
+
+  <script>
+    (function () {
+      var btn  = document.querySelector('.navbar__hamburger');
+      var menu = document.getElementById('mobile-nav');
+      if (!btn || !menu) return;
+      btn.addEventListener('click', function () {
+        var open = menu.classList.toggle('is-open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      menu.querySelectorAll('.navbar__mobile-link').forEach(function (a) {
+        a.addEventListener('click', function () {
+          menu.classList.remove('is-open');
+          btn.setAttribute('aria-expanded', 'false');
+        });
+      });
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 1024) {
+          menu.classList.remove('is-open');
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }());
+  </script>
+
+</body>
+</html>
