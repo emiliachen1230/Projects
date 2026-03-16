@@ -1,259 +1,512 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Project Four — Rondo Door Bell Interaction Device</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Four — Rondo Door Bell</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#ece9e2;
-      --panel:#f6f3ee;
-      --line:#d0c8be;
-      --text:#121212;
-      --muted:#5d5953;
-      --dark:#111914;
-      --shadow:0 20px 60px rgba(17,17,17,.08);
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:      #ffffff;
+      --dark:    #1d231c;
+      --accent:  #d2fc9c;
+      --text:    #263025;
+      --black:   #000000;
+      --gray:    #3e3e3e;
+      --silver:  #aeabab;
+      --overlay: rgba(138,138,138,0.5);
+      --ff-display: 'Aboreto', serif;
+      --ff-body:    'Geist', sans-serif;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      background:var(--bg);
-      color:var(--text);
-      font-family:"Inter","Noto Sans TC","Microsoft JhengHei",sans-serif;
-      -webkit-font-smoothing:antialiased;
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--black);
+      font-family: var(--ff-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
     }
-    a{color:inherit;text-decoration:none}
-    .container{width:min(calc(100% - 32px),1380px);margin:0 auto}
-    .topbar{
-      position:sticky;top:0;z-index:20;
-      background:rgba(236,233,226,.8);
-      backdrop-filter:blur(16px);
-      border-bottom:1px solid rgba(18,18,18,.08);
+    img { display: block; width: 100%; height: auto; object-fit: cover; }
+    a { text-decoration: none; color: inherit; }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      background: var(--bg);
+      z-index: 100;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
     }
-    .topbar-inner{
-      min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px;
+    .nav-logo { font-family: var(--ff-display); font-size: 18px; letter-spacing: 3px; color: var(--dark); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 14px; color: var(--black); transition: opacity .2s; }
+    .nav-links a:hover { opacity: 0.5; }
+
+    /* HERO */
+    .hero { margin-top: 64px; height: 580px; overflow: hidden; position: relative; }
+    .hero img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+
+    /* META */
+    .meta-row { display: flex; align-items: stretch; border-bottom: 1px solid var(--dark); }
+    .meta-info {
+      background: var(--dark); padding: 24px 20px; min-width: 300px;
+      display: flex; flex-direction: column; gap: 8px;
     }
-    .topbar strong{
-      font-family:"Cormorant Garamond",serif;
-      font-size:30px;
-      letter-spacing:.05em;
+    .meta-num {
+      font-size: 100px; line-height: 1; color: var(--silver); letter-spacing: 3px;
+      font-family: Georgia, serif;
     }
-    .topbar nav{display:flex;gap:24px;font-size:13px;text-transform:uppercase;letter-spacing:.08em}
-    .hero{
-      padding:28px 0;
-      display:grid;
-      grid-template-columns:1.05fr 1.45fr;
-      gap:22px;
+    .meta-title { font-family: var(--ff-display); font-size: 22px; color: var(--bg); letter-spacing: 1.5px; line-height: 1.4; }
+    .meta-sub   { font-family: var(--ff-display); font-size: 16px; color: var(--bg); letter-spacing: 1px; margin-top: 12px; }
+    .meta-tag   { font-family: var(--ff-display); font-size: 12px; color: var(--silver); letter-spacing: 0.7px; }
+    .meta-label { flex: 1; padding: 24px 32px; display: flex; align-items: flex-end; }
+    .meta-label span { font-family: var(--ff-display); font-size: 20px; color: var(--text); letter-spacing: 1px; }
+
+    /* DESCRIPTION */
+    .description { padding: 60px 24px; max-width: 680px; }
+    .description p { font-size: 15px; color: var(--text); line-height: 1.8; }
+
+    /* AWARDS */
+    .awards { border-top: 1px solid var(--dark); padding: 20px 24px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center; }
+    .award-item { display: flex; align-items: center; gap: 10px; }
+    .award-item img { width: 48px; height: 48px; object-fit: contain; }
+    .award-text { display: flex; flex-direction: column; gap: 2px; }
+    .award-name { font-size: 14px; color: var(--black); }
+    .award-type { font-size: 12px; color: var(--gray); }
+
+    /* SECTION */
+    .section { padding: 0 24px 40px; }
+    .section-border { border-top: 1px solid var(--black); }
+    .section-header { padding: 40px 0 20px; display: flex; align-items: flex-start; gap: 16px; }
+    .section-header img.icon { width: 50px; height: 50px; object-fit: contain; flex-shrink: 0; }
+    h2 {
+      font-family: var(--ff-display); font-size: clamp(28px, 4vw, 48px);
+      color: var(--text); letter-spacing: 2px; line-height: 1.2; font-weight: 400;
     }
-    .panel{
-      background:var(--panel);
-      border:1px solid rgba(18,18,18,.08);
-      border-radius:24px;
-      box-shadow:var(--shadow);
+    .body-text { font-size: 17px; color: var(--black); line-height: 1.7; max-width: 680px; }
+
+    /* PILLARS */
+    .pillars { display: flex; flex-wrap: wrap; gap: 24px; padding: 24px 0; justify-content: center; }
+    .pillar {
+      width: 200px; height: 200px; border: 1px solid var(--black); border-radius: 100px;
+      display: flex; align-items: center; justify-content: center; padding: 0 20px;
     }
-    .info{padding:30px}
-    .kicker{
-      margin:0 0 12px;
-      font-size:12px;
-      text-transform:uppercase;
-      letter-spacing:.16em;
-      color:var(--muted);
+    .pillar p { font-family: var(--ff-display); font-size: 13px; color: var(--black); text-align: center; letter-spacing: 0.7px; line-height: 1.6; }
+
+    /* SPLIT ROW */
+    .split-row { display: flex; border: 1px solid var(--black); overflow: hidden; }
+    .split-left { width: 380px; flex-shrink: 0; }
+    .split-left img { width: 100%; height: 100%; object-fit: cover; }
+    .split-middle { flex: 1; padding: 40px 32px; display: flex; flex-direction: column; justify-content: center; gap: 20px; }
+    .split-right { width: 280px; flex-shrink: 0; position: relative; overflow: hidden; }
+    .split-right img { width: 100%; height: 100%; object-fit: cover; }
+    .split-right-overlay { position: absolute; inset: 0; background: var(--overlay); }
+    h3 { font-family: var(--ff-display); font-size: clamp(24px, 3vw, 40px); color: var(--black); font-weight: 400; letter-spacing: 2px; line-height: 1.2; }
+
+    /* ENVIRONMENTS */
+    .env-logos { display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; padding: 24px 0 40px; }
+    .env-logos img { height: 90px; width: auto; object-fit: contain; }
+
+    /* PORTRAIT PAIR */
+    .portrait-pair { display: flex; gap: 60px; justify-content: center; padding: 60px 80px 20px; }
+    .portrait-pair img { width: calc(50% - 30px); max-width: 340px; aspect-ratio: 2/3; object-fit: cover; }
+
+    /* SERVICES */
+    .services-grid { display: flex; gap: 60px; padding: 20px 0; align-items: flex-start; }
+    .services-imgs { display: flex; flex-direction: column; gap: 20px; width: 260px; flex-shrink: 0; }
+    .services-imgs img { aspect-ratio: 0.7; object-fit: cover; }
+    .services-list { flex: 1; display: flex; flex-direction: column; gap: 40px; }
+    .service-row { display: flex; gap: 40px; align-items: flex-start; }
+    .service-label { width: 220px; flex-shrink: 0; font-family: var(--ff-display); font-size: 18px; color: var(--text); letter-spacing: 1px; }
+    .service-desc { flex: 1; font-size: 16px; color: var(--text); line-height: 1.7; }
+    .fn-imgs { display: flex; flex-direction: column; gap: 12px; margin: 8px 0 0 260px; }
+    .fn-imgs img { object-fit: contain; }
+
+    /* IDEATION */
+    .ideation-header { display: flex; flex-direction: column; gap: 8px; padding: 40px 0 20px; }
+    .ideation-header p { font-size: 16px; color: var(--text); }
+    .ideation-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+    .ideation-grid img { aspect-ratio: 1; object-fit: cover; }
+
+    /* COMPONENTS */
+    .component-list { display: flex; flex-wrap: wrap; gap: 32px; padding: 40px 0 20px; }
+    .component-item { flex: 1; min-width: 220px; max-width: 300px; display: flex; flex-direction: column; gap: 10px; }
+    .component-item img { aspect-ratio: 1.5; object-fit: cover; }
+    .component-name { font-family: var(--ff-display); font-size: 15px; color: var(--text); letter-spacing: 1px; }
+    .component-spec { font-size: 13px; color: var(--text); line-height: 1.5; }
+    .component-desc { font-size: 13px; color: var(--gray); line-height: 1.6; }
+
+    /* CIRCUIT */
+    .circuit-section { background: var(--black); text-align: center; padding: 40px 0 0; }
+    .circuit-title { padding: 0 0 24px; }
+    .circuit-title h3 { font-family: 'Times New Roman', serif; font-size: 22px; font-weight: 700; color: var(--bg); }
+    .circuit-title p  { font-family: 'Times New Roman', serif; font-size: 17px; color: var(--bg); }
+    .circuit-section img { display: block; width: 100%; max-width: 1024px; margin: 0 auto; }
+
+    /* INTERACTION */
+    .interaction-header { padding: 40px 24px 16px; }
+    .interaction-desc { padding: 0 24px 24px; font-size: 16px; color: var(--text); max-width: 700px; line-height: 1.7; }
+    .interaction-images { display: flex; flex-wrap: wrap; }
+    .interaction-images img { flex: 1; min-width: 240px; aspect-ratio: 1; object-fit: cover; }
+
+    /* UNIVERSAL */
+    .universal-section { border-top: 1px solid var(--black); }
+    .universal-quote { padding: 40px 24px; max-width: 780px; }
+    .universal-quote p { font-size: 16px; color: var(--black); line-height: 1.8; }
+
+    /* FOOTER */
+    footer { background: var(--dark); padding: 40px 40px 0; }
+    .footer-top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; padding-bottom: 180px; }
+    .footer-logo img { height: 28px; width: auto; }
+    .footer-links { display: flex; gap: 60px; flex-wrap: wrap; }
+    .footer-col { display: flex; flex-direction: column; gap: 4px; }
+    .footer-col a, .footer-col p { font-size: 16px; color: var(--bg); line-height: 1.6; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.15); padding: 24px 0; display: flex; justify-content: space-between; align-items: center; }
+    .footer-socials { display: flex; gap: 16px; align-items: center; }
+    .footer-socials a { opacity: 0.7; transition: opacity .2s; }
+    .footer-socials a:hover { opacity: 1; }
+    .footer-socials img { width: 18px; height: 18px; object-fit: contain; }
+    .footer-copy { font-size: 14px; color: var(--bg); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .meta-row, .split-row { flex-direction: column; }
+      .split-left, .split-right { width: 100%; height: 300px; }
+      .services-grid { flex-direction: column; }
+      .services-imgs { width: 100%; flex-direction: row; }
+      .fn-imgs { margin-left: 0; }
+      .portrait-pair { padding: 40px 24px; gap: 16px; }
+      .portrait-pair img { max-width: none; }
+      .ideation-grid { grid-template-columns: repeat(3, 1fr); }
+      .footer-top { flex-direction: column; }
+      .footer-bottom { flex-direction: column; gap: 16px; }
+      nav .nav-links { display: none; }
     }
-    h1{
-      margin:0;
-      font-family:"Cormorant Garamond",serif;
-      font-size:clamp(46px,5vw,78px);
-      line-height:.92;
-      letter-spacing:-.02em;
-    }
-    .subtitle{
-      margin:12px 0 0;
-      font-size:16px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color:#2f2b27;
-    }
-    .lead{
-      margin:24px 0 0;
-      color:#36322d;
-      line-height:1.9;
-      font-size:15px;
-    }
-    .meta{
-      display:grid;
-      gap:16px;
-      margin-top:28px;
-    }
-    .meta-item{
-      border-top:1px solid var(--line);
-      padding-top:14px;
-    }
-    .meta-item h3{
-      margin:0 0 6px;
-      font-size:12px;
-      text-transform:uppercase;
-      letter-spacing:.16em;
-      color:var(--muted);
-    }
-    .meta-item p{margin:0;line-height:1.8;font-size:14px}
-    .visual{
-      padding:18px;
-      display:grid;
-      gap:18px;
-    }
-    .hero-image{
-      width:100%;
-      aspect-ratio:1/1;
-      object-fit:cover;
-      border-radius:18px;
-      box-shadow:var(--shadow);
-    }
-    .section{
-      padding:0 0 22px;
-    }
-    .section .panel{padding:28px}
-    .section-head{
-      display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:16px
-    }
-    .section-head h2{
-      margin:0;
-      font-family:"Cormorant Garamond",serif;
-      font-size:38px;
-      line-height:1;
-    }
-    .section-head p{
-      margin:0;
-      color:var(--muted);
-      max-width:720px;
-      line-height:1.8;
-    }
-    .text-grid{
-      display:grid;
-      grid-template-columns:1.2fr .8fr;
-      gap:20px;
-    }
-    .text-grid p{margin:0;color:#36322d;line-height:1.92}
-    .feature-grid{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:14px;
-      margin-top:18px;
-    }
-    .feature{
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:18px;
-      background:rgba(255,255,255,.34);
-    }
-    .feature h3{
-      margin:0 0 8px;
-      font-family:"Cormorant Garamond",serif;
-      font-size:28px;
-      line-height:1;
-    }
-    .feature p{
-      margin:0;
-      color:#45413b;
-      line-height:1.8;
-      font-size:14px;
-    }
-    .back{
-      padding:0 0 42px;
-      font-size:14px;
-      color:#2e2a25;
-    }
-    @media (max-width:980px){
-      .hero,.text-grid,.feature-grid{grid-template-columns:1fr}
-    }
-    @media (max-width:620px){
-      .container{width:min(calc(100% - 20px),1380px)}
-      .info,.section .panel{padding:20px}
-      .topbar-inner{min-height:66px}
-      .topbar strong{font-size:24px}
+    @media (max-width: 560px) {
+      .ideation-grid { grid-template-columns: repeat(2, 1fr); }
+      .service-row { flex-direction: column; gap: 6px; }
+      .service-label { width: auto; }
+      .env-logos img { height: 56px; }
     }
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="container topbar-inner">
-      <strong>Project Four</strong>
-      <nav>
-        <a href="index.html">Projects</a>
-        <a href="#overview">Overview</a>
-      </nav>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">E.C.D.</span>
+    <ul class="nav-links">
+      <li><a href="#">Projects</a></li>
+      <li><a href="#">Process</a></li>
+      <li><a href="#">Design Thinking</a></li>
+      <li><a href="#">CV</a></li>
+      <li><a href="#">About Me</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <img src="img/image-219.png" alt="Rondo Door Bell">
+  </section>
+
+  <!-- PROJECT META -->
+  <div class="meta-row">
+    <div class="meta-info">
+      <div class="meta-num">04</div>
+      <div class="meta-title">Project Four</div>
+      <div class="meta-sub">Product × PCB</div>
+      <div class="meta-tag" style="margin-top:6px;">Category / Appliance</div>
+      <div class="meta-tag">Date / 2022.04</div>
     </div>
-  </header>
-
-  <main class="container">
-    <section class="hero">
-      <div class="panel info">
-        <p class="kicker">Selected work / 2022</p>
-        <h1>Rondo Door Bell<br>Interaction Device</h1>
-        <p class="subtitle">Product x PCB</p>
-        <p class="lead">
-          Rondo rethinks the door bell as an interactive musical object. It transforms the act of arrival into an event of sound, contact, and atmosphere, turning a functional signal into a relational interface.
-        </p>
-
-        <div class="meta">
-          <div class="meta-item">
-            <h3>Keywords</h3>
-            <p>Arduino, Bluetooth, sound interaction, object interface, prototype.</p>
-          </div>
-          <div class="meta-item">
-            <h3>Material</h3>
-            <p>Ebony, brass, plastic, PCB, fabricated components.</p>
-          </div>
-          <div class="meta-item">
-            <h3>Technical</h3>
-            <p>Programming, embedded interaction, circuit board design, prototyping, CNC-based fabrication.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel visual">
-        <img class="hero-image" src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=80" alt="Project Four main visual">
-      </div>
-    </section>
-
-    <section id="overview" class="section">
-      <div class="panel">
-        <div class="section-head">
-          <h2>Overview</h2>
-          <p>A more composed and exhibition-like project page, designed to feel aligned with the homepage rather than like a generic placeholder.</p>
-        </div>
-
-        <div class="text-grid">
-          <p>
-            The project places music at the threshold of space. Instead of treating sound as decoration or secondary feedback, it becomes the central carrier of welcome, presence, and emotion. By combining key-based interaction with sensing and audio output, Rondo produces a small but distinct shift in everyday ritual.
-          </p>
-          <p>
-            Formally, the object borrows from the visual language of brass instruments. Technically, it brings together electronics, material construction, and interface thinking. The result is not simply a product prototype, but a device that stages sound as contact.
-          </p>
-        </div>
-
-        <div class="feature-grid">
-          <div class="feature">
-            <h3>Interaction</h3>
-            <p>Users trigger sound through touch and entry. The device responds with tonal output rather than a neutral alert.</p>
-          </div>
-          <div class="feature">
-            <h3>Form</h3>
-            <p>The object references horn and wind-instrument morphology, giving the interface a recognizable acoustic identity.</p>
-          </div>
-          <div class="feature">
-            <h3>System</h3>
-            <p>Embedded programming, circuit design, and material fabrication are integrated into one coherent interaction object.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="back">
-      <a href="index.html">← Back to Projects</a>
+    <div class="meta-label">
+      <span>Rondo / Door Bell Device</span>
     </div>
-  </main>
+  </div>
+
+  <!-- DESCRIPTION -->
+  <div class="description">
+    <p>For three decades, the craft behind Rondo has cultivated a legacy of excellence — transforming everyday interactions into breathtaking sensory experiences. Founded on a love for music and exceptional craftsmanship, Rondo bridges people through melody and connection. At its core, Rondo crafts more than a doorbell; it forges connections between people and their shared spaces.</p>
+  </div>
+
+  <!-- AWARDS -->
+  <div class="awards">
+    <div class="award-item">
+      <img src="img/image-220-1.png" alt="YOUNG PIN">
+      <div class="award-text">
+        <span class="award-name">YOUNG PIN Nominate 2022</span>
+        <span class="award-type">Product Design Award</span>
+      </div>
+    </div>
+    <div class="award-item">
+      <img src="img/image-220-1.png" alt="YOUNG PIN">
+      <div class="award-text">
+        <span class="award-name">YOUNG PIN Nominate 2022</span>
+        <span class="award-type">Craft Design Award</span>
+      </div>
+    </div>
+    <div class="award-item">
+      <img src="img/image-220.png" alt="Global HUA Design">
+      <div class="award-text">
+        <span class="award-name">Global HUA Design 2022</span>
+        <span class="award-type">GOLD Award</span>
+      </div>
+    </div>
+    <div class="award-item">
+      <img src="img/image-221.png" alt="National Tsing Hua University" style="border-radius:4px;">
+      <div class="award-text">
+        <span class="award-name">National Tsing Hua University</span>
+        <span class="award-name">Professor Li Zefan 2022</span>
+        <span class="award-type">ART Education Award</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FULL IMAGE -->
+  <img src="img/image-222.png" alt="Rondo overview">
+
+  <!-- RONDO INTRO -->
+  <section class="section section-border">
+    <div class="section-header">
+      <img class="icon" src="img/image-223.png" alt="Rondo icon">
+      <h2>Rondo Door Bell<br>Interaction Device</h2>
+    </div>
+    <p class="body-text">
+      Rondo is a unique doorbell that uses music to create a warm connection between people. When someone enters a room, its key-sensing technology plays beautiful melodies, making the experience of entering more special. Crafted with Arduino programming and featuring Bluetooth, the five piano keys play automatically based on sensory feedback — allowing users to create their own tunes and share emotions through music, making daily life more enjoyable.
+    </p>
+    <div class="pillars">
+      <div class="pillar"><p>Breaking through<br>traditional musical<br>instrument design</p></div>
+      <div class="pillar"><p>Transcending<br>national and<br>cultural boundaries</p></div>
+      <div class="pillar"><p>Integrating innovative<br>technological<br>techniques</p></div>
+    </div>
+  </section>
+
+  <!-- MUSIC / EMOTION SPLIT -->
+  <div class="split-row section-border">
+    <div class="split-left">
+      <img src="img/image-225.png" alt="Rondo render">
+    </div>
+    <div class="split-middle">
+      <h3>Music is a strong tool<br>for sharing emotions</h3>
+      <p class="body-text">
+        Rondo highlights this by using music to build emotional bonds, turning melodies into a way to connect and understand others. It enriches relationships by using music as a universal language.
+      </p>
+    </div>
+    <div class="split-right">
+      <img src="img/image-224.png" alt="Rondo lifestyle">
+      <div class="split-right-overlay"></div>
+    </div>
+  </div>
+
+  <!-- ENVIRONMENTS -->
+  <section class="section section-border">
+    <div class="section-header">
+      <h2>Applicable to<br>different environments</h2>
+    </div>
+    <div class="env-logos">
+      <img src="img/image-226.png" alt="Environment 1">
+      <img src="img/image-227.png" alt="Environment 2">
+      <img src="img/image-228.png" alt="Environment 3">
+      <img src="img/image-229.png" alt="Environment 4">
+      <img src="img/image-230.png" alt="Environment 5">
+      <img src="img/image-231.png" alt="Environment 6">
+    </div>
+  </section>
+
+  <!-- PORTRAIT GALLERY -->
+  <div style="border-top:1px solid var(--dark);">
+    <div class="portrait-pair">
+      <img src="img/image-232.png" alt="Rondo in use 1">
+      <img src="img/image-233.png" alt="Rondo in use 2">
+    </div>
+    <img src="img/image-219.png" alt="Rondo full">
+  </div>
+
+  <!-- SERVICES INCLUDE -->
+  <section class="section section-border">
+    <div class="section-header">
+      <h2>Services Include</h2>
+    </div>
+    <div class="services-grid">
+      <div class="services-imgs">
+        <img src="img/image-234.png" alt="">
+        <img src="img/image-235.png" alt="">
+      </div>
+      <div class="services-list">
+        <div class="service-row">
+          <div class="service-label">Function</div>
+          <div class="service-desc">Touch the piano keys, and Rondo automatically plays melodies. This feature lets users create their own music or send secret messages through sound. Its Bluetooth function also allows users to stream music, adding to the interactive experience and atmosphere.</div>
+        </div>
+        <div class="service-row">
+          <div class="service-label">Symbol</div>
+          <div class="service-desc">Rondo's design is inspired by brass instruments, making it easy for people to recognize and use. The device produces rich, resonant sounds that fill the room, engaging users in a unique musical experience.</div>
+        </div>
+        <div class="service-row">
+          <div class="service-label">Size</div>
+          <div class="service-desc">H650 × W700 × D200 mm</div>
+        </div>
+        <div class="service-row">
+          <div class="service-label">Material</div>
+          <div class="service-desc">Ebony, Brass, Plastic, PCB</div>
+        </div>
+        <div class="service-row">
+          <div class="service-label">Technical</div>
+          <div class="service-desc">Programming, Arduino work, Craft, 3D Building, CNC</div>
+        </div>
+      </div>
+    </div>
+    <div class="fn-imgs">
+      <img src="img/image-236.png" alt="Keys diagram" style="max-height:70px;width:auto;">
+      <img src="img/image-237.png" alt="Detail" style="max-height:180px;width:auto;">
+    </div>
+  </section>
+
+  <!-- IDEATION -->
+  <section class="section section-border">
+    <div class="ideation-header">
+      <h2>Ideation</h2>
+      <p>Exploration of concepts through iteration sketching.</p>
+    </div>
+    <div class="ideation-grid">
+      <img src="img/image-238.png" alt=""> <img src="img/image-239.png" alt="">
+      <img src="img/image-240.png" alt=""> <img src="img/image-241.png" alt="">
+      <img src="img/image-242.png" alt=""> <img src="img/image-243.png" alt="">
+      <img src="img/image-244.png" alt=""> <img src="img/image-245.png" alt="">
+      <img src="img/image-246.png" alt=""> <img src="img/image-247.png" alt="">
+      <img src="img/image-248.png" alt=""> <img src="img/image-249.png" alt="">
+      <img src="img/image-250.png" alt=""> <img src="img/image-251.png" alt="">
+      <img src="img/image-252.png" alt=""> <img src="img/image-253.png" alt="">
+      <img src="img/image-254.png" alt=""> <img src="img/image-255.png" alt="">
+      <img src="img/image-256.png" alt=""> <img src="img/image-257.png" alt="">
+      <img src="img/image-258.png" alt=""> <img src="img/image-259.png" alt="">
+      <img src="img/image-260.png" alt=""> <img src="img/image-261.png" alt="">
+    </div>
+  </section>
+
+  <!-- COMPONENT DETAILS -->
+  <section class="section section-border">
+    <div class="component-list">
+      <div class="component-item">
+        <img src="img/image-289.png" alt="Rolling Ball Sound Tube">
+        <div class="component-name">Rolling Ball Sound Tube</div>
+        <div class="component-spec">U-Shaped Transparent Tube<br>Rolling Ball Movement<br>Dynamic Sound Visualization</div>
+        <div class="component-desc">The rolling ball moves with the sound, adding a visual element to the audio transmission for an engaging experience.</div>
+      </div>
+      <div class="component-item">
+        <img src="img/image-290.png" alt="Key and Sound">
+        <div class="component-name">Key and Sound</div>
+        <div class="component-spec">Key Layout<br>Sound Tube Connection<br>Speaker Output</div>
+        <div class="component-desc">This design ensures a seamless sound flow and an intuitive playing experience.</div>
+      </div>
+      <div class="component-item">
+        <img src="img/image-292-1.png" alt="Sound Tube">
+        <div class="component-name">Sound Tube</div>
+        <div class="component-desc">The sound tube is designed to transmit the sound produced by playing, which is then amplified through the speaker, resulting in a rich and powerful audio effect.</div>
+      </div>
+      <div class="component-item">
+        <img src="img/image-293-1.png" alt="Five Keys">
+        <div class="component-name">Five Keys</div>
+        <div class="component-desc">The device features five keys covering five musical notes, allowing users to play melodies by simply tapping them with their fingers.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CIRCUIT / ARDUINO -->
+  <section class="circuit-section">
+    <div class="circuit-title">
+      <h3>Arduino Programming</h3>
+      <p>Circuit Board Design</p>
+    </div>
+    <img src="img/image-294.png" alt="Circuit board">
+  </section>
+
+  <!-- INTERACTION DESIGN -->
+  <section class="section-border">
+    <div class="interaction-header">
+      <h2 style="font-family:var(--ff-display);font-size:clamp(28px,4vw,48px);color:var(--text);letter-spacing:2px;font-weight:400;">Interaction Design</h2>
+    </div>
+    <div class="interaction-desc">
+      The interactive device uses key-sensing technology to automatically play music, blending music and technology in a new way. This creates a fresh and exciting experience for users, breaking traditional limits between the two. By combining these elements, it not only enhances how people enjoy music but also brings a new level of creativity to art and culture, making it a big step forward in connecting technology with musical expression.
+    </div>
+    <div class="interaction-images">
+      <img src="img/image-295.png" alt="Interaction 1">
+      <img src="img/image-296.png" alt="Interaction 2">
+      <img src="img/image-297.png" alt="Interaction 3">
+    </div>
+    <img src="img/image-298.png" alt="Interaction overview">
+  </section>
+
+  <!-- UNIVERSAL LANGUAGE -->
+  <section class="universal-section">
+    <img src="img/image-299.png" alt="Universal">
+    <div class="universal-quote">
+      <p>Music, as a universally embraced language that pervades cultures worldwide, possesses the unique ability to transcend national and cultural barriers. It unites people from diverse backgrounds in a shared emotional experience, fostering cultural exchange and mutual understanding through the universal language of melody and rhythm.</p>
+    </div>
+    <img src="img/image-300.png" alt="Universal 2">
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-logo">
+        <img src="img/logo.svg" alt="Logo" style="height:28px;width:auto;">
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <a href="#">Company</a>
+          <a href="#">Services</a>
+          <a href="#">Gallery</a>
+        </div>
+        <div class="footer-col">
+          <p>4827 Candyland Lane<br>Raleigh<br>NC 27609</p>
+        </div>
+        <div class="footer-col">
+          <a href="mailto:hello@figma.com">hello@figma.com</a>
+          <a href="tel:6465554561">(646) 555-4561</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-socials">
+        <a href="https://www.facebook.com/figmadesign/" target="_blank">
+          <img src="img/vector.svg" alt="Facebook">
+        </a>
+        <a href="https://www.instagram.com/figma/" target="_blank">
+          <img src="img/vector-1.svg" alt="Instagram">
+        </a>
+        <a href="https://www.youtube.com/figmadesign" target="_blank">
+          <img src="img/vector-3.svg" alt="YouTube">
+        </a>
+      </div>
+      <p class="footer-copy">© 2025 All Rights Reserved</p>
+    </div>
+  </footer>
+
+  <script>
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('h2, h3, .pillar, .component-item, .award-item').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(16px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      io.observe(el);
+    });
+  </script>
 </body>
 </html>
