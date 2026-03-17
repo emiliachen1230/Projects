@@ -1,53 +1,960 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Project Two</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Two — Diving+</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:        #ffffff;
+      --dark:      #1d231c;
+      --accent:    #d2fc9c;
+      --text:      #263025;
+      --black:     #000000;
+      --silver:    #aeabab;
+      --ocean:     #0f4c81;
+      --yellow:    #f5df4d;
+      --gray-mid:  #939597;
+      --ff-display: 'Aboreto', serif;
+      --ff-body:    'Geist', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
     body {
-      margin:0;
-      background:#ece9e2;
-      color:#111;
-      font-family:"Inter","Noto Sans TC","Microsoft JhengHei",sans-serif;
+      background: var(--bg);
+      color: var(--black);
+      font-family: var(--ff-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
     }
-    .wrap {
-      width:min(calc(100% - 32px),980px);
-      margin:0 auto;
-      padding:42px 0 60px;
+    img { display: block; width: 100%; height: auto; object-fit: cover; }
+    a { text-decoration: none; color: inherit; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%;
+      background: var(--bg);
+      z-index: 100;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
     }
-    .card {
-      background:#f6f3ee;
-      border:1px solid rgba(17,17,17,.08);
-      border-radius:24px;
-      padding:28px;
-      box-shadow:0 20px 60px rgba(17,17,17,.08);
+    .nav-logo { font-family: var(--ff-display); font-size: 18px; letter-spacing: 3px; color: var(--dark); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 14px; color: var(--black); transition: opacity .2s; }
+    .nav-links a:hover { opacity: 0.5; }
+
+    /* HERO */
+    .hero { margin-top: 64px; height: 580px; overflow: hidden; }
+    .hero img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+
+    /* META ROW */
+    .meta-row { display: flex; align-items: stretch; border-bottom: 1px solid var(--dark); }
+    .meta-info {
+      background: var(--dark); padding: 24px 20px; min-width: 300px;
+      display: flex; flex-direction: column; gap: 8px;
     }
-    h1 {
-      margin:0 0 10px;
-      font-family:"Cormorant Garamond",serif;
-      font-size:56px;
-      line-height:.95;
+    .meta-num {
+      font-size: 100px; line-height: 1; color: var(--silver); letter-spacing: 3px;
+      font-family: Georgia, serif;
     }
-    p {
-      margin:0 0 14px;
-      line-height:1.85;
-      color:#4e4a44;
+    .meta-title { font-family: var(--ff-display); font-size: 22px; color: var(--bg); letter-spacing: 1.5px; line-height: 1.4; }
+    .meta-sub   { font-family: var(--ff-display); font-size: 16px; color: var(--bg); letter-spacing: 1px; margin-top: 12px; }
+    .meta-tag   { font-family: var(--ff-display); font-size: 12px; color: var(--silver); letter-spacing: 0.7px; }
+    .meta-label { flex: 1; padding: 24px 32px; display: flex; align-items: flex-end; }
+    .meta-label span { font-family: var(--ff-display); font-size: 20px; color: var(--text); letter-spacing: 1px; }
+
+    /* DESCRIPTION */
+    .description { padding: 60px 24px; max-width: 680px; }
+    .description p { font-size: 15px; color: var(--text); line-height: 1.8; }
+
+    /* SECTION */
+    .section { padding: 0 24px 40px; }
+    .section-border { border-top: 1px solid var(--black); }
+    .section-header { padding: 40px 0 20px; display: flex; align-items: flex-start; gap: 16px; }
+    .section-header img.icon { width: 50px; height: 50px; object-fit: contain; flex-shrink: 0; }
+    h2 {
+      font-family: var(--ff-display); font-size: clamp(28px,4vw,48px);
+      color: var(--text); letter-spacing: 2px; line-height: 1.2; font-weight: 400;
     }
-    a { color:inherit; }
+    .body-text { font-size: 17px; color: var(--black); line-height: 1.7; max-width: 680px; }
+
+    /* TAGS */
+    .tags { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0; }
+    .tag {
+      background: var(--dark); color: var(--bg); font-family: var(--ff-body);
+      font-size: 14px; padding: 4px 16px; border-radius: 20px;
+    }
+
+    /* INFO LIST */
+    .info-list { display: flex; flex-direction: column; gap: 32px; padding: 24px 0; }
+    .info-row { display: flex; gap: 40px; align-items: flex-start; }
+    .info-label { width: 200px; flex-shrink: 0; font-family: var(--ff-display); font-size: 18px; color: var(--text); letter-spacing: 1px; }
+    .info-desc { flex: 1; font-size: 16px; color: var(--text); line-height: 1.7; }
+
+    /* GOAL ICON */
+    .goal-icon {
+      width: 100px; height: 100px; border-radius: 50px; border: 1px solid var(--black);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      position: relative;
+    }
+    .goal-icon::before {
+      content: ''; position: absolute; inset: 4px; border-radius: 46px;
+      border: 1px solid var(--black);
+    }
+    .goal-icon img { width: 44px; height: auto; object-fit: contain; position: relative; z-index: 1; }
+
+    /* RESEARCH TABLE */
+    .research-table { display: flex; gap: 40px; padding: 20px 0; flex-wrap: wrap; }
+    .research-col { display: flex; flex-direction: column; gap: 8px; min-width: 180px; }
+    .research-col-title { font-family: var(--ff-display); font-size: 15px; color: var(--text); letter-spacing: 0.8px; border-bottom: 1px solid var(--black); padding-bottom: 8px; margin-bottom: 4px; }
+    .research-col p { font-size: 15px; color: var(--text); line-height: 1.6; }
+
+    /* IMG ROW */
+    .img-row { display: flex; gap: 40px; align-items: flex-start; padding: 20px 0; flex-wrap: wrap; }
+    .img-row .img-side { flex-shrink: 0; width: 320px; }
+    .img-row .img-side img { width: 100%; height: auto; object-fit: cover; }
+    .img-row .text-side { flex: 1; min-width: 200px; }
+    .img-caption { font-family: var(--ff-display); font-size: 14px; color: var(--text); letter-spacing: 0.7px; margin-top: 12px; }
+
+    /* FOUR IMAGES */
+    .four-images { display: flex; gap: 20px; flex-wrap: wrap; padding: 24px 0; }
+    .four-images img { flex: 1; min-width: 200px; height: 200px; object-fit: cover; }
+
+    /* COLOR SWATCHES */
+    .color-swatches { display: flex; gap: 24px; flex-wrap: wrap; padding: 24px 0; }
+    .swatch { display: flex; flex-direction: column; gap: 12px; }
+    .swatch-box { width: 120px; height: 120px; border-radius: 8px; }
+    .swatch-label { font-size: 13px; color: var(--text); line-height: 1.5; max-width: 140px; }
+    .swatch-label strong { display: block; font-size: 14px; margin-bottom: 2px; font-family: var(--ff-display); letter-spacing: 0.6px; }
+
+    /* TYPEFACE */
+    .typeface-row { display: flex; align-items: flex-start; gap: 40px; padding: 20px 0; flex-wrap: wrap; }
+    .typeface-aa { font-size: 100px; line-height: 1; color: var(--black); font-weight: 400; }
+    .typeface-info { display: flex; flex-direction: column; gap: 10px; padding-top: 16px; }
+    .typeface-info-label { font-family: var(--ff-display); font-size: 15px; color: var(--text); letter-spacing: 1px; }
+    .typeface-info-value { font-size: 18px; color: var(--text); }
+    .typestyle-row { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 8px; }
+    .typestyle-item { display: flex; flex-direction: column; gap: 2px; }
+    .typestyle-item .ts-name { font-size: 14px; color: var(--text); }
+    .typestyle-item .ts-size { font-size: 13px; color: var(--silver); }
+
+    /* FEATURES */
+    .features-list { display: flex; flex-direction: column; gap: 24px; padding: 24px 0; max-width: 680px; }
+    .feature-item { display: flex; gap: 16px; align-items: flex-start; }
+    .feature-num { font-family: var(--ff-display); font-size: 13px; color: var(--silver); letter-spacing: 1px; flex-shrink: 0; padding-top: 2px; width: 24px; }
+    .feature-content h3 { font-family: var(--ff-display); font-size: 16px; color: var(--text); letter-spacing: 0.8px; margin-bottom: 4px; font-weight: 400; }
+    .feature-content p { font-size: 15px; color: var(--text); line-height: 1.6; }
+
+    /* DIVE SITE MAP */
+    .dive-map-layout { display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap; padding: 24px 0; }
+    .dive-map-img { flex-shrink: 0; width: 360px; }
+    .dive-cards { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+    .dive-card { border: 1px solid rgba(0,0,0,0.12); border-radius: 6px; overflow: hidden; display: flex; }
+    .dive-card-thumb { width: 80px; height: 80px; flex-shrink: 0; object-fit: cover; }
+    .dive-card-body { padding: 10px 14px; }
+    .dive-card-name { font-family: var(--ff-display); font-size: 13px; color: var(--text); letter-spacing: 0.5px; margin-bottom: 6px; }
+    .dive-card-meta { display: flex; gap: 12px; flex-wrap: wrap; }
+    .dive-card-tag { font-size: 12px; color: var(--silver); }
+    .dive-card-tag strong { color: var(--text); font-weight: 400; }
+
+    /* APP SCREENS */
+    .app-section-title { padding: 40px 0 8px; }
+    .app-subtitle { font-family: var(--ff-display); font-size: 13px; color: var(--silver); letter-spacing: 0.8px; margin-top: 4px; padding: 0; }
+    .phone-flow { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; padding: 16px 0; }
+    .phone-flow img { width: 170px; height: auto; object-fit: contain; flex-shrink: 0; }
+    .phone-annotation { display: flex; flex-direction: column; gap: 4px; padding: 10px 0 10px 18px; border-left: 2px solid var(--black); margin: 8px 0 24px; }
+    .phone-annotation-title { font-family: var(--ff-display); font-size: 14px; color: var(--text); letter-spacing: 0.7px; }
+    .phone-annotation-item { font-size: 14px; color: var(--silver); }
+    .phone-annotation-item::before { content: "— "; }
+    .annotation-row { display: flex; gap: 40px; flex-wrap: wrap; }
+
+    /* GOGGLES */
+    .goggles-img-row { display: flex; gap: 0; }
+    .goggles-img-row img { flex: 1; }
+    .goggles-specs { display: flex; gap: 40px; flex-wrap: wrap; padding: 24px 0; }
+    .spec-block { display: flex; flex-direction: column; gap: 4px; }
+    .spec-label { font-family: var(--ff-display); font-size: 14px; color: var(--text); letter-spacing: 0.7px; }
+    .spec-value { font-size: 15px; color: var(--text); line-height: 1.6; }
+
+    /* LENS DIAGRAM */
+    .lens-grid { display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap; padding: 24px 0; }
+    .lens-img { flex: 1; min-width: 280px; }
+    .lens-annotations { flex: 1; min-width: 220px; display: flex; flex-direction: column; gap: 12px; }
+    .lens-row { display: flex; align-items: flex-start; gap: 12px; }
+    .lens-dot { width: 12px; height: 12px; border-radius: 6px; flex-shrink: 0; margin-top: 4px; }
+    .lens-dot.blue   { background: #0047ab; }
+    .lens-dot.red    { background: #e61f17; }
+    .lens-dot.gold   { background: #e5ce35; }
+    .lens-dot.gray   { background: var(--silver); }
+    .lens-text { font-size: 15px; color: var(--text); line-height: 1.5; }
+    .lens-sub  { font-size: 12px; color: var(--silver); margin-top: 2px; }
+
+    /* USAGE PROCESS */
+    .process-steps { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 24px 0 8px; }
+    .process-step {
+      background: var(--dark); color: var(--bg); border-radius: 40px;
+      padding: 14px 20px; font-size: 14px; line-height: 1.5; text-align: center;
+      min-height: 70px; display: flex; align-items: center; justify-content: center;
+      flex: 1; min-width: 180px;
+    }
+    .process-arrow { color: var(--silver); font-size: 18px; flex-shrink: 0; }
+    .process-images { display: flex; gap: 16px; padding: 16px 0; flex-wrap: wrap; }
+    .process-images img { width: 200px; height: auto; object-fit: cover; flex-shrink: 0; }
+
+    /* PHOTO INTERFACE */
+    .interface-row { display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap; padding: 20px 0; }
+    .interface-col { flex: 1; min-width: 240px; display: flex; flex-direction: column; gap: 14px; }
+    .interface-label {
+      font-family: var(--ff-body); font-size: 14px; color: var(--silver);
+      border: 1px solid var(--silver); padding: 3px 12px; border-radius: 20px; display: inline-block; align-self: flex-start;
+    }
+    .interface-note { font-size: 15px; color: var(--text); line-height: 1.6; }
+    .interface-img-pair { display: flex; gap: 10px; }
+    .step-block { display: flex; align-items: flex-start; gap: 8px; }
+    .step-num { background: var(--dark); color: var(--bg); width: 24px; height: 24px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+    .step-num + img { flex: 1; height: 93px; width: auto; object-fit: cover; }
+    .divider-v { width: 1px; background: rgba(0,0,0,0.15); align-self: stretch; flex-shrink: 0; }
+
+    /* FOOTER */
+    footer { background: var(--dark); padding: 40px 40px 0; }
+    .footer-top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; padding-bottom: 180px; }
+    .footer-logo { display: flex; gap: 8px; align-items: center; }
+    .footer-logo img { height: 28px; width: auto; }
+    .footer-links { display: flex; gap: 60px; flex-wrap: wrap; }
+    .footer-col { display: flex; flex-direction: column; gap: 4px; }
+    .footer-col a, .footer-col p { font-size: 16px; color: var(--bg); line-height: 1.6; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.15); padding: 24px 0; display: flex; justify-content: space-between; align-items: center; }
+    .footer-socials { display: flex; gap: 16px; align-items: center; }
+    .footer-socials a { opacity: 0.7; transition: opacity .2s; }
+    .footer-socials a:hover { opacity: 1; }
+    .footer-socials img { width: 18px; height: 18px; object-fit: contain; }
+    .footer-copy { font-size: 14px; color: var(--bg); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .meta-row { flex-direction: column; }
+      .info-row { flex-direction: column; gap: 6px; }
+      .info-label { width: auto; }
+      .img-row { flex-direction: column; }
+      .img-row .img-side { width: 100%; }
+      .research-table { flex-direction: column; }
+      .typeface-row { flex-direction: column; }
+      .dive-map-layout { flex-direction: column; }
+      .dive-map-img { width: 100%; }
+      .phone-flow img { width: 130px; }
+      .goggles-specs { flex-direction: column; }
+      .lens-grid { flex-direction: column; }
+      .interface-row { flex-direction: column; }
+      nav .nav-links { display: none; }
+      .footer-top { flex-direction: column; }
+      .footer-bottom { flex-direction: column; gap: 16px; }
+    }
+    @media (max-width: 560px) {
+      .phone-flow img { width: 110px; }
+      .swatch-box { width: 90px; height: 90px; }
+      .process-step { min-width: 140px; }
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
-      <h1>Project Two</h1>
-      <p>APP x Product</p>
-      <p>This page is currently a placeholder project detail page. Replace this with your actual project description, visuals, process notes, and technical details.</p>
-      <p><a href="index.html">← Back to Projects</a></p>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">E.C.D.</span>
+    <ul class="nav-links">
+      <li><a href="#">Projects</a></li>
+      <li><a href="#">Process</a></li>
+      <li><a href="#">Design Thinking</a></li>
+      <li><a href="#">CV</a></li>
+      <li><a href="#">About Me</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <img src="img/image-352.png" alt="Diving+ hero">
+  </section>
+
+  <!-- META ROW -->
+  <div class="meta-row">
+    <div class="meta-info">
+      <div class="meta-num">02</div>
+      <div class="meta-title">Project Two</div>
+      <div class="meta-sub">APP × Product</div>
+      <div class="meta-tag" style="margin-top:6px;">Category / Sport</div>
+      <div class="meta-tag">Date / 2022.12</div>
+    </div>
+    <div class="meta-label">
+      <span>Diving +</span>
     </div>
   </div>
+
+  <!-- DESCRIPTION -->
+  <div class="description">
+    <p>Diving+ is designed to connect the global diving community while highlighting Taiwan's unique marine ecosystem. By offering a platform for sharing diving experiences and marine ecology knowledge, we aim to make underwater exploration more engaging and accessible — establishing Diving+ as a leading international hub for divers worldwide.</p>
+  </div>
+
+  <!-- FULL IMAGE -->
+  <div style="border-top: 1px solid var(--dark);">
+    <img src="img/image-353.png" alt="Diving+ full spread">
+  </div>
+
+  <!-- DESIGN MOTIVATION -->
+  <section class="section section-border">
+    <div class="section-header">
+      <img class="icon" src="img/image-223.png" alt="Motivation icon">
+      <h2>Design Motivation</h2>
+    </div>
+    <p class="body-text">Diving+ is designed to connect the global diving community while highlighting Taiwan's unique marine ecosystem. By offering a platform for sharing diving experiences and marine ecology knowledge, we aim to make underwater exploration more engaging and accessible. Our vision is to establish Diving+ as a leading international hub for divers, fostering a deeper appreciation for marine conservation and promoting sustainable diving practices worldwide.</p>
+    <div class="tags">
+      <span class="tag"># Marine Conservation</span>
+      <span class="tag"># Global Diving Community</span>
+      <span class="tag"># Environmental Sustainability</span>
+      <span class="tag"># Exploration</span>
+      <span class="tag"># Education</span>
+    </div>
+  </section>
+
+  <!-- DESIGN PURPOSE -->
+  <section class="section section-border">
+    <div class="section-header">
+      <h2>Design Purpose</h2>
+    </div>
+    <div class="img-row">
+      <div class="img-side">
+        <img src="img/image-354.png" alt="Design purpose">
+      </div>
+      <div class="text-side">
+        <div class="research-table">
+          <div class="research-col">
+            <div class="research-col-title">User</div>
+            <p>Non-Divers</p>
+            <p>Diving Beginners</p>
+            <p>Diving Instructors</p>
+            <p>Equipment Developers</p>
+          </div>
+          <div class="research-col">
+            <div class="research-col-title">Market</div>
+            <p>Diving Influencers</p>
+            <p>Digital Media</p>
+            <p>Coach</p>
+            <p>Dive Shops</p>
+          </div>
+        </div>
+        <p style="font-size:15px; color:var(--text); line-height:1.7; margin-top:20px;">Diving+ serves diving enthusiasts of all levels, providing essential information on dive sites, safety, and marine ecology — tailored to those passionate about responsible and sustainable diving.</p>
+      </div>
+    </div>
+    <div class="img-row">
+      <div class="img-side">
+        <img src="img/image-355.png" alt="Target audience">
+        <p class="img-caption">Target Audience</p>
+      </div>
+      <div class="img-side">
+        <img src="img/image-356.png" alt="Usage environment">
+        <p class="img-caption">Usage Environment</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GOAL -->
+  <section class="section section-border">
+    <div class="section-header" style="align-items:center; gap:20px;">
+      <div class="goal-icon">
+        <img src="img/image-304.png" alt="Goal icon">
+      </div>
+      <h2>Goal</h2>
+    </div>
+    <p class="body-text">The goal is to make the underwater world more accessible to everyone. Diving+ bridges the gap between land and sea by offering a user-friendly platform that connects a global diving community, promotes marine conservation, and provides the tools needed for safe and sustainable diving.</p>
+    <div class="info-list">
+      <div class="info-row">
+        <div class="info-label">Solution</div>
+        <div class="info-desc">Diving+ is a comprehensive platform for divers to share experiences, access detailed dive site information, connect with professional instructors, and engage in environmental sustainability efforts.</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Quality</div>
+        <div class="info-desc">Designed for optimal user experience, the app offers intuitive navigation, dependable features, and high-quality content, catering to both novice and seasoned divers.</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Function</div>
+        <div class="info-desc">Easy access to dive site details, a platform for sharing experiences, connections to instructors, and tools for environmental conservation — all through a user-friendly interface.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRENT SURVEY -->
+  <section class="section section-border">
+    <div class="section-header">
+      <h2>Current Survey</h2>
+    </div>
+    <p class="body-text">The current survey offers insights into user preferences and diving activities. Scuba Diving with oxygen tanks is the top activity (70.2%), with most participants aged 15–25 (72.6%). Additionally, 59.6% of users dive 5 times or less per year. Market analysis focuses on expanding reach through events, collaborations with dive shops, and community engagement both locally and internationally.</p>
+    <img src="img/image-357.png" alt="Survey chart" style="margin:24px 0;">
+    <div class="img-row">
+      <div class="img-side">
+        <img src="img/image-358.png" alt="Market analysis">
+        <p class="img-caption">Market Analysis</p>
+        <div style="margin-top:10px; display:flex; flex-direction:column; gap:4px;">
+          <span style="font-size:14px; color:var(--text);">— Assessment Surveys &amp; Dive Shop Promotion</span>
+          <span style="font-size:14px; color:var(--text);">— Collaborative Event Organization</span>
+          <span style="font-size:14px; color:var(--text);">— Seminars, Workshops &amp; International Promotion</span>
+        </div>
+      </div>
+      <div class="img-side">
+        <img src="img/image-359.png" alt="Survey detail">
+      </div>
+    </div>
+    <div class="four-images">
+      <img src="img/image-360.png" alt="Survey data">
+      <img src="img/image-361.png" alt="Survey data">
+    </div>
+  </section>
+
+  <!-- CIS FULL IMAGES -->
+  <div style="border-top:1px solid var(--dark);">
+    <img src="img/image-364.png" alt="CIS overview">
+  </div>
+  <div style="display:flex; gap:0;">
+    <img src="img/image-362.png" alt="CIS screens" style="flex:1;">
+    <img src="img/image-363.png" alt="CIS screens" style="flex:1;">
+  </div>
+
+  <!-- VISUAL DESIGN -->
+  <section class="section section-border">
+    <div class="section-header">
+      <h2>Visual Design</h2>
+    </div>
+    <div class="typeface-row">
+      <div class="typeface-aa">Aa</div>
+      <div class="typeface-info">
+        <div class="typeface-info-label">Typeface</div>
+        <div class="typeface-info-value">Myriad Pro</div>
+        <div class="typestyle-row">
+          <div class="typestyle-item"><span class="ts-name">Headline</span><span class="ts-size">32pt</span></div>
+          <div class="typestyle-item"><span class="ts-name">Title</span><span class="ts-size">24pt</span></div>
+          <div class="typestyle-item"><span class="ts-name">Body</span><span class="ts-size">20pt</span></div>
+          <div class="typestyle-item"><span class="ts-name">Caption</span><span class="ts-size">16pt</span></div>
+          <div class="typestyle-item"><span class="ts-name">Label</span><span class="ts-size">14pt</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="color-swatches">
+      <div class="swatch">
+        <div class="swatch-box" style="background:#0f4c81;"></div>
+        <div class="swatch-label">
+          <strong>Primary Color</strong>
+          Classic Blue 19-4052<br>
+          #0F4C81<br>
+          <span style="font-size:12px;color:var(--silver);">Curiosity, Exploration, Mystery</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-box" style="background:#f5df4d;"></div>
+        <div class="swatch-label">
+          <strong>Secondary Color</strong>
+          Illuminating Yellow 13-0647<br>
+          #F5DF4D<br>
+          <span style="font-size:12px;color:var(--silver);">Entertainment, Anticipation, Joy</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-box" style="background:#939597; border:1px solid #ddd;"></div>
+        <div class="swatch-label">
+          <strong>Neutral</strong>
+          Ultimate Gray 17-5104<br>
+          #939597<br>
+          <span style="font-size:12px;color:var(--silver);">Reliability, Technology, Innovation</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INNOVATIVE FEATURES -->
+  <section class="section section-border">
+    <div class="section-header">
+      <h2>Innovative Features</h2>
+    </div>
+    <img src="img/image-482.png" alt="App overview" style="margin-bottom:24px;">
+    <div class="features-list">
+      <div class="feature-item">
+        <div class="feature-num">01</div>
+        <div class="feature-content">
+          <h3>Community Sharing Mechanism</h3>
+          <p>Integrates social services to enable sharing of diving experiences via a rotating dive watch icon.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">02</div>
+        <div class="feature-content">
+          <h3>Dive Sites Information</h3>
+          <p>Access essential details on Taiwan's dive spots, including conditions and safety tips.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">03</div>
+        <div class="feature-content">
+          <h3>Environmental Awareness</h3>
+          <p>Promote ecological sustainability with a reward token system.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">04</div>
+        <div class="feature-content">
+          <h3>Diving Courses</h3>
+          <p>Connect with professional instructors for safer diving.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">05</div>
+        <div class="feature-content">
+          <h3>Diving Goggles Design</h3>
+          <p>Wearable tech syncs with the app, offering real-time data for an immersive diving experience.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVE SITE MAP -->
+  <section class="section section-border">
+    <div class="section-header">
+      <h2>Dive Site Map</h2>
+    </div>
+    <p style="font-family:var(--ff-display); font-size:13px; letter-spacing:0.8px; color:var(--silver); margin-bottom:0;">Diving Areas Introduction</p>
+    <div class="dive-map-layout">
+      <div class="dive-map-img">
+        <img src="img/image-469.png" alt="Taiwan diving areas map">
+      </div>
+      <div class="dive-cards">
+        <div class="dive-card">
+          <img class="dive-card-thumb" src="img/image-470.png" alt="Penghu">
+          <div class="dive-card-body">
+            <div class="dive-card-name">Penghu Diving Area</div>
+            <div class="dive-card-meta">
+              <span class="dive-card-tag"><strong>Season</strong> Apr – Oct</span>
+              <span class="dive-card-tag"><strong>Visibility</strong> ~5–30m</span>
+              <span class="dive-card-tag"><strong>Temp</strong> 15–30°C</span>
+            </div>
+          </div>
+        </div>
+        <div class="dive-card">
+          <img class="dive-card-thumb" src="img/image-470-1.png" alt="Xiaoliuqiu">
+          <div class="dive-card-body">
+            <div class="dive-card-name">Xiaoliuqiu Diving Area</div>
+            <div class="dive-card-meta">
+              <span class="dive-card-tag"><strong>Season</strong> Year-round</span>
+              <span class="dive-card-tag"><strong>Visibility</strong> ~5–20m</span>
+              <span class="dive-card-tag"><strong>Temp</strong> 22–30°C</span>
+            </div>
+          </div>
+        </div>
+        <div class="dive-card">
+          <img class="dive-card-thumb" src="img/image-470-2.png" alt="Kenting">
+          <div class="dive-card-body">
+            <div class="dive-card-name">Kenting Diving Area</div>
+            <div class="dive-card-meta">
+              <span class="dive-card-tag"><strong>Season</strong> Year-round</span>
+              <span class="dive-card-tag"><strong>Visibility</strong> ~5–20m</span>
+              <span class="dive-card-tag"><strong>Temp</strong> 22–30°C</span>
+            </div>
+          </div>
+        </div>
+        <div class="dive-card">
+          <img class="dive-card-thumb" src="img/image-470-3.png" alt="Lanyu">
+          <div class="dive-card-body">
+            <div class="dive-card-name">Lanyu (Orchid Island)</div>
+            <div class="dive-card-meta">
+              <span class="dive-card-tag"><strong>Season</strong> Year-round</span>
+              <span class="dive-card-tag"><strong>Visibility</strong> ~50m</span>
+              <span class="dive-card-tag"><strong>Temp</strong> 18–28°C</span>
+            </div>
+          </div>
+        </div>
+        <div class="dive-card">
+          <img class="dive-card-thumb" src="img/image-470-4.png" alt="Green Island">
+          <div class="dive-card-body">
+            <div class="dive-card-name">Green Island Diving Area</div>
+            <div class="dive-card-meta">
+              <span class="dive-card-tag"><strong>Season</strong> Year-round</span>
+              <span class="dive-card-tag"><strong>Visibility</strong> ~40m</span>
+              <span class="dive-card-tag"><strong>Temp</strong> 18–24°C</span>
+            </div>
+          </div>
+        </div>
+        <div class="dive-card">
+          <img class="dive-card-thumb" src="img/image-470-5.png" alt="Yilan Hualien">
+          <div class="dive-card-body">
+            <div class="dive-card-name">Yilan | Hualien Diving Area</div>
+            <div class="dive-card-meta">
+              <span class="dive-card-tag"><strong>Season</strong> Apr – Oct</span>
+              <span class="dive-card-tag"><strong>Visibility</strong> ~5–10m</span>
+              <span class="dive-card-tag"><strong>Temp</strong> 21–30°C</span>
+            </div>
+          </div>
+        </div>
+        <div class="dive-card">
+          <img class="dive-card-thumb" src="img/image-470-6.png" alt="Northeast Coast">
+          <div class="dive-card-body">
+            <div class="dive-card-name">Northeast Coast Diving Area</div>
+            <div class="dive-card-meta">
+              <span class="dive-card-tag"><strong>Season</strong> Apr – Oct</span>
+              <span class="dive-card-tag"><strong>Visibility</strong> ~5–10m</span>
+              <span class="dive-card-tag"><strong>Temp</strong> 23–30°C</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APP INTERFACE — EXPLORING -->
+  <section class="section section-border">
+    <div class="app-section-title">
+      <h2>App Interface</h2>
+    </div>
+
+    <p class="app-subtitle" style="margin:20px 0 4px;">Exploring / Hot / Issue</p>
+    <div class="phone-flow">
+      <img src="img/image-381.png" alt="Exploring">
+      <img src="img/image-384.png" alt="Hot">
+      <img src="img/image-385.png" alt="Issue">
+    </div>
+    <div class="annotation-row">
+      <div class="phone-annotation">
+        <div class="phone-annotation-title">Rotate Dive Watch Icon</div>
+        <div class="phone-annotation-item">Post Basic Information Sharing</div>
+        <div class="phone-annotation-item">Depth-Related Photos or Videos</div>
+        <div class="phone-annotation-item">Diving Equipment</div>
+      </div>
+      <div class="phone-annotation">
+        <div class="phone-annotation-title">Hot &amp; Issue Feed</div>
+        <div class="phone-annotation-item">Popular Posts</div>
+        <div class="phone-annotation-item">Marine Ecology Sustainability</div>
+        <div class="phone-annotation-item">ECO Issues</div>
+      </div>
+    </div>
+
+    <p class="app-subtitle" style="margin:20px 0 4px;">Diving Map</p>
+    <div class="phone-flow">
+      <img src="img/image-387.png" alt="Map overview">
+      <img src="img/image-401.png" alt="Map detail">
+    </div>
+    <div class="phone-annotation" style="max-width:500px;">
+      <div class="phone-annotation-title">Diving Areas Information</div>
+      <div class="phone-annotation-item">Area name, Geographical Location</div>
+      <div class="phone-annotation-item">Common Marine Species, Diving Season</div>
+      <div class="phone-annotation-item">Visibility, Temperature, Topography, Water Depth</div>
+    </div>
+
+    <p class="app-subtitle" style="margin:20px 0 4px;">Event</p>
+    <div class="phone-flow">
+      <img src="img/image-404.png" alt="Event 1">
+      <img src="img/image-405.png" alt="Event 2">
+      <img src="img/image-406.png" alt="Event 3">
+      <img src="img/image-403.png" alt="Event detail">
+    </div>
+    <div class="annotation-row">
+      <div class="phone-annotation">
+        <div class="phone-annotation-title">Discussion</div>
+        <div class="phone-annotation-item">Projects &amp; Comments</div>
+      </div>
+      <div class="phone-annotation">
+        <div class="phone-annotation-title">Group / Course / Sustainability</div>
+        <div class="phone-annotation-item">International Diving Certification</div>
+        <div class="phone-annotation-item">International Coach Certification</div>
+        <div class="phone-annotation-item">Ecological Sustainability Activity</div>
+      </div>
+    </div>
+
+    <p class="app-subtitle" style="margin:20px 0 4px;">Profile</p>
+    <div class="phone-flow">
+      <img src="img/image-417.png" alt="Profile 1">
+      <img src="img/image-418.png" alt="Profile 2">
+      <img src="img/image-419.png" alt="Profile 3">
+    </div>
+    <div class="annotation-row">
+      <div class="phone-annotation">
+        <div class="phone-annotation-title">Dive Log Content</div>
+        <div class="phone-annotation-item">Basic Info, Diving Certification, Records</div>
+        <div class="phone-annotation-item">Site Evaluation (Location, Weather, Visibility)</div>
+        <div class="phone-annotation-item">Cylinder &amp; Equipment Details</div>
+      </div>
+      <div class="phone-annotation">
+        <div class="phone-annotation-title">Diving Records</div>
+        <div class="phone-annotation-item">Type (Environment / Species)</div>
+        <div class="phone-annotation-item">Used Equipment</div>
+        <div class="phone-annotation-item">Diving Time / Depth / Photos</div>
+      </div>
+    </div>
+    <div class="phone-flow" style="margin-top:16px;">
+      <img src="img/image-421.png" alt="Record screen">
+      <img src="img/image-422.png" alt="Record screen">
+      <img src="img/image-423.png" alt="Record screen">
+    </div>
+  </section>
+
+  <!-- GOGGLES FULL SPREAD -->
+  <img src="img/image-432.png" alt="Diving+ Goggles spread">
+
+  <!-- GOGGLES SECTION -->
+  <section class="section section-border">
+    <div class="section-header">
+      <h2>Diving+ Goggles</h2>
+    </div>
+    <p class="body-text">Diving+ Goggles integrates cutting-edge technology for essential dive data display and recording. This enhances safety, improves communication, and allows effortless capture of underwater adventures.</p>
+    <div class="tags">
+      <span class="tag"># Safety</span>
+      <span class="tag"># Exploration</span>
+      <span class="tag"># Dive Data Display</span>
+      <span class="tag"># Recording Capabilities</span>
+    </div>
+    <div class="goggles-img-row" style="margin-top:24px;">
+      <img src="img/image-433.png" alt="Goggles front">
+      <img src="img/image-434.png" alt="Goggles angle">
+    </div>
+    <div class="goggles-specs">
+      <div class="spec-block">
+        <div class="spec-label">Size</div>
+        <div class="spec-value">Frame: 15.7 × 7.7 cm<br>Lens: 13.9 × 6.0 cm</div>
+      </div>
+      <div class="spec-block">
+        <div class="spec-label">Material</div>
+        <div class="spec-value">Plastic frame, tempered glass lens</div>
+      </div>
+      <div class="spec-block">
+        <div class="spec-label">Colors</div>
+        <div style="display:flex; gap:8px; margin-top:8px;">
+          <div style="width:28px;height:28px;background:#939597;border-radius:50%;"></div>
+          <div style="width:28px;height:28px;background:#0f4c81;border-radius:50%;"></div>
+          <div style="width:28px;height:28px;background:#f5df4d;border-radius:50%;"></div>
+        </div>
+        <div class="spec-value" style="margin-top:6px;">Ultimate Gray · Classic Blue · Illuminating Yellow</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IDEATION -->
+  <section class="section section-border">
+    <div class="section-header">
+      <h2>Ideation</h2>
+    </div>
+    <p class="body-text" style="margin-bottom:20px;">Exploration of concepts through iteration sketching.</p>
+    <div style="display:flex; gap:0;">
+      <img src="img/image-435.png" alt="Sketch 1" style="flex:1;">
+      <img src="img/image-436.png" alt="Sketch 2" style="flex:1;">
+    </div>
+  </section>
+
+  <!-- EXPLODED VIEW -->
+  <section class="section section-border">
+    <div class="section-header">
+      <h2>Exploded View</h2>
+    </div>
+    <p class="body-text" style="margin-bottom:24px;">Highlights the smart diving goggle's components, showcasing its functional design.</p>
+    <img src="img/image-437.png" alt="Exploded view">
+    <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:20px;">
+      <span style="font-size:13px;color:var(--silver);">Tempered Glass</span>
+      <span style="font-size:13px;color:var(--silver);">Photography Module</span>
+      <span style="font-size:13px;color:var(--silver);">Power Switch</span>
+      <span style="font-size:13px;color:var(--silver);">Camera Lens</span>
+      <span style="font-size:13px;color:var(--silver);">Silicone Eyeglass Strap</span>
+      <span style="font-size:13px;color:var(--silver);">Lens Waterproof Seal</span>
+      <span style="font-size:13px;color:var(--silver);">Silicone Strap</span>
+      <span style="font-size:13px;color:var(--silver);">Bluetooth</span>
+      <span style="font-size:13px;color:var(--silver);">Timer</span>
+      <span style="font-size:13px;color:var(--silver);">Diving Mask Frame</span>
+      <span style="font-size:13px;color:var(--silver);">Sapphire Crystal Surface</span>
+      <span style="font-size:13px;color:var(--silver);">Motherboard Location</span>
+      <span style="font-size:13px;color:var(--silver);">Recording Module</span>
+    </div>
+  </section>
+
+  <!-- MAIN BUTTONS -->
+  <section class="section section-border">
+    <div class="section-header">
+      <h2>Main Buttons</h2>
+    </div>
+    <p class="body-text" style="margin-bottom:24px;">Showcases the key control buttons, designed for intuitive and easy operation.</p>
+    <img src="img/image-438.png" alt="Main buttons diagram" style="max-width:720px;">
+  </section>
+
+  <!-- PHOTO & VIDEO INTERFACE -->
+  <section class="section section-border">
+    <div class="section-header">
+      <h2>Photo &amp; Video Interface</h2>
+    </div>
+    <div class="interface-row">
+      <div class="interface-col">
+        <span class="interface-label">Camera</span>
+        <span class="interface-note">The frame flashes once to indicate a successful photo.</span>
+        <img src="img/image-444.png" alt="Camera interface" style="height:180px;width:auto;object-fit:cover;">
+        <div style="display:flex; gap:10px;">
+          <div style="display:flex; align-items:flex-start; gap:8px;">
+            <div class="step-num">1</div>
+            <img src="img/image-445.png" alt="" style="height:93px;width:auto;object-fit:cover;">
+          </div>
+          <div style="display:flex; align-items:flex-start; gap:8px;">
+            <div class="step-num">2</div>
+            <img src="img/image-446.png" alt="" style="height:93px;width:auto;object-fit:cover;">
+          </div>
+        </div>
+      </div>
+      <div class="divider-v"></div>
+      <div class="interface-col">
+        <span class="interface-label">Recording</span>
+        <span class="interface-note">Recording starts when the frame and red dot light up.</span>
+        <img src="img/image-447.png" alt="Recording interface" style="height:180px;width:auto;object-fit:cover;">
+        <div style="display:flex; gap:10px;">
+          <div style="display:flex; align-items:flex-start; gap:8px;">
+            <div class="step-num">1</div>
+            <img src="img/image-448.png" alt="" style="height:93px;width:auto;object-fit:cover;">
+          </div>
+          <div style="display:flex; align-items:flex-start; gap:8px;">
+            <div class="step-num">2</div>
+            <img src="img/image-449.png" alt="" style="height:93px;width:auto;object-fit:cover;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LENS DISPLAY INFORMATION -->
+  <section class="section section-border">
+    <div class="section-header">
+      <h2>Lens Display Information</h2>
+    </div>
+    <p class="body-text" style="margin-bottom:24px;">Displays essential dive information directly on the lens for easy viewing during the dive.</p>
+    <div class="lens-grid">
+      <div class="lens-img">
+        <img src="img/image-450.png" alt="Lens display diagram">
+      </div>
+      <div class="lens-annotations">
+        <div class="lens-row">
+          <div class="lens-dot gray"></div>
+          <div class="lens-text">Depth — current / maximum / average</div>
+        </div>
+        <div class="lens-row">
+          <div class="lens-dot gray"></div>
+          <div class="lens-text">Water temperature detection</div>
+        </div>
+        <div class="lens-row">
+          <div class="lens-dot gray"></div>
+          <div class="lens-text">
+            Time data — current time &amp; dive time
+          </div>
+        </div>
+        <div class="lens-row">
+          <div class="lens-dot gray"></div>
+          <div class="lens-text">
+            Bluetooth
+            <div class="lens-sub">(users can directly share basic information to the Diving+ APP)</div>
+          </div>
+        </div>
+        <div class="lens-row">
+          <div class="lens-dot red"></div>
+          <div class="lens-text">SOS System</div>
+        </div>
+        <div class="lens-row">
+          <div class="lens-dot gold"></div>
+          <div class="lens-text">
+            Safe Stop Alert
+            <div class="lens-sub">(alerts you when you reach a safe stop depth)</div>
+          </div>
+        </div>
+        <div class="lens-row">
+          <div class="lens-dot blue"></div>
+          <div class="lens-text">GPS Positioning System</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- USAGE PROCESS -->
+  <section class="section section-border">
+    <div class="section-header">
+      <h2>Usage Process</h2>
+    </div>
+    <div class="process-steps">
+      <div class="process-step">Hold power button<br>3 sec to activate</div>
+      <span class="process-arrow">→</span>
+      <div class="process-step">Wear &amp; adjust<br>the diving gear</div>
+      <span class="process-arrow">→</span>
+      <div class="process-step">Hold Bluetooth button<br>3 sec to pair with phone</div>
+    </div>
+    <div class="process-images">
+      <img src="img/image-461.png" alt="Usage step 1">
+      <img src="img/image-462.png" alt="Usage step 2">
+      <img src="img/image-463.png" alt="Usage step 3">
+    </div>
+    <div class="process-steps" style="margin-top:12px;">
+      <div class="process-step">Double-press recording<br>button to start/stop video</div>
+      <span class="process-arrow">→</span>
+      <div class="process-step">Press camera button<br>once for photos</div>
+      <span class="process-arrow">→</span>
+      <div class="process-step">Hold timer button<br>3 sec to log dive time</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-logo">
+        <img src="img/e-.svg" alt="E." style="height:28px;width:auto;">
+        <img src="img/c-.svg" alt="C." style="height:28px;width:auto;">
+        <img src="img/d-.svg" alt="D." style="height:28px;width:auto;">
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <a href="#">About Me</a>
+          <a href="#">Projects</a>
+          <a href="#">Others</a>
+        </div>
+        <div class="footer-col">
+          <p>Taipei, Taiwan</p>
+        </div>
+        <div class="footer-col">
+          <a href="mailto:emiliachen881230@gmail.com">emiliachen881230@gmail.com</a>
+          <a href="https://www.behance.net/emiliachen1230" target="_blank">behance.net/emiliachen1230</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-socials">
+        <a href="https://www.facebook.com/figmadesign/" target="_blank">
+          <img src="img/vector.svg" alt="Facebook">
+        </a>
+        <a href="https://www.instagram.com/figma/" target="_blank">
+          <img src="img/vector-1.svg" alt="Instagram">
+        </a>
+        <a href="https://www.youtube.com/figmadesign" target="_blank">
+          <img src="img/vector-3.svg" alt="YouTube">
+        </a>
+      </div>
+      <p class="footer-copy">© 2026 All Rights Reserved</p>
+    </div>
+  </footer>
+
+  <script>
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('h2, .feature-item, .dive-card, .swatch, .process-step, .phone-annotation').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(16px)';
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      io.observe(el);
+    });
+  </script>
+
 </body>
 </html>
