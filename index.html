@@ -117,12 +117,19 @@
       margin: 0 auto;
     }
 
+    .hero-profile { 
+      width: 200px; 
+      height: auto; 
+      display: block; 
+      margin-bottom: 0px; 
+    }
+
     .hero-name {
       font-family: var(--f-display);
       font-size: clamp(36px, 5vw, 52px);
       letter-spacing: 3px;
       line-height: 1.1;
-      margin-bottom: 28px;
+      margin: 50px 0px 28px;
     }
 
     .hero-bio {
@@ -133,7 +140,7 @@
     }
 
     .hero-bio .cap {
-      font-size: 1.35em;
+      font-size: 2em;
       font-family: var(--f-body);
       font-weight: 300;
     }
@@ -415,7 +422,7 @@
       .hamburger { display: flex; }
 
       .hero {
-        padding: 90px 20px 60px;
+        padding: 150px 20px 60px;
       }
 
       .hero-name {
@@ -488,8 +495,8 @@
 
   <!-- ── HERO ── -->
   <section class="hero reveal" id="about">
-    <h1 class="hero-name">
-Emilia Chen</h1>
+    <img class="hero-profile" src="images/profile-emilia.png" alt="Profile Emilia">
+    <h1 class="hero-name">Emilia Chen</h1>
     <p class="hero-bio">
       <span class="cap">I</span>'m a passionate Product and UI/UX
       <span class="cap">D</span>esigner/<span class="cap">E</span>ngineer.<br>
