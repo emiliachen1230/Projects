@@ -32,7 +32,7 @@
     a { text-decoration: none; color: inherit; }
 
     /* NAV */
-    nav {
+    .site-nav {
       position: fixed; top: 0; left: 0; width: 100%;
       background: var(--bg); z-index: 100;
       border-bottom: 1px solid rgba(0,0,0,0.08);
@@ -45,8 +45,8 @@
     .nav-links a:hover { opacity: 0.5; }
 
     /* HERO */
-    .hero { margin-top: 64px; height: 580px; overflow: hidden; }
-    .hero img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+    .hero { margin-top: 64px; height: clamp(420px, 72vh, 760px); overflow: hidden; background: #000; }
+    .hero img { width: 100%; height: 100%; object-fit: cover; object-position: center 74%; transform: scale(1.04); }
 
     /* META ROW */
     .meta-row { display: flex; align-items: stretch; border-bottom: 1px solid var(--dark); }
@@ -112,6 +112,20 @@
     .ideation-header  { padding: 40px 0 20px; display: flex; flex-direction: column; gap: 8px; }
     .ideation-header p { font-size: 16px; color: var(--text); }
 
+    /* IDEATION SKETCHES */
+.ideation-sketches {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0px;
+  padding: 0 0 20px;
+}
+
+.ideation-sketches img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
     /* POUR SPLIT */
     .pour-section { border: 1px solid var(--black); display: flex; overflow: hidden; }
     .pour-text   { flex: 1; padding: 40px 32px; display: flex; flex-direction: column; justify-content: center; gap: 20px; }
@@ -143,25 +157,86 @@
 
     /* QUOTE */
     .quote-section { padding: 40px 24px; border-top: 1px solid var(--dark); }
-    .quote-section p { font-family: 'Times New Roman', serif; font-size: 18px; color: var(--black); line-height: 1.7; max-width: 750px; }
+    .quote-section p { font-family: var(--ff-body); font-size: 18px; color: var(--black); line-height: 1.7; max-width: 750px; }
 
     /* FINAL GALLERY */
     .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
     .gallery-grid img { aspect-ratio: 1; object-fit: cover; }
 
     /* FOOTER */
-    footer { background: var(--dark); padding: 40px 40px 0; }
-    .footer-top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; padding-bottom: 180px; }
-    .footer-logo img { height: 28px; width: auto; }
-    .footer-links { display: flex; gap: 60px; flex-wrap: wrap; }
-    .footer-col { display: flex; flex-direction: column; gap: 4px; }
-    .footer-col a, .footer-col p { font-size: 16px; color: var(--bg); line-height: 1.6; }
-    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.15); padding: 24px 0; display: flex; justify-content: space-between; align-items: center; }
-    .footer-socials { display: flex; gap: 16px; align-items: center; }
-    .footer-socials a { opacity: 0.7; transition: opacity .2s; }
-    .footer-socials a:hover { opacity: 1; }
-    .footer-socials img { width: 18px; height: 18px; object-fit: contain; }
-    .footer-copy { font-size: 14px; color: var(--bg); }
+    footer {
+      background: var(--dark);
+      color: var(--bg);
+      padding: 60px 40px 0;
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 48px;
+      padding-bottom: 80px;
+    }
+    .footer-logo {
+      font-family: var(--ff-display);
+      font-size: 28px;
+      letter-spacing: 4px;
+      color: var(--bg);
+    }
+    .footer-nav,
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .footer-nav a,
+    .footer-contact span,
+    .footer-contact a {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--bg);
+      letter-spacing: -0.2px;
+      opacity: 0.85;
+    }
+    .footer-nav a:hover,
+    .footer-contact a:hover {
+      opacity: 1;
+    }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0 28px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-socials {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .footer-socials a {
+      opacity: 0.6;
+      transition: opacity 0.2s;
+      display: flex;
+      align-items: center;
+    }
+    .footer-socials a:hover {
+      opacity: 1;
+    }
+    .footer-socials svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--bg);
+      flex-shrink: 0;
+    }
+    .footer-copy {
+      font-size: 13px;
+      color: var(--bg);
+      opacity: 0.6;
+      letter-spacing: -0.1px;
+    }
 
     /* RESPONSIVE */
     @media (max-width: 860px) {
@@ -174,29 +249,30 @@
       .goal-label { width: auto; }
       .detail-row { flex-direction: column; }
       .gallery-grid { grid-template-columns: 1fr; }
-      .footer-top { flex-direction: column; }
-      .footer-bottom { flex-direction: column; gap: 16px; }
-      nav .nav-links { display: none; }
+      .footer-top { flex-direction: column; gap: 40px; padding-bottom: 48px; }
+      .footer-bottom { flex-direction: column; gap: 16px; align-items: flex-start; }
+      .site-nav .nav-links { display: none; }
+      .hero img { height: clamp(360px, 56vh, 520px); }
     }
   </style>
 </head>
 <body>
 
   <!-- NAV -->
-  <nav>
+  <nav class="site-nav">
     <span class="nav-logo">E.C.D.</span>
     <ul class="nav-links">
-      <li><a href="#">Projects</a></li>
+      <li><a href="index.html#projects">Projects</a></li>
       <li><a href="#">Process</a></li>
       <li><a href="#">Design Thinking</a></li>
       <li><a href="#">CV</a></li>
-      <li><a href="#">About Me</a></li>
+      <li><a href="index.html#about">About Me</a></li>
     </ul>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
-    <img src="img/p5-image-219.png" alt="Georg Jensen Boil Kettle">
+    <img src="images/project-5-1.png" alt="Georg Jensen Boil Kettle">
   </section>
 
   <!-- PROJECT META -->
@@ -219,12 +295,12 @@
   </div>
 
   <!-- FULL IMAGE -->
-  <img src="img/p5-image-301.png" alt="Georg Jensen kettle overview" style="width:100%;">
+  <img src="images/project-5-2.png" alt="Georg Jensen kettle overview">
 
   <!-- DESIGN MOTIVATION -->
   <section class="section section-border">
     <div class="section-header">
-      <img class="icon" src="img/p5-image-223.png" alt="Design icon">
+      <img class="icon" src="images/project-5-3.png" alt="Design icon">
       <h2>Design Motivation —<br>Georg Jensen Classic Design Boil Kettle</h2>
     </div>
     <p class="body-text">This kettle is inspired by Georg Jensen's famous design style, combining elegance and functionality. It aims to turn the simple act of making tea into a refined experience. The design blends classic beauty with modern convenience, making everyday tea preparation more stylish and enjoyable.</p>
@@ -240,16 +316,16 @@
   <section class="section section-border">
     <div class="content-grid">
       <div class="content-col">
-        <img src="img/p5-image-302.png" alt="Design Purpose">
+        <img src="images/project-5-4.png" alt="Design Purpose">
         <div class="col-label">Design Purpose</div>
         <p class="body-text">This kettle is designed for individuals who value both luxury and convenience in their everyday lives. It offers a perfect balance of elegance and functionality, catering to those who want an easy-to-use yet stylish appliance that complements a sophisticated home. Ideal for tea lovers who appreciate high-quality, beautifully designed products, this kettle fits seamlessly into modern or elegant environments, whether in the kitchen or living room.</p>
       </div>
       <div class="content-col">
-        <img src="img/p5-image-303.png" alt="User Type">
+        <img src="images/project-5-5.png" alt="User Type">
         <div class="col-tag">User Type</div>
       </div>
       <div class="content-col">
-        <img src="img/p5-image-292.png" alt="Usage Environment">
+        <img src="images/project-5-6.png" alt="Usage Environment">
         <div class="col-tag">Usage Environment</div>
       </div>
     </div>
@@ -258,7 +334,7 @@
   <!-- GOAL / OPPORTUNITY / FEATURE / STYLE -->
   <section class="goal-section">
     <div class="goal-icon-wrap">
-      <img src="img/p5-image-304.png" alt="Goal icon">
+      <img src="images/project-5-7.png" alt="Goal icon">
     </div>
     <div class="goal-content">
       <div class="goal-row">
@@ -291,11 +367,20 @@
       <h2>Ideation</h2>
       <p>Exploration of concepts through iteration sketching.</p>
     </div>
-    <img src="img/p5-frame-1517.svg" alt="Ideation sketches" style="width:100%;">
+    <img src="images/project-5-8.png" alt="Ideation sketches">
   </section>
+  
+  <!-- IDEATION SKETCHES -->
+  <div class="ideation-sketches">
+    <img src="images/project-5-9.png" alt="Ideation sketch 1">
+    <img src="images/project-5-10.png" alt="Ideation sketch 2">
+    <img src="images/project-5-11.png" alt="Ideation sketch 3">
+    <img src="images/project-5-12.png" alt="Ideation sketch 4">
+  </div>
+</section>
 
   <!-- KETTLE IN USE -->
-  <img src="img/p5-image-313.png" alt="Kettle in use" style="width:100%;">
+  <img src="images/project-5-13.png" alt="Kettle in use">
 
   <!-- SIMPLY POUR -->
   <div class="pour-section section-dark-border">
@@ -304,7 +389,7 @@
       <p>Easy adjustable handle design making it convenient to adjust variety angles of pouring water.</p>
     </div>
     <div class="pour-image">
-      <img src="img/p5-image-314.png" alt="Kettle pouring detail">
+      <img src="images/project-5-14.png" alt="Kettle pouring detail">
     </div>
   </div>
 
@@ -314,7 +399,7 @@
     <div class="detail-list">
 
       <div class="detail-row">
-        <div class="detail-img"><img src="img/p5-image-316.png" alt="Product Parts"></div>
+        <div class="detail-img"><img src="images/project-5-15.png" alt="Product Parts"></div>
         <div class="detail-info">
           <div class="detail-name">Product Parts</div>
           <div class="detail-parts">
@@ -325,7 +410,7 @@
       </div>
 
       <div class="detail-row">
-        <div class="detail-img"><img src="img/p5-image-317.png" alt="Water Levels"></div>
+        <div class="detail-img"><img src="images/project-5-16.png" alt="Water Levels"></div>
         <div class="detail-info">
           <div class="detail-name">Water Levels</div>
           <div class="detail-parts">
@@ -336,7 +421,7 @@
       </div>
 
       <div class="detail-row">
-        <div class="detail-img"><img src="img/p5-image-318.png" alt="Power Button"></div>
+        <div class="detail-img"><img src="images/project-5-17.png" alt="Power Button"></div>
         <div class="detail-info">
           <div class="detail-name">Power Button</div>
           <div class="detail-parts">
@@ -348,7 +433,7 @@
       </div>
 
       <div class="detail-row">
-        <div class="detail-img"><img src="img/p5-image-319.png" alt="Temperature Display"></div>
+        <div class="detail-img"><img src="images/project-5-18.png" alt="Temperature Display"></div>
         <div class="detail-info">
           <div class="detail-name">Water Temperature Display</div>
           <div class="detail-parts">
@@ -359,7 +444,7 @@
       </div>
 
       <div class="detail-row">
-        <div class="detail-img"><img src="img/p5-image-320.png" alt="Temperature Adjustments"></div>
+        <div class="detail-img"><img src="images/project-5-19.png" alt="Temperature Adjustments"></div>
         <div class="detail-info">
           <div class="detail-name">Water Temperature Adjustments</div>
           <div class="detail-parts">
@@ -370,7 +455,7 @@
       </div>
 
       <div class="detail-row">
-        <div class="detail-img"><img src="img/p5-image-321.png" alt="Certified Mark"></div>
+        <div class="detail-img"><img src="images/project-5-20.png" alt="Certified Mark"></div>
         <div class="detail-info">
           <div class="detail-name">Product Certified Mark</div>
           <p class="detail-note">Product meets EU safety, health, and environmental standards, as well as U.S. FDA safety and effectiveness regulations.</p>
@@ -381,31 +466,31 @@
   </section>
 
   <!-- FULL RENDERS -->
-  <img src="img/p5-image-315.png" alt="Kettle full render" style="width:100%;">
-  <img src="img/p5-image-324.png" alt="Kettle lifestyle" style="width:100%;">
+  <img src="images/project-5-21.png" alt="Kettle full render">
+  <img src="images/project-5-22.png" alt="Kettle lifestyle">
 
   <!-- COLOUR VARIANTS -->
   <section class="colour-section">
     <h2>Colour Options</h2>
     <div class="colour-list">
       <div class="colour-row">
-        <img src="img/p5-image-325.png" alt="Polished Black">
+        <img src="images/project-5-23.png" alt="Polished Black">
         <span class="colour-name">Anodized Aluminum Polished Black</span>
       </div>
       <div class="colour-row">
-        <img src="img/p5-image-326.png" alt="Polished Champagne">
+        <img src="images/project-5-24.png" alt="Polished Champagne">
         <span class="colour-name">Anodized Titanium Polished Champagne</span>
       </div>
       <div class="colour-row">
-        <img src="img/p5-image-327.png" alt="Polished Silver">
+        <img src="images/project-5-25.png" alt="Polished Silver">
         <span class="colour-name">Polished Silver</span>
       </div>
     </div>
   </section>
 
   <!-- MORE RENDERS -->
-  <img src="img/p5-image-322.png" alt="Kettle render 2" style="width:100%;">
-  <img src="img/p5-image-323.png" alt="Kettle render 3" style="width:100%;">
+  <img src="images/project-5-26.png" alt="Kettle render 2">
+  <img src="images/project-5-27.png" alt="Kettle render 3">
 
   <!-- QUOTE -->
   <section class="quote-section">
@@ -413,49 +498,58 @@
   </section>
 
   <!-- FINAL GALLERY -->
-  <img src="img/p5-image-331.png" alt="Final overview" style="width:100%;">
+  <img src="images/project-5-28.png" alt="Final overview">
   <div class="gallery-grid">
-    <img src="img/p5-image-328.png" alt="Kettle detail 1">
-    <img src="img/p5-image-329.png" alt="Kettle detail 2">
-    <img src="img/p5-image-330.png" alt="Kettle detail 3">
+    <img src="images/project-5-29.png" alt="Kettle detail 1">
+    <img src="images/project-5-30.png" alt="Kettle detail 2">
+    <img src="images/project-5-31.png" alt="Kettle detail 3">
   </div>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-top">
-      <div class="footer-logo">
-        <img src="img/logo.svg" alt="Logo" style="height:28px;width:auto;">
-      </div>
-      <div class="footer-links">
-        <div class="footer-col">
-          <a href="#">Company</a>
-          <a href="#">Services</a>
-          <a href="#">Gallery</a>
-        </div>
-        <div class="footer-col">
-          <p>4827 Candyland Lane<br>Raleigh<br>NC 27609</p>
-        </div>
-        <div class="footer-col">
-          <a href="mailto:hello@figma.com">hello@figma.com</a>
-          <a href="tel:6465554561">(646) 555-4561</a>
-        </div>
-      </div>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-logo">E.C.</div>
+
+    <div class="footer-nav">
+      <a href="index.html#about">About Me</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="#">Others</a>
     </div>
-    <div class="footer-bottom">
-      <div class="footer-socials">
-        <a href="https://www.facebook.com/figmadesign/" target="_blank">
-          <img src="img/vector.svg" alt="Facebook">
-        </a>
-        <a href="https://www.instagram.com/figma/" target="_blank">
-          <img src="img/vector-1.svg" alt="Instagram">
-        </a>
-        <a href="https://www.youtube.com/figmadesign" target="_blank">
-          <img src="img/vector-3.svg" alt="YouTube">
-        </a>
-      </div>
-      <p class="footer-copy">© 2025 All Rights Reserved</p>
+
+    <div class="footer-contact">
+      <span>Taipei, Taiwan</span>
+      <a href="mailto:emiliachen881230@gmail.com">emiliachen881230@gmail.com</a>
+      <a href="https://www.behance.net/emiliachen1230" target="_blank" rel="noopener">behance.net/emiliachen1230</a>
     </div>
-  </footer>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-socials">
+      <a href="https://www.facebook.com" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+        </svg>
+      </a>
+
+      <a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="white" stroke-width="2"/>
+          <circle cx="12" cy="12" r="4" fill="none" stroke="white" stroke-width="2"/>
+          <circle cx="17.5" cy="6.5" r="1.5"/>
+        </svg>
+      </a>
+
+      <a href="https://www.youtube.com" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
+          <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1d231c"/>
+        </svg>
+      </a>
+    </div>
+
+    <p class="footer-copy">© 2026 All Rights Reserved</p>
+  </div>
+</footer>
 
   <script>
     const io = new IntersectionObserver(entries => {
