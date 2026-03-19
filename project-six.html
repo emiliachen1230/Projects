@@ -9,17 +9,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --bg:      #ffffff;
-      --dark:    #1d231c;
-      --text:    #263025;
-      --black:   #000000;
-      --gray:    #3e3e3e;
-      --silver:  #aeabab;
+      --bg: #ffffff;
+      --bg-dark: #1d231c;
+      --text: #263025;
+      --black: #000000;
+      --gray: #3e3e3e;
+      --silver: #aeabab;
+      --text-dark: #ffffff;
       --ff-display: 'Aboreto', serif;
-      --ff-body:    'Geist', sans-serif;
+      --ff-body: 'Geist', sans-serif;
     }
+
     html { scroll-behavior: smooth; }
+
     body {
       background: var(--bg);
       color: var(--black);
@@ -28,155 +32,524 @@
       line-height: 1.6;
       overflow-x: hidden;
     }
+
     img { display: block; width: 100%; height: auto; object-fit: cover; }
     a { text-decoration: none; color: inherit; }
 
-    /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; width: 100%;
-      background: var(--bg); z-index: 100;
+    .site-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 64px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 100;
       border-bottom: 1px solid rgba(0,0,0,0.08);
-      padding: 0 24px; display: flex;
-      align-items: center; justify-content: space-between; height: 64px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
-    .nav-logo { font-family: var(--ff-display); font-size: 18px; letter-spacing: 3px; color: var(--dark); }
-    .nav-links { display: flex; gap: 32px; list-style: none; }
-    .nav-links a { font-size: 14px; color: var(--black); transition: opacity .2s; }
+
+    .nav-logo {
+      font-family: var(--ff-display);
+      font-size: 18px;
+      letter-spacing: 3px;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: var(--black);
+      transition: opacity .2s ease;
+    }
+
     .nav-links a:hover { opacity: 0.5; }
 
-    /* HERO */
-    .hero { margin-top: 64px; height: 580px; overflow: hidden; }
-    .hero img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
-
-    /* META ROW */
-    .meta-row { display: flex; align-items: stretch; border-bottom: 1px solid var(--dark); }
-    .meta-info {
-      background: var(--dark); padding: 24px 20px; min-width: 300px;
-      display: flex; flex-direction: column; gap: 8px;
+    .hero {
+      margin-top: 64px;
+      height: 540px;
+      overflow: hidden;
+      border-top: 1px solid rgba(0,0,0,0.08);
     }
-    .meta-num   { font-size: 100px; line-height: 1; color: var(--silver); letter-spacing: 3px; font-family: Georgia, serif; }
-    .meta-title { font-family: var(--ff-display); font-size: 22px; color: var(--bg); letter-spacing: 1.5px; line-height: 1.4; }
-    .meta-sub   { font-family: var(--ff-display); font-size: 16px; color: var(--bg); letter-spacing: 1px; margin-top: 12px; }
-    .meta-tag   { font-family: var(--ff-display); font-size: 12px; color: var(--silver); letter-spacing: 0.7px; }
-    .meta-label { flex: 1; padding: 24px 32px; display: flex; align-items: flex-end; }
-    .meta-label span { font-family: var(--ff-display); font-size: 20px; color: var(--text); letter-spacing: 1px; }
 
-    /* DESCRIPTION */
-    .description { padding: 60px 24px; max-width: 680px; }
-    .description p { font-size: 15px; color: var(--text); line-height: 1.8; }
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 44%;
+    }
+
+    .meta-row {
+      display: flex;
+      align-items: stretch;
+      border-bottom: 1px solid var(--bg-dark);
+    }
+
+    .meta-info {
+      background: var(--bg-dark);
+      padding: 24px 20px;
+      min-width: 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .meta-num {
+      font-size: 100px;
+      line-height: 1;
+      color: var(--silver);
+      letter-spacing: 3px;
+      font-family: Georgia, serif;
+    }
+
+    .meta-title {
+      font-family: var(--ff-display);
+      font-size: 22px;
+      color: var(--bg);
+      letter-spacing: 1.5px;
+      line-height: 1.4;
+    }
+
+    .meta-sub {
+      font-family: var(--ff-display);
+      font-size: 16px;
+      color: var(--bg);
+      letter-spacing: 1px;
+      margin-top: 12px;
+    }
+
+    .meta-tag {
+      font-family: var(--ff-display);
+      font-size: 12px;
+      color: var(--silver);
+      letter-spacing: 0.7px;
+    }
+
+    .meta-label {
+      flex: 1;
+      padding: 24px 32px;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .meta-label span {
+      font-family: var(--ff-display);
+      font-size: 20px;
+      color: var(--text);
+      letter-spacing: 1px;
+    }
+
+    .description {
+      padding: 60px 24px;
+      max-width: 720px;
+    }
+
+    .description p {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.85;
+    }
 
     h2 {
-      font-family: var(--ff-display); font-size: clamp(26px, 3.5vw, 48px);
-      color: var(--text); letter-spacing: 2px; line-height: 1.2; font-weight: 400;
+      font-family: var(--ff-display);
+      font-size: clamp(26px, 3.5vw, 48px);
+      color: var(--text);
+      letter-spacing: 2px;
+      line-height: 1.2;
+      font-weight: 400;
     }
-    .section { padding: 0 24px 40px; }
-    .section-border      { border-top: 1px solid var(--black); }
-    .section-dark-border { border-top: 1px solid var(--dark); }
-    .body-text { font-size: 16px; color: var(--black); line-height: 1.75; max-width: 700px; }
 
-    /* MOTIVATION */
-    .motivation-header { display: flex; gap: 24px; align-items: flex-start; padding: 40px 0 20px; }
-    .motivation-header img.icon { width: 75px; height: 100px; object-fit: cover; flex-shrink: 0; }
-    .motivation-header-text { display: flex; flex-direction: column; gap: 20px; flex: 1; }
+    .section {
+      padding: 0 24px 40px;
+    }
 
-    /* PILLARS — double-ring */
-    .pillars { display: flex; flex-wrap: wrap; gap: 20px; padding: 24px 0; }
+    .section-border { border-top: 1px solid var(--black); }
+
+    .body-text {
+      font-size: 16px;
+      color: var(--black);
+      line-height: 1.8;
+      max-width: 720px;
+    }
+
+    .full-image {
+      width: 100%;
+      border-top: 1px solid var(--bg-dark);
+    }
+
+    .motivation-header {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      padding: 40px 0 20px;
+    }
+
+    .motivation-header img.icon {
+      width: 75px;
+      height: 100px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .motivation-header-text {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 1;
+    }
+
+    .pillars {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 24px 0;
+    }
+
     .pillar {
-      width: 125px; height: 125px;
-      border: 1px solid var(--black); border-radius: 62.5px;
-      display: flex; align-items: center; justify-content: center;
-      padding: 5px; flex-shrink: 0;
+      width: 125px;
+      height: 125px;
+      border: 1px solid var(--black);
+      border-radius: 62.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+      flex-shrink: 0;
     }
+
     .pillar-inner {
-      width: 100%; height: 100%;
-      border: 1px solid var(--black); border-radius: 57.5px;
-      display: flex; align-items: center; justify-content: center;
+      width: 100%;
+      height: 100%;
+      border: 1px solid var(--black);
+      border-radius: 57.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+
     .pillar p {
-      font-family: var(--ff-display); font-size: 12px;
-      color: var(--black); text-align: center; letter-spacing: 0.7px;
+      font-family: var(--ff-display);
+      font-size: 12px;
+      color: var(--black);
+      text-align: center;
+      letter-spacing: 0.7px;
     }
 
-    /* CONTENT GRID */
-    .content-grid { display: flex; flex-wrap: wrap; gap: 40px; padding: 40px 0 20px; justify-content: space-around; }
-    .content-col { display: flex; flex-direction: column; gap: 12px; flex: 1; min-width: 240px; max-width: 380px; }
-    .content-col img { aspect-ratio: 1.34; object-fit: cover; }
-    .col-label { font-family: var(--ff-display); font-size: clamp(22px, 3vw, 48px); color: var(--text); letter-spacing: 2px; line-height: 1.2; }
-    .col-tag   { font-family: var(--ff-display); font-size: 13px; color: var(--text); letter-spacing: 0.7px; margin-top: 4px; }
+    .content-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      padding: 40px 0 20px;
+      justify-content: space-around;
+    }
 
-    /* GOAL SECTION */
-    .goal-section { padding: 0 24px 60px; border-top: 1px solid var(--text); }
+    .content-col {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+      min-width: 240px;
+      max-width: 380px;
+    }
+
+    .content-col img {
+      aspect-ratio: 1.34;
+      object-fit: cover;
+    }
+
+    .col-label {
+      font-family: var(--ff-display);
+      font-size: clamp(22px, 3vw, 48px);
+      color: var(--text);
+      letter-spacing: 2px;
+      line-height: 1.2;
+    }
+
+    .col-tag {
+      font-family: var(--ff-display);
+      font-size: 13px;
+      color: var(--text);
+      letter-spacing: 0.7px;
+      margin-top: 4px;
+    }
+
+    .goal-section {
+      padding: 0 24px 60px;
+      border-top: 1px solid var(--text);
+    }
+
     .goal-icon-wrap {
-      width: 100px; height: 100px;
-      border: 1px solid var(--black); border-radius: 50px;
-      display: flex; align-items: center; justify-content: center;
-      margin: 40px 0 24px; position: relative;
+      width: 100px;
+      height: 100px;
+      border: 1px solid var(--black);
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 40px 0 24px;
+      position: relative;
     }
+
     .goal-icon-wrap::after {
-      content: ''; position: absolute; inset: 4px;
-      border: 1px solid var(--black); border-radius: 50%;
+      content: '';
+      position: absolute;
+      inset: 4px;
+      border: 1px solid var(--black);
+      border-radius: 50%;
     }
-    .goal-icon-wrap img { width: 44px; height: auto; object-fit: contain; position: relative; z-index: 1; }
-    .goal-content { display: flex; flex-direction: column; gap: 40px; }
-    .goal-row { display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap; }
-    .goal-label { width: 220px; flex-shrink: 0; font-family: var(--ff-display); font-size: 18px; color: var(--text); letter-spacing: 1px; }
-    .goal-desc  { flex: 1; min-width: 200px; font-size: 16px; color: var(--black); line-height: 1.75; }
 
-    /* IDEATION */
-    .ideation-section { padding: 0 24px 60px; border-top: 1px solid var(--text); }
-    .ideation-header  { padding: 40px 0 20px; display: flex; flex-direction: column; gap: 8px; }
-    .ideation-header p { font-size: 16px; color: var(--text); }
+    .goal-icon-wrap img {
+      width: 44px;
+      height: auto;
+      object-fit: contain;
+      position: relative;
+      z-index: 1;
+    }
 
-    /* FOOTER */
-    footer { background: var(--dark); padding: 40px 40px 0; }
-    .footer-top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; padding-bottom: 180px; }
-    .footer-logo img { height: 28px; width: auto; }
-    .footer-links { display: flex; gap: 60px; flex-wrap: wrap; }
-    .footer-col { display: flex; flex-direction: column; gap: 4px; }
-    .footer-col a, .footer-col p { font-size: 16px; color: var(--bg); line-height: 1.6; }
+    .goal-content {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .goal-row {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .goal-label {
+      width: 220px;
+      flex-shrink: 0;
+      font-family: var(--ff-display);
+      font-size: 18px;
+      color: var(--text);
+      letter-spacing: 1px;
+    }
+
+    .goal-desc {
+      flex: 1;
+      min-width: 200px;
+      font-size: 16px;
+      color: var(--black);
+      line-height: 1.8;
+    }
+
+    .ideation-section {
+      padding: 0 24px 60px;
+      border-top: 1px solid var(--text);
+    }
+
+    .ideation-header {
+      padding: 40px 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ideation-header p {
+      font-size: 16px;
+      color: var(--text);
+    }
+
+    .ideation-feature {
+      width: 33.333%;
+      margin-bottom: 20px;
+    }
+
+    .ideation-feature img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .ideation-grid-eight {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-bottom: 0;
+    }
+
+    .ideation-grid-eight img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .ideation-extra {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .ideation-extra img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    footer {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+      padding: 60px 40px 0;
+      margin-top: 20px;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 48px;
+      padding-bottom: 80px;
+    }
+
+    .footer-logo {
+      font-family: var(--ff-display);
+      font-size: 28px;
+      letter-spacing: 4px;
+    }
+
+    .footer-nav,
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .footer-nav a,
+    .footer-contact span,
+    .footer-contact a {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-dark);
+      letter-spacing: -0.2px;
+      opacity: 0.85;
+    }
+
+    .footer-nav a:hover,
+    .footer-contact a:hover {
+      opacity: 1;
+    }
+
     .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,0.15);
-      padding: 24px 0; display: flex; justify-content: space-between; align-items: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0 28px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      flex-wrap: wrap;
+      gap: 16px;
     }
-    .footer-socials { display: flex; gap: 16px; align-items: center; }
-    .footer-socials a { opacity: 0.7; transition: opacity .2s; }
-    .footer-socials a:hover { opacity: 1; }
-    .footer-socials img { width: 18px; height: 18px; object-fit: contain; }
-    .footer-copy { font-size: 14px; color: var(--bg); }
 
-    /* RESPONSIVE */
+    .footer-socials {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .footer-socials a {
+      opacity: 0.6;
+      transition: opacity 0.2s ease;
+      display: flex;
+      align-items: center;
+    }
+
+    .footer-socials a:hover { opacity: 1; }
+
+    .footer-socials svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--text-dark);
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--text-dark);
+      opacity: 0.6;
+      letter-spacing: -0.1px;
+    }
+
+    @media (max-width: 1279px) {
+      .hero { height: 460px; }
+      .ideation-feature { width: 50%; }
+      .ideation-grid-eight { grid-template-columns: repeat(2, 1fr); }
+    }
+
     @media (max-width: 860px) {
+      .site-nav { padding: 0 16px; }
+      .nav-links { display: none; }
       .meta-row { flex-direction: column; }
+      .meta-info { min-width: 100%; }
+      .meta-label { padding: 20px 24px; }
       .motivation-header { flex-direction: column; }
       .content-grid { flex-direction: column; }
       .goal-row { flex-direction: column; gap: 8px; }
       .goal-label { width: auto; }
       .footer-top { flex-direction: column; }
-      .footer-bottom { flex-direction: column; gap: 16px; }
-      nav .nav-links { display: none; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 799px) {
+      .hero {
+        height: 360px;
+        margin-top: 64px;
+      }
+
+      .section,
+      .description,
+      .goal-section,
+      .ideation-section {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .ideation-feature { width: 100%; }
+      .ideation-grid-eight { grid-template-columns: 1fr; }
+
+      footer {
+        padding: 48px 20px 0;
+      }
+
+      .footer-top {
+        flex-direction: column;
+        gap: 40px;
+        padding-bottom: 48px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
 <body>
-
-  <!-- NAV -->
-  <nav>
-    <span class="nav-logo">E.C.D.</span>
+  <nav class="site-nav">
+    <a class="nav-logo" href="index.html">E.C.D.</a>
     <ul class="nav-links">
-      <li><a href="#">Projects</a></li>
-      <li><a href="#">Process</a></li>
-      <li><a href="#">Design Thinking</a></li>
-      <li><a href="#">CV</a></li>
-      <li><a href="#">About Me</a></li>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="index.html#about">About Me</a></li>
+      <li><a href="#">Others</a></li>
     </ul>
   </nav>
 
-  <!-- HERO -->
   <section class="hero">
-    <img src="img/p6-image-332.png" alt="Y-Chair hero">
+    <img src="images/project-6-1.png" alt="Y-Chair hero">
   </section>
 
-  <!-- PROJECT META -->
   <div class="meta-row">
     <div class="meta-info">
       <div class="meta-num">06</div>
@@ -190,21 +563,18 @@
     </div>
   </div>
 
-  <!-- DESCRIPTION -->
   <div class="description">
-    <p>The "Y-Chair" draws inspiration from the letter "Y" — a symbol of balance, elegance, and support. This inspiration led to a design that is both aesthetically striking and functionally purposeful, creating a piece that enhances any space while providing practical, adjustable comfort.</p>
+    <p>The &quot;Y-Chair&quot; draws inspiration from the letter &quot;Y&quot; — a symbol of balance, elegance, and support. This inspiration led to a design that is both aesthetically striking and functionally purposeful, creating a piece that enhances any space while providing practical, adjustable comfort.</p>
   </div>
 
-  <!-- FULL IMAGE -->
-  <img src="img/p6-image-333.png" alt="Y-Chair overview" style="width:100%;border-top:1px solid var(--dark);">
+  <img class="full-image" src="images/project-6-2.png" alt="Y-Chair overview">
 
-  <!-- DESIGN MOTIVATION -->
   <section class="section section-border">
     <div class="motivation-header">
-      <img class="icon" src="img/p6-image-334.png" alt="Y-Chair icon">
+      <img class="icon" src="images/project-6-3.png" alt="Y-Chair icon">
       <div class="motivation-header-text">
         <h2>Design Motivation</h2>
-        <p class="body-text">The "Y-Chair" draws inspiration from the letter "Y" — a symbol of balance, elegance, and support. This inspiration led to a design that is both aesthetically striking and functionally purposeful. The motivation behind the Y-Chair was to create a piece that not only enhances the visual appeal of any space but also provides practical, adjustable comfort, making it a perfect blend of form and function.</p>
+        <p class="body-text">The &quot;Y-Chair&quot; draws inspiration from the letter &quot;Y&quot; — a symbol of balance, elegance, and support. This inspiration led to a design that is both aesthetically striking and functionally purposeful. The motivation behind the Y-Chair was to create a piece that not only enhances the visual appeal of any space but also provides practical, adjustable comfort, making it a perfect blend of form and function.</p>
       </div>
     </div>
     <div class="pillars">
@@ -216,29 +586,27 @@
     </div>
   </section>
 
-  <!-- DESIGN PURPOSE / USER TYPE / USAGE ENV -->
   <section class="section section-border">
     <div class="content-grid">
       <div class="content-col">
-        <img src="img/p6-image-335.png" alt="Design Purpose">
+        <img src="images/project-6-4.png" alt="Design Purpose">
         <div class="col-label">Design Purpose</div>
         <p class="body-text">The Y-Chair is designed for individuals who value both luxury and aesthetic refinement. It offers a perfect balance of elegance and functionality, complementing sophisticated modern interiors. Beyond practical seating, it serves as a distinctive decorative statement that enhances the ambiance of any space.</p>
       </div>
       <div class="content-col">
-        <img src="img/p6-image-336.png" alt="User Type">
+        <img src="images/project-6-5.png" alt="User Type">
         <div class="col-tag">User Type</div>
       </div>
       <div class="content-col">
-        <img src="img/p6-image-337.png" alt="Usage Environment">
+        <img src="images/project-6-6.png" alt="Usage Environment">
         <div class="col-tag">Usage Environment</div>
       </div>
     </div>
   </section>
 
-  <!-- GOAL / OPPORTUNITY / FEATURE / STYLE -->
   <section class="goal-section">
     <div class="goal-icon-wrap">
-      <img src="img/p6-image-304.png" alt="Goal icon">
+      <img src="images/project-6-7.png" alt="Goal icon">
     </div>
     <div class="goal-content">
       <div class="goal-row">
@@ -251,7 +619,7 @@
       </div>
       <div class="goal-row">
         <div class="goal-label">Feature</div>
-        <div class="goal-desc">The Y-Chair's elegant "Y" shape, adjustable legs, and sleek lines contribute to its modern, ergonomic design. Crafted from high-quality materials, it ensures both comfort and durability.</div>
+        <div class="goal-desc">The Y-Chair's elegant &quot;Y&quot; shape, adjustable legs, and sleek lines contribute to its modern, ergonomic design. Crafted from high-quality materials, it ensures both comfort and durability.</div>
       </div>
       <div class="goal-row">
         <div class="goal-label">Style</div>
@@ -260,50 +628,70 @@
     </div>
   </section>
 
-  <!-- IDEATION -->
   <section class="ideation-section">
     <div class="ideation-header">
       <h2>Ideation</h2>
       <p>Exploration of concepts through iteration sketching.</p>
     </div>
-    <img src="img/p6-frame-66.svg" alt="Ideation sketches part 1" style="width:100%;">
-    <img src="img/p6-frame-70.svg" alt="Ideation sketches part 2" style="width:100%;">
+
+    <div class="ideation-feature">
+      <img src="images/project-6-8.png" alt="Ideation sketch featured">
+    </div>
+
+    <div class="ideation-grid-eight">
+      <img src="images/project-6-9.png" alt="Ideation sketch 9">
+      <img src="images/project-6-10.png" alt="Ideation sketch 10">
+      <img src="images/project-6-11.png" alt="Ideation sketch 11">
+      <img src="images/project-6-12.png" alt="Ideation sketch 12">
+      <img src="images/project-6-13.png" alt="Ideation sketch 13">
+      <img src="images/project-6-14.png" alt="Ideation sketch 14">
+      <img src="images/project-6-15.png" alt="Ideation sketch 15">
+      <img src="images/project-6-16.png" alt="Ideation sketch 16">
+    </div>
+
+    <div class="ideation-extra">
+      <img src="images/project-6-17.png" alt="Ideation sketch 17">
+      <img src="images/project-6-18.png" alt="Ideation sketch 18">
+    </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-top">
-      <div class="footer-logo">
-        <img src="img/logo.svg" alt="Logo" style="height:28px;width:auto;">
-      </div>
-      <div class="footer-links">
-        <div class="footer-col">
-          <a href="#">Company</a>
-          <a href="#">Services</a>
-          <a href="#">Gallery</a>
-        </div>
-        <div class="footer-col">
-          <p>4827 Candyland Lane<br>Raleigh<br>NC 27609</p>
-        </div>
-        <div class="footer-col">
-          <a href="mailto:hello@figma.com">hello@figma.com</a>
-          <a href="tel:6465554561">(646) 555-4561</a>
-        </div>
+      <div class="footer-logo">E.C.</div>
+      <nav class="footer-nav">
+        <a href="index.html#about">About Me</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="#">Others</a>
+      </nav>
+      <div class="footer-contact">
+        <span>Taipei, Taiwan</span>
+        <a href="mailto:emiliachen881230@gmail.com">emiliachen881230@gmail.com</a>
+        <a href="https://www.behance.net/emiliachen1230" target="_blank" rel="noopener">behance.net/emiliachen1230</a>
       </div>
     </div>
+
     <div class="footer-bottom">
       <div class="footer-socials">
-        <a href="https://www.facebook.com/figmadesign/" target="_blank">
-          <img src="img/vector.svg" alt="Facebook">
+        <a href="https://www.facebook.com" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+          </svg>
         </a>
-        <a href="https://www.instagram.com/figma/" target="_blank">
-          <img src="img/vector-1.svg" alt="Instagram">
+        <a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="white" stroke-width="2"/>
+            <circle cx="12" cy="12" r="4" fill="none" stroke="white" stroke-width="2"/>
+            <circle cx="17.5" cy="6.5" r="1.5"/>
+          </svg>
         </a>
-        <a href="https://www.youtube.com/figmadesign" target="_blank">
-          <img src="img/vector-3.svg" alt="YouTube">
+        <a href="https://www.youtube.com" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
+            <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1d231c"/>
+          </svg>
         </a>
       </div>
-      <p class="footer-copy">© 2025 All Rights Reserved</p>
+      <p class="footer-copy">© 2026 All Rights Reserved</p>
     </div>
   </footer>
 
@@ -317,6 +705,7 @@
         }
       });
     }, { threshold: 0.1 });
+
     document.querySelectorAll('h2, .pillar, .col-label, .goal-label').forEach(el => {
       el.style.opacity = '0';
       el.style.transform = 'translateY(14px)';
