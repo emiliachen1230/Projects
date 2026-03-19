@@ -126,6 +126,94 @@
     .four-images { display: flex; gap: 20px; flex-wrap: wrap; padding: 24px 0; }
     .four-images img { flex: 1; min-width: 200px; height: 200px; object-fit: cover; }
 
+    /* CURRENT SURVEY REFINED */
+    .survey-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      padding: 18px 0 8px;
+    }
+    .survey-lead {
+      max-width: 760px;
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.8;
+    }
+    .survey-main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.65fr) minmax(280px, 0.9fr);
+      gap: 28px;
+      align-items: start;
+    }
+    .survey-chart-main img,
+    .survey-side-chart img,
+    .survey-stats img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+    .survey-side {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .survey-copy-block {
+      padding-top: 10px;
+      border-top: 1px solid rgba(0,0,0,0.12);
+    }
+    .survey-kicker {
+      font-family: var(--ff-display);
+      font-size: 13px;
+      color: var(--silver);
+      letter-spacing: 0.8px;
+      margin-bottom: 10px;
+    }
+    .survey-grid-copy {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px 24px;
+    }
+    .survey-copy-item h3 {
+      font-family: var(--ff-display);
+      font-size: 15px;
+      color: var(--text);
+      letter-spacing: 0.7px;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+    .survey-copy-item p,
+    .survey-copy-item li {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.7;
+    }
+    .survey-copy-item ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .survey-copy-item li::before {
+      content: "— ";
+    }
+    .survey-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .survey-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .survey-stat-label {
+      font-family: var(--ff-display);
+      font-size: 13px;
+      color: var(--text);
+      letter-spacing: 0.7px;
+    }
+
     /* COLOR SWATCHES */
     .color-swatches { display: flex; gap: 24px; flex-wrap: wrap; padding: 24px 0; }
     .swatch { display: flex; flex-direction: column; gap: 12px; }
@@ -221,6 +309,183 @@
     .step-num + img { flex: 1; height: 93px; width: auto; object-fit: cover; }
     .divider-v { width: 1px; background: rgba(0,0,0,0.15); align-self: stretch; flex-shrink: 0; }
 
+
+
+    /* SURVEY + CIS MINIMAL */
+    .survey-wrap,
+    .cis-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding: 18px 0 8px;
+    }
+
+    .survey-lead,
+    .cis-header p {
+      max-width: 780px;
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.85;
+    }
+
+    .survey-main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.9fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .survey-chart-main img,
+    .survey-side-chart img,
+    .survey-stats img,
+    .cis-main-board img,
+    .cis-card img,
+    .journey-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .survey-side {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .survey-copy-block {
+      padding-top: 12px;
+      border-top: 1px solid rgba(0,0,0,0.12);
+    }
+
+    .survey-kicker,
+    .sub-kicker {
+      font-family: var(--ff-display);
+      font-size: 12px;
+      color: var(--silver);
+      letter-spacing: 0.9px;
+      margin-bottom: 10px;
+    }
+
+    .survey-grid-copy {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px 24px;
+    }
+
+    .survey-copy-item h3,
+    .cis-copy h3,
+    .journey-block h3 {
+      font-family: var(--ff-display);
+      font-size: 15px;
+      color: var(--text);
+      letter-spacing: 0.7px;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+
+    .survey-copy-item p,
+    .survey-copy-item li,
+    .cis-copy p,
+    .journey-block p {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.75;
+    }
+
+    .survey-copy-item ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .survey-copy-item li::before {
+      content: "— ";
+    }
+
+    .survey-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      padding-top: 4px;
+    }
+
+    .survey-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .survey-stat-label {
+      font-family: var(--ff-display);
+      font-size: 13px;
+      color: var(--text);
+      letter-spacing: 0.7px;
+    }
+
+    .cis-section {
+      padding: 0 24px 40px;
+      border-top: 1px solid var(--black);
+    }
+
+    .cis-header {
+      padding: 40px 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cis-main-board {
+      margin-bottom: 24px;
+    }
+
+    .cis-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .cis-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .journey-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.88fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .journey-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .journey-block {
+      padding-top: 12px;
+      border-top: 1px solid rgba(0,0,0,0.12);
+    }
+
+    .journey-block:first-child {
+      padding-top: 0;
+      border-top: none;
+    }
+
+    @media (max-width: 900px) {
+      .survey-main { grid-template-columns: 1fr; }
+      .survey-grid-copy { grid-template-columns: 1fr; }
+      .survey-stats { grid-template-columns: 1fr; }
+      .cis-grid { grid-template-columns: 1fr; }
+      .journey-layout { grid-template-columns: 1fr; }
+      .journey-copy { grid-template-columns: 1fr; }
+    }
+
     /* FOOTER */
     footer { background: var(--dark); padding: 40px 40px 0; }
     .footer-top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; padding-bottom: 180px; }
@@ -251,6 +516,12 @@
       .goggles-specs { flex-direction: column; }
       .lens-grid { flex-direction: column; }
       .interface-row { flex-direction: column; }
+      .survey-main { grid-template-columns: 1fr; }
+      .survey-grid-copy { grid-template-columns: 1fr; }
+      .survey-stats { grid-template-columns: 1fr; }
+      .cis-grid { grid-template-columns: 1fr; }
+      .journey-layout { grid-template-columns: 1fr; }
+      .journey-copy { grid-template-columns: 1fr; }
       nav .nav-links { display: none; }
       .footer-top { flex-direction: column; }
       .footer-bottom { flex-direction: column; gap: 16px; }
@@ -278,7 +549,7 @@
 
   <!-- HERO -->
   <section class="hero">
-    <img src="img/image-352.png" alt="Diving+ hero">
+    <img src="images/project-2-1.png" alt="Diving+ hero">
   </section>
 
   <!-- META ROW -->
@@ -302,13 +573,13 @@
 
   <!-- FULL IMAGE -->
   <div style="border-top: 1px solid var(--dark);">
-    <img src="img/image-353.png" alt="Diving+ full spread">
+    <img src="images/project-2-2.png" alt="Diving+ full spread">
   </div>
 
   <!-- DESIGN MOTIVATION -->
   <section class="section section-border">
     <div class="section-header">
-      <img class="icon" src="img/image-223.png" alt="Motivation icon">
+      <img class="icon" src="images/project-2-3.png" alt="Motivation icon">
       <h2>Design Motivation</h2>
     </div>
     <p class="body-text">Diving+ is designed to connect the global diving community while highlighting Taiwan's unique marine ecosystem. By offering a platform for sharing diving experiences and marine ecology knowledge, we aim to make underwater exploration more engaging and accessible. Our vision is to establish Diving+ as a leading international hub for divers, fostering a deeper appreciation for marine conservation and promoting sustainable diving practices worldwide.</p>
@@ -328,7 +599,7 @@
     </div>
     <div class="img-row">
       <div class="img-side">
-        <img src="img/image-354.png" alt="Design purpose">
+        <img src="images/project-2-4.png" alt="Design purpose">
       </div>
       <div class="text-side">
         <div class="research-table">
@@ -352,11 +623,11 @@
     </div>
     <div class="img-row">
       <div class="img-side">
-        <img src="img/image-355.png" alt="Target audience">
+        <img src="images/project-2-5.png" alt="Target audience">
         <p class="img-caption">Target Audience</p>
       </div>
       <div class="img-side">
-        <img src="img/image-356.png" alt="Usage environment">
+        <img src="images/project-2-6.png" alt="Usage environment">
         <p class="img-caption">Usage Environment</p>
       </div>
     </div>
@@ -366,7 +637,7 @@
   <section class="section section-border">
     <div class="section-header" style="align-items:center; gap:20px;">
       <div class="goal-icon">
-        <img src="img/image-304.png" alt="Goal icon">
+        <img src="images/project-2-7.png" alt="Goal icon">
       </div>
       <h2>Goal</h2>
     </div>
@@ -392,40 +663,179 @@
     <div class="section-header">
       <h2>Current Survey</h2>
     </div>
-    <p class="body-text">The current survey offers insights into user preferences and diving activities. Scuba Diving with oxygen tanks is the top activity (70.2%), with most participants aged 15–25 (72.6%). Additionally, 59.6% of users dive 5 times or less per year. Market analysis focuses on expanding reach through events, collaborations with dive shops, and community engagement both locally and internationally.</p>
-    <img src="img/image-357.png" alt="Survey chart" style="margin:24px 0;">
-    <div class="img-row">
-      <div class="img-side">
-        <img src="img/image-358.png" alt="Market analysis">
-        <p class="img-caption">Market Analysis</p>
-        <div style="margin-top:10px; display:flex; flex-direction:column; gap:4px;">
-          <span style="font-size:14px; color:var(--text);">— Assessment Surveys &amp; Dive Shop Promotion</span>
-          <span style="font-size:14px; color:var(--text);">— Collaborative Event Organization</span>
-          <span style="font-size:14px; color:var(--text);">— Seminars, Workshops &amp; International Promotion</span>
+
+    <div class="survey-wrap">
+      <p class="survey-lead">
+        The current survey reveals a clear profile of Diving+ users and their habits. Scuba diving with oxygen tanks is the dominant activity at 70.2%, while the largest age group is 15 to 25 years old at 72.6%. In addition, 59.6% of respondents dive five times or less per year, suggesting that the platform mainly serves beginners and light-frequency recreational divers.
+      </p>
+
+      <div class="survey-main">
+        <div class="survey-chart-main">
+          <img src="images/project-2-8.png" alt="Current survey overview">
+        </div>
+
+        
+
+          <div class="survey-copy-block">
+            <div class="survey-kicker">Survey Reading</div>
+            <div class="survey-grid-copy">
+              <div class="survey-copy-item">
+                <h3>User Profile</h3>
+                <p>
+                  Most participants are young divers in the 15 to 25 age range, suggesting a strong opportunity to position Diving+ as an accessible entry point into diving culture.
+                </p>
+              </div>
+
+              <div class="survey-copy-item">
+                <h3>Diving Frequency</h3>
+                <p>
+                  Since most respondents dive only a few times per year, the interface should prioritize clarity, onboarding support, and quick access to essential information.
+                </p>
+              </div>
+
+              <div class="survey-copy-item">
+                <h3>Activity Preference</h3>
+                <p>
+                  Scuba diving remains the primary activity, so content around equipment, safety, certification, and dive-site discovery should remain central.
+                </p>
+              </div>
+
+              <div class="survey-copy-item">
+                <h3>Market Analysis</h3>
+                <ul>
+                  <li>Assessment surveys and dive shop promotion</li>
+                  <li>Collaborative event organization</li>
+                  <li>Seminars, workshops, and international promotion</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="img-side">
-        <img src="img/image-359.png" alt="Survey detail">
+
+      <div class="survey-stats">
+        <div class="survey-stat">
+          <div class="survey-stat-label">Activity Participation</div>
+          <img src="images/project-2-9.png" alt="Types of diving activities participated in">
+        </div>
+        <div class="survey-stat">
+          <div class="survey-stat-label">Age Distribution</div>
+          <img src="images/project-2-10.png" alt="Age distribution">
+        </div>
+        <div class="survey-stat">
+          <div class="survey-stat-label">Dives per Year / Level</div>
+          <div class="survey-side-chart">
+          <img src="images/project-2-11.png" alt="Dive site classification">
+          <img src="images/project-2-12.png" alt="Diving frequency and level">
+        </div>
       </div>
-    </div>
-    <div class="four-images">
-      <img src="img/image-360.png" alt="Survey data">
-      <img src="img/image-361.png" alt="Survey data">
     </div>
   </section>
 
-  <!-- CIS FULL IMAGES -->
-  <div style="border-top:1px solid var(--dark);">
-    <img src="img/image-364.png" alt="CIS overview">
-  </div>
-  <div style="display:flex; gap:0;">
-    <img src="img/image-362.png" alt="CIS screens" style="flex:1;">
-    <img src="img/image-363.png" alt="CIS screens" style="flex:1;">
-  </div>
+  <!-- USER ANALYSIS × JOURNEY MAP -->
+  <section class="cis-section">
+    <div class="cis-header">
+      <h2>User Analysis × Journey Map</h2>
+      <p>
+        This map translates the brand strategy into user behavior, showing how Diving+ attracts attention, supports evaluation, and guides users toward app download and course participation.
+      </p>
+    </div>
+
+    <div class="journey-layout">
+      <div class="journey-image">
+        <img src="images/project-2-13.png" alt="User Analysis and Journey Map">
+        <img src="images/project-2-14.png" alt="User Analysis and Journey Map">
+        <img src="images/project-2-15.png" alt="User Analysis and Journey Map">
+
+      </div>
+
+      <div class="journey-copy">
+        <div class="journey-block">
+          <div class="sub-kicker">Stage 01</div>
+          <h3>Before Download</h3>
+          <p>
+            Initial awareness is built through Instagram, Facebook, YouTube, Spotify, and podcasts, positioning diving not only as a sport but also as a social and lifestyle-oriented experience.
+          </p>
+        </div>
+
+        <div class="journey-block">
+          <div class="sub-kicker">Stage 02</div>
+          <h3>Evaluation Stage</h3>
+          <p>
+            Users begin comparing information quality, store credibility, and learning accessibility. This stage requires a visual language that feels trustworthy, readable, and easy to navigate.
+          </p>
+        </div>
+
+        <div class="journey-block">
+          <div class="sub-kicker">Stage 03</div>
+          <h3>After Download</h3>
+          <p>
+            The journey is designed to lead users toward two main outcomes: successfully downloading and using the platform, and successfully enrolling in diving-related courses and activities.
+          </p>
+        </div>
+
+        <div class="journey-block">
+          <div class="sub-kicker">Persona</div>
+          <h3>Persona Insight</h3>
+          <p>
+            Elsa, a 32-year-old manager with extensive diving experience, represents a user driven by exploration, ocean preference, and meaningful outdoor engagement. Her profile helps define both interface tone and service priorities.
+          </p>
+        </div>
+
+        <div class="journey-block">
+          <div class="sub-kicker">Growth</div>
+          <h3>Promotion Strategy</h3>
+          <p>
+            Referrals from friends, family, and diving partners play a stronger role than advertising alone, while Facebook marketing supports visibility. This indicates that community trust is central to the platform’s growth model.
+          </p>
+        </div>
+
+        <div class="journey-block">
+          <div class="sub-kicker">Value</div>
+          <h3>Business Positioning</h3>
+          <p>
+            The service connects two key values: course instruction and tourism aspects. Diving+ therefore works as both a learning platform and a gateway into wider underwater culture and travel-oriented experiences.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CIS OVERVIEW -->
+  <section class="cis-section">
+    <div class="cis-header">
+      <h2>CIS Overview</h2>
+      <p>
+        The corporate identity system for Diving+ is developed to connect diving culture, social interaction, and service accessibility through a clear and approachable visual language. Rather than functioning only as a brand surface, the CIS is intended to support trust, community participation, and the transition from curiosity to actual course enrollment.
+      </p>
+    </div>
+
+    <div class="cis-main-board">
+        <div class="cis-copy">
+          <div class="sub-kicker">01</div>
+          <h3>Brand Positioning</h3>
+          <p>
+            Diving+ is positioned as an accessible yet reliable platform for young divers and beginners. The identity aims to reduce the distance between diving as a professional field and diving as a social, cultural, and lifestyle experience.
+          </p>
+        </div>
+      </article>
+
+      <article class="cis-card">
+        <div class="cis-copy">
+          <div class="sub-kicker">02</div>
+          <h3>Visual Language</h3>
+          <p>
+            The visual system combines marine-inspired blue tones, simplified interface structures, and soft geometric shapes to communicate clarity, trust, exploration, and environmental awareness across both digital and promotional applications.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
 
   <!-- VISUAL DESIGN -->
   <section class="section section-border">
     <div class="section-header">
+        <img src="images/project-2-16.png" alt="Diving+ logo">
       <h2>Visual Design</h2>
     </div>
     <div class="typeface-row">
@@ -478,7 +888,7 @@
     <div class="section-header">
       <h2>Innovative Features</h2>
     </div>
-    <img src="img/image-482.png" alt="App overview" style="margin-bottom:24px;">
+    <img src="images/project-2-17.png" alt="App overview" style="margin-bottom:24px;">
     <div class="features-list">
       <div class="feature-item">
         <div class="feature-num">01</div>
@@ -526,11 +936,11 @@
     <p style="font-family:var(--ff-display); font-size:13px; letter-spacing:0.8px; color:var(--silver); margin-bottom:0;">Diving Areas Introduction</p>
     <div class="dive-map-layout">
       <div class="dive-map-img">
-        <img src="img/image-469.png" alt="Taiwan diving areas map">
+        <img src="images/project-2-18.png" alt="Taiwan diving areas map">
       </div>
       <div class="dive-cards">
         <div class="dive-card">
-          <img class="dive-card-thumb" src="img/image-470.png" alt="Penghu">
+          <img class="dive-card-thumb" src="images/project-2-19.png" alt="Penghu">
           <div class="dive-card-body">
             <div class="dive-card-name">Penghu Diving Area</div>
             <div class="dive-card-meta">
@@ -541,7 +951,7 @@
           </div>
         </div>
         <div class="dive-card">
-          <img class="dive-card-thumb" src="img/image-470-1.png" alt="Xiaoliuqiu">
+          <img class="dive-card-thumb" src="images/project-2-20.png" alt="Xiaoliuqiu">
           <div class="dive-card-body">
             <div class="dive-card-name">Xiaoliuqiu Diving Area</div>
             <div class="dive-card-meta">
@@ -552,7 +962,7 @@
           </div>
         </div>
         <div class="dive-card">
-          <img class="dive-card-thumb" src="img/image-470-2.png" alt="Kenting">
+          <img class="dive-card-thumb" src="images/project-2-21.png" alt="Kenting">
           <div class="dive-card-body">
             <div class="dive-card-name">Kenting Diving Area</div>
             <div class="dive-card-meta">
@@ -563,7 +973,7 @@
           </div>
         </div>
         <div class="dive-card">
-          <img class="dive-card-thumb" src="img/image-470-3.png" alt="Lanyu">
+          <img class="dive-card-thumb" src="images/project-2-22.png" alt="Lanyu">
           <div class="dive-card-body">
             <div class="dive-card-name">Lanyu (Orchid Island)</div>
             <div class="dive-card-meta">
@@ -574,7 +984,7 @@
           </div>
         </div>
         <div class="dive-card">
-          <img class="dive-card-thumb" src="img/image-470-4.png" alt="Green Island">
+          <img class="dive-card-thumb" src="images/project-2-23.png" alt="Green Island">
           <div class="dive-card-body">
             <div class="dive-card-name">Green Island Diving Area</div>
             <div class="dive-card-meta">
@@ -585,7 +995,7 @@
           </div>
         </div>
         <div class="dive-card">
-          <img class="dive-card-thumb" src="img/image-470-5.png" alt="Yilan Hualien">
+          <img class="dive-card-thumb" src="images/project-2-24.png" alt="Yilan Hualien">
           <div class="dive-card-body">
             <div class="dive-card-name">Yilan | Hualien Diving Area</div>
             <div class="dive-card-meta">
@@ -596,7 +1006,7 @@
           </div>
         </div>
         <div class="dive-card">
-          <img class="dive-card-thumb" src="img/image-470-6.png" alt="Northeast Coast">
+          <img class="dive-card-thumb" src="images/project-2-25.png" alt="Northeast Coast">
           <div class="dive-card-body">
             <div class="dive-card-name">Northeast Coast Diving Area</div>
             <div class="dive-card-meta">
