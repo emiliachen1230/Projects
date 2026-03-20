@@ -709,44 +709,54 @@
 
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script>
-      pdfjsLib.GlobalWorkerOptions.workerSrc =
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
     'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-  const cisState = { pdf: null, pageEls: [], totalPages: 0, currentPage: 0, bookW: 0, bookH: 0 };
+  const cisState = {
+    pdf: null, pageEls: [], totalPages: 0,
+    currentPage: 0, bookW: 0, bookH: 0
+  };
   const CIS_SRC  = 'docs/Soultime_CIS.pdf';
   const RADIUS   = 3;
-  let cisModalFlip = null;
+  const MOBILE_BP = 768;   // px — ≤ this → single-page portrait mode
 
+  let cisFlip      = null;
+  let cisModalFlip = null;
+  let isPortrait   = false;
+  let _building    = false; // guard: prevent ResizeObserver re-entry during init
+
+  // ── Render one PDF page into a placeholder div ───────────────────────
   async function cisRenderPage(idx, div, w, h) {
     if (div.dataset.rendered === '1') return;
     div.dataset.rendered = '1';
-    if (idx === 1) return; // blank cover-back page — leave white
+    // In double-page mode, index 1 is a blank cover-back — leave white
+    if (idx === 1 && !isPortrait) return;
     try {
-      // idx 0 = PDF page 1 (cover); idx 2+ = PDF page idx (skip the blank at 1)
-      const pdfPageNum = idx === 0 ? 1 : idx;
-      const page = await cisState.pdf.getPage(pdfPageNum);
-      const base = page.getViewport({ scale: 1 });
+      // double-page: idx 0 → PDF p1 (cover); idx 1 = blank; idx 2+ → PDF p(idx)
+      // single-page: idx → PDF p(idx+1)
+      const pdfPageNum = isPortrait ? idx + 1 : (idx === 0 ? 1 : idx);
+      const page  = await cisState.pdf.getPage(pdfPageNum);
+      const base  = page.getViewport({ scale: 1 });
       const scale = Math.min(w / base.width, h / base.height) * 1.6;
-      const vp = page.getViewport({ scale });
-      const c = document.createElement('canvas');
-      c.width = vp.width;
-      c.height = vp.height;
+      const vp    = page.getViewport({ scale });
+      const c     = document.createElement('canvas');
+      c.width = vp.width; c.height = vp.height;
       await page.render({ canvasContext: c.getContext('2d'), viewport: vp }).promise;
       div.querySelector('img').src = c.toDataURL('image/jpeg', 0.88);
-    } catch (e) {
-      console.warn('render error', idx, e);
-    }
+    } catch (e) { console.warn('render error', idx, e); }
   }
 
   function cisPreload(center) {
+    const len = cisState.pageEls.length;
     const s = Math.max(0, center - RADIUS);
-    const e = Math.min(cisState.pageEls.length - 1, center + RADIUS);
-    for (let i = s; i <= e; i++) cisRenderPage(i, cisState.pageEls[i], cisState.bookW, cisState.bookH);
+    const e = Math.min(len - 1, center + RADIUS);
+    for (let i = s; i <= e; i++)
+      cisRenderPage(i, cisState.pageEls[i], cisState.bookW, cisState.bookH);
   }
 
-  function mkPageEls(total, w, h) {
-    // total+1: index 0=cover (alone), index 1=blank cover-back, index 2+=PDF pages 1+
-    return Array.from({ length: total + 1 }, () => {
+  // ── Build blank placeholder page divs ───────────────────────────────
+  function mkPageEls(count, w, h) {
+    return Array.from({ length: count }, () => {
       const div = document.createElement('div');
       div.dataset.rendered = '0';
       div.style.cssText = `width:${w}px;height:${h}px;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center;`;
@@ -758,23 +768,30 @@
     });
   }
 
-  function mkFlip(cid, els, w, h, cb) {
+  // ── Calc page dimensions from available width ────────────────────────
+  function calcDims(stageW, portrait) {
+    const pageW = portrait
+      ? Math.floor(stageW - 16)           // single: full width
+      : Math.floor((stageW - 24) / 2);    // double: half width
+    const pageH = Math.round(pageW * 0.707); // landscape A4 ratio
+    return { pageW, pageH };
+  }
+
+  // ── StPageFlip factory ───────────────────────────────────────────────
+  function mkFlip(cid, els, w, h, portrait, cb) {
     const el = document.getElementById(cid);
     if (!el) return null;
     el.innerHTML = '';
-    el.style.width = w + 'px';
+    el.style.width  = w + 'px';
     el.style.height = h + 'px';
     const pf = new St.PageFlip(el, {
-      width: w,
-      height: h,
+      width: w, height: h,
       size: 'fixed',
-      minWidth: 120,
-      maxWidth: 800,
-      minHeight: 180,
-      maxHeight: 1200,
+      minWidth: 80, maxWidth: 1000,
+      minHeight: 60, maxHeight: 1200,
       drawShadow: true,
       flippingTime: 700,
-      usePortrait: false,
+      usePortrait: portrait,
       startZIndex: 0,
       autoSize: false,
       mobileScrollSupport: false,
@@ -788,12 +805,57 @@
     return pf;
   }
 
+  // ── (Re)build the inline flipbook ───────────────────────────────────
+  async function buildInlineFlip(stageEl, portrait) {
+    _building = true; // block ResizeObserver during rebuild
+    try {
+      const sw = stageEl.clientWidth;
+      const { pageW, pageH } = calcDims(sw, portrait);
+      cisState.bookW = pageW;
+      cisState.bookH = pageH;
+      isPortrait = portrait;
+
+      // Page count: double-page adds 1 blank for cover-back
+      const count = portrait ? cisState.totalPages : cisState.totalPages + 1;
+      cisState.pageEls = mkPageEls(count, pageW, pageH);
+
+      // Destroy previous instance before resizing stage
+      if (cisFlip) { try { cisFlip.destroy(); } catch(e){} cisFlip = null; }
+
+      // Update stage height AFTER destroying old instance
+      stageEl.style.minHeight = (pageH + (portrait ? 16 : 24)) + 'px';
+
+      // Build new instance
+      cisFlip = mkFlip('flip-cis', cisState.pageEls, pageW, pageH, portrait, (page) => {
+        cisState.currentPage = page;
+        const p = page + 1;
+        document.getElementById('counter-cis').textContent = `${p} / ${cisState.totalPages}`;
+        document.getElementById('input-cis').value = p;
+        cisPreload(page);
+      });
+
+      document.getElementById('flip-cis').style.margin = '0 auto';
+
+      // Render first page then preload neighbours
+      await cisRenderPage(0, cisState.pageEls[0], pageW, pageH);
+      cisPreload(0);
+    } finally {
+      // Always unblock, even if an error occurred
+      // Small delay so any ResizeObserver callbacks triggered by height change
+      // are already in the queue — they will see _building = false only after
+      // we set it, but the setTimeout below ensures they fire AFTER we finish.
+      setTimeout(() => { _building = false; }, 50);
+    }
+  }
+
+  // ── Main init ────────────────────────────────────────────────────────
   async function initCis() {
     if (typeof St === 'undefined') {
-      const prog = document.getElementById('prog-cis');
-      if (prog) prog.textContent = 'Library failed to load';
+      const p = document.getElementById('prog-cis');
+      if (p) p.textContent = 'Library failed to load';
       return;
     }
+
     const stageEl = document.getElementById('stage-cis');
     const loadEl  = document.getElementById('loading-cis');
     const progEl  = document.getElementById('prog-cis');
@@ -803,19 +865,7 @@
     const totalEl = document.getElementById('total-cis');
     const ctrEl   = document.getElementById('counter-cis');
     const expBtn  = document.getElementById('expand-cis');
-
     if (!stageEl) return;
-
-    const sw = stageEl.clientWidth;
-    // Double-page landscape: two pages side by side, each page wider than tall
-    // Landscape A4 ratio: width/height = 297/210 ≈ 1.414, so height = width * 0.707
-    const pageW = Math.floor((sw - 24) / 2);
-    const pageH = Math.round(pageW * 0.707);
-    const bw = pageW;
-    const bh = pageH;
-    stageEl.style.minHeight = (pageH + 24) + 'px';
-    cisState.bookW = bw;
-    cisState.bookH = bh;
 
     try {
       progEl.textContent = 'Opening PDF…';
@@ -825,94 +875,99 @@
       } catch (e) {
         loadEl.classList.add('hidden');
         const fe = document.getElementById('flip-cis');
-        fe.style.width = bw + 'px';
-        fe.style.height = bh + 'px';
+        fe.style.width = '100%'; fe.style.height = '300px';
         fe.innerHTML = `<div class="book-placeholder"><div class="placeholder-icon"><div class="placeholder-lines"><div class="placeholder-line"></div><div class="placeholder-line"></div><div class="placeholder-line" style="width:60%"></div><div class="placeholder-line"></div><div class="placeholder-line" style="width:80%"></div></div></div><div class="placeholder-title">SOULTIME CIS</div><div class="placeholder-hint">Place PDF at<br><code>${CIS_SRC}</code></div></div>`;
         return;
       }
 
-      cisState.pdf = pdf;
+      cisState.pdf        = pdf;
       cisState.totalPages = pdf.numPages;
-      cisState.pageEls = mkPageEls(pdf.numPages, bw, bh);
-      cisState.flipTotal = pdf.numPages + 1; // internal array size
-      progEl.textContent = 'Rendering first page…';
-      await cisRenderPage(0, cisState.pageEls[0], bw, bh);
 
-      const pf = mkFlip('flip-cis', cisState.pageEls, bw, bh, (page) => {
-        cisState.currentPage = page;
-        ctrEl.textContent = `${page + 1} / ${cisState.totalPages}`;
-        totalEl.textContent = `/ ${cisState.totalPages}`;
-        inputEl.value = page + 1;
-        prevBtn.disabled = page <= 0;
-        nextBtn.disabled = page >= cisState.totalPages - 1;
-        cisPreload(page);
-      });
-      // Double-page: container must be pageW * 2 wide
-      document.getElementById('flip-cis').style.width = (bw * 2) + 'px';
+      const portrait = stageEl.clientWidth <= MOBILE_BP;
+      progEl.textContent = 'Rendering…';
+      await buildInlineFlip(stageEl, portrait);
 
-      cisState.currentPage = 0;
-      ctrEl.textContent = `1 / ${cisState.totalPages}`;
-      totalEl.textContent = `/ ${cisState.totalPages}`;
-      inputEl.max = cisState.totalPages;
-      prevBtn.disabled = true;
-      nextBtn.disabled = cisState.totalPages <= 1;
-      cisPreload(0);
       loadEl.classList.add('hidden');
+      totalEl.textContent = `/ ${pdf.numPages}`;
+      ctrEl.textContent   = `1 / ${pdf.numPages}`;
+      inputEl.max = pdf.numPages;
+      prevBtn.disabled = false;
+      nextBtn.disabled = false;
 
-      prevBtn.addEventListener('click', () => pf && pf.flipPrev());
-      nextBtn.addEventListener('click', () => pf && pf.flipNext());
+      prevBtn.addEventListener('click', () => cisFlip && cisFlip.flipPrev());
+      nextBtn.addEventListener('click', () => cisFlip && cisFlip.flipNext());
       inputEl.addEventListener('change', () => {
         let v = Math.max(1, Math.min(cisState.totalPages, parseInt(inputEl.value || '1', 10)));
         inputEl.value = v;
-        if (pf) pf.flip(v - 1);
+        cisPreload(v - 1);
+        if (cisFlip) cisFlip.flip(v - 1);
       });
 
-      const modal = document.getElementById('cis-modal');
+      // ── ResizeObserver: respond to width changes ─────────────────────
+      let lastPortrait = portrait;
+      let resizeTimer  = null;
+
+      const ro = new ResizeObserver(entries => {
+        if (_building) return; // ignore callbacks triggered during our own rebuild
+        const w = entries[0]?.contentRect?.width;
+        if (!w) return;
+        const newPortrait = w <= MOBILE_BP;
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(async () => {
+          if (_building) return;
+          lastPortrait = newPortrait;
+          await buildInlineFlip(stageEl, newPortrait);
+          totalEl.textContent = `/ ${cisState.totalPages}`;
+          ctrEl.textContent   = `1 / ${cisState.totalPages}`;
+          inputEl.max = cisState.totalPages;
+        }, 250);
+      });
+      ro.observe(stageEl);
+
+      // ── Expand / modal ───────────────────────────────────────────────
+      const modal      = document.getElementById('cis-modal');
       const modalClose = document.getElementById('cis-modal-close');
-      const modalPrev = document.getElementById('cis-modal-prev');
-      const modalNext = document.getElementById('cis-modal-next');
-      const modalInfo = document.getElementById('cis-modal-info');
+      const modalPrev  = document.getElementById('cis-modal-prev');
+      const modalNext  = document.getElementById('cis-modal-next');
+      const modalInfo  = document.getElementById('cis-modal-info');
 
       expBtn.addEventListener('click', () => {
         modal.classList.add('open');
         document.body.style.overflow = 'hidden';
 
-        const modalStage = document.getElementById('cis-modal-stage');
-        // Double-page modal: fill 90% of screen width, each page = half that
-        const availW = Math.min(window.innerWidth * 0.92, 1400);
-        const pageWm = Math.floor(availW / 2);
-        const pageHm = Math.round(pageWm * 0.707); // landscape ratio
-        const tw = pageWm;
-        const th = pageHm;
+        const mPortrait = window.innerWidth <= MOBILE_BP;
+        const availW    = mPortrait
+          ? window.innerWidth * 0.92
+          : Math.min(window.innerWidth * 0.92, 1400);
+        const tw = mPortrait ? Math.floor(availW - 16) : Math.floor(availW / 2);
+        const th = Math.round(tw * 0.707);
+        const count = mPortrait ? cisState.totalPages : cisState.totalPages + 1;
+        const modalPages = mkPageEls(count, tw, th);
 
-        const modalPages = mkPageEls(cisState.totalPages, Math.round(tw), Math.round(th));
-        cisModalFlip = mkFlip('flip-cis-modal', modalPages, Math.round(tw), Math.round(th), (page) => {
+        if (cisModalFlip) { try { cisModalFlip.destroy(); } catch(e){} }
+        cisModalFlip = mkFlip('flip-cis-modal', modalPages, tw, th, mPortrait, (page) => {
           modalInfo.textContent = `${page + 1} / ${cisState.totalPages}`;
           modalPrev.disabled = page <= 0;
           modalNext.disabled = page >= cisState.totalPages - 1;
-          for (let i = Math.max(0, page - RADIUS); i <= Math.min(cisState.totalPages - 1, page + RADIUS); i++) {
-            cisRenderPage(i, modalPages[i], Math.round(tw), Math.round(th));
-          }
+          for (let i = Math.max(0, page - RADIUS); i <= Math.min(count - 1, page + RADIUS); i++)
+            cisRenderPage(i, modalPages[i], tw, th);
         });
-        // Double-page: set container width to tw * 2
-        document.getElementById('flip-cis-modal').style.width = (Math.round(tw) * 2) + 'px';
 
-        cisRenderPage(cisState.currentPage, modalPages[cisState.currentPage], Math.round(tw), Math.round(th));
-        cisModalFlip.flip(cisState.currentPage);
-        modalInfo.textContent = `${cisState.currentPage + 1} / ${cisState.totalPages}`;
-        modalPrev.disabled = cisState.currentPage <= 0;
-        modalNext.disabled = cisState.currentPage >= cisState.totalPages - 1;
-
+        const cur = cisState.currentPage;
+        cisRenderPage(cur, modalPages[cur], tw, th);
+        if (cisModalFlip) cisModalFlip.flip(cur);
+        modalInfo.textContent = `${cur + 1} / ${cisState.totalPages}`;
+        modalPrev.disabled = cur <= 0;
+        modalNext.disabled = cur >= cisState.totalPages - 1;
         modalPrev.onclick = () => cisModalFlip && cisModalFlip.flipPrev();
         modalNext.onclick = () => cisModalFlip && cisModalFlip.flipNext();
       });
 
       function closeModal() {
-        const modal = document.getElementById('cis-modal');
         modal.classList.remove('open');
         document.body.style.overflow = '';
         const target = cisModalFlip ? cisModalFlip.getCurrentPageIndex() : cisState.currentPage;
-        if (pf) pf.flip(target);
+        if (cisFlip) cisFlip.flip(target);
         cisState.currentPage = target;
         const host = document.getElementById('flip-cis-modal');
         if (host) host.innerHTML = '';
@@ -924,13 +979,13 @@
         if (e.target.id === 'cis-modal') closeModal();
       });
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && document.getElementById('cis-modal').classList.contains('open')) {
+        if (e.key === 'Escape' && document.getElementById('cis-modal').classList.contains('open'))
           closeModal();
-        }
       });
 
     } catch (err) {
-      if (progEl) progEl.textContent = 'Error loading PDF';
+      const p = document.getElementById('prog-cis');
+      if (p) p.textContent = 'Error loading PDF';
       console.warn('CIS flipbook error:', err);
     }
   }
