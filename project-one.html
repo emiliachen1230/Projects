@@ -720,11 +720,8 @@
   async function cisRenderPage(idx, div, w, h) {
     if (div.dataset.rendered === '1') return;
     div.dataset.rendered = '1';
-    if (idx === 1) return; // blank cover-back page — leave white
     try {
-      // idx 0 = PDF page 1 (cover); idx 2+ = PDF page idx (skip the blank at 1)
-      const pdfPageNum = idx === 0 ? 1 : idx;
-      const page = await cisState.pdf.getPage(pdfPageNum);
+      const page = await cisState.pdf.getPage(idx + 1);
       const base = page.getViewport({ scale: 1 });
       const scale = Math.min(w / base.width, h / base.height) * 1.6;
       const vp = page.getViewport({ scale });
@@ -740,13 +737,12 @@
 
   function cisPreload(center) {
     const s = Math.max(0, center - RADIUS);
-    const e = Math.min(cisState.pageEls.length - 1, center + RADIUS);
+    const e = Math.min(cisState.totalPages - 1, center + RADIUS);
     for (let i = s; i <= e; i++) cisRenderPage(i, cisState.pageEls[i], cisState.bookW, cisState.bookH);
   }
 
   function mkPageEls(total, w, h) {
-    // total+1: index 0=cover (alone), index 1=blank cover-back, index 2+=PDF pages 1+
-    return Array.from({ length: total + 1 }, () => {
+    return Array.from({ length: total }, () => {
       const div = document.createElement('div');
       div.dataset.rendered = '0';
       div.style.cssText = `width:${w}px;height:${h}px;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center;`;
@@ -834,7 +830,6 @@
       cisState.pdf = pdf;
       cisState.totalPages = pdf.numPages;
       cisState.pageEls = mkPageEls(pdf.numPages, bw, bh);
-      cisState.flipTotal = pdf.numPages + 1; // internal array size
       progEl.textContent = 'Rendering first page…';
       await cisRenderPage(0, cisState.pageEls[0], bw, bh);
 
