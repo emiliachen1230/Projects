@@ -1098,8 +1098,7 @@
   <script>
   // ══════════════════════════════════════════════════
   //  FLIPBOOK — CONFIG
-  //  GitHub Pages: PDFs should be in /docs/ folder
-  //  Update pdfSrc paths to match your repo structure
+  //  PDF 路徑對應 docs/ 資料夾（與 HTML 同一 repo 根目錄）
   // ══════════════════════════════════════════════════
   const BOOKS = {
     manual: {
@@ -1137,29 +1136,62 @@
     'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
   const fbState = {};
-  let modalKey = null;
+  let modalKey  = null;
   let modalPageFlip = null;
 
-  // ── Render all PDF pages to data-URLs ─────────────
-  async function renderPDFPages(src, onProgress) {
-    const pdf = await pdfjsLib.getDocument(src).promise;
-    const total = pdf.numPages;
-    const pages = [];
-    for (let i = 1; i <= total; i++) {
-      onProgress(i, total);
-      const page = await pdf.getPage(i);
-      const viewport = page.getViewport({ scale: 1.8 });
-      const canvas = document.createElement('canvas');
-      canvas.width  = viewport.width;
-      canvas.height = viewport.height;
+  // ══════════════════════════════════════════════════
+  //  LAZY RENDERER
+  //  只渲染當前頁 ±3 頁，其餘保持空白佔位
+  //  適合大型 PDF（50MB+），不會一次吃光記憶體
+  // ══════════════════════════════════════════════════
+  const PRELOAD_RADIUS = 3; // 每次渲染當前頁前後各 3 頁
+
+  async function renderOnePage(pdf, pageIndex, div, w, h) {
+    if (div.dataset.rendered === '1') return;
+    div.dataset.rendered = '1';
+    try {
+      const page     = await pdf.getPage(pageIndex + 1);
+      const scale    = Math.min(w / page.getViewport({ scale: 1 }).width,
+                                h / page.getViewport({ scale: 1 }).height) * 1.6;
+      const viewport = page.getViewport({ scale });
+      const canvas   = document.createElement('canvas');
+      canvas.width   = viewport.width;
+      canvas.height  = viewport.height;
       await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
-      pages.push(canvas.toDataURL('image/jpeg', 0.92));
+      const img = div.querySelector('img');
+      img.src = canvas.toDataURL('image/jpeg', 0.88);
+    } catch (e) {
+      console.warn('Page render error', pageIndex, e);
     }
-    return { pages, total };
+  }
+
+  async function preloadAround(key, centerIndex) {
+    const s = fbState[key];
+    if (!s) return;
+    const start = Math.max(0, centerIndex - PRELOAD_RADIUS);
+    const end   = Math.min(s.totalPages - 1, centerIndex + PRELOAD_RADIUS);
+    for (let i = start; i <= end; i++) {
+      renderOnePage(s.pdf, i, s.pageEls[i], s.bookW, s.bookH);
+    }
+  }
+
+  // ── Build all placeholder page <div>s ─────────────
+  function buildPageEls(total, w, h) {
+    return Array.from({ length: total }, (_, i) => {
+      const div = document.createElement('div');
+      div.dataset.rendered = '0';
+      div.style.cssText = `width:${w}px;height:${h}px;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center;`;
+      const img = document.createElement('img');
+      // grey shimmer placeholder
+      img.src = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}'><rect width='100%' height='100%' fill='%23f0f0f0'/></svg>`;
+      img.style.cssText = 'width:100%;height:100%;object-fit:contain;display:block;';
+      div.appendChild(img);
+      return div;
+    });
   }
 
   // ── Build StPageFlip instance ──────────────────────
-  function buildFlip(containerId, pages, width, height, onFlip) {
+  function buildFlip(containerId, pageEls, width, height, onFlip) {
     const container = document.getElementById(containerId);
     container.innerHTML = '';
     container.style.width  = width  + 'px';
@@ -1180,16 +1212,6 @@
       swipeDistance:       30,
       showPageCorners:     true,
       disableFlipByClick:  false,
-    });
-
-    const pageEls = pages.map(src => {
-      const div = document.createElement('div');
-      div.style.cssText = `width:${width}px;height:${height}px;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center;`;
-      const img = document.createElement('img');
-      img.src = src;
-      img.style.cssText = 'width:100%;height:100%;object-fit:contain;display:block;';
-      div.appendChild(img);
-      return div;
     });
 
     pageFlip.loadFromHTML(pageEls);
@@ -1217,26 +1239,41 @@
     const bookW = Math.round(bookH * 0.71);
 
     try {
-      let pages, total;
+      // ① 開啟 PDF，只讀 metadata（極快，不載入頁面內容）
+      let pdf;
       try {
-        ({ pages, total } = await renderPDFPages(cfg.pdfSrc, (i, t) => {
-          progEl.textContent = `Page ${i} / ${t}`;
-        }));
+        progEl.textContent = 'Opening PDF…';
+        pdf = await pdfjsLib.getDocument({
+          url: cfg.pdfSrc,
+          disableAutoFetch: true,   // 不預先下載整份 PDF
+          disableStream:    false,
+        }).promise;
       } catch (e) {
         loadingEl.classList.add('hidden');
         showPlaceholder(cfg.flipId, cfg.label, cfg.pdfSrc, bookW, bookH);
         return;
       }
 
-      fbState[key] = { pages, totalPages: total, currentPage: 0 };
+      const total   = pdf.numPages;
+      const pageEls = buildPageEls(total, bookW, bookH);
 
-      const pageFlip = buildFlip(cfg.flipId, pages, bookW, bookH, pageNum => {
+      // 保存 state
+      fbState[key] = { pdf, pageEls, totalPages: total, currentPage: 0, bookW, bookH };
+
+      // ② 先渲染第 1 頁再顯示 flipbook（讓使用者馬上看到內容）
+      progEl.textContent = 'Rendering first page…';
+      await renderOnePage(pdf, 0, pageEls[0], bookW, bookH);
+
+      // ③ 建立 flipbook
+      const pageFlip = buildFlip(cfg.flipId, pageEls, bookW, bookH, pageNum => {
         fbState[key].currentPage = pageNum;
         updateControls(key);
+        preloadAround(key, pageNum); // 翻頁時才渲染附近頁面
       });
       fbState[key].pageFlip = pageFlip;
       document.getElementById(cfg.flipId).style.margin = '0 auto';
 
+      // ④ 顯示
       loadingEl.classList.add('hidden');
       totalEl.textContent   = `/ ${total}`;
       counterEl.textContent = `1 / ${total}`;
@@ -1244,11 +1281,17 @@
       prevBtn.disabled = false;
       nextBtn.disabled = false;
 
+      // 背景靜默預載第 2~4 頁
+      preloadAround(key, 0);
+
       prevBtn.onclick = () => pageFlip.flipPrev();
       nextBtn.onclick = () => pageFlip.flipNext();
       inputEl.addEventListener('change', () => {
         const p = parseInt(inputEl.value, 10);
-        if (p >= 1 && p <= total) pageFlip.flip(p - 1);
+        if (p >= 1 && p <= total) {
+          preloadAround(key, p - 1);
+          pageFlip.flip(p - 1);
+        }
       });
       expandBtn.onclick = () => openModal(key);
 
@@ -1291,11 +1334,11 @@
       </div>`;
   }
 
-  // ── Modal ──────────────────────────────────────────
+  // ── Modal (fullscreen) ─────────────────────────────
   function openModal(key) {
     const cfg = BOOKS[key];
     const s   = fbState[key];
-    if (!s || !s.pages) return;
+    if (!s || !s.pdf) return;
 
     modalKey = key;
     const modal      = document.getElementById('fb-modal');
@@ -1306,16 +1349,18 @@
 
     document.getElementById('modal-title').textContent = cfg.label;
 
-    const mw = Math.min(modalStage.clientWidth  - 48, 800);
-    const mh = Math.min(modalStage.clientHeight - 32, 1000);
+    const mw     = Math.min(modalStage.clientWidth  - 48, 800);
+    const mh     = Math.min(modalStage.clientHeight - 32, 1000);
     const finalW = Math.min(Math.round(mh * 0.71), mw);
     const finalH = Math.round(finalW / 0.71);
 
     if (modalPageFlip) { try { modalPageFlip.destroy(); } catch(e){} }
 
-    modalPageFlip = buildFlip('flip-modal', s.pages, finalW, finalH, pageNum => {
+    // Modal 用同一份 pageEls（已渲染過的頁面共享）
+    modalPageFlip = buildFlip('flip-modal', s.pageEls, finalW, finalH, pageNum => {
       fbState[key].currentPage = pageNum;
       infoEl.textContent = `${pageNum + 1} / ${s.totalPages}`;
+      preloadAround(key, pageNum);
       updateControls(key);
     });
 
