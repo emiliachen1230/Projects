@@ -7,6 +7,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
+  <!-- PDF.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <!-- StPageFlip -->
+  <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -505,13 +509,60 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
+    }            .prototype-frame {
+      padding-top: 4px;
     }
 
-    .prototype-frame iframe {
-      width: 100%;
-      min-height: 680px;
-      border: 0;
+    .prototype-frame h3 {
+      font-family: var(--ff-display);
+      font-size: 18px;
+      color: var(--text);
+      letter-spacing: 0.8px;
+      font-weight: 400;
+      margin-bottom: 10px;
+    }
+
+    .proto-note {
+      max-width: 720px;
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--text);
+      margin-bottom: 18px;
+    }
+
+    .prototype-stage {
+      width: min(100%, 900px);
+      margin: 0 auto;
       background: #fff;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .prototype-stage iframe {
+      width: 100%;
+      height: 860px;
+      border: 0;
+      display: block;
+      background: #fff;
+    }    @media (min-width: 1081px) {
+      .nav-links {
+        flex-wrap: nowrap;
+        gap: 20px;
+      }
+      .nav-links a {
+        font-size: 12px;
+      }
+      .hero {
+        height: 620px;
+      }
+    }
+      .nav-links a {
+        font-size: 12px;
+      }
+      .hero {
+        height: 620px;
+      }
     }
 
     .prototype-placeholder {
@@ -691,6 +742,17 @@
     }
 
     @media (max-width: 900px) {
+      .prototype-stage {
+        width: 100%;
+        border-radius: 18px;
+      }
+      .prototype-stage iframe {
+        height: 760px;
+      }
+
+      .family-grid {
+        grid-template-columns: 1fr;
+      }
       footer {
         gap: 150px;
         padding: 40px 20px 0;
@@ -714,7 +776,9 @@
     }
 
     @media (max-width: 560px) {
-      .hero-copy {
+      .prototype-stage iframe {
+        height: 620px;
+      }      .hero-copy {
         padding: 48px 20px;
       }
 
@@ -734,12 +798,215 @@
       .swatch-box {
         width: 90px;
         height: 90px;
-      }
+      }    }
 
-      .prototype-frame iframe {
-        min-height: 520px;
+    /* ── HERO: full-width image only ─────────────────── */
+    .hero {
+      margin-top: 64px;
+      height: 560px;
+      overflow: hidden;
+      position: relative;
+      display: block;         /* override grid */
+      border-bottom: none;
+    }
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+    }
+    /* hide the old hero-copy and hero-visual grid panes */
+    .hero-copy, .hero-visual { display: none; }
+
+    /* ── DESCRIPTION block (below meta-row) ──────────── */
+    .description-block {
+      padding: 56px 24px 0;
+      max-width: 760px;
+    }
+    .description-kicker {
+      font-family: var(--ff-display);
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: var(--silver);
+      margin-bottom: 16px;
+    }
+    .description-h1 {
+      font-family: var(--ff-display);
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1.05;
+      letter-spacing: 2px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+    .description-body {
+      font-size: 15px;
+      line-height: 1.9;
+      color: var(--text);
+      margin-bottom: 28px;
+    }
+    .description-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-bottom: 56px;
+      border-bottom: 1px solid var(--black);
+    }
+    .description-tag {
+      font-family: var(--ff-display);
+      font-size: 11px;
+      letter-spacing: 1.2px;
+      color: var(--silver);
+    }
+    .description-tag + .description-tag::before {
+      content: '·';
+      margin-right: 10px;
+      color: var(--silver);
+    }
+
+    /* ── REMOVE ALL CARD BORDERS ─────────────────────── */
+    .highlight-card,
+    .insight-card,
+    .info-card,
+    .system-card,
+    .timeline-card,
+    .persona-card,
+    .research-summary,
+    .benefit-card,
+    .prototype-placeholder {
+      border: none;
+      background: none;
+      padding: 0;
+    }
+
+    /* ── GRIDS: add top border per item for rhythm ───── */
+    .highlight-card-grid,
+    .insight-grid,
+    .info-card-grid,
+    .system-grid,
+    .timeline-grid,
+    .benefit-grid {
+      gap: 0;
+      border-top: 1px solid rgba(0,0,0,0.10);
+    }
+    .highlight-card,
+    .insight-card,
+    .info-card,
+    .system-card,
+    .timeline-card,
+    .benefit-card {
+      padding: 28px 24px 28px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.10);
+      min-height: unset;
+    }
+    /* last child in a row: add right border separator on desktop */
+    @media (min-width: 1081px) {
+      .highlight-card-grid,
+      .insight-grid,
+      .info-card-grid,
+      .system-grid {
+        border-left: none;
+      }
+      .highlight-card + .highlight-card,
+      .insight-card + .insight-card,
+      .info-card + .info-card,
+      .system-card + .system-card {
+        padding-left: 32px;
+        border-left: 1px solid rgba(0,0,0,0.10);
       }
     }
+
+    /* persona grid */
+    .persona-grid { gap: 40px; border-top: 1px solid rgba(0,0,0,0.10); padding-top: 28px; }
+    .persona-card, .research-summary { min-height: unset; }
+
+    /* timeline 2-col */
+    .timeline-grid { gap: 0; }
+    .timeline-card:nth-child(2n) { padding-left: 32px; border-left: 1px solid rgba(0,0,0,0.10); }
+    @media (max-width: 1080px) {
+      .timeline-card:nth-child(2n) { padding-left: 0; border-left: none; }
+    }
+
+    /* quote: clean left-bar only */
+    .quote {
+      border-left: 2px solid var(--black);
+      background: none;
+      padding: 12px 0 12px 20px;
+      font-size: 15px;
+    }
+
+    /* prototype frame: clean */
+    .prototype-frame {
+      border: none;
+      padding: 0;
+      background: none;
+    }    .prototype-placeholder {
+      border: none;
+      background: none;
+      min-height: unset;
+      text-align: left;
+      align-items: flex-start;
+    }
+
+    /* body-grid: more breathing room */
+    .body-grid { gap: 40px; }
+
+    /* section spacing */
+    .section { padding-bottom: 60px; }
+
+    /* ── FLIPBOOK (project-seven style) ──────────────── */
+    .flipbook-section { border-top: 1px solid var(--black); padding: 0 var(--section-pad) 60px; }
+    .flipbook-section .section-header { padding: 40px 0 28px; }
+    .flipbook-section .section-header p { margin-top: 12px; font-size: 15px; color: #3e3e3e; max-width: 600px; line-height: 1.75; }
+    .book-panel { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--black); overflow: hidden; }
+    .book-panel-header { background: var(--dark); padding: 18px 22px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .book-panel-header-left { display: flex; flex-direction: column; gap: 4px; }
+    .book-label { font-family: var(--ff-display); font-size: 11px; letter-spacing: 1.5px; color: #aeabab; }
+    .book-title { font-family: var(--ff-display); font-size: 16px; color: #fff; letter-spacing: 1px; }
+    .book-page-counter { font-family: var(--ff-display); font-size: 13px; color: #aeabab; letter-spacing: 1px; white-space: nowrap; }
+    .book-stage { position: relative; background: #1a1a1a; display: flex; align-items: center; justify-content: center; padding: 28px 20px; min-height: 340px; cursor: grab; overflow: hidden; }
+    .book-stage:active { cursor: grabbing; }
+    .flip-container { position: relative; }
+    .book-loading { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: #1a1a1a; z-index: 10; transition: opacity .4s ease; }
+    .book-loading.hidden { opacity: 0; pointer-events: none; }
+    .loading-spinner { width: 32px; height: 32px; border: 2px solid rgba(255,255,255,0.15); border-top-color: rgba(255,255,255,0.7); border-radius: 50%; animation: fb-spin .8s linear infinite; }
+    @keyframes fb-spin { to { transform: rotate(360deg); } }
+    .loading-text { font-family: var(--ff-display); font-size: 12px; letter-spacing: 1.5px; color: #aeabab; }
+    .loading-progress { font-size: 11px; color: rgba(255,255,255,0.4); }
+    .book-controls { background: #f5f5f5; border-top: 1px solid var(--black); padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .ctrl-nav { display: flex; align-items: center; gap: 6px; }
+    .ctrl-btn { background: none; border: 1px solid var(--black); width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background .15s, color .15s; font-size: 14px; color: var(--black); }
+    .ctrl-btn:hover { background: var(--black); color: #fff; }
+    .ctrl-btn:disabled { opacity: 0.3; cursor: default; }
+    .ctrl-btn:disabled:hover { background: none; color: var(--black); }
+    .ctrl-right { display: flex; align-items: center; gap: 8px; }
+    .expand-btn { background: var(--dark); border: none; color: #fff; padding: 7px 14px; font-family: var(--ff-display); font-size: 11px; letter-spacing: 1.2px; cursor: pointer; transition: opacity .2s; display: flex; align-items: center; gap: 6px; }
+    .expand-btn:hover { opacity: 0.75; }
+    .page-input-wrap { display: flex; align-items: center; gap: 6px; font-family: var(--ff-display); font-size: 11px; color: #3e3e3e; letter-spacing: 1px; }
+    .page-input { width: 38px; border: 1px solid rgba(0,0,0,0.25); padding: 4px 6px; text-align: center; font-family: var(--ff-display); font-size: 12px; outline: none; }
+    .page-input:focus { border-color: var(--black); }
+    .book-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 40px 24px; }
+    .placeholder-icon { width: 64px; height: 80px; border: 2px solid rgba(255,255,255,0.2); position: relative; display: flex; align-items: center; justify-content: center; }
+    .placeholder-icon::before { content: ''; position: absolute; top: -2px; right: -2px; width: 16px; height: 16px; background: #1a1a1a; border-left: 2px solid rgba(255,255,255,0.2); border-bottom: 2px solid rgba(255,255,255,0.2); }
+    .placeholder-lines { display: flex; flex-direction: column; gap: 5px; width: 36px; }
+    .placeholder-line { height: 2px; background: rgba(255,255,255,0.25); border-radius: 1px; }
+    .placeholder-line:nth-child(3) { width: 60%; }
+    .placeholder-title { font-family: var(--ff-display); font-size: 13px; letter-spacing: 1.5px; color: rgba(255,255,255,0.6); text-align: center; }
+    .placeholder-hint { font-size: 12px; color: rgba(255,255,255,0.35); text-align: center; line-height: 1.6; max-width: 220px; }
+    .placeholder-hint code { background: rgba(255,255,255,0.1); padding: 1px 5px; font-size: 11px; }
+    .drag-hint { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: 11px; color: rgba(255,255,255,0.25); letter-spacing: 1px; font-family: var(--ff-display); pointer-events: none; white-space: nowrap; }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal-topbar { width: 100%; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .modal-title { font-family: var(--ff-display); font-size: 14px; letter-spacing: 2px; color: rgba(255,255,255,0.7); }
+    .modal-close { background: none; border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.7); width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; transition: all .2s; }
+    .modal-close:hover { border-color: #fff; color: #fff; }
+    .modal-stage { flex: 1; width: 100%; display: flex; align-items: center; justify-content: center; padding: 24px; overflow: hidden; }
+    .modal-controls { width: 100%; padding: 14px 24px; display: flex; align-items: center; justify-content: center; gap: 16px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .modal-ctrl-btn { background: none; border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.75); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; transition: all .2s; }
+    .modal-ctrl-btn:hover { border-color: #fff; color: #fff; }
+    .modal-ctrl-btn:disabled { opacity: 0.2; cursor: default; }
+    .modal-page-info { font-family: var(--ff-display); font-size: 13px; letter-spacing: 1.5px; color: rgba(255,255,255,0.5); min-width: 80px; text-align: center; }
   </style>
 </head>
 <body>
@@ -756,22 +1023,9 @@
     </ul>
   </nav>
 
+  <!-- HERO: full-width image only -->
   <section class="hero" id="overview">
-    <div class="hero-copy">
-      <div class="hero-kicker">Project One · Research × App × CIS Design</div>
-      <h1>Soultime</h1>
-      <p>Soultime is a service-oriented mobile app developed from research on aging society, time banking, and age-friendly interface design. The project translates long-term care needs, social participation, and digital usability into a dual-platform system for elderly users and family members, combining service exchange, activity participation, health records, and family coordination in one visual and interaction framework.</p>
-      <div class="hero-tags">
-        <span class="hero-tag">Service Design</span>
-        <span class="hero-tag">Aging Society</span>
-        <span class="hero-tag">Time Bank</span>
-        <span class="hero-tag">UI / UX</span>
-        <span class="hero-tag">Brand Identity</span>
-      </div>
-    </div>
-    <div class="hero-visual">
-      <img src="images/project-1-hero.png" alt="Soultime hero visual">
-    </div>
+    <img src="images/project-1-hero.png" alt="Soultime">
   </section>
 
   <div class="meta-row">
@@ -784,6 +1038,20 @@
     </div>
     <div class="meta-label">
       <span>Soultime</span>
+    </div>
+  </div>
+
+  <!-- DESCRIPTION: kicker / title / body / tags -->
+  <div class="description-block">
+    <div class="description-kicker">Project One &nbsp;·&nbsp; Research × App × CIS Design</div>
+    <div class="description-h1">Soultime</div>
+    <p class="description-body">Soultime is a service-oriented mobile app developed from research on aging society, time banking, and age-friendly interface design. The project translates long-term care needs, social participation, and digital usability into a dual-platform system for elderly users and family members, combining service exchange, activity participation, health records, and family coordination in one visual and interaction framework.</p>
+    <div class="description-tags">
+      <span class="description-tag">Service Design</span>
+      <span class="description-tag">Aging Society</span>
+      <span class="description-tag">Time Bank</span>
+      <span class="description-tag">UI / UX</span>
+      <span class="description-tag">Brand Identity</span>
     </div>
   </div>
 
@@ -1045,6 +1313,67 @@
     </div>
   </section>
 
+
+  <!-- CIS DOCUMENT — FLIPBOOK -->
+  <section class="section flipbook-section" id="cis-document">
+    <div class="section-wrap">
+      <div class="section-header">
+        <h2>CIS Document</h2>
+        <p>翻頁瀏覽完整 Soultime CIS 設計手冊。可左右拖曳書頁翻頁，點擊「EXPAND」進入全螢幕閱讀模式。</p>
+      </div>
+      <div class="book-panel" id="panel-cis">
+        <div class="book-panel-header">
+          <div class="book-panel-header-left">
+            <span class="book-label">Document</span>
+            <span class="book-title">Soultime CIS</span>
+          </div>
+          <span class="book-page-counter" id="counter-cis">— / —</span>
+        </div>
+        <div class="book-stage" id="stage-cis">
+          <div class="book-loading" id="loading-cis">
+            <div class="loading-spinner"></div>
+            <span class="loading-text">Loading PDF</span>
+            <span class="loading-progress" id="prog-cis">Preparing…</span>
+          </div>
+          <div class="flip-container" id="flip-cis"></div>
+          <span class="drag-hint">← drag to flip →</span>
+        </div>
+        <div class="book-controls">
+          <div class="ctrl-nav">
+            <button class="ctrl-btn" id="prev-cis" disabled>&#8592;</button>
+            <button class="ctrl-btn" id="next-cis" disabled>&#8594;</button>
+          </div>
+          <div class="page-input-wrap">
+            P <input class="page-input" type="number" id="input-cis" min="1" value="1">
+            <span id="total-cis">/ —</span>
+          </div>
+          <div class="ctrl-right">
+            <button class="expand-btn" id="expand-cis">
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 4V1H4M7 1H10V4M10 7V10H7M4 10H1V7" stroke="white" stroke-width="1.2"/></svg>
+              EXPAND
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="cis-modal">
+    <div class="modal-topbar">
+      <span class="modal-title">Soultime CIS</span>
+      <button class="modal-close" id="cis-modal-close">&#215;</button>
+    </div>
+    <div class="modal-stage" id="cis-modal-stage">
+      <div class="flip-container" id="flip-cis-modal"></div>
+    </div>
+    <div class="modal-controls">
+      <button class="modal-ctrl-btn" id="cis-modal-prev" disabled>&#8592;</button>
+      <span class="modal-page-info" id="cis-modal-info">— / —</span>
+      <button class="modal-ctrl-btn" id="cis-modal-next" disabled>&#8594;</button>
+    </div>
+  </div>
+
   <section class="section" id="interface">
     <div class="section-wrap">
       <div class="section-header">
@@ -1233,16 +1562,60 @@
       <div class="section-header">
         <h2>Prototype Showcase</h2>
       </div>
+
       <div class="prototype-frame">
         <h3>Interactive Figma Prototype</h3>
-        <p class="proto-note">This section is reserved for live prototype display. Replace the iframe <code>src</code> below with your Figma embed URL to enable direct interaction inside the portfolio page.</p>
-        <iframe src="" title="Soultime Figma Prototype"></iframe>
-        <div class="prototype-code">Example: https://www.figma.com/embed?embed_host=share&url=YOUR_FIGMA_PROTOTYPE_LINK</div>
+        <p class="proto-note">Interactive prototype preview embedded directly from Figma, shown in a clean white container without extra mockup framing.</p>
+
+        <div class="prototype-stage">
+          <iframe
+            src="https://embed.figma.com/proto/6XfK7ewMxQ6VxF0riGc0oI/SoulTime?node-id=1165-68036&viewport=5147%2C3329%2C0.18&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1165%3A64843&show-proto-sidebar=0&page-id=0%3A1&embed-host=share"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer"
+            title="Soultime Figma Prototype">
+          </iframe>
+        </div>
       </div>
-      <div class="divider-space"></div>
-      <div class="prototype-placeholder">
-        <h3>Backup Display Area</h3>
-        <p>If the embed is not active yet, this block can be replaced with a preview image, QR code, or motion demo for the prototype presentation.</p>
+    </div>
+  </section>
+
+
+
+  <section class="section" id="family-prototype">
+    <div class="section-wrap">
+      <div class="section-header">
+        <h2>Soultime for Family</h2>
+      </div>
+
+      <div class="prototype-frame">
+        <h3>Family Version Prototype</h3>
+        <p class="proto-note">In addition to the individual-facing Soultime app, this family version extends the service into a shared care context. It is designed to support communication, status awareness, and emotional connection between family members, making the platform more suitable for long-term companionship and intergenerational care.</p>
+
+        <div class="prototype-stage">
+          <iframe
+            src="https://embed.figma.com/proto/6XfK7ewMxQ6VxF0riGc0oI/SoulTime?node-id=1165-69498&viewport=5147%2C3329%2C0.18&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1165%3A68926&show-proto-sidebar=0&page-id=0%3A1&embed-host=share"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer"
+            title="Soultime Family Figma Prototype">
+          </iframe>
+        </div>
+
+        <div class="family-grid">
+          <div>
+            <h4>Design Intention</h4>
+            <p>This version is designed for family members who participate in daily care, emotional support, and long-term companionship. It expands Soultime from a personal interface into a relational care platform.</p>
+          </div>
+          <div>
+            <h4>Key Difference</h4>
+            <p>While the original Soultime focuses on the individual user, the family version emphasizes connection, observation, and shared participation, allowing care to become a visible and collaborative experience.</p>
+          </div>
+        </div>
+
+        <div class="family-copy">
+          <p>Compared with the original version, Soultime for Family shifts the focus from personal reflection to shared awareness. The interface is intended to help family members check emotional status, understand daily conditions, and participate in care routines through a softer and more approachable digital experience.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -1281,6 +1654,7 @@
     </div>
   </section>
 
+  
   <footer>
     <div class="footer-head">
       <div class="footer-logo">
@@ -1322,5 +1696,222 @@
     </div>
   </footer>
 
+  <script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+  const cisState = { pdf: null, pageEls: [], totalPages: 0, currentPage: 0, bookW: 0, bookH: 0 };
+  const CIS_SRC  = 'docs/Soultime_CIS.pdf';
+  const RADIUS   = 3;
+  let cisModalFlip = null;
+
+  async function cisRenderPage(idx, div, w, h) {
+    if (div.dataset.rendered === '1') return;
+    div.dataset.rendered = '1';
+    try {
+      const page = await cisState.pdf.getPage(idx + 1);
+      const base = page.getViewport({ scale: 1 });
+      const scale = Math.min(w / base.width, h / base.height) * 1.6;
+      const vp = page.getViewport({ scale });
+      const c = document.createElement('canvas');
+      c.width = vp.width;
+      c.height = vp.height;
+      await page.render({ canvasContext: c.getContext('2d'), viewport: vp }).promise;
+      div.querySelector('img').src = c.toDataURL('image/jpeg', 0.88);
+    } catch (e) {
+      console.warn('render error', idx, e);
+    }
+  }
+
+  function cisPreload(center) {
+    const s = Math.max(0, center - RADIUS);
+    const e = Math.min(cisState.totalPages - 1, center + RADIUS);
+    for (let i = s; i <= e; i++) cisRenderPage(i, cisState.pageEls[i], cisState.bookW, cisState.bookH);
+  }
+
+  function mkPageEls(total, w, h) {
+    return Array.from({ length: total }, () => {
+      const div = document.createElement('div');
+      div.dataset.rendered = '0';
+      div.style.cssText = `width:${w}px;height:${h}px;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center;`;
+      const img = document.createElement('img');
+      img.src = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}'><rect width='100%' height='100%' fill='%23f0f0f0'/></svg>`;
+      img.style.cssText = 'width:100%;height:100%;object-fit:contain;display:block;';
+      div.appendChild(img);
+      return div;
+    });
+  }
+
+  function mkFlip(cid, els, w, h, cb) {
+    const el = document.getElementById(cid);
+    if (!el) return null;
+    el.innerHTML = '';
+    el.style.width = w + 'px';
+    el.style.height = h + 'px';
+    const pf = new St.PageFlip(el, {
+      width: w,
+      height: h,
+      size: 'fixed',
+      minWidth: 120,
+      maxWidth: 800,
+      minHeight: 180,
+      maxHeight: 1200,
+      drawShadow: true,
+      flippingTime: 700,
+      usePortrait: true,
+      startZIndex: 0,
+      autoSize: false,
+      mobileScrollSupport: false,
+      useMouseEvents: true,
+      swipeDistance: 30,
+      showPageCorners: true,
+      disableFlipByClick: false,
+    });
+    pf.loadFromHTML(els);
+    pf.on('flip', e => cb(e.data));
+    return pf;
+  }
+
+  async function initCis() {
+    if (typeof St === 'undefined') {
+      const prog = document.getElementById('prog-cis');
+      if (prog) prog.textContent = 'Library failed to load';
+      return;
+    }
+    const stageEl = document.getElementById('stage-cis');
+    const loadEl  = document.getElementById('loading-cis');
+    const progEl  = document.getElementById('prog-cis');
+    const prevBtn = document.getElementById('prev-cis');
+    const nextBtn = document.getElementById('next-cis');
+    const inputEl = document.getElementById('input-cis');
+    const totalEl = document.getElementById('total-cis');
+    const ctrEl   = document.getElementById('counter-cis');
+    const expBtn  = document.getElementById('expand-cis');
+
+    if (!stageEl) return;
+
+    const sw = stageEl.clientWidth;
+    const sh = Math.max(300, Math.round(sw * 0.65));
+    stageEl.style.minHeight = sh + 'px';
+    const bh = sh - 56;
+    const bw = Math.round(bh * 0.71);
+    cisState.bookW = bw;
+    cisState.bookH = bh;
+
+    try {
+      progEl.textContent = 'Opening PDF…';
+      let pdf;
+      try {
+        pdf = await pdfjsLib.getDocument({ url: CIS_SRC, disableAutoFetch: true }).promise;
+      } catch (e) {
+        loadEl.classList.add('hidden');
+        const fe = document.getElementById('flip-cis');
+        fe.style.width = bw + 'px';
+        fe.style.height = bh + 'px';
+        fe.innerHTML = `<div class="book-placeholder"><div class="placeholder-icon"><div class="placeholder-lines"><div class="placeholder-line"></div><div class="placeholder-line"></div><div class="placeholder-line" style="width:60%"></div><div class="placeholder-line"></div><div class="placeholder-line" style="width:80%"></div></div></div><div class="placeholder-title">SOULTIME CIS</div><div class="placeholder-hint">Place PDF at<br><code>${CIS_SRC}</code></div></div>`;
+        return;
+      }
+
+      cisState.pdf = pdf;
+      cisState.totalPages = pdf.numPages;
+      cisState.pageEls = mkPageEls(pdf.numPages, bw, bh);
+      progEl.textContent = 'Rendering first page…';
+      await cisRenderPage(0, cisState.pageEls[0], bw, bh);
+
+      const pf = mkFlip('flip-cis', cisState.pageEls, bw, bh, (page) => {
+        cisState.currentPage = page;
+        ctrEl.textContent = `${page + 1} / ${cisState.totalPages}`;
+        totalEl.textContent = `/ ${cisState.totalPages}`;
+        inputEl.value = page + 1;
+        prevBtn.disabled = page <= 0;
+        nextBtn.disabled = page >= cisState.totalPages - 1;
+        cisPreload(page);
+      });
+
+      cisState.currentPage = 0;
+      ctrEl.textContent = `1 / ${cisState.totalPages}`;
+      totalEl.textContent = `/ ${cisState.totalPages}`;
+      inputEl.max = cisState.totalPages;
+      prevBtn.disabled = true;
+      nextBtn.disabled = cisState.totalPages <= 1;
+      cisPreload(0);
+      loadEl.classList.add('hidden');
+
+      prevBtn.addEventListener('click', () => pf && pf.flipPrev());
+      nextBtn.addEventListener('click', () => pf && pf.flipNext());
+      inputEl.addEventListener('change', () => {
+        let v = Math.max(1, Math.min(cisState.totalPages, parseInt(inputEl.value || '1', 10)));
+        inputEl.value = v;
+        if (pf) pf.flip(v - 1);
+      });
+
+      const modal = document.getElementById('cis-modal');
+      const modalClose = document.getElementById('cis-modal-close');
+      const modalPrev = document.getElementById('cis-modal-prev');
+      const modalNext = document.getElementById('cis-modal-next');
+      const modalInfo = document.getElementById('cis-modal-info');
+
+      expBtn.addEventListener('click', () => {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+
+        const modalStage = document.getElementById('cis-modal-stage');
+        const mw = Math.min(window.innerWidth * 0.84, 900);
+        const mh = Math.min(window.innerHeight * 0.76, 1100);
+        const ratio = bw / bh;
+        let tw = mw, th = tw / ratio;
+        if (th > mh) {
+          th = mh;
+          tw = th * ratio;
+        }
+
+        const modalPages = mkPageEls(cisState.totalPages, Math.round(tw), Math.round(th));
+        cisModalFlip = mkFlip('flip-cis-modal', modalPages, Math.round(tw), Math.round(th), (page) => {
+          modalInfo.textContent = `${page + 1} / ${cisState.totalPages}`;
+          modalPrev.disabled = page <= 0;
+          modalNext.disabled = page >= cisState.totalPages - 1;
+          for (let i = Math.max(0, page - RADIUS); i <= Math.min(cisState.totalPages - 1, page + RADIUS); i++) {
+            cisRenderPage(i, modalPages[i], Math.round(tw), Math.round(th));
+          }
+        });
+
+        cisRenderPage(cisState.currentPage, modalPages[cisState.currentPage], Math.round(tw), Math.round(th));
+        cisModalFlip.flip(cisState.currentPage);
+        modalInfo.textContent = `${cisState.currentPage + 1} / ${cisState.totalPages}`;
+        modalPrev.disabled = cisState.currentPage <= 0;
+        modalNext.disabled = cisState.currentPage >= cisState.totalPages - 1;
+
+        modalPrev.onclick = () => cisModalFlip && cisModalFlip.flipPrev();
+        modalNext.onclick = () => cisModalFlip && cisModalFlip.flipNext();
+      });
+
+      function closeModal() {
+        const modal = document.getElementById('cis-modal');
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+        const target = cisModalFlip ? cisModalFlip.getCurrentPageIndex() : cisState.currentPage;
+        if (pf) pf.flip(target);
+        cisState.currentPage = target;
+        const host = document.getElementById('flip-cis-modal');
+        if (host) host.innerHTML = '';
+        cisModalFlip = null;
+      }
+
+      modalClose.addEventListener('click', closeModal);
+      document.getElementById('cis-modal').addEventListener('click', (e) => {
+        if (e.target.id === 'cis-modal') closeModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && document.getElementById('cis-modal').classList.contains('open')) closeModal();
+      });
+
+    } catch (e) {
+      console.error(e);
+      if (progEl) progEl.textContent = 'Failed to initialize document';
+    }
+  }
+
+  window.addEventListener('load', initCis);
+  </script>
 </body>
 </html>
