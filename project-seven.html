@@ -10,7 +10,7 @@
   <!-- PDF.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <!-- StPageFlip -->
-  <script src="https://unpkg.com/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -1392,6 +1392,14 @@
 
   // ── Kick off ───────────────────────────────────────
   window.addEventListener('load', () => {
+    if (typeof St === 'undefined') {
+      console.error('StPageFlip (St) failed to load. Check CDN or network.');
+      ['manual','report'].forEach(key => {
+        const prog = document.getElementById(BOOKS[key].progId);
+        if (prog) prog.textContent = 'Library failed to load';
+      });
+      return;
+    }
     initBook('manual');
     initBook('report');
   });
