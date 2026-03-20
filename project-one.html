@@ -157,7 +157,7 @@
     .book-label { font-family: var(--ff-display); font-size: 11px; letter-spacing: 1.5px; color: var(--silver); }
     .book-title { font-family: var(--ff-display); font-size: 16px; color: #fff; letter-spacing: 1px; }
     .book-page-counter { font-family: var(--ff-display); font-size: 13px; color: var(--silver); letter-spacing: 1px; white-space: nowrap; }
-    .book-stage { position: relative; background: #1a1a1a; display: flex; align-items: center; justify-content: center; padding: 20px; min-height: 480px; cursor: grab; overflow: hidden; }
+    .book-stage { position: relative; background: #1a1a1a; display: flex; align-items: center; justify-content: center; padding: 12px; min-height: 480px; cursor: grab; overflow: hidden; }
     .book-stage:active { cursor: grabbing; }
     .flip-container { position: relative; }
     .book-loading { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: #1a1a1a; z-index: 10; transition: opacity .4s; }
@@ -803,12 +803,13 @@
     if (!stageEl) return;
 
     const sw = stageEl.clientWidth;
-    // Double-page: each page = half stage width minus padding
-    const pageW = Math.floor((sw - 40) / 2);
-    const pageH = Math.round(pageW * 1.414); // A4 ratio
+    // Double-page landscape: two pages side by side, each page wider than tall
+    // Landscape A4 ratio: width/height = 297/210 ≈ 1.414, so height = width * 0.707
+    const pageW = Math.floor((sw - 24) / 2);
+    const pageH = Math.round(pageW * 0.707);
     const bw = pageW;
     const bh = pageH;
-    stageEl.style.minHeight = (pageH + 40) + 'px';
+    stageEl.style.minHeight = (pageH + 24) + 'px';
     cisState.bookW = bw;
     cisState.bookH = bh;
 
@@ -875,7 +876,7 @@
         // Double-page modal: fill 90% of screen width, each page = half that
         const availW = Math.min(window.innerWidth * 0.92, 1400);
         const pageWm = Math.floor(availW / 2);
-        const pageHm = Math.round(pageWm * 1.414);
+        const pageHm = Math.round(pageWm * 0.707); // landscape ratio
         const tw = pageWm;
         const th = pageHm;
 
