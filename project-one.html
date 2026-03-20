@@ -545,6 +545,52 @@
       border: 0;
       display: block;
       background: #fff;
+    }
+
+    .prototype-actions {
+      display: flex;
+      justify-content: flex-start;
+      gap: 12px;
+      margin: 0 0 16px;
+      flex-wrap: wrap;
+    }
+
+    .prototype-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 10px 18px;
+      border: 1px solid rgba(0,0,0,0.14);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1;
+      transition: background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+    }
+
+    .prototype-btn:hover {
+      background: #f7f7f7;
+      border-color: rgba(0,0,0,0.22);
+    }
+
+    .prototype-btn.primary {
+      background: var(--dark);
+      color: #fff;
+      border-color: var(--dark);
+    }
+
+    .prototype-btn.primary:hover {
+      opacity: 0.92;
+      background: var(--dark);
+    }
+
+    .prototype-actions-note {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--silver);
+      margin-bottom: 16px;
     }    @media (min-width: 1081px) {
       .nav-links {
         flex-wrap: nowrap;
@@ -1567,6 +1613,11 @@
         <h3>Interactive Figma Prototype</h3>
         <p class="proto-note">Interactive prototype preview embedded directly from Figma, shown in a clean white container without extra mockup framing.</p>
 
+        <div class="prototype-actions">
+          <a class="prototype-btn primary" href="https://www.figma.com/proto/6XfK7ewMxQ6VxF0riGc0oI/SoulTime?node-id=1165-68036&viewport=5147%2C3329%2C0.18&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1165%3A64843&page-id=0%3A1" target="_blank" rel="noopener noreferrer">View Prototype</a>
+        </div>
+        <div class="prototype-actions-note">On mobile or slower networks, opening the prototype in a new tab is often more stable than waiting for the embed to load.</div>
+
         <div class="prototype-stage">
           <iframe
             src="https://embed.figma.com/proto/6XfK7ewMxQ6VxF0riGc0oI/SoulTime?node-id=1165-68036&viewport=5147%2C3329%2C0.18&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1165%3A64843&show-proto-sidebar=0&page-id=0%3A1&embed-host=share"
@@ -1591,6 +1642,11 @@
       <div class="prototype-frame">
         <h3>Family Version Prototype</h3>
         <p class="proto-note">In addition to the individual-facing Soultime app, this family version extends the service into a shared care context. It is designed to support communication, status awareness, and emotional connection between family members, making the platform more suitable for long-term companionship and intergenerational care.</p>
+
+        <div class="prototype-actions">
+          <a class="prototype-btn primary" href="https://www.figma.com/proto/6XfK7ewMxQ6VxF0riGc0oI/SoulTime?node-id=1165-69498&viewport=5147%2C3329%2C0.18&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1165%3A68926&page-id=0%3A1" target="_blank" rel="noopener noreferrer">View Prototype</a>
+        </div>
+        <div class="prototype-actions-note">If the embedded family version loads slowly, the button above opens the prototype directly in Figma.</div>
 
         <div class="prototype-stage">
           <iframe
