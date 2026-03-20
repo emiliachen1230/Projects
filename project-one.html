@@ -157,7 +157,7 @@
     .book-label { font-family: var(--ff-display); font-size: 11px; letter-spacing: 1.5px; color: var(--silver); }
     .book-title { font-family: var(--ff-display); font-size: 16px; color: #fff; letter-spacing: 1px; }
     .book-page-counter { font-family: var(--ff-display); font-size: 13px; color: var(--silver); letter-spacing: 1px; white-space: nowrap; }
-    .book-stage { position: relative; background: #1a1a1a; display: flex; align-items: center; justify-content: center; padding: 28px 20px; min-height: 340px; cursor: grab; overflow: hidden; }
+    .book-stage { position: relative; background: #1a1a1a; display: flex; align-items: center; justify-content: center; padding: 20px; min-height: 480px; cursor: grab; overflow: hidden; }
     .book-stage:active { cursor: grabbing; }
     .flip-container { position: relative; }
     .book-loading { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: #1a1a1a; z-index: 10; transition: opacity .4s; }
@@ -770,7 +770,7 @@
       maxHeight: 1200,
       drawShadow: true,
       flippingTime: 700,
-      usePortrait: true,
+      usePortrait: false,
       startZIndex: 0,
       autoSize: false,
       mobileScrollSupport: false,
@@ -803,10 +803,12 @@
     if (!stageEl) return;
 
     const sw = stageEl.clientWidth;
-    const sh = Math.max(300, Math.round(sw * 0.65));
-    stageEl.style.minHeight = sh + 'px';
-    const bh = sh - 56;
-    const bw = Math.round(bh * 0.71);
+    // Double-page: each page = half stage width minus padding
+    const pageW = Math.floor((sw - 40) / 2);
+    const pageH = Math.round(pageW * 1.414); // A4 ratio
+    const bw = pageW;
+    const bh = pageH;
+    stageEl.style.minHeight = (pageH + 40) + 'px';
     cisState.bookW = bw;
     cisState.bookH = bh;
 
@@ -839,6 +841,8 @@
         nextBtn.disabled = page >= cisState.totalPages - 1;
         cisPreload(page);
       });
+      // Double-page: container must be pageW * 2 wide
+      document.getElementById('flip-cis').style.width = (bw * 2) + 'px';
 
       cisState.currentPage = 0;
       ctrEl.textContent = `1 / ${cisState.totalPages}`;
@@ -868,14 +872,12 @@
         document.body.style.overflow = 'hidden';
 
         const modalStage = document.getElementById('cis-modal-stage');
-        const mw = Math.min(window.innerWidth * 0.84, 900);
-        const mh = Math.min(window.innerHeight * 0.76, 1100);
-        const ratio = bw / bh;
-        let tw = mw, th = tw / ratio;
-        if (th > mh) {
-          th = mh;
-          tw = th * ratio;
-        }
+        // Double-page modal: fill 90% of screen width, each page = half that
+        const availW = Math.min(window.innerWidth * 0.92, 1400);
+        const pageWm = Math.floor(availW / 2);
+        const pageHm = Math.round(pageWm * 1.414);
+        const tw = pageWm;
+        const th = pageHm;
 
         const modalPages = mkPageEls(cisState.totalPages, Math.round(tw), Math.round(th));
         cisModalFlip = mkFlip('flip-cis-modal', modalPages, Math.round(tw), Math.round(th), (page) => {
@@ -886,6 +888,8 @@
             cisRenderPage(i, modalPages[i], Math.round(tw), Math.round(th));
           }
         });
+        // Double-page: set container width to tw * 2
+        document.getElementById('flip-cis-modal').style.width = (Math.round(tw) * 2) + 'px';
 
         cisRenderPage(cisState.currentPage, modalPages[cisState.currentPage], Math.round(tw), Math.round(th));
         cisModalFlip.flip(cisState.currentPage);
