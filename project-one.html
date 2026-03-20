@@ -914,7 +914,18 @@
         if (e.target.id === 'cis-modal') closeModal();
       });
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && document.getElementById('cis-m
+        if (e.key === 'Escape' && document.getElementById('cis-modal').classList.contains('open')) {
+          closeModal();
+        }
+      });
+
+    } catch (err) {
+      if (progEl) progEl.textContent = 'Error loading PDF';
+      console.warn('CIS flipbook error:', err);
+    }
+  }
+
+  window.addEventListener('load', initCis);
   </script>
 </body>
 </html>
