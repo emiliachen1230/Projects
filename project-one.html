@@ -648,7 +648,7 @@
     /* ── SECTION PROGRESS INDICATOR ─────────────────── */
 
     /* ── EMOTION CURVE ───────────────────────────────── */
-    .emotion-curve-wrap { position:relative; margin-top:16px; margin-bottom:0; padding-left:92px; min-height:56px; }
+    .emotion-curve-wrap { position:relative; margin-top:20px; margin-bottom:8px; padding-left:92px; min-height:88px; }
     .emotion-curve-scale {
       position:absolute;
       left:0;
@@ -670,9 +670,9 @@
       writing-mode:horizontal-tb;
       text-orientation:mixed;
     }
-    .emotion-curve-scale span:first-child { top:0; }
-    .emotion-curve-scale span:last-child { bottom:2px; }
-    .emotion-curve-wrap svg { display:block; width:100%; height:56px; }
+    .emotion-curve-scale span:first-child { top:4px; }
+    .emotion-curve-scale span:last-child { bottom:10px; }
+    .emotion-curve-wrap svg { display:block; width:100%; height:88px; overflow:visible; }
     .emotion-curve-wrap svg path { stroke-dasharray:600; stroke-dashoffset:600; transition:stroke-dashoffset 1.4s ease; }
     .emotion-curve-wrap.animated svg path { stroke-dashoffset:0; }
 
@@ -1249,22 +1249,21 @@
         <span>POSITIVE</span>
         <span>NEUTRAL</span>
       </div>
-      <svg viewBox="0 0 860 56" preserveAspectRatio="none" fill="none" aria-label="Journey emotion curve">
-        <line x1="40" y1="4" x2="40" y2="48" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
-        <line x1="184" y1="4" x2="184" y2="48" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
-        <line x1="328" y1="4" x2="328" y2="48" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
-        <line x1="472" y1="4" x2="472" y2="48" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
-        <line x1="616" y1="4" x2="616" y2="48" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
-        <line x1="760" y1="4" x2="760" y2="48" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
-        <line x1="760" y1="4" x2="840" y2="4" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
-        <path d="M 40 36 C 92 36 136 14 184 14 C 232 14 280 14 328 14 C 376 14 424 32 472 32 C 520 32 568 14 616 14 C 664 14 720 14 760 14 S 820 14 840 14"
-              stroke="#1d231c" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-        <circle cx="40"  cy="36" r="3.5" fill="#1d231c"/>
-        <circle cx="184" cy="14" r="3.5" fill="#1d231c"/>
-        <circle cx="328" cy="14" r="3.5" fill="#1d231c"/>
-        <circle cx="472" cy="32" r="3.5" fill="#1d231c"/>
-        <circle cx="616" cy="14" r="3.5" fill="#1d231c"/>
-        <circle cx="760" cy="14" r="3.5" fill="#1d231c"/>
+      <svg viewBox="0 0 860 88" fill="none" aria-label="Journey emotion curve">
+        <line x1="72" y1="8" x2="72" y2="76" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+        <line x1="215" y1="8" x2="215" y2="76" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+        <line x1="358" y1="8" x2="358" y2="76" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+        <line x1="502" y1="8" x2="502" y2="76" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+        <line x1="645" y1="8" x2="645" y2="76" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+        <line x1="788" y1="8" x2="788" y2="76" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+        <path d="M 72 52 C 120 52 167 22 215 22 C 263 22 310 22 358 22 C 406 22 454 46 502 46 C 550 46 597 22 645 22 C 693 22 740 22 788 22"
+              stroke="#1d231c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="72"  cy="52" r="6" fill="#1d231c" vector-effect="non-scaling-stroke"/>
+        <circle cx="215" cy="22" r="6" fill="#1d231c" vector-effect="non-scaling-stroke"/>
+        <circle cx="358" cy="22" r="6" fill="#1d231c" vector-effect="non-scaling-stroke"/>
+        <circle cx="502" cy="46" r="6" fill="#1d231c" vector-effect="non-scaling-stroke"/>
+        <circle cx="645" cy="22" r="6" fill="#1d231c" vector-effect="non-scaling-stroke"/>
+        <circle cx="788" cy="22" r="6" fill="#1d231c" vector-effect="non-scaling-stroke"/>
       </svg>
     </div>
 
@@ -1314,10 +1313,7 @@
         <div class="jm-c" style="border-bottom:none"><div class="jm-pills"><span>Quality</span></div></div>
     </div><!-- /jm -->
     </div><!-- /overflow -->
-    <div class="ph reveal rd3">
-      <span class="ph-t">Insert Sketch — Journey Map</span>
-      <span class="ph-s">Replace with @2x PNG export, white background</span>
-    </div>
+
   </section>
 
   <!-- 02 USER STORY / PERSONA -->
