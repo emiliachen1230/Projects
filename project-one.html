@@ -307,7 +307,8 @@
       flex-wrap:wrap;
       align-items:center;
       padding:0;
-      max-width:1180px;
+      width:100%;
+      max-width:none;
     }
     .fl-item { display:flex; align-items:center; gap:8px; font-size:11px; color:var(--gray); }
     .fl-rect, .fl-pill, .fl-dark, .fl-diam { flex-shrink:0; }
@@ -324,7 +325,8 @@
     .fg {
       margin-bottom:28px;
       padding:0 0 18px;
-      max-width:1180px;
+      width:100%;
+      max-width:none;
       border-top:1px solid var(--line);
     }
     .fg:last-child { margin-bottom:0; }
@@ -336,6 +338,7 @@
       padding:18px 0 14px;
     }
     .flow-shell {
+      width:100%;
       overflow:visible;
       padding-bottom:6px;
     }
@@ -344,6 +347,7 @@
       align-items:center;
       flex-wrap:wrap;
       gap:10px;
+      width:100%;
       padding:8px 0 4px;
     }
     .flow-node {
@@ -361,11 +365,11 @@
       flex-shrink:0;
     }
     .flow-node.screen {
-      min-width:118px;
+      width:150px;
       border:1px solid rgba(0,0,0,.12);
     }
     .flow-node.action {
-      min-width:118px;
+      width:150px;
       border:1px solid rgba(0,0,0,.12);
       border-radius:999px;
       font-family:var(--ff-display);
@@ -375,7 +379,7 @@
     }
     .flow-node.start,
     .flow-node.end {
-      min-width:96px;
+      width:108px;
       border-radius:999px;
       background:var(--dark);
       color:#fff;
@@ -385,7 +389,7 @@
       padding:12px 18px;
     }
     .flow-node.muted {
-      min-width:112px;
+      width:132px;
       border:1px solid rgba(0,0,0,.08);
       background:#fafafa;
     }
@@ -419,13 +423,14 @@
       align-items:center;
       gap:6px;
       color:var(--silver);
-      flex-shrink:0;
+      flex:1 1 28px;
+      min-width:26px;
       font-family:var(--ff-display);
       font-size:11px;
       letter-spacing:.4px;
     }
     .flow-connector .line {
-      width:26px;
+      width:100%;
       height:1px;
       background:rgba(0,0,0,.14);
       position:relative;
@@ -459,14 +464,14 @@
       grid-template-columns:1fr 1fr;
       gap:32px;
       width:100%;
-      max-width:1180px;
+      max-width:none;
       align-items:start;
     }
     .sm-col {
       padding:28px 24px;
-      border:1px solid rgba(0,0,0,.10);
+      border:none;
       min-width:0;
-      background:#fff;
+      background:transparent;
     }
     .sm-app {
       font-family:var(--ff-display);
@@ -503,12 +508,12 @@
       font-size:9px;
       letter-spacing:.8px;
       color:var(--dark);
-      border:1px solid rgba(0,0,0,.10);
-      padding:4px 10px;
+      border:1px solid var(--black);
+      padding:6px 10px;
       display:inline-block;
       margin-bottom:8px;
-      background:#f8f8f6;
-      border-radius:999px;
+      background:transparent;
+      border-radius:0;
     }
     .sm-children {
       padding-left:14px;
@@ -527,7 +532,7 @@
       content:'';
       width:10px;
       height:1px;
-      background:var(--line);
+      background:var(--black);
       flex-shrink:0;
       margin-right:6px;
       margin-top:10px;
@@ -535,14 +540,14 @@
     .sm-item span {
       font-size:11px;
       color:var(--gray);
-      padding:3px 8px;
-      border:1px solid rgba(0,0,0,.06);
+      padding:4px 0;
+      border:none;
       line-height:1.4;
-      border-radius:999px;
+      border-radius:0;
       display:inline-block;
-      background:#fff;
+      background:transparent;
     }
-    .sm-item span.on { border-color:rgba(0,0,0,.14); color:var(--text); }
+    .sm-item span.on { color:var(--text); }
     .fg + .fg { margin-top: 0; }
 
     /* Placeholder */
@@ -572,8 +577,18 @@
       .flow-node.start,
       .flow-node.end,
       .flow-node.muted {
-        width:min(100%, 320px);
         min-width:0;
+      }
+      .flow-node.screen,
+      .flow-node.action {
+        width:150px;
+      }
+      .flow-node.start,
+      .flow-node.end {
+        width:108px;
+      }
+      .flow-node.muted {
+        width:132px;
       }
       .flow-node.decision {
         width:86px;
@@ -581,6 +596,8 @@
       }
       .flow-connector {
         width:auto;
+        min-width:0;
+        flex:0 0 auto;
         margin-left:18px;
       }
       .flow-connector .line {
@@ -631,7 +648,31 @@
     /* ── SECTION PROGRESS INDICATOR ─────────────────── */
 
     /* ── EMOTION CURVE ───────────────────────────────── */
-    .emotion-curve-wrap { margin-top:16px; margin-bottom:0; }
+    .emotion-curve-wrap { position:relative; margin-top:16px; margin-bottom:0; padding-left:92px; min-height:56px; }
+    .emotion-curve-scale {
+      position:absolute;
+      left:0;
+      top:0;
+      bottom:0;
+      width:82px;
+      pointer-events:none;
+    }
+    .emotion-curve-scale span {
+      position:absolute;
+      left:0;
+      font-family:var(--ff-display);
+      font-size:10px;
+      color:#aeabab;
+      letter-spacing:1.8px;
+      line-height:1.2;
+      white-space:nowrap;
+      transform:none;
+      writing-mode:horizontal-tb;
+      text-orientation:mixed;
+    }
+    .emotion-curve-scale span:first-child { top:0; }
+    .emotion-curve-scale span:last-child { bottom:2px; }
+    .emotion-curve-wrap svg { display:block; width:100%; height:56px; }
     .emotion-curve-wrap svg path { stroke-dasharray:600; stroke-dashoffset:600; transition:stroke-dashoffset 1.4s ease; }
     .emotion-curve-wrap.animated svg path { stroke-dashoffset:0; }
 
@@ -1204,24 +1245,25 @@
 
     <!-- Emotion Curve -->
     <div class="emotion-curve-wrap reveal rd2">
-      <svg width="100%" height="56" viewBox="0 0 860 56" preserveAspectRatio="none" fill="none" style="display:block;">
-        <text x="0"   y="52" font-family="Aboreto,serif" font-size="8" fill="#aeabab" letter-spacing="1">NEUTRAL</text>
-        <text x="0"   y="11" font-family="Aboreto,serif" font-size="8" fill="#aeabab" letter-spacing="1">POSITIVE</text>
-        <line x1="60" y1="4" x2="60" y2="48" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
-        <line x1="200" y1="4" x2="200" y2="48" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
-        <line x1="340" y1="4" x2="340" y2="48" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
-        <line x1="480" y1="4" x2="480" y2="48" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
-        <line x1="620" y1="4" x2="620" y2="48" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+      <div class="emotion-curve-scale">
+        <span>POSITIVE</span>
+        <span>NEUTRAL</span>
+      </div>
+      <svg viewBox="0 0 860 56" preserveAspectRatio="none" fill="none" aria-label="Journey emotion curve">
+        <line x1="40" y1="4" x2="40" y2="48" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+        <line x1="184" y1="4" x2="184" y2="48" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+        <line x1="328" y1="4" x2="328" y2="48" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+        <line x1="472" y1="4" x2="472" y2="48" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+        <line x1="616" y1="4" x2="616" y2="48" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
         <line x1="760" y1="4" x2="760" y2="48" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
-        <!-- Curve: low → high → high → mid → high → high -->
-        <path d="M 60 36 C 100 36 160 14 200 14 C 240 14 300 14 340 14 C 380 14 420 32 480 32 C 540 32 580 14 620 14 C 660 14 720 14 760 14"
+        <line x1="760" y1="4" x2="840" y2="4" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+        <path d="M 40 36 C 92 36 136 14 184 14 C 232 14 280 14 328 14 C 376 14 424 32 472 32 C 520 32 568 14 616 14 C 664 14 720 14 760 14 S 820 14 840 14"
               stroke="#1d231c" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-        <!-- dots -->
-        <circle cx="60"  cy="36" r="3.5" fill="#1d231c"/>
-        <circle cx="200" cy="14" r="3.5" fill="#1d231c"/>
-        <circle cx="340" cy="14" r="3.5" fill="#1d231c"/>
-        <circle cx="480" cy="32" r="3.5" fill="#1d231c"/>
-        <circle cx="620" cy="14" r="3.5" fill="#1d231c"/>
+        <circle cx="40"  cy="36" r="3.5" fill="#1d231c"/>
+        <circle cx="184" cy="14" r="3.5" fill="#1d231c"/>
+        <circle cx="328" cy="14" r="3.5" fill="#1d231c"/>
+        <circle cx="472" cy="32" r="3.5" fill="#1d231c"/>
+        <circle cx="616" cy="14" r="3.5" fill="#1d231c"/>
         <circle cx="760" cy="14" r="3.5" fill="#1d231c"/>
       </svg>
     </div>
@@ -1417,8 +1459,7 @@
       <div class="pd-label">Design Process · 04</div>
       <h2>Information Architecture</h2>
     </div>
-    <p class="body-text reveal rd1" style="margin-bottom:32px;">The hierarchy returns to the original v4 branch logic, but each side is compacted into two internal columns so the structure stays elegant without becoming an overly long sitemap.</p>
-    <div class="reveal rd2">
+        <div class="reveal rd2">
       <div class="sm-wrap">
         <div class="sm-col">
           <div class="sm-app">Soultime App — User Side</div>
