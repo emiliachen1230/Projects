@@ -10,7 +10,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --bg:      #ffffff;
       --dark:    #1d231c;
@@ -215,27 +215,709 @@
     .footer-socials svg { width: 18px; height: 18px; fill: var(--bg); display: block; }
     .footer-copy { font-size: 13px; color: var(--bg); opacity: 0.6; }
 
-    /* ── RESPONSIVE ──────────────────────────────────── */
-    @media (max-width: 900px) {
-      .meta-row, .split-row { flex-direction: column; }
-      .split-left, .split-right { width: 100%; height: 300px; }
-      .services-grid { flex-direction: column; }
-      .services-imgs { width: 100%; max-width: 100%; }
-      .portrait-pair { padding: 40px 24px; gap: 16px; }
-      .portrait-pair img { max-width: none; }
-      .body-grid, .card-grid-3, .card-grid-6 { grid-template-columns: 1fr; }
-      .card-grid-2, .features-list { grid-template-columns: 1fr; }
-      .footer-top { flex-direction: column; gap: 40px; padding-bottom: 48px; }
-      .footer-bottom { flex-direction: column; align-items: flex-start; }
-      nav .nav-links { display: none; }
+
+    /* ── SCROLL REVEAL ───────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .rd1{transition-delay:.08s} .rd2{transition-delay:.16s} .rd3{transition-delay:.24s} .rd4{transition-delay:.32s}
+
+    /* ── STATS ROW ───────────────────────────────────── */
+    .stats-row { display:flex; gap:0; border:1px solid var(--black); margin-bottom:48px; }
+    .stat-cell { flex:1; padding:26px 22px; border-right:1px solid var(--black); display:flex; flex-direction:column; gap:5px; }
+    .stat-cell:last-child { border-right:none; }
+    .stat-n { font-family:Georgia,serif; font-size:48px; line-height:1; color:var(--dark); letter-spacing:-1px; }
+    .stat-u { font-family:var(--ff-display); font-size:11px; color:var(--text); letter-spacing:.8px; margin-top:3px; }
+    .stat-l { font-family:var(--ff-display); font-size:10px; color:var(--silver); letter-spacing:.6px; }
+
+    /* ── TIME BANK FLOW ──────────────────────────────── */
+    .tb-flow { display:flex; flex-direction:column; gap:0; margin-top:14px; border:1px solid rgba(0,0,0,.1); }
+    .tb-flow-item { display:flex; align-items:center; gap:14px; padding:12px 14px; border-bottom:1px solid rgba(0,0,0,.06); }
+    .tb-flow-item:last-child { border-bottom:none; }
+    .tb-flow-icon { width:30px; height:30px; border:1px solid var(--black); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .tb-flow-text h5 { font-family:var(--ff-display); font-size:11px; color:var(--black); letter-spacing:.5px; margin-bottom:2px; }
+    .tb-flow-text p  { font-size:11px; color:var(--gray); line-height:1.5; }
+
+    /* ── PROCESS TIMELINE ────────────────────────────── */
+    .process-timeline { display:flex; position:relative; padding:28px 0 8px; }
+    .process-timeline::before { content:''; position:absolute; top:48px; left:20px; right:24px; height:1px; background:var(--black); z-index:0; }
+    .process-timeline::after  { content:''; position:absolute; top:44px; right:18px; width:0; height:0; border-top:5px solid transparent; border-bottom:5px solid transparent; border-left:7px solid var(--black); }
+    .process-step { flex:1; display:flex; flex-direction:column; align-items:center; text-align:center; padding:0 6px; }
+    .process-dot { width:38px; height:38px; border:1px solid var(--black); display:flex; align-items:center; justify-content:center; margin-bottom:14px; position:relative; z-index:1; background:var(--bg); }
+    .process-dot.done   { background:var(--dark); }
+    .process-dot.active { background:var(--black); }
+    .process-dot span { font-family:var(--ff-display); font-size:9px; letter-spacing:.5px; color:var(--silver); }
+    .process-dot.done span, .process-dot.active span { color:var(--bg); }
+    .process-step h4 { font-family:var(--ff-display); font-size:12px; color:var(--black); letter-spacing:.8px; margin-bottom:5px; font-weight:400; }
+    .process-step p  { font-size:11px; color:var(--gray); line-height:1.6; max-width:130px; }
+
+    /* ── PROCESS DIAGRAM SECTIONS ────────────────────── */
+    .pd-label { font-family:var(--ff-display); font-size:10px; color:var(--silver); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+    .overflow { overflow-x:auto; overflow-y:visible; scrollbar-width:thin; scrollbar-color:var(--dark) transparent; cursor:grab; padding-bottom:4px; }
+    .overflow:active { cursor:grabbing; }
+    .overflow::-webkit-scrollbar { height:3px; }
+    .overflow::-webkit-scrollbar-thumb { background:var(--dark); }
+    /* Journey map — no scroll, responsive grid */
+    .jm { display:grid; grid-template-columns:88px repeat(6,1fr); border:1px solid var(--black); min-width:860px; }
+    /* Site map — no scroll */
+    .sm-wrap { display:grid; grid-template-columns:1fr 1fr; border:1px solid var(--black); width:100%; }
+    /* Persona — no scroll */
+    .persona-wrap { display:grid; grid-template-columns:1fr 1fr; border:1px solid var(--black); width:100%; }
+    .jm-blank { background:var(--dark); }
+    .jm-stage { background:var(--dark); padding:16px 14px; border-right:1px solid rgba(255,255,255,.06); }
+    .jm-stage:last-child { border-right:none; }
+    .jm-stage .s-n { font-family:var(--ff-display); font-size:9px; color:var(--silver); letter-spacing:1.5px; margin-bottom:4px; }
+    .jm-stage .s-t { font-family:var(--ff-display); font-size:11px; color:#fff; letter-spacing:.4px; line-height:1.4; }
+    .jm-rl { background:#f8f8f6; border-right:1px solid var(--line); border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:center; padding:12px 6px; }
+    .jm-rl span { font-family:var(--ff-display); font-size:8px; color:var(--silver); letter-spacing:1.5px; writing-mode:vertical-rl; text-orientation:mixed; transform:rotate(180deg); text-transform:uppercase; white-space:nowrap; }
+    .jm-c { padding:12px 12px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+    .jm-c:nth-child(7n) { border-right:none; }
+    .jm-c ul { list-style:none; display:flex; flex-direction:column; gap:3px; }
+    .jm-c ul li { font-size:11px; color:var(--text); padding-left:10px; position:relative; line-height:1.5; }
+    .jm-c ul li::before { content:'–'; position:absolute; left:0; color:var(--silver); }
+    .jm-emo { display:flex; align-items:center; justify-content:center; padding:10px 6px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+    .emo { width:28px; height:28px; border-radius:50%; border:1px solid var(--dark); display:flex; align-items:center; justify-content:center; font-size:11px; font-family:var(--ff-display); }
+    .emo.hi { background:var(--dark); border-color:var(--dark); color:var(--bg); }
+    .jm-pills { display:flex; flex-wrap:wrap; gap:2px; }
+    .jm-pills span { font-size:10px; color:var(--gray); }
+    .jm-tags { display:flex; flex-wrap:wrap; gap:3px; }
+    .jm-tag { font-family:var(--ff-display); font-size:9px; letter-spacing:.3px; color:var(--gray); border:1px solid var(--line); padding:2px 6px; line-height:1.5; }
+
+    /* Persona */
+    .persona-wrap { display:grid; grid-template-columns:1fr 1fr; border:1px solid var(--black); }
+    .p-col { padding:32px 28px; }
+    .p-col + .p-col { border-left:1px solid var(--black); }
+    .p-type { font-family:var(--ff-display); font-size:9px; color:var(--silver); letter-spacing:2px; margin-bottom:8px; }
+    .p-name { font-family:var(--ff-display); font-size:20px; letter-spacing:1px; font-weight:400; margin-bottom:2px; color:var(--dark); }
+    .p-demo { font-size:11px; color:var(--gray); margin-bottom:18px; }
+    .p-quote { font-size:12px; font-style:italic; color:var(--text); line-height:1.8; max-width:340px; margin-bottom:20px; padding-left:14px; border-left:1.5px solid var(--black); }
+    .p-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px; }
+    .p-block .p-bl { font-family:var(--ff-display); font-size:8px; color:var(--silver); letter-spacing:1.5px; margin-bottom:4px; }
+    .p-block .p-bv { font-size:11px; color:var(--text); line-height:1.6; }
+    .p-chips { display:flex; flex-wrap:wrap; gap:5px; margin-top:14px; }
+    .p-chip { font-family:var(--ff-display); font-size:9px; letter-spacing:.5px; color:var(--gray); border:1px solid var(--line); padding:3px 10px; }
+    .p-story { background:var(--dark); padding:16px 20px; margin-top:16px; }
+    .p-story .p-sl { font-family:var(--ff-display); font-size:8px; color:var(--silver); letter-spacing:1.5px; margin-bottom:7px; }
+    .p-story p { font-size:11px; color:rgba(255,255,255,.72); line-height:1.8; }
+
+    /* User Flow */
+    .flow-legend {
+      display:flex;
+      gap:22px;
+      margin-bottom:30px;
+      flex-wrap:wrap;
+      align-items:center;
+      padding:0;
+      max-width:1180px;
     }
-    @media (max-width: 560px) {
-      .service-row { flex-direction: column; gap: 6px; }
-      .service-label { width: auto; }
-      footer { padding: 48px 20px 0; }
+    .fl-item { display:flex; align-items:center; gap:8px; font-size:11px; color:var(--gray); }
+    .fl-rect, .fl-pill, .fl-dark, .fl-diam { flex-shrink:0; }
+    .fl-rect { width:28px; height:16px; border:1px solid rgba(0,0,0,.16); background:#fff; }
+    .fl-pill { width:28px; height:16px; border:1px solid rgba(0,0,0,.16); border-radius:999px; background:#fff; }
+    .fl-diam {
+      width:14px; height:14px; border:1px solid rgba(0,0,0,.16);
+      transform:rotate(45deg); background:#fff;
     }
-  </style>
-</head>
+    .fl-dark {
+      width:28px; height:16px; background:var(--dark);
+      border-radius:999px;
+    }
+    .fg {
+      margin-bottom:28px;
+      padding:0 0 18px;
+      max-width:1180px;
+      border-top:1px solid var(--line);
+    }
+    .fg:last-child { margin-bottom:0; }
+    .fg-label {
+      font-family:var(--ff-display);
+      font-size:10px;
+      letter-spacing:1.5px;
+      color:var(--dark);
+      padding:18px 0 14px;
+    }
+    .flow-shell {
+      overflow:visible;
+      padding-bottom:6px;
+    }
+    .flow-track {
+      display:flex;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:10px;
+      padding:8px 0 4px;
+    }
+    .flow-node {
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      font-size:11px;
+      color:var(--text);
+      line-height:1.45;
+      min-height:48px;
+      padding:10px 16px;
+      background:#fff;
+      flex-shrink:0;
+    }
+    .flow-node.screen {
+      min-width:118px;
+      border:1px solid rgba(0,0,0,.12);
+    }
+    .flow-node.action {
+      min-width:118px;
+      border:1px solid rgba(0,0,0,.12);
+      border-radius:999px;
+      font-family:var(--ff-display);
+      font-size:9px;
+      letter-spacing:.6px;
+      padding:12px 18px;
+    }
+    .flow-node.start,
+    .flow-node.end {
+      min-width:96px;
+      border-radius:999px;
+      background:var(--dark);
+      color:#fff;
+      font-family:var(--ff-display);
+      font-size:9px;
+      letter-spacing:.8px;
+      padding:12px 18px;
+    }
+    .flow-node.muted {
+      min-width:112px;
+      border:1px solid rgba(0,0,0,.08);
+      background:#fafafa;
+    }
+    .flow-node.decision {
+      width:86px;
+      height:86px;
+      min-height:86px;
+      padding:0;
+      border:none;
+      background:transparent;
+    }
+    .flow-node.decision::before {
+      content:'';
+      position:absolute;
+      inset:14px;
+      border:1px solid rgba(0,0,0,.16);
+      background:#fff;
+      transform:rotate(45deg);
+    }
+    .flow-node.decision > span {
+      position:relative;
+      z-index:1;
+      display:block;
+      font-family:var(--ff-display);
+      font-size:9px;
+      letter-spacing:.5px;
+      line-height:1.35;
+    }
+    .flow-connector {
+      display:flex;
+      align-items:center;
+      gap:6px;
+      color:var(--silver);
+      flex-shrink:0;
+      font-family:var(--ff-display);
+      font-size:11px;
+      letter-spacing:.4px;
+    }
+    .flow-connector .line {
+      width:26px;
+      height:1px;
+      background:rgba(0,0,0,.14);
+      position:relative;
+    }
+    .flow-connector .line::after {
+      content:'';
+      position:absolute;
+      right:-1px;
+      top:50%;
+      width:6px;
+      height:6px;
+      border-top:1px solid rgba(0,0,0,.16);
+      border-right:1px solid rgba(0,0,0,.16);
+      transform:translateY(-50%) rotate(45deg);
+      background:#fff;
+    }
+    .flow-connector.flow-yes { color:var(--dark); }
+    .flow-connector.flow-no { color:var(--gray); }
+    .flow-note {
+      margin-top:12px;
+      font-family:var(--ff-display);
+      font-size:10px;
+      color:var(--silver);
+      letter-spacing:.5px;
+      padding-left:0;
+    }
+
+    /* Site Map / Information Architecture */
+    .sm-wrap {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:32px;
+      width:100%;
+      max-width:1180px;
+      align-items:start;
+    }
+    .sm-col {
+      padding:28px 24px;
+      border:1px solid rgba(0,0,0,.10);
+      min-width:0;
+      background:#fff;
+    }
+    .sm-app {
+      font-family:var(--ff-display);
+      font-size:9px;
+      color:var(--silver);
+      letter-spacing:2px;
+      margin-bottom:20px;
+    }
+    .sm-root {
+      font-family:var(--ff-display);
+      font-size:10px;
+      letter-spacing:.8px;
+      color:#fff;
+      background:var(--dark);
+      padding:5px 12px;
+      display:inline-block;
+      margin-bottom:12px;
+      border-radius:999px;
+    }
+    .sm-entry-wrap {
+      padding-left:14px;
+      border-left:1px solid var(--line);
+      margin-bottom:16px;
+    }
+    .sm-compact-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px 18px;
+      align-items:start;
+    }
+    .sm-group { margin-bottom:0; }
+    .sm-group-label {
+      font-family:var(--ff-display);
+      font-size:9px;
+      letter-spacing:.8px;
+      color:var(--dark);
+      border:1px solid rgba(0,0,0,.10);
+      padding:4px 10px;
+      display:inline-block;
+      margin-bottom:8px;
+      background:#f8f8f6;
+      border-radius:999px;
+    }
+    .sm-children {
+      padding-left:14px;
+      border-left:1px solid var(--line);
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+    }
+    .sm-item {
+      display:flex;
+      align-items:flex-start;
+      padding:0;
+      min-width:0;
+    }
+    .sm-item::before {
+      content:'';
+      width:10px;
+      height:1px;
+      background:var(--line);
+      flex-shrink:0;
+      margin-right:6px;
+      margin-top:10px;
+    }
+    .sm-item span {
+      font-size:11px;
+      color:var(--gray);
+      padding:3px 8px;
+      border:1px solid rgba(0,0,0,.06);
+      line-height:1.4;
+      border-radius:999px;
+      display:inline-block;
+      background:#fff;
+    }
+    .sm-item span.on { border-color:rgba(0,0,0,.14); color:var(--text); }
+    .fg + .fg { margin-top: 0; }
+
+    /* Placeholder */
+    .ph { border:1px dashed rgba(0,0,0,.12); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:7px; padding:44px 28px; margin-top:24px; background:#fafafa; }
+    .ph .ph-t { font-family:var(--ff-display); font-size:10px; letter-spacing:1.5px; color:var(--silver); }
+    .ph .ph-s { font-size:11px; color:rgba(0,0,0,.2); }
+
+    @media (max-width:900px) {
+      .stats-row { flex-wrap:wrap; }
+      .stat-cell { min-width:50%; border-bottom:1px solid var(--black); }
+      .process-timeline { flex-wrap:wrap; gap:20px; }
+      .process-timeline::before { display:none; }
+      .persona-wrap, .sm-wrap { grid-template-columns:1fr; gap:24px; }
+      .p-col + .p-col { border-left:none; border-top:1px solid var(--black); }
+      .sm-compact-grid { grid-template-columns:1fr; }
+    }
+
+    @media (max-width:760px) {
+      .flow-track {
+        flex-direction:column;
+        align-items:flex-start;
+        gap:14px;
+      }
+      .flow-node,
+      .flow-node.screen,
+      .flow-node.action,
+      .flow-node.start,
+      .flow-node.end,
+      .flow-node.muted {
+        width:min(100%, 320px);
+        min-width:0;
+      }
+      .flow-node.decision {
+        width:86px;
+        align-self:flex-start;
+      }
+      .flow-connector {
+        width:auto;
+        margin-left:18px;
+      }
+      .flow-connector .line {
+        width:1px;
+        height:18px;
+      }
+      .flow-connector .line::after {
+        right:50%;
+        top:auto;
+        bottom:-1px;
+        transform:translateX(50%) rotate(135deg);
+      }
+    }
+
+    /* ── SCREEN HOVER ────────────────────────────────── */
+    .screen-hover-wrap { position:relative; overflow:hidden; flex:1; }
+    .screen-hover-wrap img { display:block; width:100%; height:100%; object-fit:cover; transition:transform .4s ease; }
+    .screen-hover-wrap:hover img { transform:scale(1.03); }
+    .screen-label {
+      position:absolute; bottom:0; left:0; right:0;
+      background:rgba(29,35,28,0); color:rgba(255,255,255,0);
+      font-family:var(--ff-display); font-size:11px; letter-spacing:1.2px;
+      padding:24px 16px 14px;
+      transition:background .3s ease, color .3s ease;
+      background-image:linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 100%);
+    }
+    .screen-hover-wrap:hover .screen-label {
+      background:rgba(29,35,28,.72);
+      background-image:linear-gradient(to top, rgba(29,35,28,.72) 0%, transparent 100%);
+      color:#fff;
+    }
+    /* Spread images need display:block on wrapper */
+    .spread-images { display:flex; flex-wrap:wrap; }
+    .spread-images .screen-hover-wrap { flex:1; min-width:200px; aspect-ratio:1; }
+
+    /* ── PROTO LAZY ──────────────────────────────────── */
+    .proto-lazy {
+      width:100%; border:1px solid rgba(0,0,0,0.08);
+      aspect-ratio:16/9; background:#f8f8f6;
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; transition:background .2s;
+    }
+    .proto-lazy:hover { background:#f0efec; }
+    .proto-lazy-inner { display:flex; flex-direction:column; align-items:center; gap:12px; }
+    .proto-lazy-inner span { font-family:var(--ff-display); font-size:11px; letter-spacing:1px; color:var(--silver); }
+    .proto-lazy iframe { width:100%; height:100%; border:0; display:block; }
+
+    /* ── SECTION PROGRESS INDICATOR ─────────────────── */
+
+    /* ── EMOTION CURVE ───────────────────────────────── */
+    .emotion-curve-wrap { margin-top:16px; margin-bottom:0; }
+    .emotion-curve-wrap svg path { stroke-dasharray:600; stroke-dashoffset:600; transition:stroke-dashoffset 1.4s ease; }
+    .emotion-curve-wrap.animated svg path { stroke-dashoffset:0; }
+
+    /* ── HERO OVERLAY TEXT ───────────────────────────── */
+    .hero { position:relative; }
+    .hero-text {
+      position:absolute; bottom:0; left:0; right:0;
+      padding:80px var(--pad) 40px;
+      background:linear-gradient(to top, rgba(0,0,0,.55) 0%, transparent 100%);
+      display:flex; align-items:flex-end; justify-content:space-between;
+      pointer-events:none;
+    }
+    .hero-text h1 {
+      font-family:var(--ff-display); font-size:clamp(32px,5vw,64px);
+      color:#fff; letter-spacing:4px; font-weight:400; line-height:1;
+    }
+    .hero-text .hero-sub {
+      font-family:var(--ff-display); font-size:11px;
+      color:rgba(255,255,255,.6); letter-spacing:1.5px; text-align:right;
+      line-height:1.8;
+    }
+
+    /* ── QUICK-READ STRIP ────────────────────────────── */
+    .quick-strip {
+      display:flex; border-top:1px solid var(--line);
+      margin-top:32px;
+    }
+    .qs-item {
+      flex:1; padding:16px 0 0;
+      border-right:1px solid var(--line);
+      padding-right:24px;
+    }
+    .qs-item:last-child { border-right:none; padding-right:0; padding-left:24px; }
+    .qs-item:first-child { padding-left:0; }
+    .qs-item:not(:first-child):not(:last-child) { padding-left:24px; }
+    .qs-lbl { font-family:var(--ff-display); font-size:9px; color:var(--silver); letter-spacing:1.5px; margin-bottom:4px; }
+    .qs-val { font-family:var(--ff-display); font-size:12px; color:var(--text); letter-spacing:.5px; line-height:1.5; }
+
+    /* ── DARK BAND ───────────────────────────────────── */
+    .dark-band {
+      background:var(--dark);
+      padding:52px var(--pad);
+      display:flex; align-items:center; justify-content:space-between;
+      gap:60px; flex-wrap:wrap;
+    }
+    .dark-band-left { max-width:480px; }
+    .dark-band-left p {
+      font-family:var(--ff-display);
+      font-size:clamp(20px,2.8vw,34px);
+      color:#fff; letter-spacing:1.5px; line-height:1.3; font-weight:400;
+    }
+    .dark-band-right { display:flex; gap:48px; flex-wrap:wrap; }
+    .db-item { display:flex; flex-direction:column; gap:4px; }
+    .db-n { font-family:Georgia,serif; font-size:44px; color:#fff; line-height:1; letter-spacing:-1px; }
+    .db-t { font-family:var(--ff-display); font-size:10px; color:rgba(255,255,255,.4); letter-spacing:1px; line-height:1.6; }
+
+    /* ── COLOR FUNNEL SYSTEM ─────────────────────────── */
+    .color-funnel-wrap {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:28px;
+      margin-top:12px;
+      align-items:start;
+    }
+    .funnel-card {
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    .funnel-card-title {
+      font-family:var(--ff-display);
+      font-size:11px;
+      letter-spacing:1.2px;
+      color:var(--silver);
+      text-transform:uppercase;
+    }
+    .funnel-shape {
+      position:relative;
+      height:280px;
+      overflow:hidden;
+      background:transparent;
+    }
+    .funnel-half {
+      position:absolute;
+      top:0;
+      bottom:0;
+      width:50%;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      padding:0;
+    }
+    .funnel-half.left { left:0; }
+    .funnel-half.right { right:0; }
+    .funnel-step {
+      flex:1;
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:0;
+    }
+    .funnel-half.left .funnel-step {
+      border-top-left-radius:999px;
+      border-bottom-left-radius:999px;
+      clip-path:polygon(0 0, 100% 14%, 100% 86%, 0 100%);
+      margin-right:-18%;
+    }
+    .funnel-half.right .funnel-step {
+      border-top-right-radius:999px;
+      border-bottom-right-radius:999px;
+      clip-path:polygon(0 14%, 100% 0, 100% 100%, 0 86%);
+      margin-left:-18%;
+    }
+    .funnel-step span {
+      font-family:var(--ff-display);
+      font-size:10px;
+      letter-spacing:1px;
+      color:rgba(255,255,255,.78);
+      text-align:center;
+      line-height:1.5;
+      padding:0 22px;
+    }
+    .funnel-step.light span { color:rgba(0,0,0,.48); }
+    .funnel-meta {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px 20px;
+    }
+    .funnel-meta-item {
+      padding-top:8px;
+      border-top:1px solid rgba(0,0,0,.08);
+    }
+    .funnel-meta-item strong {
+      display:block;
+      font-family:var(--ff-display);
+      font-size:10px;
+      letter-spacing:1px;
+      color:var(--text);
+      font-weight:400;
+      margin-bottom:4px;
+    }
+    .funnel-meta-item span {
+      font-size:11px;
+      color:var(--gray);
+      line-height:1.6;
+    }
+
+.logo-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0; border:1px solid var(--black); margin-top:32px; }
+    .lg-cell {
+      aspect-ratio:1; display:flex; align-items:center; justify-content:center;
+      border-right:1px solid var(--black); border-bottom:1px solid var(--black);
+      padding:32px; position:relative; overflow:hidden;
+    }
+    .lg-cell:nth-child(4n) { border-right:none; }
+    .lg-cell:nth-last-child(-n+4) { border-bottom:none; }
+    .lg-cell svg { width:100%; height:100%; max-width:120px; max-height:120px; }
+    .lg-cell .lg-label {
+      position:absolute; bottom:10px; left:14px;
+      font-family:var(--ff-display); font-size:9px;
+      color:var(--silver); letter-spacing:1px;
+    }
+    .lg-dark { background:var(--dark); }
+    .lg-dark .lg-label { color:rgba(255,255,255,.35); }
+
+    /* ── AUXILIARY SHAPES GRID ───────────────────────── */
+    .aux-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:0; }
+    .aux-cell {
+      aspect-ratio:1; display:flex; align-items:center; justify-content:center;
+      padding:40px;
+    }
+    .aux-cell svg { width:100%; height:100%; }
+
+    /* ── TYPOGRAPHY SCALE ────────────────────────────── */
+    .type-scale { display:flex; flex-direction:column; gap:0; border:1px solid var(--black); margin-top:32px; }
+    .ts-row {
+      display:flex; align-items:baseline; gap:0;
+      border-bottom:1px solid var(--line); padding:14px 20px;
+    }
+    .ts-row:last-child { border-bottom:none; }
+    .ts-meta { width:200px; flex-shrink:0; }
+    .ts-meta .ts-name { font-family:var(--ff-display); font-size:9px; color:var(--silver); letter-spacing:1px; margin-bottom:3px; }
+    .ts-meta .ts-spec { font-size:11px; color:var(--gray); }
+    .ts-sample { font-family:'Geist',sans-serif; color:var(--dark); }
+
+.decision-grid { display:flex; flex-direction:column; gap:0; border:1px solid var(--black); }
+    .dc { display:grid; grid-template-columns:200px 1fr 1fr; border-bottom:1px solid var(--line); }
+    .dc:last-child { border-bottom:none; }
+    .dc-label {
+      padding:28px 24px; border-right:1px solid var(--line);
+      display:flex; align-items:flex-start;
+    }
+    .dc-label span {
+      font-family:var(--ff-display); font-size:13px; letter-spacing:.5px;
+      color:var(--text); line-height:1.4;
+    }
+    .dc-before, .dc-after {
+      padding:28px 24px; font-size:13px; color:var(--text); line-height:1.75;
+    }
+    .dc-before { border-right:1px solid var(--line); background:#fafafa; }
+    .dc-before-lbl, .dc-after-lbl {
+      font-family:var(--ff-display); font-size:9px; letter-spacing:1.5px;
+      color:var(--silver); margin-bottom:8px; display:block;
+    }
+    .dc-after-lbl { color:var(--dark); }
+    .dc-after { background:#fff; }
+
+    /* ── OUTCOME RESULT CHIPS ────────────────────────── */
+    .result-chips { display:flex; gap:8px; flex-wrap:wrap; margin-top:24px; }
+    .result-chip {
+      display:flex; align-items:center; gap:8px;
+      border:1px solid var(--black); padding:8px 16px;
+      font-family:var(--ff-display); font-size:10px;
+      letter-spacing:.6px; color:var(--text);
+    }
+    .result-chip .rc-dot {
+      width:6px; height:6px; border-radius:50%;
+      background:var(--dark); flex-shrink:0;
+    }
+
+    /* ── VISUAL RULE ─────────────────────────────────── */
+    .v-rule { height:1px; background:var(--black); margin:0 var(--pad); }
+
+    /* ── CIS IMAGE PLACEHOLDERS ──────────────────────── */
+    .cis-img-row {
+      display:flex; gap:28px; margin-bottom:0;
+    }
+    .cis-img-wrap {
+      flex:1; position:relative; display:flex; flex-direction:column; gap:10px;
+    }
+    .cis-img-wrap img {
+      width:100%; height:320px; object-fit:contain; display:block; background:#fafafa;
+      border:none;
+    }
+    .cis-img-wrap.cis-ph img { display:none; }
+    .cis-img-wrap.cis-ph::before {
+      content:''; display:block; height:320px; background:#fafafa; border:none;
+    }
+    .cis-img-label {
+      font-family:var(--ff-display); font-size:9px; letter-spacing:1.2px; color:var(--silver);
+      padding:0; border-top:none; background:transparent;
+    }
+
+    /* ── IA + CIS responsive ─────────────────────────── */
+    @media(max-width:700px){
+      .ia-grid { grid-template-columns:repeat(2,1fr); }
+      .cis-img-row { flex-direction:column; }
+      .cis-img-wrap { border-right:none; border-bottom:1px solid var(--black); }
+      .cis-img-wrap:last-child { border-bottom:none; }
+      .flow-row { gap:4px; }
+    }
+    @media(max-width:900px){
+      .meta-row, .split-row { flex-direction:column; }
+      .split-left, .split-right { width:100%; height:300px; }
+      .services-grid { flex-direction:column; }
+      .services-imgs { width:100%; max-width:100%; }
+      .portrait-pair { padding:40px 24px; gap:16px; }
+      .portrait-pair img { max-width:none; }
+      .body-grid, .card-grid-3, .card-grid-6 { grid-template-columns:1fr; }
+      .card-grid-2, .features-list { grid-template-columns:1fr; }
+      .footer-top { flex-direction:column; gap:40px; padding-bottom:48px; }
+      .footer-bottom { flex-direction:column; align-items:flex-start; }
+      nav .nav-links { display:none; }
+      .stats-row { flex-wrap:wrap; }
+      .stat-cell { min-width:50%; border-bottom:1px solid var(--black); }
+      .process-timeline { flex-wrap:wrap; gap:20px; }
+      .process-timeline::before, .process-timeline::after { display:none; }
+      .persona-wrap, .sm-wrap { grid-template-columns:1fr; gap:24px; }
+      .p-col + .p-col { border-left:none; border-top:1px solid var(--black); }
+      .sm-col + .sm-col { border-left:none; border-top:1px solid rgba(0,0,0,.08); padding-left:0; padding-top:24px; }
+      .jm { min-width:860px; }
+      .dark-band { flex-direction:column; gap:32px; }
+      .dark-band-right { gap:32px; }
+      .color-funnel-wrap { grid-template-columns:1fr; }
+      .logo-grid { grid-template-columns:repeat(2,1fr); }
+      .aux-grid  { grid-template-columns:repeat(2,1fr); }
+      .dc { grid-template-columns:1fr; }
+      .dc-label { border-right:none; border-bottom:1px solid var(--line); padding:20px 20px 14px; }
+      .dc-before { border-right:none; border-bottom:1px solid var(--line); }
+    }
+    @media(max-width:560px){
+      .service-row { flex-direction:column; gap:6px; }
+      .service-label { width:auto; }
+      footer { padding:48px 20px 0; }
+    }
+  </style></head>
 <body>
 
   <!-- NAV -->
@@ -244,6 +926,7 @@
     <ul class="nav-links">
       <li><a href="#overview">Overview</a></li>
       <li><a href="#research">Research</a></li>
+      <li><a href="#process">Process</a></li>
       <li><a href="#brand">Brand</a></li>
       <li><a href="#interface">Interface</a></li>
       <li><a href="#prototype">Prototype</a></li>
@@ -265,229 +948,621 @@
   ================================================================
   -->
 
-  <!-- HERO: full-width image -->
+  <!-- SECTION PROGRESS INDICATOR -->
+<!-- HERO: full-width image -->
   <section class="hero" id="overview">
     <img src="images/project-1-hero.png" alt="Soultime">
+    <div class="hero-text">
+      <h1>SOULTIME</h1>
+      <div class="hero-sub">Time Banking App &amp; Brand Identity<br>Elder Care Service · iOS · Android · 2024</div>
+    </div>
   </section>
 
   <!-- META ROW -->
   <div class="meta-row">
     <div class="meta-info">
       <div class="meta-num">01</div>
-      <div class="meta-title">Project One</div>
+      <div class="meta-title">Soultime</div>
       <div class="meta-sub">APP × CIS</div>
       <div class="meta-tag" style="margin-top:6px;">Category / Elder Care Service</div>
-      <div class="meta-tag">Focus / Time Banking &amp; Friendly Interface</div>
+      <div class="meta-tag">Focus / Time Banking &amp; Age-Inclusive Interface</div>
     </div>
-    <div class="meta-label">
-      <span>Soultime / Time Banking App</span>
+    <div class="meta-label" style="display:flex;flex-direction:column;justify-content:space-between;padding:24px 32px;">
+      <span style="font-family:var(--ff-display);font-size:20px;color:var(--text);letter-spacing:1px;">Time Banking App &amp; Brand Identity</span>
+      <div style="display:flex;gap:48px;padding-bottom:4px;flex-wrap:wrap;">
+        <div>
+          <div style="font-family:var(--ff-display);font-size:11px;color:var(--silver);letter-spacing:1px;margin-bottom:4px;">Role</div>
+          <div style="font-family:var(--ff-display);font-size:13px;color:var(--text);letter-spacing:0.5px;">UX Research · App Design · Brand Identity</div>
+        </div>
+        <div>
+          <div style="font-family:var(--ff-display);font-size:11px;color:var(--silver);letter-spacing:1px;margin-bottom:4px;">Year</div>
+          <div style="font-family:var(--ff-display);font-size:13px;color:var(--text);letter-spacing:0.5px;">2023 – 2024</div>
+        </div>
+        <div>
+          <div style="font-family:var(--ff-display);font-size:11px;color:var(--silver);letter-spacing:1px;margin-bottom:4px;">Platform</div>
+          <div style="font-family:var(--ff-display);font-size:13px;color:var(--text);letter-spacing:0.5px;">iOS · Android</div>
+        </div>
+        <div>
+          <div style="font-family:var(--ff-display);font-size:11px;color:var(--silver);letter-spacing:1px;margin-bottom:4px;">Scope</div>
+          <div style="font-family:var(--ff-display);font-size:13px;color:var(--text);letter-spacing:0.5px;">Solo Project — Independent</div>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- DESCRIPTION -->
   <div class="description">
-    <p>Soultime is a service-oriented mobile app developed from research on aging society, time banking, and age-friendly interface design. The project translates long-term care needs, social participation, and digital usability into a dual-platform system for elderly users and family members — combining service exchange, activity participation, health records, and family coordination in one visual and interaction framework.</p>
+    <p>Soultime is a mobile service platform built on time banking — where elderly users can request help, offer support, and accumulate service hours as a form of mutual care. A parallel family interface extends the system to health monitoring and coordination, without over-control.</p>
   </div>
 
   <!-- FULL IMAGE -->
   <img src="images/project-1-cis-overview.png" alt="Soultime CIS overview">
 
-  <!-- PROJECT OVERVIEW (p4 pillars style) -->
+  <!-- PROJECT OVERVIEW -->
   <section class="section section-border">
-    <div class="section-header">
+    <div class="section-header reveal">
       <h2>Soultime<br>Time Banking App</h2>
     </div>
-    <p class="body-text">Soultime begins from a clear gap: traditional care systems are limited by workforce shortage, while many existing digital products do not fully respond to elderly users' social participation, service access, and interface comprehension. The project treats time banking not only as a service model, but as a design framework for building mutual support, digital inclusion, and practical daily care.</p>
-    <div class="pillars">
+    <p class="body-text reveal rd1">Soultime begins from a clear gap: Taiwan's aging population is growing faster than its care infrastructure can respond, while most existing digital products do not fully address elderly users' social participation, service access, or interface comprehension. The project treats time banking not only as a service model, but as a design framework — one that turns mutual support, digital inclusion, and daily care into a single coherent system.</p>
+    <div class="pillars reveal rd2">
       <div class="pillar"><p>Service<br>Exchange<br>System</p></div>
-      <div class="pillar"><p>Age-Friendly<br>Interface<br>Design</p></div>
+      <div class="pillar"><p>Age-Inclusive<br>Interface<br>Design</p></div>
       <div class="pillar"><p>Dual-Platform<br>Family<br>Coordination</p></div>
     </div>
   </section>
 
-  <!-- BRAND SPLIT ROW (p4 style) -->
-  <div class="split-row section-border">
-    <div class="split-left">
-      <img src="images/project-1-logo.png" alt="Soultime brand">
+  <!-- DARK BAND -->
+  <div class="dark-band reveal">
+    <div class="dark-band-left">
+      <p>Three problems.<br>One system.<br>Designed independently.</p>
     </div>
-    <div class="split-middle">
-      <h3>Caring, age-friendly,<br>and service-oriented</h3>
-      <p class="body-text">The brand does not frame elderly users as only recipients of care, but as participants who can request support, contribute time, join activities, and remain socially connected. The identity balances gentleness and trust while keeping functional clarity for service-based tasks.</p>
-    </div>
-    <div class="split-right">
-      <img src="images/project-1-hero.png" alt="Soultime lifestyle">
-      <div class="split-right-overlay"></div>
+    <div class="dark-band-right">
+      <div class="db-item">
+        <div class="db-n">15</div>
+        <div class="db-t">Qualitative interviews<br>Age 55–75 · Northern Taiwan</div>
+      </div>
+      <div class="db-item">
+        <div class="db-n">35%</div>
+        <div class="db-t">Projected elderly population<br>Taiwan · 2050</div>
+      </div>
+      <div class="db-item">
+        <div class="db-n">2×</div>
+        <div class="db-t">Platforms designed<br>User App + Family App</div>
+      </div>
     </div>
   </div>
 
-  <!-- CORE PROBLEMS (original 3-col grid) -->
+  <!-- PROBLEM STATEMENT -->
+  <div class="quote-block reveal">
+    <p>Taiwan's long-term care workforce shortage cannot be solved by institutions alone — it requires a civic infrastructure where time itself becomes the currency of care.</p>
+  </div>
+
+  <!-- CORE PROBLEMS -->
   <section class="section section-border" id="research">
-    <div class="section-header">
+    <div class="section-header reveal">
       <h2>Core Problems</h2>
     </div>
     <div class="card-grid-3">
-      <div class="card">
-        <div class="num">01</div>
-        <h3>Care Workforce Shortage</h3>
-        <p>Long-term care systems still rely heavily on professional labor and passive support, which limits flexibility and access in daily care scenarios.</p>
+      <div class="card reveal rd1"><div class="num">01</div><h3>Care Workforce Shortage</h3><p>Long-term care systems still rely heavily on professional labor and passive support, which limits flexibility and access in daily care scenarios.</p></div>
+      <div class="card reveal rd2"><div class="num">02</div><h3>Digital Adaptation Gap</h3><p>Middle-aged and elderly users often face difficulty with layered navigation, low feedback clarity, and interfaces not aligned with their cognitive habits.</p></div>
+      <div class="card reveal rd3"><div class="num">03</div><h3>Weak Social Participation</h3><p>Many existing elderly care apps emphasize monitoring or medical support, but rarely provide meaningful systems for contribution, exchange, and social connection.</p></div>
+    </div>
+  </section>
+
+  <!-- BRAND INTRO -->
+  <section class="section section-border reveal">
+    <div class="section-header">
+      <h2>Caring, age-friendly,<br>and service-oriented</h2>
+    </div>
+    <div class="services-grid" style="margin-top:24px;">
+      <div class="services-imgs">
+        <img src="images/project-1-logo.png" alt="Soultime brand">
       </div>
-      <div class="card">
-        <div class="num">02</div>
-        <h3>Digital Adaptation Gap</h3>
-        <p>Middle-aged and elderly users often face difficulty with layered navigation, low feedback clarity, and interfaces not aligned with their cognitive habits.</p>
-      </div>
-      <div class="card">
-        <div class="num">03</div>
-        <h3>Weak Social Participation</h3>
-        <p>Many existing elderly care apps emphasize monitoring or medical support, but rarely provide meaningful systems for contribution, exchange, and social connection.</p>
+      <div class="services-list">
+        <div class="service-row">
+          <div class="service-label">Brand Position</div>
+          <div class="service-desc">The brand does not frame elderly users as only recipients of care, but as participants who can request support, contribute time, join activities, and remain socially connected.</div>
+        </div>
+        <div class="service-row">
+          <div class="service-label">Identity</div>
+          <div class="service-desc">The identity balances gentleness and trust while keeping functional clarity for service-based tasks. Every visual decision — color, type, form — was made in service of legibility and emotional warmth.</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- RESEARCH FOUNDATION (original 3-col grid) -->
+  <!-- RESEARCH FOUNDATION -->
   <section class="section section-border">
-    <div class="section-header">
+    <div class="section-header reveal">
       <h2>Research Foundation</h2>
     </div>
+
+    <!-- STATS ROW -->
+    <div class="stats-row reveal rd1">
+      <div class="stat-cell"><div class="stat-n" data-target="17.65" data-suffix="%">0</div><div class="stat-u">Current Elderly Population</div><div class="stat-l">Taiwan · 2024</div></div>
+      <div class="stat-cell"><div class="stat-n" data-target="35.33" data-suffix="%">0</div><div class="stat-u">Projected by 2050</div><div class="stat-l">Global trend</div></div>
+      <div class="stat-cell"><div class="stat-n" data-target="15" data-suffix="">0</div><div class="stat-u">Interview Participants</div><div class="stat-l">Age 55–75 · Northern Taiwan</div></div>
+      <div class="stat-cell"><div class="stat-n" data-target="3.75" data-suffix="h">0</div><div class="stat-u">Daily Smartphone Use</div><div class="stat-l">Average across interviewees</div></div>
+    </div>
+
     <div class="card-grid-3">
-      <div class="card">
+      <div class="card reveal rd1">
         <h3>Aging Society</h3>
-        <p>Reviews challenges brought by aging society — care demand expansion, family burden, limited social participation, and the need for accessible digital services.</p>
+        <p>Taiwan's aging curve demands care systems that scale beyond institutions. This section maps the structural gaps — workforce shortage, social isolation, and the limits of passive, top-down support models.</p>
       </div>
-      <div class="card">
+      <div class="card reveal rd2">
         <h3>Time Banking</h3>
-        <p>Examined as a mutual support model where service hours become an exchange unit, creating both social value and practical care support for elderly communities.</p>
+        <p>A mutual support model where service hours become an exchange unit. Time banking reframes care as reciprocal rather than institutional — creating social value and practical support within communities.</p>
+        <div class="tb-flow">
+          <div class="tb-flow-item"><div class="tb-flow-icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.1"/><path d="M6.5 3v3.5l2 1" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg></div><div class="tb-flow-text"><h5>Offer Service → Earn Hours</h5><p>Each service hour is logged as time currency</p></div></div>
+          <div class="tb-flow-item"><div class="tb-flow-icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5h9M8 3.5l3 3-3 3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="tb-flow-text"><h5>Redeem Hours → Access Care</h5><p>Accumulated hours exchanged for needed services</p></div></div>
+          <div class="tb-flow-item"><div class="tb-flow-icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="4.5" cy="6.5" r="2" stroke="currentColor" stroke-width="1.1"/><circle cx="8.5" cy="6.5" r="2" stroke="currentColor" stroke-width="1.1"/></svg></div><div class="tb-flow-text"><h5>Gift Hours → Support Others</h5><p>Transfer balance to anyone in the community</p></div></div>
+        </div>
       </div>
-      <div class="card">
-        <h3>Age-Friendly Interface</h3>
-        <p>International and applied principles consolidated into design criteria: layout hierarchy, iconography, typography, color perception, consistency, and accessibility.</p>
+      <div class="card reveal rd3">
+        <h3>Age-Inclusive Interface</h3>
+        <p>International design principles consolidated into applied criteria: layout hierarchy, iconography, typography, color contrast, interaction consistency, and low-burden accessibility patterns.</p>
       </div>
     </div>
   </section>
 
-  <!-- METHODOLOGY (original 2-col grid) -->
+  <!-- METHODOLOGY -->
   <section class="section section-border">
-    <div class="section-header">
+    <div class="section-header reveal">
       <h2>Methodology</h2>
     </div>
     <div class="card-grid-2">
-      <div class="card">
-        <div class="num">Stage 01</div>
-        <h3>Literature Analysis</h3>
-        <p>Reviewed aging society, time bank models, and age-friendly interface guidelines to define the service gap and establish design criteria.</p>
-      </div>
-      <div class="card">
-        <div class="num">Stage 02</div>
-        <h3>Case Analysis</h3>
-        <p>Compared Handy Guardian, Yodda Enable, and GrandPad to identify differences in service positioning, UI structure, interaction patterns, and visual strategy.</p>
-      </div>
-      <div class="card">
-        <div class="num">Stage 03</div>
-        <h3>Qualitative Interviews</h3>
-        <p>Interviewed 15 middle-aged and elderly participants aged 55–75 to collect smartphone habits, interface preferences, opinions on time banking, and desired app functions.</p>
-      </div>
-      <div class="card">
-        <div class="num">Stage 04</div>
-        <h3>Design Translation</h3>
-        <p>Converted research findings into persona, journey map, feature strategy, brand identity, site map, wireframe, and visual interface design.</p>
-      </div>
+      <div class="card reveal rd1"><div class="num">Stage 01</div><h3>Literature Analysis</h3><p>Reviewed aging society, time bank models, and age-friendly interface guidelines to define the service gap and establish design criteria.</p></div>
+      <div class="card reveal rd2"><div class="num">Stage 02</div><h3>Case Analysis</h3><p>Compared Handy Guardian, Yodda Enable, and GrandPad to identify differences in service positioning, UI structure, interaction patterns, and visual strategy.</p></div>
+      <div class="card reveal rd3"><div class="num">Stage 03</div><h3>Qualitative Interviews</h3><p>Interviewed 15 middle-aged and elderly participants aged 55–75 to collect smartphone habits, interface preferences, opinions on time banking, and desired app functions.</p></div>
+      <div class="card reveal rd4"><div class="num">Stage 04</div><h3>Design Translation</h3><p>Converted research findings into persona, journey map, feature strategy, brand identity, site map, wireframe, and visual interface design.</p></div>
+    </div>
+
+    <!-- Process Timeline -->
+    <div class="process-timeline reveal" style="margin-top:40px;">
+      <div class="process-step"><div class="process-dot done"><span>01</span></div><h4>Empathize</h4><p>Literature review, case benchmarking, contextual observation</p></div>
+      <div class="process-step"><div class="process-dot done"><span>02</span></div><h4>Define</h4><p>15 qualitative interviews, insight synthesis, design criteria</p></div>
+      <div class="process-step"><div class="process-dot done"><span>03</span></div><h4>Ideate</h4><p>Persona, journey map, site map, service logic, wireframes</p></div>
+      <div class="process-step"><div class="process-dot active"><span>04</span></div><h4>Prototype</h4><p>High-fidelity UI — Soultime App &amp; Soultime Family</p></div>
+      <div class="process-step"><div class="process-dot"><span>05</span></div><h4>Validate</h4><p>Usability testing, expert review, iteration</p></div>
     </div>
   </section>
 
-  <!-- INTERVIEW INSIGHTS (original 3-col grid) -->
+  <!-- INTERVIEW INSIGHTS -->
   <section class="section section-border">
-    <div class="section-header">
+    <div class="section-header reveal">
       <h2>Interview Insights</h2>
     </div>
     <div class="card-grid-3">
-      <div class="card">
-        <div class="num">Sample</div>
-        <h3>User Profile</h3>
-        <p>15 interviewees in Northern Taiwan, aged 55 to 75. More than half had not previously participated in community service activities, but all had smartphone usage experience.</p>
-      </div>
-      <div class="card">
-        <div class="num">Usage Pattern</div>
-        <h3>Digital Habits</h3>
-        <p>Participants used smartphones for an average of 3.75 hours per day, mainly for news, articles, communication, and social media — indicating familiarity with simple mobile operations.</p>
-      </div>
-      <div class="card">
-        <div class="num">Need</div>
-        <h3>Priority Functions</h3>
-        <p>Users emphasized operation guidance, navigation to service locations, calendar reminders, trust-building mechanisms, and easy access to service records.</p>
-      </div>
+      <div class="card reveal rd1"><div class="num">Sample</div><h3>User Profile</h3><p>15 interviewees in Northern Taiwan, aged 55 to 75. More than half had not previously participated in community service activities, but all had smartphone usage experience.</p></div>
+      <div class="card reveal rd2"><div class="num">Usage Pattern</div><h3>Digital Habits</h3><p>Participants used smartphones for an average of 3.75 hours per day, mainly for news, articles, communication, and social media — indicating familiarity with simple mobile operations.</p></div>
+      <div class="card reveal rd3"><div class="num">Need</div><h3>Priority Functions</h3><p>Users emphasized operation guidance, navigation to service locations, calendar reminders, trust-building mechanisms, and easy access to service records.</p></div>
     </div>
   </section>
 
-  <!-- QUOTE -->
-  <div class="quote-block">
-    <p>Through literature analysis, case comparison, and qualitative interviews, the project confirms that a time-bank-based service app must respond not only to function, but also to readability, emotional reassurance, and actual service flow.</p>
+  <!-- RESEARCH QUOTE -->
+  <div class="quote-block reveal">
+    <p>Research confirmed that designing for elderly users is not about simplification — it is about building trust, reducing uncertainty, and making contribution feel as natural as asking for help.</p>
   </div>
 
-  <!-- DESIGN CRITERIA (original 3×2 grid) -->
+  <!-- DESIGN CRITERIA — 3 items, services-grid style -->
   <section class="section section-border">
-    <div class="section-header">
-      <h2>Design Criteria from Research</h2>
+    <div class="section-header reveal">
+      <h2>Design Criteria</h2>
     </div>
-    <div class="card-grid-6">
-      <div class="card"><h4>Layout Hierarchy</h4><p>Few page levels, clear function divisions, generous white space, and full-screen content grouping to reduce cognitive load.</p></div>
-      <div class="card"><h4>Iconography</h4><p>Concrete icons with text labels, consistent visual style, direct function reflection, and avoidance of overly abstract symbols.</p></div>
-      <div class="card"><h4>Typography</h4><p>Clear solid type, large type size around 20pt, strong contrast with background, simple wording, and the option to adjust text size.</p></div>
-      <div class="card"><h4>Color Perception</h4><p>Bright, low-saturation colors with clear contrast. The visual system should remain readable, calm, and not overload one screen with too many accents.</p></div>
-      <div class="card"><h4>Style Consistency</h4><p>Flat visual language combined with subtle neumorphism or shadow cues where needed, maintaining coherence across buttons, cards, and image assets.</p></div>
-      <div class="card"><h4>Functional Accessibility</h4><p>Large tap targets, rounded buttons, minimal text input burden, direct CTA patterns, and support through voice, captions, and feedback prompts.</p></div>
+    <div class="services-grid reveal rd1">
+      <div class="services-imgs">
+        <!-- placeholder for criteria illustration if needed -->
+        <div style="background:#f5f5f3;aspect-ratio:.7;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);">
+          <span style="font-family:var(--ff-display);font-size:10px;color:var(--silver);letter-spacing:1px;">Criteria</span>
+        </div>
+      </div>
+      <div class="services-list">
+        <div class="service-row">
+          <div class="service-label">Hierarchy &amp; Flow</div>
+          <div class="service-desc">Few page levels, clear function divisions, direct CTA patterns, and generous white space. Every screen should resolve in a single decision — users should never feel lost or need to backtrack.</div>
+        </div>
+        <div class="service-row">
+          <div class="service-label">Typography &amp; Contrast</div>
+          <div class="service-desc">Solid type at approximately 20pt, strong background contrast, and simple wording. The option to adjust text size must be accessible from the first screen — not buried in settings.</div>
+        </div>
+        <div class="service-row">
+          <div class="service-label">Accessible Interaction</div>
+          <div class="service-desc">Large tap targets, rounded button shapes, minimal text input burden, and concrete icons paired with text labels. Abstract symbols are avoided to reduce cognitive load and support immediate recognition.</div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- DESIGN STRATEGY (original body-grid + card-grid-3) -->
+  <!-- DESIGN STRATEGY -->
   <section class="section section-border" id="strategy">
-    <div class="section-header">
+    <div class="section-header reveal">
       <h2>Design Strategy</h2>
     </div>
-    <div class="body-grid" style="margin-bottom:32px;">
-      <p>The project transforms research findings into three design directions. First, it reconstructs time banking into an understandable service system through service application, invitation, confirmation, hour accumulation, and review feedback. Second, it creates a dual-platform structure addressing both elderly user participation and family-side coordination.</p>
-      <p>Third, it redefines elderly-friendly interface design as a practical combination of guidance, reassurance, readability, and controllable interaction — designing Soultime as a mutual-support service platform that combines care access, participation incentives, and a visual language soft enough for daily use.</p>
+    <div class="body-grid reveal rd1" style="margin-bottom:32px;">
+      <p>Three directions shaped every design decision. First, time banking had to become legible — not as an abstract concept but as a visible flow of service requests, confirmations, hour accumulation, and feedback. Second, the dual-platform structure had to serve both autonomy and reassurance: elderly users needed agency; family members needed awareness.</p>
+      <p>Third, age-inclusive interface design was treated as a first-class constraint — not an afterthought. Guidance, readability, and emotional tone were built into the visual system from the start, making Soultime approachable for daily use without sacrificing functional depth.</p>
     </div>
     <div class="card-grid-3">
-      <div class="card">
-        <div class="num">A</div>
-        <h3>Service Exchange</h3>
-        <p>Translate time currency into understandable service records, hour accumulation, and exchange flow accessible to elderly users.</p>
+      <div class="card reveal rd1"><div class="num">A</div><h3>Service Exchange</h3><p>Translate time currency into understandable service records, hour accumulation, and exchange flow accessible to elderly users.</p></div>
+      <div class="card reveal rd2"><div class="num">B</div><h3>Family Coordination</h3><p>Build a parallel family-side interface for activity tracking, health updates, and communication support without over-control.</p></div>
+      <div class="card reveal rd3"><div class="num">C</div><h3>Age-Inclusive Interaction</h3><p>Lower decision friction through guided flows, large touch targets, and an information architecture that never asks more of the user than the task requires.</p></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       DESIGN PROCESS
+  ════════════════════════════════════════════════════ -->
+
+  <!-- 01 JOURNEY MAP -->
+  <section class="section section-border" id="process">
+    <div class="section-header reveal">
+      <div class="pd-label">Design Process · 01</div>
+      <h2>Journey Map</h2>
+    </div>
+    <p class="body-text reveal rd1" style="margin-bottom:16px;">Mr. A's emotional arc across six service stages — from application through post-service review. Each column maps actions, emotional state, and design improvement opportunities.</p>
+
+    <!-- Emotion Curve -->
+    <div class="emotion-curve-wrap reveal rd2">
+      <svg width="100%" height="56" viewBox="0 0 860 56" preserveAspectRatio="none" fill="none" style="display:block;">
+        <text x="0"   y="52" font-family="Aboreto,serif" font-size="8" fill="#aeabab" letter-spacing="1">NEUTRAL</text>
+        <text x="0"   y="11" font-family="Aboreto,serif" font-size="8" fill="#aeabab" letter-spacing="1">POSITIVE</text>
+        <line x1="60" y1="4" x2="60" y2="48" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+        <line x1="200" y1="4" x2="200" y2="48" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+        <line x1="340" y1="4" x2="340" y2="48" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+        <line x1="480" y1="4" x2="480" y2="48" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+        <line x1="620" y1="4" x2="620" y2="48" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+        <line x1="760" y1="4" x2="760" y2="48" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+        <!-- Curve: low → high → high → mid → high → high -->
+        <path d="M 60 36 C 100 36 160 14 200 14 C 240 14 300 14 340 14 C 380 14 420 32 480 32 C 540 32 580 14 620 14 C 660 14 720 14 760 14"
+              stroke="#1d231c" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <!-- dots -->
+        <circle cx="60"  cy="36" r="3.5" fill="#1d231c"/>
+        <circle cx="200" cy="14" r="3.5" fill="#1d231c"/>
+        <circle cx="340" cy="14" r="3.5" fill="#1d231c"/>
+        <circle cx="480" cy="32" r="3.5" fill="#1d231c"/>
+        <circle cx="620" cy="14" r="3.5" fill="#1d231c"/>
+        <circle cx="760" cy="14" r="3.5" fill="#1d231c"/>
+      </svg>
+    </div>
+
+    <div class="overflow reveal rd3">
+      <div class="jm">
+        <div class="jm-blank"></div>
+        <div class="jm-stage"><div class="s-n">01</div><div class="s-t">Apply For<br>Service</div></div>
+        <div class="jm-stage"><div class="s-n">02</div><div class="s-t">Check<br>Invitations</div></div>
+        <div class="jm-stage"><div class="s-n">03</div><div class="s-t">Confirmed<br>Orders</div></div>
+        <div class="jm-stage"><div class="s-n">04</div><div class="s-t">Get To<br>Location</div></div>
+        <div class="jm-stage"><div class="s-n">05</div><div class="s-t">Participate<br>In Activity</div></div>
+        <div class="jm-stage"><div class="s-n">06</div><div class="s-t">Review<br>Service</div></div>
+        <div class="jm-rl"><span>Action</span></div>
+        <div class="jm-c"><ul><li>Fill request form</li><li>Select service type</li><li>Submit application</li></ul></div>
+        <div class="jm-c"><ul><li>View notifications</li><li>Confirm or decline</li></ul></div>
+        <div class="jm-c"><ul><li>View confirmed orders</li><li>Check service details</li><li>Check scheduled time</li></ul></div>
+        <div class="jm-c"><ul><li>Open navigation</li><li>Follow route</li><li>Check in at location</li></ul></div>
+        <div class="jm-c"><ul><li>Begin activity</li><li>System tracks time</li><li>Participate with support</li></ul></div>
+        <div class="jm-c"><ul><li>View complete history</li><li>Leave rating</li><li>Submit feedback</li></ul></div>
+        <div class="jm-rl"><span>Emotion</span></div>
+        <div class="jm-emo"><div class="emo">〜</div></div>
+        <div class="jm-emo"><div class="emo hi">↑</div></div>
+        <div class="jm-emo"><div class="emo hi">↑</div></div>
+        <div class="jm-emo"><div class="emo">〜</div></div>
+        <div class="jm-emo"><div class="emo hi">↑</div></div>
+        <div class="jm-emo"><div class="emo hi">↑</div></div>
+        <div class="jm-rl"><span>Feeling</span></div>
+        <div class="jm-c"><div class="jm-pills"><span>Hopeful</span> <span style="color:var(--silver)">·</span> <span>Uncertain</span></div></div>
+        <div class="jm-c"><div class="jm-pills"><span>Relieved</span> <span style="color:var(--silver)">·</span> <span>Curious</span></div></div>
+        <div class="jm-c"><div class="jm-pills"><span>Safe</span> <span style="color:var(--silver)">·</span> <span>Managed</span></div></div>
+        <div class="jm-c"><div class="jm-pills"><span>Independent</span> <span style="color:var(--silver)">·</span> <span>Focused</span></div></div>
+        <div class="jm-c"><div class="jm-pills"><span>Connected</span> <span style="color:var(--silver)">·</span> <span>Valued</span></div></div>
+        <div class="jm-c"><div class="jm-pills"><span>Accomplished</span> <span style="color:var(--silver)">·</span> <span>Grateful</span></div></div>
+        <div class="jm-rl"><span>Improve</span></div>
+        <div class="jm-c"><div class="jm-tags"><span class="jm-tag">Guided input</span><span class="jm-tag">Simplify form</span></div></div>
+        <div class="jm-c"><div class="jm-tags"><span class="jm-tag">Clear notification</span><span class="jm-tag">One-tap confirm</span></div></div>
+        <div class="jm-c"><div class="jm-tags"><span class="jm-tag">Detailed order view</span><span class="jm-tag">Add to calendar</span></div></div>
+        <div class="jm-c"><div class="jm-tags"><span class="jm-tag">Real-time navigation</span><span class="jm-tag">Route preference</span></div></div>
+        <div class="jm-c"><div class="jm-tags"><span class="jm-tag">Progress tracking</span><span class="jm-tag">Activity variety</span></div></div>
+        <div class="jm-c"><div class="jm-tags"><span class="jm-tag">Combined history</span><span class="jm-tag">Rating guidance</span></div></div>
+        <div class="jm-rl"><span>Post-service</span></div>
+        <div class="jm-c" style="border-bottom:none"><div class="jm-pills"><span>Committed</span></div></div>
+        <div class="jm-c" style="border-bottom:none"><div class="jm-pills"><span>Connected</span></div></div>
+        <div class="jm-c" style="border-bottom:none"><div class="jm-pills"><span>Safe</span></div></div>
+        <div class="jm-c" style="border-bottom:none"><div class="jm-pills"><span>Calm</span></div></div>
+        <div class="jm-c" style="border-bottom:none"><div class="jm-pills"><span>Fulfilled</span></div></div>
+        <div class="jm-c" style="border-bottom:none"><div class="jm-pills"><span>Quality</span></div></div>
+    </div><!-- /jm -->
+    </div><!-- /overflow -->
+    <div class="ph reveal rd3">
+      <span class="ph-t">Insert Sketch — Journey Map</span>
+      <span class="ph-s">Replace with @2x PNG export, white background</span>
+    </div>
+  </section>
+
+  <!-- 02 USER STORY / PERSONA -->
+  <section class="section section-border">
+    <div class="section-header reveal">
+      <div class="pd-label">Design Process · 02</div>
+      <h2>User Story</h2>
+    </div>
+    <p class="body-text reveal rd1" style="margin-bottom:28px;">Two personas anchor every interaction decision — one representing the elderly user seeking participation and connection, one representing the family member coordinating care from a distance.</p>
+    <div class="persona-wrap reveal rd2">
+        <div class="p-col">
+          <div class="p-type">Primary User</div>
+          <div class="p-name">Mr. A</div>
+          <div class="p-demo">Age 65 &nbsp;·&nbsp; Taipei &nbsp;·&nbsp; Retired &nbsp;·&nbsp; Male</div>
+          <div class="p-quote">"I'm not sure how I feel about having a stranger in my house and trusting them with my daily needs."</div>
+          <div class="p-grid">
+            <div class="p-block"><div class="p-bl">Goals</div><div class="p-bv">Join social activities · Apply for services · Stay connected with family</div></div>
+            <div class="p-block"><div class="p-bl">Frustrations</div><div class="p-bv">Confusing navigation · Outdated UI · Limited technology literacy</div></div>
+            <div class="p-block"><div class="p-bl">Preferences</div><div class="p-bv">Social Activities 70%<br>Health Services 60%<br>Tech Assistance 80%</div></div>
+            <div class="p-block"><div class="p-bl">Behaviors</div><div class="p-bv">Reads news daily · Uses messaging apps · Checks health alerts regularly</div></div>
+          </div>
+          <div class="p-chips"><span class="p-chip">Service Exchange</span><span class="p-chip">Community</span><span class="p-chip">Digital Guidance</span></div>
+          <div class="p-story">
+            <div class="p-sl">User Story</div>
+            <p>As a retired individual, I want to easily join activities and apply for services using my phone — getting activity information, daily assistance, and staying engaged with my community.</p>
+          </div>
+        </div>
+        <div class="p-col">
+          <div class="p-type">Secondary User — Family Side</div>
+          <div class="p-name">Ms. B</div>
+          <div class="p-demo">Age 35 &nbsp;·&nbsp; Taipei &nbsp;·&nbsp; Working Adult &nbsp;·&nbsp; Female</div>
+          <div class="p-quote">"I'm always concerned about whether my parents are getting the proper care they need."</div>
+          <div class="p-grid">
+            <div class="p-block"><div class="p-bl">Goals</div><div class="p-bv">Monitor health remotely · Stay connected · Reduce coordination burden</div></div>
+            <div class="p-block"><div class="p-bl">Frustrations</div><div class="p-bv">No real-time updates · Coordination gaps · Worry without information</div></div>
+            <div class="p-block"><div class="p-bl">Preferences</div><div class="p-bv">Health Updates 80%<br>Coordination Tools 75%<br>Social Monitoring 65%</div></div>
+            <div class="p-block"><div class="p-bl">Behaviors</div><div class="p-bv">Checks messages regularly · Reviews health summaries · Coordinates weekly schedule</div></div>
+          </div>
+          <div class="p-chips"><span class="p-chip">Health Monitoring</span><span class="p-chip">Coordination</span><span class="p-chip">Reassurance</span></div>
+          <div class="p-story">
+            <div class="p-sl">User Story</div>
+            <p>As a working adult, I want a simple way to monitor my parent's health and activities — so I can understand their safety and wellbeing without being physically present every day.</p>
+          </div>
+        </div>
+    </div>
+    <div class="ph reveal rd3">
+      <span class="ph-t">Insert Sketch — User Story</span>
+      <span class="ph-s">Replace with @2x PNG export, white background</span>
+    </div>
+  </section>
+
+  <!-- 03 USER FLOW -->
+  <section class="section section-border">
+    <div class="section-header reveal">
+      <div class="pd-label">Design Process · 03</div>
+      <h2>User Flow</h2>
+    </div>
+    <p class="body-text reveal rd1" style="margin-bottom:28px;">Three primary task flows traced from app open through task completion and time currency reward. Decision nodes show where the system branches and how incomplete actions loop back.</p>
+    <div class="flow-legend reveal rd1">
+      <div class="fl-item"><div class="fl-dark"></div><span>Start / End</span></div>
+      <div class="fl-item"><div class="fl-rect"></div><span>Screen</span></div>
+      <div class="fl-item"><div class="fl-pill"></div><span>Action</span></div>
+      <div class="fl-item"><div class="fl-diam"></div><span>Decision</span></div>
+    </div>
+
+    <!-- Flow A -->
+    <div class="fg reveal rd2">
+      <div class="fg-label">Flow A &nbsp;&nbsp; Request Help</div>
+      <div class="flow-shell">
+        <div class="flow-track">
+          <div class="flow-node start">Start</div>
+          <div class="flow-connector"><span class="line"></span></div>
+          <div class="flow-node screen">Homepage</div>
+          <div class="flow-connector"><span class="line"></span></div>
+          <div class="flow-node action">Request Help</div>
+          <div class="flow-connector"><span class="line"></span></div>
+          <div class="flow-node screen">Select Service</div>
+          <div class="flow-connector"><span class="line"></span></div>
+          <div class="flow-node decision"><span>Submit?</span></div>
+          <div class="flow-connector flow-yes"><span class="line"></span><span>Yes</span></div>
+          <div class="flow-node screen">Application Confirmed</div>
+          <div class="flow-connector"><span class="line"></span></div>
+          <div class="flow-node end">End</div>
+        </div>
       </div>
-      <div class="card">
-        <div class="num">B</div>
-        <h3>Family Coordination</h3>
-        <p>Build a parallel family-side interface for activity tracking, health updates, and communication support without over-control.</p>
+      <div class="flow-note">No → return to Select Service and revise the request.</div>
+    </div>
+
+    <!-- Flow B -->
+    <div class="fg reveal rd2">
+      <div class="fg-label">Flow B &nbsp;&nbsp; Help Others</div>
+      <div class="flow-shell">
+        <div class="flow-track">
+          <div class="flow-node start">Start</div>
+          <div class="flow-connector"><span class="line"></span></div>
+          <div class="flow-node screen">Homepage</div>
+          <div class="flow-connector"><span class="line"></span></div>
+          <div class="flow-node action">Help Others</div>
+          <div class="flow-connector"><span class="line"></span></div>
+          <div class="flow-node screen">Nearby Requests</div>
+          <div class="flow-connector"><span class="line"></span></div>
+          <div class="flow-node decision"><span>Accept?</span></div>
+          <div class="flow-connector flow-yes"><span class="line"></span><span>Yes</span></div>
+          <div class="flow-node screen">Application Confirmed</div>
+          <div class="flow-connector"><span class="line"></span></div>
+          <div class="flow-node end">End</div>
+        </div>
       </div>
-      <div class="card">
-        <div class="num">C</div>
-        <h3>Friendly Interaction</h3>
-        <p>Reduce operation burden through guided flows, large touch targets, and low-complexity information architecture.</p>
+      <div class="flow-note">No → continue browsing and match another request.</div>
+    </div>
+
+    <!-- Flow C -->
+    <div class="fg reveal rd2">
+      <div class="fg-label">Flow C &nbsp;&nbsp; Service Execution</div>
+      <div class="flow-shell">
+        <div class="flow-track">
+          <div class="flow-node start">Start</div>
+          <div class="flow-connector"><span class="line"></span></div>
+          <div class="flow-node screen">Scheduled Service</div>
+          <div class="flow-connector"><span class="line"></span></div>
+          <div class="flow-node action">Navigate</div>
+          <div class="flow-connector"><span class="line"></span></div>
+          <div class="flow-node screen">Day-of Details</div>
+          <div class="flow-connector"><span class="line"></span></div>
+          <div class="flow-node action">Check-in / Check-out</div>
+          <div class="flow-connector"><span class="line"></span></div>
+          <div class="flow-node screen">Service Review</div>
+          <div class="flow-connector"><span class="line"></span></div>
+          <div class="flow-node end">Get Points</div>
+        </div>
+      </div>
+      <div class="flow-note">Service completion is automatically linked with calendar status and reward issuance.</div>
+    </div>
+  </section>
+
+  <!-- 04 SITE MAP -->
+  <section class="section section-border">
+    <div class="section-header reveal">
+      <div class="pd-label">Design Process · 04</div>
+      <h2>Information Architecture</h2>
+    </div>
+    <p class="body-text reveal rd1" style="margin-bottom:32px;">The hierarchy returns to the original v4 branch logic, but each side is compacted into two internal columns so the structure stays elegant without becoming an overly long sitemap.</p>
+    <div class="reveal rd2">
+      <div class="sm-wrap">
+        <div class="sm-col">
+          <div class="sm-app">Soultime App — User Side</div>
+          <div class="sm-root">Entry</div>
+          <div class="sm-entry-wrap">
+            <div class="sm-item"><span class="on">Login screen</span></div>
+            <div class="sm-item"><span class="on">Registration form</span></div>
+            <div class="sm-item"><span>Health status onboarding</span></div>
+          </div>
+          <div class="sm-compact-grid">
+            <div class="sm-group"><div class="sm-group-label">Homepage</div><div class="sm-children"><div class="sm-item"><span class="on">Service hours</span></div><div class="sm-item"><span class="on">Request Help shortcut</span></div><div class="sm-item"><span class="on">Help Others shortcut</span></div><div class="sm-item"><span>Calendar preview</span></div></div></div>
+            <div class="sm-group"><div class="sm-group-label">Request Help</div><div class="sm-children"><div class="sm-item"><span class="on">New application</span></div><div class="sm-item"><span class="on">Pending list</span></div><div class="sm-item"><span>Application detail</span></div><div class="sm-item"><span>Confirmation screen</span></div></div></div>
+            <div class="sm-group"><div class="sm-group-label">Help Others</div><div class="sm-children"><div class="sm-item"><span class="on">Nearby requests</span></div><div class="sm-item"><span class="on">Matched list</span></div><div class="sm-item"><span>Service detail</span></div><div class="sm-item"><span>Confirmation</span></div></div></div>
+            <div class="sm-group"><div class="sm-group-label">Time Currency</div><div class="sm-children"><div class="sm-item"><span class="on">Hours total</span></div><div class="sm-item"><span class="on">Transfer hours</span></div><div class="sm-item"><span>Redeem hours</span></div><div class="sm-item"><span>Transaction history</span></div></div></div>
+            <div class="sm-group"><div class="sm-group-label">Calendar</div><div class="sm-children"><div class="sm-item"><span class="on">Year / Month / Day</span></div><div class="sm-item"><span>Event detail</span></div></div></div>
+            <div class="sm-group"><div class="sm-group-label">Service Execution</div><div class="sm-children"><div class="sm-item"><span class="on">Navigate to location</span></div><div class="sm-item"><span class="on">Check-in / Check-out</span></div><div class="sm-item"><span>Rating &amp; review</span></div></div></div>
+          </div>
+        </div>
+        <div class="sm-col">
+          <div class="sm-app">Soultime Family — Family Side</div>
+          <div class="sm-root">Entry</div>
+          <div class="sm-entry-wrap">
+            <div class="sm-item"><span class="on">Login screen</span></div>
+            <div class="sm-item"><span class="on">Registration form</span></div>
+            <div class="sm-item"><span>Link to elderly user</span></div>
+          </div>
+          <div class="sm-compact-grid">
+            <div class="sm-group"><div class="sm-group-label">Homepage</div><div class="sm-children"><div class="sm-item"><span class="on">Service hours overview</span></div><div class="sm-item"><span class="on">Request Help status</span></div><div class="sm-item"><span class="on">Help Others status</span></div><div class="sm-item"><span>Health status</span></div></div></div>
+            <div class="sm-group"><div class="sm-group-label">View Request Help</div><div class="sm-children"><div class="sm-item"><span class="on">Confirmed list</span></div><div class="sm-item"><span>Not-started services</span></div><div class="sm-item"><span>Application detail</span></div></div></div>
+            <div class="sm-group"><div class="sm-group-label">View Help Others</div><div class="sm-children"><div class="sm-item"><span class="on">Matched list</span></div><div class="sm-item"><span>Not-started services</span></div><div class="sm-item"><span>Service detail</span></div></div></div>
+            <div class="sm-group"><div class="sm-group-label">Health Status</div><div class="sm-children"><div class="sm-item"><span class="on">Mental condition</span></div><div class="sm-item"><span class="on">Physical condition</span></div><div class="sm-item"><span class="on">Emotional condition</span></div><div class="sm-item"><span>Historical chart</span></div></div></div>
+            <div class="sm-group"><div class="sm-group-label">Calendar</div><div class="sm-children"><div class="sm-item"><span class="on">Upcoming activities</span></div><div class="sm-item"><span class="on">Completed activities</span></div><div class="sm-item"><span>Activity detail</span></div></div></div>
+            <div class="sm-group"><div class="sm-group-label">Location &amp; Service</div><div class="sm-children"><div class="sm-item"><span class="on">Real-time location</span></div><div class="sm-item"><span class="on">Service details</span></div><div class="sm-item"><span>Map view</span></div><div class="sm-item"><span>Family profile</span></div></div></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- BRAND POSITIONING (services-grid with images) -->
+  <!-- BRAND IDENTITY & CIS -->
   <section class="section section-border" id="brand">
-    <div class="section-header">
+    <div class="section-header reveal">
       <h2>Visual Identity</h2>
     </div>
-    <div class="services-grid">
+    <p class="body-text reveal rd1" style="margin-bottom:40px;">The visual identity was simplified into a cleaner presentation format while keeping the full CIS logic intact — logo concept, colour hierarchy, typography, auxiliary graphics, and application design. The hourglass-derived logo combines rotated S and M letterforms, symbolising the cyclic nature of time and mutual care.</p>
+
+    <div class="cis-img-row reveal rd2">
+      <div class="cis-img-wrap">
+        <img src="images/cis-aux-shapes.png" alt="Auxiliary graphic elements" onerror="this.parentElement.classList.add('cis-ph')">
+        <span class="cis-img-label">Auxiliary Shapes</span>
+      </div>
+      <div class="cis-img-wrap">
+        <img src="images/cis-logo-combinations.png" alt="Logo combinations" onerror="this.parentElement.classList.add('cis-ph')">
+        <span class="cis-img-label">Logo Combinations</span>
+      </div>
+    </div>
+
+    <div class="section-header reveal" style="padding:40px 0 16px;">
+      <h2 style="font-size:clamp(18px,2vw,26px);">Logo Combinations</h2>
+    </div>
+    <div class="cis-img-row reveal rd1">
+      <div class="cis-img-wrap" style="flex:2;">
+        <img src="images/cis-logo-light.png" alt="Logo on light" onerror="this.parentElement.classList.add('cis-ph')">
+        <span class="cis-img-label">Standard — Light Background</span>
+      </div>
+      <div class="cis-img-wrap" style="flex:2;">
+        <img src="images/cis-logo-dark.png" alt="Logo on dark" onerror="this.parentElement.classList.add('cis-ph')">
+        <span class="cis-img-label">Standard — Dark Background</span>
+      </div>
+      <div class="cis-img-wrap" style="flex:1;">
+        <img src="images/cis-logo-icon.png" alt="Icon only" onerror="this.parentElement.classList.add('cis-ph')">
+        <span class="cis-img-label">Icon Only</span>
+      </div>
+    </div>
+
+    <div class="section-header reveal" style="padding:48px 0 16px;">
+      <h2 style="font-size:clamp(18px,2vw,26px);">Color System</h2>
+    </div>
+    <div class="color-funnel-wrap reveal rd1">
+      <div class="funnel-card">
+        <div class="funnel-card-title">Primary Funnel</div>
+        <div class="funnel-shape">
+          <div class="funnel-half left">
+            <div class="funnel-step" style="background:#21005D;"><span>Deep Purple</span></div>
+            <div class="funnel-step" style="background:#1D2087;"><span>Dark Blue</span></div>
+            <div class="funnel-step" style="background:#3268A5;"><span>Mid Blue</span></div>
+            <div class="funnel-step" style="background:#658CF5;"><span>Light Blue</span></div>
+            <div class="funnel-step light" style="background:#DEE9F0;"><span>Surface Blue</span></div>
+          </div>
+          <div class="funnel-half right">
+            <div class="funnel-step" style="background:#21005D;"><span>#21005D</span></div>
+            <div class="funnel-step" style="background:#1D2087;"><span>#1D2087</span></div>
+            <div class="funnel-step" style="background:#3268A5;"><span>#3268A5</span></div>
+            <div class="funnel-step" style="background:#658CF5;"><span>#658CF5</span></div>
+            <div class="funnel-step light" style="background:#DEE9F0;"><span>#DEE9F0</span></div>
+          </div>
+        </div>
+        <div class="funnel-meta">
+          <div class="funnel-meta-item"><strong>Brand core</strong><span>Depth, trust, and structured calm for the main identity.</span></div>
+          <div class="funnel-meta-item"><strong>Interface role</strong><span>Primary actions, headings, and high-priority visual anchors.</span></div>
+        </div>
+      </div>
+      <div class="funnel-card">
+        <div class="funnel-card-title">Secondary Funnel</div>
+        <div class="funnel-shape">
+          <div class="funnel-half left">
+            <div class="funnel-step light" style="background:#F1F0DF;"><span>Cream</span></div>
+            <div class="funnel-step light" style="background:#F6CE9A;"><span>Peach</span></div>
+            <div class="funnel-step" style="background:#E5926A;"><span>Warm Orange</span></div>
+            <div class="funnel-step" style="background:#D55323;"><span>Deep Orange</span></div>
+            <div class="funnel-step light" style="background:#C7C7C7;"><span>Silver</span></div>
+          </div>
+          <div class="funnel-half right">
+            <div class="funnel-step light" style="background:#F1F0DF;"><span>#F1F0DF</span></div>
+            <div class="funnel-step light" style="background:#F6CE9A;"><span>#F6CE9A</span></div>
+            <div class="funnel-step" style="background:#E5926A;"><span>#E5926A</span></div>
+            <div class="funnel-step" style="background:#D55323;"><span>#D55323</span></div>
+            <div class="funnel-step light" style="background:#C7C7C7;"><span>#C7C7C7</span></div>
+          </div>
+        </div>
+        <div class="funnel-meta">
+          <div class="funnel-meta-item"><strong>Support tone</strong><span>Warmth, care, and softer emotional contrast for human-facing touchpoints.</span></div>
+          <div class="funnel-meta-item"><strong>Interface role</strong><span>Supportive surfaces, alerts, illustration accents, and secondary emphasis.</span></div>
+        </div>
+      </div>
+    </div>
+    <!-- services-grid for brand description -->
+    <div class="services-grid reveal rd2" style="margin-top:40px;">
       <div class="services-imgs">
         <img src="images/project-1-8.png" alt="Color identity">
         <img src="images/project-1-9.png" alt="Typography">
       </div>
       <div class="services-list">
         <div class="service-row">
-          <div class="service-label">Color</div>
-          <div class="service-desc">Soft blue (#8BC7F7) as primary, with light surface (#DFF2FF), support green (#89C7B8), and emergency red (#EC776B). Bright, low-saturation palette with clear contrast — calm for daily use, accessible for elderly color perception.</div>
+          <div class="service-label">Logo Concept</div>
+          <div class="service-desc">The rotated S and M letterforms combine to create a hourglass silhouette — symbolising the cyclical nature of time and the reciprocal flow of mutual care. Blue, white, peach, and orange convey professionalism, respect, warmth, and community.</div>
         </div>
         <div class="service-row">
           <div class="service-label">Typography</div>
-          <div class="service-desc">Display typography supports brand character while body type remains highly readable. The hierarchy avoids crowded layouts, prioritizing around 20pt body size with strong background contrast and option to adjust text size.</div>
+          <div class="service-desc">Avenir across six weights — light to black. The hierarchy supports both brand expression and in-app readability, with a body size baseline of 18–20pt and strong contrast against all background values.</div>
         </div>
         <div class="service-row">
           <div class="service-label">Iconography</div>
-          <div class="service-desc">Concrete icons with text labels, consistent visual style, and direct function reflection. Abstract or overly complex symbols are avoided to support recognition and reduce cognitive load.</div>
+          <div class="service-desc">Concrete icons always paired with text labels. Consistent geometry, direct function reflection, and avoidance of abstract symbols — designed for recognition, not decoration.</div>
         </div>
         <div class="service-row">
           <div class="service-label">Platform</div>
@@ -499,7 +1574,7 @@
 
   <!-- CIS FLIPBOOK -->
   <section class="flipbook-section" id="cis-document">
-    <div class="section-header">
+    <div class="section-header reveal">
       <h2>CIS Document</h2>
       <p style="margin-top:10px;font-size:12px;color:var(--silver);letter-spacing:0.5px;line-height:1.6;">Drag left or right to flip pages. Click EXPAND for fullscreen reading.</p>
     </div>
@@ -555,110 +1630,147 @@
     </div>
   </div>
 
+  <!-- KEY DESIGN DECISIONS -->
+  <section class="section section-border" id="decisions">
+    <div class="section-header reveal">
+      <h2>Key Design<br>Decisions</h2>
+    </div>
+    <p class="body-text reveal rd1" style="margin-bottom:28px;">Each decision traces back to a specific research finding. What follows is not a list of features — it is a record of how evidence was turned into design constraints.</p>
+    <div class="decision-grid reveal rd2">
+      <div class="dc">
+        <div class="dc-label"><span>Homepage<br>Entry Point</span></div>
+        <div class="dc-before">
+          <span class="dc-before-lbl">First Version</span>
+          Five homepage buttons — Request Help, Help Others, Calendar, Health, Badges. User testing showed participants paused over 3 seconds before tapping. Navigation felt like a menu, not an entry.
+        </div>
+        <div class="dc-after">
+          <span class="dc-after-lbl">Final Decision</span>
+          Reduced to two primary actions. Every additional feature moves one layer deeper. The rule: the first screen should require no decision except direction.
+        </div>
+      </div>
+      <div class="dc">
+        <div class="dc-label"><span>Achievement<br>System</span></div>
+        <div class="dc-before">
+          <span class="dc-before-lbl">Considered</span>
+          A community leaderboard ranking participants by service hours. Research flagged this as a stressor — several interviewees said they would stop participating if they fell behind others.
+        </div>
+        <div class="dc-after">
+          <span class="dc-after-lbl">Final Decision</span>
+          Individual badge system — Service Expert, Helping Hand, High Rating. Achievement is personal, not comparative. Contribution feels like its own reward, not a competition.
+        </div>
+      </div>
+      <div class="dc">
+        <div class="dc-label"><span>Family App<br>Boundaries</span></div>
+        <div class="dc-before">
+          <span class="dc-before-lbl">Initial Scope</span>
+          Full family messaging, direct service cancellation, and real-time push alerts for every activity update. Functionally complete, but the elderly user would feel constantly monitored.
+        </div>
+        <div class="dc-after">
+          <span class="dc-after-lbl">Final Decision</span>
+          View-only: health status, activity records, location during service. No direct intervention. The design principle — awareness without control — protects autonomy on both sides.
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- APP INTERFACE -->
   <div style="border-top:1px solid var(--dark);" id="interface">
     <div class="portrait-pair">
-      <img src="images/project-1-screen-1.png" alt="Soultime home">
-      <img src="images/project-1-screen-4.png" alt="Soultime records">
+      <div class="screen-hover-wrap"><img src="images/project-1-screen-1.png" alt="Soultime home"><span class="screen-label">Homepage</span></div>
+      <div class="screen-hover-wrap"><img src="images/project-1-screen-4.png" alt="Soultime records"><span class="screen-label">Time Currency</span></div>
     </div>
     <div class="spread-images">
-      <img src="images/project-1-screen-1.png" alt="Home">
-      <img src="images/project-1-screen-2.png" alt="Request">
-      <img src="images/project-1-screen-3.png" alt="Activities">
-      <img src="images/project-1-screen-4.png" alt="Records">
-      <img src="images/project-1-screen-5.png" alt="Health">
-      <img src="images/project-1-screen-6.png" alt="Profile">
+      <div class="screen-hover-wrap"><img src="images/project-1-screen-1.png" alt="Home"><span class="screen-label">Home</span></div>
+      <div class="screen-hover-wrap"><img src="images/project-1-screen-2.png" alt="Request"><span class="screen-label">Request Help</span></div>
+      <div class="screen-hover-wrap"><img src="images/project-1-screen-3.png" alt="Activities"><span class="screen-label">Calendar</span></div>
+      <div class="screen-hover-wrap"><img src="images/project-1-screen-4.png" alt="Records"><span class="screen-label">Time Records</span></div>
+      <div class="screen-hover-wrap"><img src="images/project-1-screen-5.png" alt="Health"><span class="screen-label">Health Status</span></div>
+      <div class="screen-hover-wrap"><img src="images/project-1-screen-6.png" alt="Profile"><span class="screen-label">Profile</span></div>
     </div>
   </div>
 
-  <!-- APP FUNCTIONS (original 2-col feature list) -->
+  <!-- APP FUNCTIONS -->
   <section class="section section-border">
-    <div class="section-header">
+    <div class="section-header reveal">
       <h2>App Interface &amp; Functions</h2>
     </div>
     <div class="features-list">
-      <div class="feature-item"><div class="feature-num">01</div><div class="feature-content"><h3>Login &amp; Onboarding</h3><p>Supports registration and account entry, followed by a simple health confirmation and visual onboarding sequence to strengthen recognition and emotional tone.</p></div></div>
-      <div class="feature-item"><div class="feature-num">02</div><div class="feature-content"><h3>Homepage Hub</h3><p>Provides direct access to request help, help others, calendar, emergency call, profile, navigation, and chat from the first layer of the system.</p></div></div>
-      <div class="feature-item"><div class="feature-num">03</div><div class="feature-content"><h3>Request Help</h3><p>Allows users to create new service requests, check progress, receive approval notifications, and add confirmed support to the schedule.</p></div></div>
-      <div class="feature-item"><div class="feature-num">04</div><div class="feature-content"><h3>Help Others</h3><p>Displays nearby support needs and enables users to join community assistance through application and matching flow.</p></div></div>
-      <div class="feature-item"><div class="feature-num">05</div><div class="feature-content"><h3>Calendar &amp; Reminders</h3><p>Shows confirmed orders, activities, and reminders through year, month, and day views, supporting predictable time planning.</p></div></div>
-      <div class="feature-item"><div class="feature-num">06</div><div class="feature-content"><h3>Badge System</h3><p>Visualizes service expert, helping hand, and high-rating achievements to strengthen participation motivation and visible contribution.</p></div></div>
-      <div class="feature-item"><div class="feature-num">07</div><div class="feature-content"><h3>Time Currency Records</h3><p>Tracks service hours, transfer records, gifts, check-in, check-out, and redemption history as part of the time banking mechanism.</p></div></div>
-      <div class="feature-item"><div class="feature-num">08</div><div class="feature-content"><h3>Navigation</h3><p>Supports route guidance to activity and service locations, reducing uncertainty and external dependence during travel.</p></div></div>
-      <div class="feature-item"><div class="feature-num">09</div><div class="feature-content"><h3>Health Status Record</h3><p>Displays the latest record and historical summaries of mental, physical, and emotional conditions through simple chart-based feedback.</p></div></div>
-      <div class="feature-item"><div class="feature-num">10</div><div class="feature-content"><h3>Chat &amp; Family Contact</h3><p>Creates direct communication between users and family or service-related contacts, supporting reassurance and coordination.</p></div></div>
+      <div class="feature-item reveal rd1"><div class="feature-num">01</div><div class="feature-content"><h3>Login &amp; Onboarding</h3><p>Supports registration and account entry, followed by a simple health confirmation and visual onboarding sequence to strengthen recognition and emotional tone.</p></div></div>
+      <div class="feature-item reveal rd2"><div class="feature-num">02</div><div class="feature-content"><h3>Homepage Hub</h3><p>Provides direct access to request help, help others, calendar, emergency call, profile, navigation, and chat from the first layer of the system.</p></div></div>
+      <div class="feature-item reveal rd1"><div class="feature-num">03</div><div class="feature-content"><h3>Request Help</h3><p>Allows users to create new service requests, check progress, receive approval notifications, and add confirmed support to the schedule.</p></div></div>
+      <div class="feature-item reveal rd2"><div class="feature-num">04</div><div class="feature-content"><h3>Help Others</h3><p>Displays nearby support needs and enables users to join community assistance through application and matching flow.</p></div></div>
+      <div class="feature-item reveal rd1"><div class="feature-num">05</div><div class="feature-content"><h3>Calendar &amp; Reminders</h3><p>Shows confirmed orders, activities, and reminders through year, month, and day views, supporting predictable time planning.</p></div></div>
+      <div class="feature-item reveal rd2"><div class="feature-num">06</div><div class="feature-content"><h3>Badge System</h3><p>Visualizes service expert, helping hand, and high-rating achievements to strengthen participation motivation and visible contribution.</p></div></div>
+      <div class="feature-item reveal rd1"><div class="feature-num">07</div><div class="feature-content"><h3>Time Currency Records</h3><p>Tracks service hours, transfer records, gifts, check-in, check-out, and redemption history as part of the time banking mechanism.</p></div></div>
+      <div class="feature-item reveal rd2"><div class="feature-num">08</div><div class="feature-content"><h3>Navigation</h3><p>Supports route guidance to activity and service locations, reducing uncertainty and external dependence during travel.</p></div></div>
+      <div class="feature-item reveal rd1"><div class="feature-num">09</div><div class="feature-content"><h3>Health Status Record</h3><p>Displays the latest record and historical summaries of mental, physical, and emotional conditions through simple chart-based feedback.</p></div></div>
+      <div class="feature-item reveal rd2"><div class="feature-num">10</div><div class="feature-content"><h3>Chat &amp; Family Contact</h3><p>Creates direct communication between users and family or service-related contacts, supporting reassurance and coordination.</p></div></div>
     </div>
   </section>
 
   <!-- SOULTIME FAMILY FUNCTIONS -->
   <section class="section section-border">
-    <div class="section-header">
+    <div class="section-header reveal">
       <h2>Soultime Family Functions</h2>
     </div>
     <div class="features-list">
-      <div class="feature-item"><div class="feature-num">01</div><div class="feature-content"><h3>Status Overview</h3><p>Allows family members to quickly review the elderly user's latest health entry, recent activity participation, and service status.</p></div></div>
-      <div class="feature-item"><div class="feature-num">02</div><div class="feature-content"><h3>Location Support</h3><p>Links the home view to map and location-related guidance so that family members can understand route context without directly interfering in activity flow.</p></div></div>
-      <div class="feature-item"><div class="feature-num">03</div><div class="feature-content"><h3>Communication Window</h3><p>Connects directly to chat so that reminders, check-ins, and emotional support can happen through a familiar conversation pattern.</p></div></div>
-      <div class="feature-item"><div class="feature-num">04</div><div class="feature-content"><h3>Monitoring with Restraint</h3><p>The family-side design is intended to reassure rather than over-control, keeping the elderly user's autonomy visible within the system.</p></div></div>
+      <div class="feature-item reveal rd1"><div class="feature-num">01</div><div class="feature-content"><h3>Status Overview</h3><p>Allows family members to quickly review the elderly user's latest health entry, recent activity participation, and service status.</p></div></div>
+      <div class="feature-item reveal rd2"><div class="feature-num">02</div><div class="feature-content"><h3>Location Support</h3><p>Links the home view to map and location-related guidance so that family members can understand route context without directly interfering in activity flow.</p></div></div>
+      <div class="feature-item reveal rd1"><div class="feature-num">03</div><div class="feature-content"><h3>Communication Window</h3><p>Connects directly to chat so that reminders, check-ins, and emotional support can happen through a familiar conversation pattern.</p></div></div>
+      <div class="feature-item reveal rd2"><div class="feature-num">04</div><div class="feature-content"><h3>Monitoring with Restraint</h3><p>The family-side design is intentionally limited. It offers awareness — not surveillance. The elderly user's autonomy remains visible and intact within the system.</p></div></div>
     </div>
   </section>
 
-  <!-- PROTOTYPE (original embed, clean style) -->
+  <!-- PROTOTYPE -->
   <section class="section section-border" id="prototype">
-    <div class="section-header">
+    <div class="section-header reveal">
       <h2>Prototype Showcase</h2>
     </div>
-    <div class="proto-wrap">
+
+    <div class="proto-wrap reveal rd1">
       <div class="proto-header">
         <span class="proto-label">Soultime — Interactive Figma Prototype</span>
         <a class="proto-btn" href="https://www.figma.com/proto/6XfK7ewMxQ6VxF0riGc0oI/SoulTime?node-id=1165-68036&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1165%3A64843&page-id=0%3A1" target="_blank" rel="noopener">View in Figma ↗</a>
       </div>
-      <div class="proto-stage">
-        <iframe src="https://embed.figma.com/proto/6XfK7ewMxQ6VxF0riGc0oI/SoulTime?node-id=1165-68036&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1165%3A64843&show-proto-sidebar=0&page-id=0%3A1&embed-host=share" allowfullscreen loading="lazy" title="Soultime Prototype"></iframe>
+      <!-- Lazy proto: click to load iframe -->
+      <div class="proto-lazy" data-src="https://embed.figma.com/proto/6XfK7ewMxQ6VxF0riGc0oI/SoulTime?node-id=1165-68036&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1165%3A64843&show-proto-sidebar=0&page-id=0%3A1&embed-host=share">
+        <div class="proto-lazy-inner">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="3" stroke="rgba(0,0,0,0.2)" stroke-width="1.5"/><path d="M13 10l9 6-9 6V10z" fill="rgba(0,0,0,0.2)"/></svg>
+          <span>Click to load interactive prototype</span>
+        </div>
       </div>
       <p class="proto-note">On mobile or slower networks, opening the prototype in Figma directly may be more stable.</p>
     </div>
-    <div class="proto-wrap">
+
+    <div class="proto-wrap reveal rd2">
       <div class="proto-header">
         <span class="proto-label">Soultime Family — Interactive Figma Prototype</span>
         <a class="proto-btn" href="https://www.figma.com/proto/6XfK7ewMxQ6VxF0riGc0oI/SoulTime?node-id=1165-69498&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1165%3A68926&page-id=0%3A1" target="_blank" rel="noopener">View in Figma ↗</a>
       </div>
-      <div class="proto-stage">
-        <iframe src="https://embed.figma.com/proto/6XfK7ewMxQ6VxF0riGc0oI/SoulTime?node-id=1165-69498&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1165%3A68926&show-proto-sidebar=0&page-id=0%3A1&embed-host=share" allowfullscreen loading="lazy" title="Soultime Family Prototype"></iframe>
+      <div class="proto-lazy" data-src="https://embed.figma.com/proto/6XfK7ewMxQ6VxF0riGc0oI/SoulTime?node-id=1165-69498&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1165%3A68926&show-proto-sidebar=0&page-id=0%3A1&embed-host=share">
+        <div class="proto-lazy-inner">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="3" stroke="rgba(0,0,0,0.2)" stroke-width="1.5"/><path d="M13 10l9 6-9 6V10z" fill="rgba(0,0,0,0.2)"/></svg>
+          <span>Click to load interactive prototype</span>
+        </div>
       </div>
       <p class="proto-note">The family version shifts focus from personal reflection to shared awareness — emotional status, daily conditions, and collaborative care routines.</p>
     </div>
   </section>
 
-  <!-- DESIGN CONTRIBUTIONS (original 3-col) -->
+  <!-- OUTCOME & REFLECTION -->
   <section class="section section-border">
-    <div class="section-header">
-      <h2>Design Contributions</h2>
-    </div>
-    <div class="card-grid-3">
-      <div class="card">
-        <h3>Time Bank Translation</h3>
-        <p>The project translates the abstract concept of time banking into understandable service records, exchange flow, and reward logic for elderly users.</p>
-      </div>
-      <div class="card">
-        <h3>Dual-Platform Service Logic</h3>
-        <p>By developing both Soultime and Soultime Family, the project addresses not only elderly use but also family-side reassurance and coordination.</p>
-      </div>
-      <div class="card">
-        <h3>Research-Based UI System</h3>
-        <p>The visual and interaction rules are directly grounded in literature, case analysis, and interviews rather than purely stylistic preference.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- OUTCOME (original body-grid) -->
-  <section class="section section-border">
-    <div class="section-header">
+    <div class="section-header reveal">
       <h2>Outcome &amp; Reflection</h2>
     </div>
-    <div class="body-grid">
-      <p>Soultime confirms that the combination of time banking logic and age-friendly interface design can respond to both service access and social participation. The project does not simply create a care app, but proposes an alternative digital environment where elderly users can request help, contribute, connect, and remain visible within a mutual support network.</p>
-      <p>As a project outcome, the app also establishes a visual and structural foundation that can be extended into future testing, service collaboration, and exhibition display. The prototype, brand identity, and interface system together form a coherent design proposal grounded in both research and practice.</p>
+    <div class="body-grid reveal rd1">
+      <p>Soultime confirms that the combination of time banking logic and age-inclusive interface design can address both service access and social participation at once. The project does not simply create a care app — it proposes a digital environment where elderly users can request help, contribute time, connect with others, and remain visible within a mutual support network.</p>
+      <p>The central tension throughout was between simplicity and completeness. Every feature that made the system more capable also risked making it harder to use. Resolving that tension — through guided flows, layered disclosure, and a visual language calm enough for daily use — became the defining design challenge of the project.</p>
+    </div>
+    <div class="result-chips reveal rd2">
+      <div class="result-chip"><span class="rc-dot"></span>Second Review Passed</div>
+      <div class="result-chip"><span class="rc-dot"></span>Full Prototype — Figma</div>
+      <div class="result-chip"><span class="rc-dot"></span>CIS Manual — 19 Pages</div>
+      <div class="result-chip"><span class="rc-dot"></span>Dual Platform — App + Family App</div>
     </div>
   </section>
 
@@ -671,7 +1783,7 @@
   <section class="closing-section">
     <img src="images/project-1-17.png" alt="Soultime exhibition">
     <div class="closing-quote">
-      <p>Soultime proposes an alternative digital environment where elderly users can request help, contribute, connect, and remain visible within a mutual support network — grounded in both research and practice.</p>
+      <p>Good care is not a service delivered to people — it is built between them. Soultime is one proposal for what that infrastructure might look like.</p>
     </div>
     <img src="images/project-1-18.png" alt="Soultime life">
   </section>
@@ -991,6 +2103,87 @@
   }
 
   window.addEventListener('load', initCis);
+  </script>
+
+  <script>
+  /* ── SCROLL REVEAL ─────────────────────────────── */
+  (function(){
+    var els = document.querySelectorAll('.reveal');
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+      });
+    }, { threshold:0.07, rootMargin:'0px 0px -28px 0px' });
+    els.forEach(function(el){ io.observe(el); });
+  })();
+
+  /* ── STATS COUNTER ANIMATION ───────────────────── */
+  (function(){
+    var cells = document.querySelectorAll('.stat-n[data-target]');
+    var animated = false;
+    var io = new IntersectionObserver(function(entries){
+      if(animated) return;
+      if(!entries.some(function(e){ return e.isIntersecting; })) return;
+      animated = true;
+      cells.forEach(function(el){
+        var target = parseFloat(el.dataset.target);
+        var suffix = el.dataset.suffix || '';
+        var decimals = target % 1 !== 0 ? 2 : 0;
+        var start = 0; var dur = 1400; var t0 = null;
+        function step(ts){
+          if(!t0) t0 = ts;
+          var prog = Math.min((ts - t0) / dur, 1);
+          var ease = 1 - Math.pow(1 - prog, 3);
+          var val = (ease * target);
+          el.textContent = val.toFixed(decimals) + suffix;
+          if(prog < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }, { threshold:0.4 });
+    if(cells.length) io.observe(cells[0].closest('.stats-row') || cells[0]);
+  })();
+
+  /* ── EMOTION CURVE ANIMATION ────────────────────── */
+  (function(){
+    var wrap = document.querySelector('.emotion-curve-wrap');
+    if(!wrap) return;
+    var io = new IntersectionObserver(function(entries){
+      if(entries[0].isIntersecting){ wrap.classList.add('animated'); io.disconnect(); }
+    }, { threshold:0.5 });
+    io.observe(wrap);
+  })();
+
+  /* ── SECTION PROGRESS INDICATOR ────────────────── */
+
+  /* ── PROTO LAZY LOAD ─────────────────────────────── */
+  document.querySelectorAll('.proto-lazy').forEach(function(wrap){
+    wrap.addEventListener('click', function(){
+      var src = wrap.dataset.src;
+      if(!src) return;
+      var iframe = document.createElement('iframe');
+      iframe.src = src; iframe.allowFullscreen = true;
+      iframe.title = 'Soultime Prototype';
+      iframe.style.cssText = 'width:100%;height:100%;border:0;display:block;';
+      wrap.innerHTML = '';
+      wrap.style.aspectRatio = 'auto';
+      wrap.style.height = '780px';
+      wrap.style.cursor = 'default';
+      wrap.appendChild(iframe);
+    });
+  });
+
+  /* ── DRAG-TO-SCROLL ────────────────────────────── */
+  document.querySelectorAll('.overflow').forEach(function(el){
+    var down=false, sx, sl;
+    el.addEventListener('mousedown', function(e){ down=true; sx=e.pageX-el.offsetLeft; sl=el.scrollLeft; el.style.userSelect='none'; });
+    el.addEventListener('mouseleave', function(){ down=false; });
+    el.addEventListener('mouseup',    function(){ down=false; el.style.userSelect=''; });
+    el.addEventListener('mousemove',  function(e){ if(!down) return; e.preventDefault(); el.scrollLeft=sl-(e.pageX-el.offsetLeft-sx)*1.2; });
+    var tx,tsl;
+    el.addEventListener('touchstart', function(e){ tx=e.touches[0].pageX; tsl=el.scrollLeft; },{passive:true});
+    el.addEventListener('touchmove',  function(e){ el.scrollLeft=tsl+(tx-e.touches[0].pageX); },{passive:true});
+  });
   </script>
 </body>
 </html>
