@@ -9,20 +9,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --bg:        #ffffff;
-      --dark:      #1d231c;
-      --accent:    #d2fc9c;
-      --text:      #263025;
-      --black:     #000000;
-      --silver:    #aeabab;
-      --ocean:     #0f4c81;
-      --yellow:    #f5df4d;
-      --gray-mid:  #939597;
+      --bg: #ffffff;
+      --dark: #1d231c;
+      --text: #263025;
+      --black: #000000;
+      --silver: #aeabab;
+      --ocean: #0f4c81;
+      --yellow: #f5df4d;
+      --gray-mid: #939597;
       --ff-display: 'Aboreto', serif;
-      --ff-body:    'Geist', sans-serif;
+      --ff-body: 'Geist', sans-serif;
+      --line: rgba(0,0,0,0.12);
+      --max: 1280px;
     }
+
     html { scroll-behavior: smooth; }
+
     body {
       background: var(--bg);
       color: var(--black);
@@ -31,336 +35,375 @@
       line-height: 1.6;
       overflow-x: hidden;
     }
-    img { display: block; width: 100%; height: auto; object-fit: cover; }
-    a { text-decoration: none; color: inherit; }
 
-    /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; width: 100%;
-      background: var(--bg);
-      z-index: 100;
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-      padding: 0 24px;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 64px;
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
     }
-    .nav-logo { font-family: var(--ff-display); font-size: 18px; letter-spacing: 3px; color: var(--dark); }
-    .nav-links { display: flex; gap: 32px; list-style: none; }
-    .nav-links a { font-size: 14px; color: var(--black); transition: opacity .2s; }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 64px;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+
+    .nav-logo {
+      font-family: var(--ff-display);
+      font-size: 18px;
+      letter-spacing: 3px;
+      color: var(--dark);
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      transition: opacity 0.2s ease;
+    }
+
     .nav-links a:hover { opacity: 0.5; }
 
-    /* HERO */
-    .hero { margin-top: 64px; height: 580px; overflow: hidden; }
-    .hero img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+    .hero {
+      margin-top: 0;
+      height: min(66vw, 620px);
+      overflow: hidden;
+    }
 
-    /* META ROW */
-    .meta-row { display: flex; align-items: stretch; border-bottom: 1px solid var(--dark); }
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+    }
+
+    .meta-row {
+      display: flex;
+      align-items: stretch;
+      border-bottom: 1px solid var(--black);
+    }
+
     .meta-info {
-      background: var(--dark); padding: 24px 20px; min-width: 300px;
-      display: flex; flex-direction: column; gap: 8px;
+      background: var(--dark);
+      color: var(--bg);
+      min-width: 300px;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
+
     .meta-num {
-      font-size: 100px; line-height: 1; color: var(--silver); letter-spacing: 3px;
+      font-size: 100px;
+      line-height: 0.95;
+      color: var(--silver);
       font-family: Georgia, serif;
+      letter-spacing: 3px;
     }
-    .meta-title { font-family: var(--ff-display); font-size: 22px; color: var(--bg); letter-spacing: 1.5px; line-height: 1.4; }
-    .meta-sub   { font-family: var(--ff-display); font-size: 16px; color: var(--bg); letter-spacing: 1px; margin-top: 12px; }
-    .meta-tag   { font-family: var(--ff-display); font-size: 12px; color: var(--silver); letter-spacing: 0.7px; }
-    .meta-label { flex: 1; padding: 24px 32px; display: flex; align-items: flex-end; }
-    .meta-label span { font-family: var(--ff-display); font-size: 20px; color: var(--text); letter-spacing: 1px; }
 
-    /* DESCRIPTION */
-    .description { padding: 60px 24px; max-width: 680px; }
-    .description p { font-size: 15px; color: var(--text); line-height: 1.8; }
+    .meta-title,
+    .meta-sub,
+    .meta-tag,
+    .meta-label span,
+    h2,
+    h3,
+    .eyebrow,
+    .spec-label,
+    .footer-main-links a,
+    .footer-contact-info a,
+    .footer-contact-info p {
+      font-family: var(--ff-display);
+      font-weight: 400;
+    }
 
-    /* SECTION */
-    .section { padding: 0 24px 40px; }
-    .section-border { border-top: 1px solid var(--black); }
-    .section-header { padding: 40px 0 20px; display: flex; align-items: flex-start; gap: 16px; }
-    .section-header img.icon { width: 50px; height: 50px; object-fit: contain; flex-shrink: 0; }
+    .meta-title {
+      font-size: 22px;
+      letter-spacing: 1.4px;
+      line-height: 1.35;
+    }
+
+    .meta-sub {
+      font-size: 16px;
+      letter-spacing: 1px;
+      margin-top: 10px;
+    }
+
+    .meta-tag {
+      font-size: 12px;
+      letter-spacing: 0.7px;
+      color: var(--silver);
+    }
+
+    .meta-label {
+      flex: 1;
+      padding: 24px 32px;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .meta-label span {
+      font-size: 20px;
+      letter-spacing: 1px;
+      color: var(--text);
+    }
+
+    .description {
+      max-width: 720px;
+      padding: 56px 24px;
+    }
+
+    .description p,
+    .body-text {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.9;
+    }
+
+    .full-bleed-divider {
+      border-top: 1px solid var(--black);
+    }
+
+    .full-bleed-divider img {
+      width: 100%;
+      height: auto;
+    }
+
+    .section,
+    .cis-section {
+      padding: 0 24px 44px;
+      border-top: 1px solid var(--black);
+    }
+
+    .section-header,
+    .cis-header {
+      padding: 40px 0 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .section-header img.icon {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
     h2 {
-      font-family: var(--ff-display); font-size: clamp(28px,4vw,48px);
-      color: var(--text); letter-spacing: 2px; line-height: 1.2; font-weight: 400;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.15;
+      letter-spacing: 2px;
+      color: var(--text);
     }
-    .body-text { font-size: 17px; color: var(--black); line-height: 1.7; max-width: 680px; }
 
-    /* TAGS */
-    .tags { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0; }
+    .body-text {
+      max-width: 720px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
     .tag {
-      background: var(--dark); color: var(--bg); font-family: var(--ff-body);
-      font-size: 14px; padding: 4px 16px; border-radius: 20px;
+      background: var(--dark);
+      color: #fff;
+      border-radius: 999px;
+      padding: 6px 15px;
+      font-size: 14px;
     }
 
-    /* INFO LIST */
-    .info-list { display: flex; flex-direction: column; gap: 32px; padding: 24px 0; }
-    .info-row { display: flex; gap: 40px; align-items: flex-start; }
-    .info-label { width: 200px; flex-shrink: 0; font-family: var(--ff-display); font-size: 18px; color: var(--text); letter-spacing: 1px; }
-    .info-desc { flex: 1; font-size: 16px; color: var(--text); line-height: 1.7; }
+    .img-row {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      padding-top: 24px;
+    }
 
-    /* GOAL ICON */
+    .img-side {
+      width: 320px;
+      flex-shrink: 0;
+    }
+
+    .img-side img {
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .img-caption {
+      margin-top: 12px;
+      font-size: 14px;
+      color: var(--text);
+      letter-spacing: 0.6px;
+    }
+
+    .text-side {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .research-table {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      padding-bottom: 16px;
+    }
+
+    .research-col {
+      min-width: 180px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .research-col-title {
+      font-family: var(--ff-display);
+      font-size: 15px;
+      color: var(--text);
+      letter-spacing: 0.8px;
+      border-bottom: 1px solid var(--black);
+      padding-bottom: 8px;
+      margin-bottom: 4px;
+    }
+
+    .research-col p {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .goal-header {
+      align-items: center;
+      gap: 20px;
+    }
+
     .goal-icon {
-      width: 100px; height: 100px; border-radius: 50px; border: 1px solid var(--black);
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-      position: relative;
-    }
-    .goal-icon::before {
-      content: ''; position: absolute; inset: 4px; border-radius: 46px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
       border: 1px solid var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      flex-shrink: 0;
     }
-    .goal-icon img { width: 44px; height: auto; object-fit: contain; position: relative; z-index: 1; }
 
-    /* RESEARCH TABLE */
-    .research-table { display: flex; gap: 40px; padding: 20px 0; flex-wrap: wrap; }
-    .research-col { display: flex; flex-direction: column; gap: 8px; min-width: 180px; }
-    .research-col-title { font-family: var(--ff-display); font-size: 15px; color: var(--text); letter-spacing: 0.8px; border-bottom: 1px solid var(--black); padding-bottom: 8px; margin-bottom: 4px; }
-    .research-col p { font-size: 15px; color: var(--text); line-height: 1.6; }
+    .goal-icon::before {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border: 1px solid var(--black);
+      border-radius: 50%;
+    }
 
-    /* IMG ROW */
-    .img-row { display: flex; gap: 40px; align-items: flex-start; padding: 20px 0; flex-wrap: wrap; }
-    .img-row .img-side { flex-shrink: 0; width: 320px; }
-    .img-row .img-side img { width: 100%; height: auto; object-fit: cover; }
-    .img-row .text-side { flex: 1; min-width: 200px; }
-    .img-caption { font-family: var(--ff-display); font-size: 14px; color: var(--text); letter-spacing: 0.7px; margin-top: 12px; }
+    .goal-icon img {
+      width: 44px;
+      position: relative;
+      z-index: 1;
+    }
 
-    /* FOUR IMAGES */
-    .four-images { display: flex; gap: 20px; flex-wrap: wrap; padding: 24px 0; }
-    .four-images img { flex: 1; min-width: 200px; height: 200px; object-fit: cover; }
+    .info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      padding-top: 28px;
+    }
 
-    /* CURRENT SURVEY REFINED */
+    .info-row {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
+
+    .info-label {
+      width: 180px;
+      flex-shrink: 0;
+      font-family: var(--ff-display);
+      font-size: 18px;
+      color: var(--text);
+      letter-spacing: 1px;
+    }
+
+    .info-desc {
+      flex: 1;
+      font-size: 15px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
     .survey-wrap {
       display: flex;
       flex-direction: column;
       gap: 28px;
-      padding: 18px 0 8px;
+      padding-top: 8px;
     }
-    .survey-lead {
-      max-width: 760px;
+
+    .survey-lead,
+    .cis-header p {
+      max-width: 820px;
       font-size: 15px;
       color: var(--text);
-      line-height: 1.8;
+      line-height: 1.9;
     }
+
     .survey-main {
       display: grid;
-      grid-template-columns: minmax(0, 1.65fr) minmax(280px, 0.9fr);
+      grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.95fr);
       gap: 28px;
       align-items: start;
     }
-    .survey-chart-main img,
-    .survey-side-chart img,
-    .survey-stats img {
+
+    .survey-main img,
+    .survey-stats img,
+    .journey-image img,
+    .cis-main-board img,
+    .visual-logo img,
+    .feature-hero img,
+    .map-visual img,
+    .goggles-wide img,
+    .exploded-main img,
+    .main-buttons img,
+    .lens-image img {
       width: 100%;
       height: auto;
       object-fit: contain;
-      display: block;
     }
+
     .survey-side {
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
-    .survey-copy-block {
-      padding-top: 10px;
-      border-top: 1px solid rgba(0,0,0,0.12);
-    }
-    .survey-kicker {
-      font-family: var(--ff-display);
-      font-size: 13px;
-      color: var(--silver);
-      letter-spacing: 0.8px;
-      margin-bottom: 10px;
-    }
-    .survey-grid-copy {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px 24px;
-    }
-    .survey-copy-item h3 {
-      font-family: var(--ff-display);
-      font-size: 15px;
-      color: var(--text);
-      letter-spacing: 0.7px;
-      font-weight: 400;
-      margin-bottom: 8px;
-    }
-    .survey-copy-item p,
-    .survey-copy-item li {
-      font-size: 14px;
-      color: var(--text);
-      line-height: 1.7;
-    }
-    .survey-copy-item ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .survey-copy-item li::before {
-      content: "— ";
-    }
-    .survey-stats {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-    .survey-stat {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .survey-stat-label {
-      font-family: var(--ff-display);
-      font-size: 13px;
-      color: var(--text);
-      letter-spacing: 0.7px;
-    }
-
-    /* COLOR SWATCHES */
-    .color-swatches { display: flex; gap: 24px; flex-wrap: wrap; padding: 24px 0; }
-    .swatch { display: flex; flex-direction: column; gap: 12px; }
-    .swatch-box { width: 120px; height: 120px; border-radius: 8px; }
-    .swatch-label { font-size: 13px; color: var(--text); line-height: 1.5; max-width: 140px; }
-    .swatch-label strong { display: block; font-size: 14px; margin-bottom: 2px; font-family: var(--ff-display); letter-spacing: 0.6px; }
-
-    /* TYPEFACE */
-    .typeface-row { display: flex; align-items: flex-start; gap: 40px; padding: 20px 0; flex-wrap: wrap; }
-    .typeface-aa { font-size: 100px; line-height: 1; color: var(--black); font-weight: 400; }
-    .typeface-info { display: flex; flex-direction: column; gap: 10px; padding-top: 16px; }
-    .typeface-info-label { font-family: var(--ff-display); font-size: 15px; color: var(--text); letter-spacing: 1px; }
-    .typeface-info-value { font-size: 18px; color: var(--text); }
-    .typestyle-row { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 8px; }
-    .typestyle-item { display: flex; flex-direction: column; gap: 2px; }
-    .typestyle-item .ts-name { font-size: 14px; color: var(--text); }
-    .typestyle-item .ts-size { font-size: 13px; color: var(--silver); }
-
-    /* FEATURES */
-    .features-list { display: flex; flex-direction: column; gap: 24px; padding: 24px 0; max-width: 680px; }
-    .feature-item { display: flex; gap: 16px; align-items: flex-start; }
-    .feature-num { font-family: var(--ff-display); font-size: 13px; color: var(--silver); letter-spacing: 1px; flex-shrink: 0; padding-top: 2px; width: 24px; }
-    .feature-content h3 { font-family: var(--ff-display); font-size: 16px; color: var(--text); letter-spacing: 0.8px; margin-bottom: 4px; font-weight: 400; }
-    .feature-content p { font-size: 15px; color: var(--text); line-height: 1.6; }
-
-    /* DIVE SITE MAP */
-    .dive-map-layout { display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap; padding: 24px 0; }
-    .dive-map-img { flex-shrink: 0; width: 360px; }
-    .dive-cards { flex: 1; display: flex; flex-direction: column; gap: 12px; }
-    .dive-card { border: 1px solid rgba(0,0,0,0.12); border-radius: 6px; overflow: hidden; display: flex; }
-    .dive-card-thumb { width: 80px; height: 80px; flex-shrink: 0; object-fit: cover; }
-    .dive-card-body { padding: 10px 14px; }
-    .dive-card-name { font-family: var(--ff-display); font-size: 13px; color: var(--text); letter-spacing: 0.5px; margin-bottom: 6px; }
-    .dive-card-meta { display: flex; gap: 12px; flex-wrap: wrap; }
-    .dive-card-tag { font-size: 12px; color: var(--silver); }
-    .dive-card-tag strong { color: var(--text); font-weight: 400; }
-
-    /* APP SCREENS */
-    .app-section-title { padding: 40px 0 8px; }
-    .app-subtitle { font-family: var(--ff-display); font-size: 13px; color: var(--silver); letter-spacing: 0.8px; margin-top: 4px; padding: 0; }
-    .phone-flow { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; padding: 16px 0; }
-    .phone-flow img { width: 170px; height: auto; object-fit: contain; flex-shrink: 0; }
-    .phone-annotation { display: flex; flex-direction: column; gap: 4px; padding: 10px 0 10px 18px; border-left: 2px solid var(--black); margin: 8px 0 24px; }
-    .phone-annotation-title { font-family: var(--ff-display); font-size: 14px; color: var(--text); letter-spacing: 0.7px; }
-    .phone-annotation-item { font-size: 14px; color: var(--silver); }
-    .phone-annotation-item::before { content: "— "; }
-    .annotation-row { display: flex; gap: 40px; flex-wrap: wrap; }
-
-    /* GOGGLES */
-    .goggles-img-row { display: flex; gap: 0; }
-    .goggles-img-row img { flex: 1; }
-    .goggles-specs { display: flex; gap: 40px; flex-wrap: wrap; padding: 24px 0; }
-    .spec-block { display: flex; flex-direction: column; gap: 4px; }
-    .spec-label { font-family: var(--ff-display); font-size: 14px; color: var(--text); letter-spacing: 0.7px; }
-    .spec-value { font-size: 15px; color: var(--text); line-height: 1.6; }
-
-    /* LENS DIAGRAM */
-    .lens-grid { display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap; padding: 24px 0; }
-    .lens-img { flex: 1; min-width: 280px; }
-    .lens-annotations { flex: 1; min-width: 220px; display: flex; flex-direction: column; gap: 12px; }
-    .lens-row { display: flex; align-items: flex-start; gap: 12px; }
-    .lens-dot { width: 12px; height: 12px; border-radius: 6px; flex-shrink: 0; margin-top: 4px; }
-    .lens-dot.blue   { background: #0047ab; }
-    .lens-dot.red    { background: #e61f17; }
-    .lens-dot.gold   { background: #e5ce35; }
-    .lens-dot.gray   { background: var(--silver); }
-    .lens-text { font-size: 15px; color: var(--text); line-height: 1.5; }
-    .lens-sub  { font-size: 12px; color: var(--silver); margin-top: 2px; }
-
-    /* USAGE PROCESS */
-    .process-steps { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 24px 0 8px; }
-    .process-step {
-      background: var(--dark); color: var(--bg); border-radius: 40px;
-      padding: 14px 20px; font-size: 14px; line-height: 1.5; text-align: center;
-      min-height: 70px; display: flex; align-items: center; justify-content: center;
-      flex: 1; min-width: 180px;
-    }
-    .process-arrow { color: var(--silver); font-size: 18px; flex-shrink: 0; }
-    .process-images { display: flex; gap: 16px; padding: 16px 0; flex-wrap: wrap; }
-    .process-images img { width: 200px; height: auto; object-fit: cover; flex-shrink: 0; }
-
-    /* PHOTO INTERFACE */
-    .interface-row { display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap; padding: 20px 0; }
-    .interface-col { flex: 1; min-width: 240px; display: flex; flex-direction: column; gap: 14px; }
-    .interface-label {
-      font-family: var(--ff-body); font-size: 14px; color: var(--silver);
-      border: 1px solid var(--silver); padding: 3px 12px; border-radius: 20px; display: inline-block; align-self: flex-start;
-    }
-    .interface-note { font-size: 15px; color: var(--text); line-height: 1.6; }
-    .interface-img-pair { display: flex; gap: 10px; }
-    .step-block { display: flex; align-items: flex-start; gap: 8px; }
-    .step-num { background: var(--dark); color: var(--bg); width: 24px; height: 24px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
-    .step-num + img { flex: 1; height: 93px; width: auto; object-fit: cover; }
-    .divider-v { width: 1px; background: rgba(0,0,0,0.15); align-self: stretch; flex-shrink: 0; }
-
-
-
-    /* SURVEY + CIS MINIMAL */
-    .survey-wrap,
-    .cis-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      padding: 18px 0 8px;
-    }
-
-    .survey-lead,
-    .cis-header p {
-      max-width: 780px;
-      font-size: 15px;
-      color: var(--text);
-      line-height: 1.85;
-    }
-
-    .survey-main {
-      display: grid;
-      grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.9fr);
-      gap: 24px;
-      align-items: start;
-    }
-
-    .survey-chart-main img,
-    .survey-side-chart img,
-    .survey-stats img,
-    .cis-main-board img,
-    .cis-card img,
-    .journey-image img {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: contain;
-    }
-
-    .survey-side {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
 
     .survey-copy-block {
-      padding-top: 12px;
-      border-top: 1px solid rgba(0,0,0,0.12);
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
     }
 
-    .survey-kicker,
-    .sub-kicker {
-      font-family: var(--ff-display);
+    .eyebrow {
       font-size: 12px;
       color: var(--silver);
       letter-spacing: 0.9px;
@@ -370,24 +413,24 @@
     .survey-grid-copy {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px 24px;
+      gap: 18px 24px;
     }
 
     .survey-copy-item h3,
+    .journey-block h3,
     .cis-copy h3,
-    .journey-block h3 {
-      font-family: var(--ff-display);
+    .feature-copy h3 {
       font-size: 15px;
       color: var(--text);
       letter-spacing: 0.7px;
-      font-weight: 400;
       margin-bottom: 8px;
     }
 
     .survey-copy-item p,
     .survey-copy-item li,
+    .journey-block p,
     .cis-copy p,
-    .journey-block p {
+    .feature-copy p {
       font-size: 14px;
       color: var(--text);
       line-height: 1.75;
@@ -398,19 +441,16 @@
       display: flex;
       flex-direction: column;
       gap: 4px;
-      padding-left: 0;
       margin: 0;
+      padding: 0;
     }
 
-    .survey-copy-item li::before {
-      content: "— ";
-    }
+    .survey-copy-item li::before { content: "— "; }
 
     .survey-stats {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 18px;
-      padding-top: 4px;
     }
 
     .survey-stat {
@@ -426,39 +466,17 @@
       letter-spacing: 0.7px;
     }
 
-    .cis-section {
-      padding: 0 24px 40px;
-      border-top: 1px solid var(--black);
-    }
-
-    .cis-header {
-      padding: 40px 0 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .cis-main-board {
-      margin-bottom: 24px;
-    }
-
-    .cis-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 24px;
-    }
-
-    .cis-card {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
     .journey-layout {
       display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.88fr);
-      gap: 24px;
+      grid-template-columns: minmax(0, 1.18fr) minmax(300px, 0.88fr);
+      gap: 28px;
       align-items: start;
+    }
+
+    .journey-image {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
     .journey-copy {
@@ -468,91 +486,1276 @@
     }
 
     .journey-block {
+      border-top: 1px solid var(--line);
       padding-top: 12px;
-      border-top: 1px solid rgba(0,0,0,0.12);
     }
 
     .journey-block:first-child {
-      padding-top: 0;
       border-top: none;
+      padding-top: 0;
+    }
+
+    .cis-header {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cis-main-board {
+      padding-top: 4px;
+    }
+
+    .visual-design-layout {
+      display: grid;
+      grid-template-columns: minmax(200px, 240px) minmax(0, 1fr);
+      gap: 40px;
+      align-items: start;
+      padding-top: 8px;
+    }
+
+    .visual-logo {
+      max-width: 220px;
+    }
+
+    .typeface-row {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      padding-bottom: 24px;
+    }
+
+    .typeface-aa {
+      font-size: 100px;
+      line-height: 1;
+      color: var(--black);
+    }
+
+    .typeface-info {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-top: 14px;
+    }
+
+    .typeface-info-label {
+      font-family: var(--ff-display);
+      font-size: 15px;
+      color: var(--text);
+      letter-spacing: 1px;
+    }
+
+    .typeface-info-value {
+      font-size: 18px;
+      color: var(--text);
+    }
+
+    .typestyle-row {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .typestyle-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .typestyle-item .ts-name {
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .typestyle-item .ts-size {
+      font-size: 13px;
+      color: var(--silver);
+    }
+
+    .color-swatches {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding-top: 4px;
+    }
+
+    .swatch {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .swatch-box {
+      width: 120px;
+      height: 120px;
+      border-radius: 8px;
+    }
+
+    .swatch-label {
+      max-width: 150px;
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .swatch-label strong {
+      display: block;
+      margin-bottom: 2px;
+      font-family: var(--ff-display);
+      font-size: 14px;
+      letter-spacing: 0.6px;
+    }
+
+    .feature-hero {
+      padding: 4px 0 28px;
+      max-width: 980px;
+    }
+
+    .features-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      max-width: 760px;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .feature-num {
+      width: 24px;
+      flex-shrink: 0;
+      padding-top: 2px;
+      font-family: var(--ff-display);
+      font-size: 13px;
+      color: var(--silver);
+      letter-spacing: 1px;
+    }
+
+    .map-layout {
+      display: grid;
+      grid-template-columns: minmax(320px, 360px) minmax(0, 1fr);
+      gap: 32px;
+      align-items: start;
+      padding-top: 20px;
+    }
+
+    .dive-cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .dive-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      min-height: 88px;
+      background: #fff;
+    }
+
+    .dive-card-thumb {
+      width: 86px;
+      height: 100%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .dive-card-body {
+      padding: 11px 14px;
+    }
+
+    .dive-card-name {
+      font-family: var(--ff-display);
+      font-size: 13px;
+      color: var(--text);
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .dive-card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .dive-card-tag {
+      font-size: 12px;
+      color: var(--silver);
+    }
+
+    .dive-card-tag strong {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .app-section-title {
+      padding: 40px 0 12px;
+    }
+
+    .app-block {
+      padding-top: 22px;
+    }
+
+    .app-subtitle {
+      font-family: var(--ff-display);
+      font-size: 13px;
+      color: var(--silver);
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    .phone-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      align-items: start;
+    }
+
+    .phone-single {
+      grid-template-columns: minmax(180px, 240px);
+    }
+
+    .phone-two {
+      grid-template-columns: repeat(2, minmax(180px, 240px));
+    }
+
+    .phone-card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .phone-frame {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 18px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 360px;
+    }
+
+    .phone-frame img {
+      max-height: 400px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .phone-note {
+      border-left: 2px solid var(--black);
+      padding-left: 18px;
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-width: 620px;
+    }
+
+    .phone-note-title {
+      font-family: var(--ff-display);
+      font-size: 14px;
+      color: var(--text);
+      letter-spacing: 0.7px;
+      margin-bottom: 2px;
+    }
+
+    .phone-note-item {
+      font-size: 14px;
+      color: var(--silver);
+      line-height: 1.6;
+    }
+
+    .phone-note-item::before { content: "— "; }
+
+    .goggles-wide {
+      border-top: 1px solid var(--black);
+    }
+
+    .spec-grid {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      padding-top: 24px;
+    }
+
+    .spec-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .spec-label {
+      font-size: 14px;
+      color: var(--text);
+      letter-spacing: 0.7px;
+    }
+
+    .spec-value {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    .sketch-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0;
+      padding-top: 20px;
+    }
+
+    .sketch-row img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .exploded-main,
+    .main-buttons,
+    .lens-image {
+      max-width: 980px;
+      padding-top: 8px;
+    }
+
+    .chip-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-top: 20px;
+    }
+
+    .chip {
+      font-size: 13px;
+      color: var(--silver);
+    }
+
+    .interface-layout {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
+      padding-top: 8px;
+    }
+
+    .interface-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .interface-label {
+      display: inline-block;
+      align-self: flex-start;
+      padding: 4px 12px;
+      border: 1px solid var(--silver);
+      border-radius: 999px;
+      color: var(--silver);
+      font-size: 14px;
+    }
+
+    .interface-note {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.75;
+    }
+
+    .interface-main {
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 14px;
+      padding: 12px;
+      min-height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .interface-main img {
+      max-height: 230px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .interface-steps {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .step-card {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: var(--dark);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+
+    .step-visual {
+      flex: 1;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 12px;
+      padding: 8px;
+      min-height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-visual img {
+      max-height: 92px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .lens-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+      gap: 36px;
+      align-items: start;
+      padding-top: 8px;
+    }
+
+    .lens-annotations {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .lens-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .lens-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+
+    .dot-gray { background: var(--silver); }
+    .dot-red { background: #e61f17; }
+    .dot-gold { background: #e5ce35; }
+    .dot-blue { background: #0047ab; }
+
+    .lens-text {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .lens-sub {
+      display: block;
+      font-size: 12px;
+      color: var(--silver);
+      margin-top: 2px;
+    }
+
+    .process-flow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      padding-top: 10px;
+    }
+
+    .process-step {
+      flex: 1;
+      min-width: 180px;
+      min-height: 72px;
+      background: var(--dark);
+      color: #fff;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 14px 20px;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .process-arrow {
+      font-size: 18px;
+      color: var(--silver);
+      flex-shrink: 0;
+    }
+
+    .process-image-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      padding-top: 18px;
+    }
+
+    .process-image-grid img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    footer {
+      align-items: center;
+      align-self: stretch;
+      background-color: var(--dark);
+      display: flex;
+      flex: 0 0 auto;
+      flex-direction: column;
+      gap: 210px;
+      padding: 40px 40px 0;
+      position: relative;
+      width: 100%;
+      margin-top: 44px;
+    }
+
+    .footer-head {
+      align-items: flex-start;
+      align-self: stretch;
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      width: 100%;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      max-width: 800px;
+    }
+
+    .footer-logo img {
+      height: 27px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .footer-top-items {
+      align-items: flex-start;
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      width: 557px;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .footer-main-links {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      width: 297px;
+    }
+
+    .footer-main-links a,
+    .footer-contact-info a,
+    .footer-contact-info p {
+      color: var(--bg);
+      font-size: 18px;
+      letter-spacing: -0.36px;
+      line-height: 23.4px;
+      white-space: nowrap;
+      width: fit-content;
+    }
+
+    .footer-contact-info {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .footer-address {
+      white-space: normal !important;
+      width: fit-content;
+    }
+
+    .footer-contact-second {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .footer-bottom {
+      align-items: flex-end;
+      align-self: stretch;
+      display: flex;
+      justify-content: space-between;
+      padding: 40px 0;
+      width: 100%;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-socials {
+      display: inline-flex;
+      align-items: center;
+      gap: 11.97px;
+    }
+
+    .footer-socials a img {
+      width: auto;
+      height: 15px;
+      object-fit: contain;
+      opacity: 0.9;
+      transition: opacity 0.2s ease;
+    }
+
+    .footer-socials a:hover img { opacity: 1; }
+
+    .footer-copy {
+      color: var(--bg);
+      font-size: 16px;
+      letter-spacing: -0.16px;
+      line-height: 16px;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 1100px) {
+      .survey-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .phone-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .dive-cards { grid-template-columns: 1fr; }
+      .process-image-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (max-width: 900px) {
-      .survey-main { grid-template-columns: 1fr; }
-      .survey-grid-copy { grid-template-columns: 1fr; }
-      .survey-stats { grid-template-columns: 1fr; }
-      .cis-grid { grid-template-columns: 1fr; }
-      .journey-layout { grid-template-columns: 1fr; }
-      .journey-copy { grid-template-columns: 1fr; }
-    }
-
-    /* FOOTER */
-    footer { background: var(--dark); padding: 40px 40px 0; }
-    .footer-top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; padding-bottom: 180px; }
-    .footer-logo { display: flex; gap: 8px; align-items: center; }
-    .footer-logo img { height: 28px; width: auto; }
-    .footer-links { display: flex; gap: 60px; flex-wrap: wrap; }
-    .footer-col { display: flex; flex-direction: column; gap: 4px; }
-    .footer-col a, .footer-col p { font-size: 16px; color: var(--bg); line-height: 1.6; }
-    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.15); padding: 24px 0; display: flex; justify-content: space-between; align-items: center; }
-    .footer-socials { display: flex; gap: 16px; align-items: center; }
-    .footer-socials a { opacity: 0.7; transition: opacity .2s; }
-    .footer-socials a:hover { opacity: 1; }
-    .footer-socials img { width: 18px; height: 18px; object-fit: contain; }
-    .footer-copy { font-size: 14px; color: var(--bg); }
-
-    /* RESPONSIVE */
-    @media (max-width: 900px) {
-      .meta-row { flex-direction: column; }
-      .info-row { flex-direction: column; gap: 6px; }
-      .info-label { width: auto; }
-      .img-row { flex-direction: column; }
-      .img-row .img-side { width: 100%; }
-      .research-table { flex-direction: column; }
-      .typeface-row { flex-direction: column; }
-      .dive-map-layout { flex-direction: column; }
-      .dive-map-img { width: 100%; }
-      .phone-flow img { width: 130px; }
-      .goggles-specs { flex-direction: column; }
-      .lens-grid { flex-direction: column; }
-      .interface-row { flex-direction: column; }
-      .survey-main { grid-template-columns: 1fr; }
-      .survey-grid-copy { grid-template-columns: 1fr; }
-      .survey-stats { grid-template-columns: 1fr; }
-      .cis-grid { grid-template-columns: 1fr; }
-      .journey-layout { grid-template-columns: 1fr; }
-      .journey-copy { grid-template-columns: 1fr; }
       nav .nav-links { display: none; }
-      .footer-top { flex-direction: column; }
-      .footer-bottom { flex-direction: column; gap: 16px; }
+      .meta-row { flex-direction: column; }
+      .info-row { flex-direction: column; gap: 8px; }
+      .info-label { width: auto; }
+      .survey-main,
+      .journey-layout,
+      .visual-design-layout,
+      .map-layout,
+      .interface-layout,
+      .lens-layout {
+        grid-template-columns: 1fr;
+      }
+      .survey-grid-copy { grid-template-columns: 1fr; }
+      .img-row { flex-direction: column; }
+      .img-side { width: 100%; }
+      .research-table { flex-direction: column; }
+      .phone-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .phone-single { grid-template-columns: minmax(180px, 240px); }
+      .phone-two { grid-template-columns: repeat(2, minmax(160px, 1fr)); }
+      .interface-steps { grid-template-columns: 1fr; }
+      footer {
+        gap: 150px;
+        padding: 40px 20px 0;
+      }
+      .footer-head {
+        flex-direction: column;
+        gap: 80px;
+      }
+      .footer-top-items {
+        width: 100%;
+        flex-direction: column;
+        gap: 58px;
+      }
+      .footer-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+      }
     }
-    @media (max-width: 560px) {
-      .phone-flow img { width: 110px; }
-      .swatch-box { width: 90px; height: 90px; }
-      .process-step { min-width: 140px; }
+
+    @media (max-width: 640px) {
+      .hero { height: 420px; }
+      .survey-stats,
+      .phone-gallery,
+      .process-image-grid,
+      .sketch-row {
+        grid-template-columns: 1fr;
+      }
+      .phone-two,
+      .phone-single {
+        grid-template-columns: 1fr;
+      }
+      .phone-frame { min-height: 300px; }
+      .swatch-box { width: 92px; height: 92px; }
+      .meta-num { font-size: 78px; }
     }
+  
+    /* ═══════════════════════════════════════════════════════
+       NAV & FOOTER — from index.html (missing vars only)
+    ═══════════════════════════════════════════════════════ */
+    :root {
+      --f-display: "Aboreto", Helvetica, sans-serif;
+      --f-body:    "Geist", Helvetica, sans-serif;
+      --muted:     #aeabab;
+      --dark-green:#263025;
+      --bg-light:  #ffffff;
+      --bg-dark:   #1d231c;
+      --accent:    #aeabab;
+      --text-dark: #ffffff;
+    }
+
+    /* ── NAV ── */
+    nav {
+      height: auto;
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 120;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      width: 100%;
+      min-height: 100px;
+      padding: 10px 22px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.42);
+      background:
+        linear-gradient(135deg, rgba(253, 248, 246, 0.54) 0%, rgba(246, 239, 255, 0.50) 22%, rgba(237, 245, 255, 0.47) 46%, rgba(238, 250, 244, 0.47) 70%, rgba(255, 244, 250, 0.50) 100%);
+      background-size: 240% 240%;
+      animation: pastelGradientShift 24s ease-in-out infinite;
+      backdrop-filter: blur(40px) saturate(190%);
+      -webkit-backdrop-filter: blur(40px) saturate(190%);
+      box-shadow: 0 14px 42px rgba(120, 132, 154, 0.12), inset 0 1px 0 rgba(255,255,255,0.58), inset 0 -1px 0 rgba(255,255,255,0.24);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    nav::before {
+      content: "";
+      position: absolute;
+      inset: -24% -6%;
+      background:
+        radial-gradient(circle at 12% 20%, rgba(255, 205, 225, 0.22), transparent 22%),
+        radial-gradient(circle at 82% 24%, rgba(190, 225, 255, 0.20), transparent 24%),
+        radial-gradient(circle at 68% 76%, rgba(203, 240, 222, 0.16), transparent 22%),
+        radial-gradient(circle at 32% 84%, rgba(220, 208, 255, 0.16), transparent 28%);
+      filter: blur(46px);
+      opacity: 1;
+      pointer-events: none;
+      z-index: 0;
+      animation: pastelGlowFloat 28s ease-in-out infinite;
+    }
+
+    nav::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 192, 220, calc(var(--mouse-opacity, 0) * 0.88)) 0%, rgba(199, 224, 255, calc(var(--mouse-opacity, 0) * 0.76)) 14%, rgba(196, 240, 223, calc(var(--mouse-opacity, 0) * 0.58)) 28%, rgba(229, 212, 255, calc(var(--mouse-opacity, 0) * 0.50)) 44%, rgba(255, 255, 255, calc(var(--mouse-opacity, 0) * 0.34)) 58%, rgba(255, 255, 255, 0) 76%),
+        radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, calc(var(--mouse-opacity, 0) * 0.46)) 0%, rgba(255, 255, 255, calc(var(--mouse-opacity, 0) * 0.16)) 18%, rgba(255,255,255,0) 42%);
+      filter: blur(14px) saturate(128%);
+      pointer-events: none;
+      z-index: 0;
+      transition: opacity 0.18s ease, transform 0.18s ease, background 0.12s ease-out;
+      opacity: 1;
+    }
+
+    .nav-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      width: 100%;
+      min-height: 76px;
+      padding-top: 2px;
+      gap: 16px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .nav-logo-wrap {
+      width: 72px;
+      height: 72px;
+      flex: 0 0 72px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      overflow: visible;
+    }
+
+    .nav-logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      filter: drop-shadow(0 4px 16px rgba(255, 255, 255, 0.28));
+    }
+
+    .nav-logo-fallback {
+      font-family: "Georgia", serif;
+      font-size: 24px;
+      line-height: 1;
+      color: var(--text);
+    }
+
+    .nav-logo {
+      font-family: var(--f-display);
+      font-size: 27px;
+      letter-spacing: 3.6px;
+      line-height: 1;
+      padding-top: 2px;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 34px;
+      list-style: none;
+      align-items: flex-start;
+      padding-top: 2px;
+      margin-top: 0;
+    }
+
+    .nav-links a {
+      font-family: var(--f-display);
+      font-size: 16px;
+      line-height: 1;
+      color: rgba(29, 35, 28, 0.72);
+      letter-spacing: 0.2px;
+      transition: color 0.25s ease, opacity 0.25s ease;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* hamburger — mobile only */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+      position: relative;
+      z-index: 2;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--muted);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* mobile menu */
+    .mobile-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: fixed;
+      top: 76px;
+      left: 0;
+      right: 0;
+      margin-top: -1px;
+      background: linear-gradient(135deg, rgba(253, 248, 246, 0.56) 0%, rgba(246, 239, 255, 0.52) 22%, rgba(237, 245, 255, 0.48) 46%, rgba(238, 250, 244, 0.48) 70%, rgba(255, 244, 250, 0.52) 100%);
+      backdrop-filter: blur(30px) saturate(165%);
+      -webkit-backdrop-filter: blur(30px) saturate(165%);
+      border-bottom: 1px solid rgba(29, 35, 28, 0.10);
+      z-index: 119;
+      box-shadow: 0 12px 30px rgba(120, 132, 154, 0.10);
+      /* Slide-down animation */
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transform: translateY(-6px);
+      pointer-events: none;
+      transition: max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.28s ease,
+                  transform 0.28s ease;
+    }
+    .mobile-menu.open {
+      max-height: 200px;
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .mobile-menu a {
+      display: flex;
+      align-items: center;
+      height: 76px;
+      flex-shrink: 0;
+      box-sizing: border-box;
+      font-size: 16px;
+      font-family: var(--f-display);
+      line-height: 1;
+      letter-spacing: 0.2px;
+      color: rgba(29, 35, 28, 0.76);
+      padding: 0 22px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.42);
+      transition: color 0.2s ease;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: rgba(29, 35, 28, 1); }
+
+    /* Hamburger → X animation */
+    .hamburger span {
+      transform-origin: center;
+    }
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(6.5px) rotate(45deg);
+    }
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-6.5px) rotate(-45deg);
+    }
+
+    @keyframes pastelGradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes pastelGlowFloat {
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(0, -10px, 0) scale(1.03); }
+      100% { transform: translate3d(0, 0, 0) scale(1); }
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #000000;
+      color: #ffffff;
+      padding: 40px 40px 0;
+    }
+
+    .footer-shell {
+      display: flex;
+      flex-direction: column;
+      gap: 241px;
+      width: 100%;
+    }
+
+    .footer-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      width: 100%;
+      gap: 40px;
+    }
+
+    .footer-mark {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 450px;
+      height: 30px;
+      flex: 0 0 auto;
+      font-family: var(--f-display);
+      font-size: 30px;
+      line-height: 1.5;
+      letter-spacing: 0;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+
+    .footer-top-items {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 557px;
+      max-width: 100%;
+      flex: 0 0 auto;
+      font-family: var(--f-body);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: -0.32px;
+      color: #ffffff;
+    }
+
+    .footer-main-links {
+      display: flex;
+      background: transparent;
+      flex-direction: column;
+      gap: 2px;
+      align-items: flex-start;
+      width: 297px;
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
+
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      align-items: flex-start;
+      flex: 0 0 auto;
+    }
+
+    .footer-contact-secondary {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      align-items: flex-start;
+    }
+
+    .footer-main-links a {
+      background: transparent;
+      font-family: var(--f-display);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: 0;
+      color: #ffffff;
+      text-decoration: none;
+      opacity: 1;
+      transition: opacity 0.25s ease;
+      word-break: break-word;
+    }
+
+    .footer-contact a,
+    .footer-contact span {
+      background: transparent;
+      font-family: var(--f-body);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: -0.14px;
+      color: #ffffff;
+      text-decoration: none;
+      opacity: 1;
+      transition: opacity 0.25s ease;
+      word-break: break-word;
+    }
+
+    .footer-main-links a:hover,
+    .footer-contact a:hover {
+      opacity: 0.72;
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      width: 100%;
+      padding: 40px 0;
+    }
+
+    .footer-copy {
+      font-family: var(--f-body);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: -0.14px;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+
+    /* ── TABLET 800–1279px ── */
+    @media (max-width: 1279px) and (min-width: 800px) {
+      .projects-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 22px;
+      }
+
+      .hero {
+        grid-template-columns: 240px minmax(0, 1fr);
+        gap: 28px;
+        padding: 132px 24px 74px;
+      }
+      .hero::after { left: 24px; right: 24px; }
+      .hero-media { position: static; }
+      .hero-name { max-width: none; white-space: nowrap; }
+      .projects-section { padding: 32px 24px 108px; }
+      .projects-header {
+        margin-bottom: 28px;
+        gap: 16px;
+      }
+      .projects-note {
+        max-width: 320px;
+      }
+
+      footer { padding: 40px 40px 0; }
+      .footer-shell { gap: 241px; }
+      .footer-head {
+        flex-direction: column;
+        gap: 150px;
+        align-items: flex-start;
+      }
+      .footer-mark {
+        width: 450px;
+        max-width: 100%;
+      }
+      .footer-top-items {
+        width: 100%;
+      }
+    }
+
+    /* ── MOBILE ≤799px ── */
+    @media (max-width: 799px) {
+
+      nav { min-height: auto; padding: 12px 14px; }
+      .nav-inner { min-height: auto; }
+      .mobile-menu { top: 76px; margin-top: 0; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-logo { font-size: 18px; letter-spacing: 3px; }
+      .nav-logo-wrap { width: 52px; height: 52px; flex-basis: 52px; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 108px 20px 58px;
+      }
+      .hero::after { left: 20px; right: 20px; }
+      .hero-media {
+        position: static;
+      }
+      .hero-profile {
+        width: min(100%, 220px);
+        aspect-ratio: 4 / 5;
+        border-radius: 0;
+        box-shadow: none;
+      }
+      .hero-copy {
+        gap: 18px;
+        padding-top: 0;
+      }
+      .hero-kicker {
+        font-size: 22px;
+        line-height: 1.2;
+        letter-spacing: 1.2px;
+      }
+      .hero-name {
+        font-size: 32px;
+        letter-spacing: 2px;
+        max-width: none;
+      }
+
+      .hero-bio {
+        font-size: 14px;
+        line-height: 1.8;
+      }
+
+      .hero-meta {
+        gap: 8px;
+      }
+
+      .hero-pill {
+        min-height: 32px;
+        padding: 7px 12px;
+        font-size: 11px;
+      }
+
+      .projects-section { padding: 28px 20px 84px; }
+      .projects-header {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 24px;
+      }
+      .projects-note {
+        max-width: none;
+        text-align: left;
+        font-size: 13px;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .project-card {
+        gap: 18px;
+        padding: 14px 14px 44px;
+        margin-bottom: 0;
+      }
+
+      .card-number {
+        font-size: 72px;
+      }
+
+      .card-category { font-size: 26px; }
+      .card-description { max-width: 100%; }
+
+      footer { padding: 40px 40px 0; }
+      .footer-shell { gap: 150px; }
+      .footer-head {
+        flex-direction: column;
+        gap: 150px;
+        align-items: flex-start;
+      }
+      .footer-mark {
+        width: 100%;
+        max-width: 172px;
+        justify-content: flex-start;
+        gap: 100px;
+      }
+      .footer-top-items {
+        flex-direction: column;
+        gap: 58px;
+        width: 100%;
+      }
+      .footer-main-links {
+        width: 297px;
+        max-width: 100%;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 40px 0;
+      }
+    }
+
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <span class="nav-logo">E.C.D.</span>
-    <ul class="nav-links">
-      <li><a href="#">Projects</a></li>
-      <li><a href="#">Process</a></li>
-      <li><a href="#">Design Thinking</a></li>
-      <li><a href="#">CV</a></li>
-      <li><a href="#">About Me</a></li>
-    </ul>
+  <!-- ── NAV ── -->
+  <nav id="siteNav">
+    <div class="nav-inner">
+      <a class="nav-brand" href="#about" aria-label="Go to top">
+        <span class="nav-logo-wrap">
+          <img src="images/logo.png" alt="E.C. logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+          <span class="nav-logo-fallback" style="display:none;">R</span>
+        </span>
+        <span class="nav-logo">E. C.</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#about">About Me</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Menu" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
 
-  <!-- HERO -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#projects" onclick="closeMenu()">Projects</a>
+    <a href="#about" onclick="closeMenu()">About Me</a>
+  </div>
+
   <section class="hero">
     <img src="images/project-2-1.png" alt="Diving+ hero">
   </section>
 
-  <!-- META ROW -->
   <div class="meta-row">
     <div class="meta-info">
       <div class="meta-num">02</div>
@@ -566,18 +1769,15 @@
     </div>
   </div>
 
-  <!-- DESCRIPTION -->
   <div class="description">
-    <p>Diving+ is designed to connect the global diving community while highlighting Taiwan's unique marine ecosystem. By offering a platform for sharing diving experiences and marine ecology knowledge, we aim to make underwater exploration more engaging and accessible — establishing Diving+ as a leading international hub for divers worldwide.</p>
+    <p>Diving+ is designed to connect the global diving community while highlighting Taiwan's unique marine ecosystem. By offering a platform for sharing diving experiences and marine ecology knowledge, we aim to make underwater exploration more engaging and accessible, establishing Diving+ as a leading international hub for divers worldwide.</p>
   </div>
 
-  <!-- FULL IMAGE -->
-  <div style="border-top: 1px solid var(--dark);">
+  <div class="full-bleed-divider">
     <img src="images/project-2-2.png" alt="Diving+ full spread">
   </div>
 
-  <!-- DESIGN MOTIVATION -->
-  <section class="section section-border">
+  <section class="section">
     <div class="section-header">
       <img class="icon" src="images/project-2-3.png" alt="Motivation icon">
       <h2>Design Motivation</h2>
@@ -592,8 +1792,7 @@
     </div>
   </section>
 
-  <!-- DESIGN PURPOSE -->
-  <section class="section section-border">
+  <section class="section">
     <div class="section-header">
       <h2>Design Purpose</h2>
     </div>
@@ -618,7 +1817,7 @@
             <p>Dive Shops</p>
           </div>
         </div>
-        <p style="font-size:15px; color:var(--text); line-height:1.7; margin-top:20px;">Diving+ serves diving enthusiasts of all levels, providing essential information on dive sites, safety, and marine ecology — tailored to those passionate about responsible and sustainable diving.</p>
+        <p class="body-text">Diving+ serves diving enthusiasts of all levels, providing essential information on dive sites, safety, and marine ecology, tailored to those passionate about responsible and sustainable diving.</p>
       </div>
     </div>
     <div class="img-row">
@@ -633,9 +1832,8 @@
     </div>
   </section>
 
-  <!-- GOAL -->
-  <section class="section section-border">
-    <div class="section-header" style="align-items:center; gap:20px;">
+  <section class="section">
+    <div class="section-header goal-header">
       <div class="goal-icon">
         <img src="images/project-2-7.png" alt="Goal icon">
       </div>
@@ -653,53 +1851,44 @@
       </div>
       <div class="info-row">
         <div class="info-label">Function</div>
-        <div class="info-desc">Easy access to dive site details, a platform for sharing experiences, connections to instructors, and tools for environmental conservation — all through a user-friendly interface.</div>
+        <div class="info-desc">Easy access to dive site details, a platform for sharing experiences, connections to instructors, and tools for environmental conservation, all through a user-friendly interface.</div>
       </div>
     </div>
   </section>
 
-  <!-- CURRENT SURVEY -->
-  <section class="section section-border">
+  <section class="section">
     <div class="section-header">
       <h2>Current Survey</h2>
     </div>
 
     <div class="survey-wrap">
-      <p class="survey-lead">
-        The current survey reveals a clear profile of Diving+ users and their habits. Scuba diving with oxygen tanks is the dominant activity at 70.2%, while the largest age group is 15 to 25 years old at 72.6%. In addition, 59.6% of respondents dive five times or less per year, suggesting that the platform mainly serves beginners and light-frequency recreational divers.
-      </p>
+      <p class="survey-lead">The current survey reveals a clear profile of Diving+ users and their habits. Scuba diving with oxygen tanks is the dominant activity at 70.2%, while the largest age group is 15 to 25 years old at 72.6%. In addition, 59.6% of respondents dive five times or less per year, suggesting that the platform mainly serves beginners and light-frequency recreational divers.</p>
 
       <div class="survey-main">
         <div class="survey-chart-main">
           <img src="images/project-2-8.png" alt="Current survey overview">
         </div>
 
-        
+        <div class="survey-side">
+          <div class="survey-side-chart">
+            <img src="images/project-2-11.png" alt="Dive site classification">
+          </div>
 
           <div class="survey-copy-block">
-            <div class="survey-kicker">Survey Reading</div>
+            <div class="eyebrow">Survey Reading</div>
             <div class="survey-grid-copy">
               <div class="survey-copy-item">
                 <h3>User Profile</h3>
-                <p>
-                  Most participants are young divers in the 15 to 25 age range, suggesting a strong opportunity to position Diving+ as an accessible entry point into diving culture.
-                </p>
+                <p>Most participants are young divers in the 15 to 25 age range, suggesting a strong opportunity to position Diving+ as an accessible entry point into diving culture.</p>
               </div>
-
               <div class="survey-copy-item">
                 <h3>Diving Frequency</h3>
-                <p>
-                  Since most respondents dive only a few times per year, the interface should prioritize clarity, onboarding support, and quick access to essential information.
-                </p>
+                <p>Since most respondents dive only a few times per year, the interface should prioritize clarity, onboarding support, and quick access to essential information.</p>
               </div>
-
               <div class="survey-copy-item">
                 <h3>Activity Preference</h3>
-                <p>
-                  Scuba diving remains the primary activity, so content around equipment, safety, certification, and dive-site discovery should remain central.
-                </p>
+                <p>Scuba diving remains the primary activity, so content around equipment, safety, certification, and dive-site discovery should remain central.</p>
               </div>
-
               <div class="survey-copy-item">
                 <h3>Market Analysis</h3>
                 <ul>
@@ -723,204 +1912,171 @@
           <img src="images/project-2-10.png" alt="Age distribution">
         </div>
         <div class="survey-stat">
+          <div class="survey-stat-label">Dive Site Type</div>
+          <img src="images/project-2-11.png" alt="Dive site type">
+        </div>
+        <div class="survey-stat">
           <div class="survey-stat-label">Dives per Year / Level</div>
-          <div class="survey-side-chart">
-          <img src="images/project-2-11.png" alt="Dive site classification">
           <img src="images/project-2-12.png" alt="Diving frequency and level">
         </div>
       </div>
     </div>
   </section>
 
-  <!-- USER ANALYSIS × JOURNEY MAP -->
   <section class="cis-section">
     <div class="cis-header">
       <h2>User Analysis × Journey Map</h2>
-      <p>
-        This map translates the brand strategy into user behavior, showing how Diving+ attracts attention, supports evaluation, and guides users toward app download and course participation.
-      </p>
+      <p>This map translates the brand strategy into user behavior, showing how Diving+ attracts attention, supports evaluation, and guides users toward app download and course participation.</p>
     </div>
 
     <div class="journey-layout">
       <div class="journey-image">
-        <img src="images/project-2-13.png" alt="User Analysis and Journey Map">
-        <img src="images/project-2-14.png" alt="User Analysis and Journey Map">
-        <img src="images/project-2-15.png" alt="User Analysis and Journey Map">
-
+        <img src="images/project-2-13.png" alt="User analysis">
+        <img src="images/project-2-14.png" alt="Journey map">
+        <img src="images/project-2-15.png" alt="Journey map details">
       </div>
 
       <div class="journey-copy">
         <div class="journey-block">
-          <div class="sub-kicker">Stage 01</div>
+          <div class="eyebrow">Stage 01</div>
           <h3>Before Download</h3>
-          <p>
-            Initial awareness is built through Instagram, Facebook, YouTube, Spotify, and podcasts, positioning diving not only as a sport but also as a social and lifestyle-oriented experience.
-          </p>
+          <p>Initial awareness is built through Instagram, Facebook, YouTube, Spotify, and podcasts, positioning diving not only as a sport but also as a social and lifestyle-oriented experience.</p>
         </div>
 
         <div class="journey-block">
-          <div class="sub-kicker">Stage 02</div>
+          <div class="eyebrow">Stage 02</div>
           <h3>Evaluation Stage</h3>
-          <p>
-            Users begin comparing information quality, store credibility, and learning accessibility. This stage requires a visual language that feels trustworthy, readable, and easy to navigate.
-          </p>
+          <p>Users begin comparing information quality, store credibility, and learning accessibility. This stage requires a visual language that feels trustworthy, readable, and easy to navigate.</p>
         </div>
 
         <div class="journey-block">
-          <div class="sub-kicker">Stage 03</div>
+          <div class="eyebrow">Stage 03</div>
           <h3>After Download</h3>
-          <p>
-            The journey is designed to lead users toward two main outcomes: successfully downloading and using the platform, and successfully enrolling in diving-related courses and activities.
-          </p>
+          <p>The journey is designed to lead users toward two main outcomes: successfully downloading and using the platform, and successfully enrolling in diving-related courses and activities.</p>
         </div>
 
         <div class="journey-block">
-          <div class="sub-kicker">Persona</div>
+          <div class="eyebrow">Persona</div>
           <h3>Persona Insight</h3>
-          <p>
-            Elsa, a 32-year-old manager with extensive diving experience, represents a user driven by exploration, ocean preference, and meaningful outdoor engagement. Her profile helps define both interface tone and service priorities.
-          </p>
+          <p>Elsa, a 32-year-old manager with extensive diving experience, represents a user driven by exploration, ocean preference, and meaningful outdoor engagement. Her profile helps define both interface tone and service priorities.</p>
         </div>
 
         <div class="journey-block">
-          <div class="sub-kicker">Growth</div>
+          <div class="eyebrow">Growth</div>
           <h3>Promotion Strategy</h3>
-          <p>
-            Referrals from friends, family, and diving partners play a stronger role than advertising alone, while Facebook marketing supports visibility. This indicates that community trust is central to the platform’s growth model.
-          </p>
+          <p>Referrals from friends, family, and diving partners play a stronger role than advertising alone, while Facebook marketing supports visibility. This indicates that community trust is central to the platform’s growth model.</p>
         </div>
 
         <div class="journey-block">
-          <div class="sub-kicker">Value</div>
+          <div class="eyebrow">Value</div>
           <h3>Business Positioning</h3>
-          <p>
-            The service connects two key values: course instruction and tourism aspects. Diving+ therefore works as both a learning platform and a gateway into wider underwater culture and travel-oriented experiences.
-          </p>
+          <p>The service connects two key values: course instruction and tourism aspects. Diving+ therefore works as both a learning platform and a gateway into wider underwater culture and travel-oriented experiences.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CIS OVERVIEW -->
   <section class="cis-section">
     <div class="cis-header">
-      <h2>CIS Overview</h2>
-      <p>
-        The corporate identity system for Diving+ is developed to connect diving culture, social interaction, and service accessibility through a clear and approachable visual language. Rather than functioning only as a brand surface, the CIS is intended to support trust, community participation, and the transition from curiosity to actual course enrollment.
-      </p>
-    </div>
-
-    <div class="cis-main-board">
-        <div class="cis-copy">
-          <div class="sub-kicker">01</div>
-          <h3>Brand Positioning</h3>
-          <p>
-            Diving+ is positioned as an accessible yet reliable platform for young divers and beginners. The identity aims to reduce the distance between diving as a professional field and diving as a social, cultural, and lifestyle experience.
-          </p>
-        </div>
-      </article>
-
-      <article class="cis-card">
-        <div class="cis-copy">
-          <div class="sub-kicker">02</div>
-          <h3>Visual Language</h3>
-          <p>
-            The visual system combines marine-inspired blue tones, simplified interface structures, and soft geometric shapes to communicate clarity, trust, exploration, and environmental awareness across both digital and promotional applications.
-          </p>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- VISUAL DESIGN -->
-  <section class="section section-border">
-    <div class="section-header">
-        <img src="images/project-2-16.png" alt="Diving+ logo">
       <h2>Visual Design</h2>
+      <p>The visual system combines marine-inspired blue tones, simplified interface structures, and soft geometric shapes to communicate clarity, trust, exploration, and environmental awareness across both digital and promotional applications.</p>
     </div>
-    <div class="typeface-row">
-      <div class="typeface-aa">Aa</div>
-      <div class="typeface-info">
-        <div class="typeface-info-label">Typeface</div>
-        <div class="typeface-info-value">Myriad Pro</div>
-        <div class="typestyle-row">
-          <div class="typestyle-item"><span class="ts-name">Headline</span><span class="ts-size">32pt</span></div>
-          <div class="typestyle-item"><span class="ts-name">Title</span><span class="ts-size">24pt</span></div>
-          <div class="typestyle-item"><span class="ts-name">Body</span><span class="ts-size">20pt</span></div>
-          <div class="typestyle-item"><span class="ts-name">Caption</span><span class="ts-size">16pt</span></div>
-          <div class="typestyle-item"><span class="ts-name">Label</span><span class="ts-size">14pt</span></div>
-        </div>
+
+    <div class="visual-design-layout">
+      <div class="visual-logo">
+        <img src="images/project-2-16.png" alt="Diving+ logo">
       </div>
-    </div>
-    <div class="color-swatches">
-      <div class="swatch">
-        <div class="swatch-box" style="background:#0f4c81;"></div>
-        <div class="swatch-label">
-          <strong>Primary Color</strong>
-          Classic Blue 19-4052<br>
-          #0F4C81<br>
-          <span style="font-size:12px;color:var(--silver);">Curiosity, Exploration, Mystery</span>
+
+      <div>
+        <div class="typeface-row">
+          <div class="typeface-aa">Aa</div>
+          <div class="typeface-info">
+            <div class="typeface-info-label">Typeface</div>
+            <div class="typeface-info-value">Myriad Pro</div>
+            <div class="typestyle-row">
+              <div class="typestyle-item"><span class="ts-name">Headline</span><span class="ts-size">32pt</span></div>
+              <div class="typestyle-item"><span class="ts-name">Title</span><span class="ts-size">24pt</span></div>
+              <div class="typestyle-item"><span class="ts-name">Body</span><span class="ts-size">20pt</span></div>
+              <div class="typestyle-item"><span class="ts-name">Caption</span><span class="ts-size">16pt</span></div>
+              <div class="typestyle-item"><span class="ts-name">Label</span><span class="ts-size">14pt</span></div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="swatch">
-        <div class="swatch-box" style="background:#f5df4d;"></div>
-        <div class="swatch-label">
-          <strong>Secondary Color</strong>
-          Illuminating Yellow 13-0647<br>
-          #F5DF4D<br>
-          <span style="font-size:12px;color:var(--silver);">Entertainment, Anticipation, Joy</span>
-        </div>
-      </div>
-      <div class="swatch">
-        <div class="swatch-box" style="background:#939597; border:1px solid #ddd;"></div>
-        <div class="swatch-label">
-          <strong>Neutral</strong>
-          Ultimate Gray 17-5104<br>
-          #939597<br>
-          <span style="font-size:12px;color:var(--silver);">Reliability, Technology, Innovation</span>
+
+        <div class="color-swatches">
+          <div class="swatch">
+            <div class="swatch-box" style="background:#0f4c81;"></div>
+            <div class="swatch-label">
+              <strong>Primary Color</strong>
+              Classic Blue 19-4052<br>
+              #0F4C81<br>
+              <span style="font-size:12px;color:var(--silver);">Curiosity, Exploration, Mystery</span>
+            </div>
+          </div>
+
+          <div class="swatch">
+            <div class="swatch-box" style="background:#f5df4d;"></div>
+            <div class="swatch-label">
+              <strong>Secondary Color</strong>
+              Illuminating Yellow 13-0647<br>
+              #F5DF4D<br>
+              <span style="font-size:12px;color:var(--silver);">Entertainment, Anticipation, Joy</span>
+            </div>
+          </div>
+
+          <div class="swatch">
+            <div class="swatch-box" style="background:#939597; border:1px solid #ddd;"></div>
+            <div class="swatch-label">
+              <strong>Neutral</strong>
+              Ultimate Gray 17-5104<br>
+              #939597<br>
+              <span style="font-size:12px;color:var(--silver);">Reliability, Technology, Innovation</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- INNOVATIVE FEATURES -->
-  <section class="section section-border">
+  <section class="section">
     <div class="section-header">
       <h2>Innovative Features</h2>
     </div>
-    <img src="images/project-2-17.png" alt="App overview" style="margin-bottom:24px;">
+    <div class="feature-hero">
+      <img src="images/project-2-17.png" alt="App overview">
+    </div>
     <div class="features-list">
       <div class="feature-item">
         <div class="feature-num">01</div>
-        <div class="feature-content">
+        <div class="feature-copy">
           <h3>Community Sharing Mechanism</h3>
           <p>Integrates social services to enable sharing of diving experiences via a rotating dive watch icon.</p>
         </div>
       </div>
       <div class="feature-item">
         <div class="feature-num">02</div>
-        <div class="feature-content">
+        <div class="feature-copy">
           <h3>Dive Sites Information</h3>
           <p>Access essential details on Taiwan's dive spots, including conditions and safety tips.</p>
         </div>
       </div>
       <div class="feature-item">
         <div class="feature-num">03</div>
-        <div class="feature-content">
+        <div class="feature-copy">
           <h3>Environmental Awareness</h3>
           <p>Promote ecological sustainability with a reward token system.</p>
         </div>
       </div>
       <div class="feature-item">
         <div class="feature-num">04</div>
-        <div class="feature-content">
+        <div class="feature-copy">
           <h3>Diving Courses</h3>
           <p>Connect with professional instructors for safer diving.</p>
         </div>
       </div>
       <div class="feature-item">
         <div class="feature-num">05</div>
-        <div class="feature-content">
+        <div class="feature-copy">
           <h3>Diving Goggles Design</h3>
           <p>Wearable tech syncs with the app, offering real-time data for an immersive diving experience.</p>
         </div>
@@ -928,16 +2084,17 @@
     </div>
   </section>
 
-  <!-- DIVE SITE MAP -->
-  <section class="section section-border">
+  <section class="section">
     <div class="section-header">
       <h2>Dive Site Map</h2>
     </div>
-    <p style="font-family:var(--ff-display); font-size:13px; letter-spacing:0.8px; color:var(--silver); margin-bottom:0;">Diving Areas Introduction</p>
-    <div class="dive-map-layout">
-      <div class="dive-map-img">
+    <div class="eyebrow" style="margin-bottom:0;">Diving Areas Introduction</div>
+
+    <div class="map-layout">
+      <div class="map-visual">
         <img src="images/project-2-18.png" alt="Taiwan diving areas map">
       </div>
+
       <div class="dive-cards">
         <div class="dive-card">
           <img class="dive-card-thumb" src="images/project-2-19.png" alt="Penghu">
@@ -950,6 +2107,7 @@
             </div>
           </div>
         </div>
+
         <div class="dive-card">
           <img class="dive-card-thumb" src="images/project-2-20.png" alt="Xiaoliuqiu">
           <div class="dive-card-body">
@@ -961,6 +2119,7 @@
             </div>
           </div>
         </div>
+
         <div class="dive-card">
           <img class="dive-card-thumb" src="images/project-2-21.png" alt="Kenting">
           <div class="dive-card-body">
@@ -972,6 +2131,7 @@
             </div>
           </div>
         </div>
+
         <div class="dive-card">
           <img class="dive-card-thumb" src="images/project-2-22.png" alt="Lanyu">
           <div class="dive-card-body">
@@ -983,6 +2143,7 @@
             </div>
           </div>
         </div>
+
         <div class="dive-card">
           <img class="dive-card-thumb" src="images/project-2-23.png" alt="Green Island">
           <div class="dive-card-body">
@@ -994,8 +2155,9 @@
             </div>
           </div>
         </div>
+
         <div class="dive-card">
-          <img class="dive-card-thumb" src="images/project-2-24.png" alt="Yilan Hualien">
+          <img class="dive-card-thumb" src="images/project-2-24.png" alt="Yilan and Hualien">
           <div class="dive-card-body">
             <div class="dive-card-name">Yilan | Hualien Diving Area</div>
             <div class="dive-card-meta">
@@ -1005,6 +2167,7 @@
             </div>
           </div>
         </div>
+
         <div class="dive-card">
           <img class="dive-card-thumb" src="images/project-2-25.png" alt="Northeast Coast">
           <div class="dive-card-body">
@@ -1020,127 +2183,108 @@
     </div>
   </section>
 
-  <!-- APP INTERFACE — EXPLORING -->
-  <section class="section section-border">
+  <section class="section">
     <div class="app-section-title">
       <h2>App Interface</h2>
     </div>
 
-    <p class="app-subtitle" style="margin:20px 0 4px;">Exploring -Follow</p>
-    <div class="phone-flow">
-      <img src="images/project-2-26.png" alt="Exploring">
-    </div>
-    <div class="annotation-row">
-      <div class="phone-annotation">
-        <div class="phone-annotation-title">Rotate Dive Watch Icon</div>
-        <div class="phone-annotation-item">Post Basic Information Sharing</div>
-        <div class="phone-annotation-item">Depth-Related Photos or Videos</div>
-        <div class="phone-annotation-item">Diving Equipment</div>
+    <div class="app-block">
+      <div class="app-subtitle">Exploring - Follow</div>
+      <div class="phone-gallery phone-single">
+        <div class="phone-card">
+          <div class="phone-frame"><img src="images/project-2-26.png" alt="Exploring screen"></div>
+        </div>
       </div>
-
-    <p class="app-subtitle" style="margin:20px 0 4px;">-Hot -Issue</p>
-    <div class="phone-flow">
-      <img src="images/project-2-27.png" alt="Hot">
-      <img src="images/project-2-28.png" alt="Issue">
-    </div>
-    <div class="annotation-row">
-      <div class="phone-annotation">
-        <div class="phone-annotation-title">Popular Posts</div>
-      </div>
-      <div class="phone-annotation">
-        <div class="phone-annotation-title">Marine Ecology Sustainability</div>
-        <div class="phone-annotation-item">Diving Equipment</div>
-        <div class="phone-annotation-item">MECO Issues</div>
+      <div class="phone-note">
+        <div class="phone-note-title">Rotate Dive Watch Icon</div>
+        <div class="phone-note-item">Post basic information sharing</div>
+        <div class="phone-note-item">Depth-related photos or videos</div>
+        <div class="phone-note-item">Diving equipment</div>
       </div>
     </div>
 
-    <p class="app-subtitle" style="margin:20px 0 4px;">Diving Map -Diving Area -Search</p>
-    <div class="phone-flow">
-      <img src="images/project-2-29.png" alt="Map overview">
-      <img src="images/project-2-30.png" alt="Map detail">
-      <img src="images/project-2-31.png" alt="Map Phone">
-    </div>
-    <div class="phone-annotation" style="max-width:500px;">
-      <div class="phone-annotation-title">Diving Areas Information (dive sites posts/detailed info)
+    <div class="app-block">
+      <div class="app-subtitle">Hot - Issue</div>
+      <div class="phone-gallery phone-two">
+        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-27.png" alt="Hot screen"></div></div>
+        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-28.png" alt="Issue screen"></div></div>
       </div>
-      <div class="phone-annotation-item">Area namen</div>
-      <div class="phone-annotation-item">Geographical Location</div>
-      <div class="phone-annotation-item">Common Marine Species</div>
-      <div class="phone-annotation-item">Orientation</div>
-      <div class="phone-annotation-item">Diving Season</div>
-      <div class="phone-annotation-item">Sea Visibility</div>
-      <div class="phone-annotation-item">Temperature</div>
-      <div class="phone-annotation-item">Climaten</div>
-      <div class="phone-annotation-item">Diving Level</div>
-      <div class="phone-annotation-item">Typography</div>
-      <div class="phone-annotation-item">Types of Marine Life</div>
-      <div class="phone-annotation-item">Geology</div>
-      <div class="phone-annotation-item">Water Depth</div>
-    </div>
-
-    <p class="app-subtitle" style="margin:20px 0 4px;">Event -Diving Introduction -Event Category</p>
-    <div class="phone-flow">
-      <img src="images/project-2-32.png" alt="Event 1">
-      <img src="images/project-2-33.png" alt="Event 2">
-      <img src="images/project-2-34.png" alt="Event 3">
-    </div>
-    <div class="annotation-row">
-      <div class="phone-annotation">
-        <div class="phone-annotation-title">Event Category</div>
-        <div class="phone-annotation-item">Discussion</div>
-        <div class="phone-annotation-item">Group (International Coach Diving Certification)</div>
-        <div class="phone-annotation-item">Course (International Coach Diving Certification)</div>
-        <div class="phone-annotation-item">Ecological Sustainability Activity</div>
+      <div class="phone-note">
+        <div class="phone-note-title">Content Focus</div>
+        <div class="phone-note-item">Popular posts</div>
+        <div class="phone-note-item">Marine ecology sustainability</div>
+        <div class="phone-note-item">Diving equipment</div>
+        <div class="phone-note-item">MECO issues</div>
       </div>
     </div>
 
-    <p class="app-subtitle" style="margin:20px 0 4px;">Profile -User Profile -Diving Posts -Diving Map</p>
-    <div class="phone-flow">
-      <img src="images/project-2-35.png" alt="Profile 1">
-      <img src="images/project-2-36.png" alt="Profile 2">
-      <img src="images/project-2-37.png" alt="Profile 3">
-    </div>
-    <div class="annotation-row">
-      <div class="phone-annotation">
-        <div class="phone-annotation-title">Content</div>
-        <div class="phone-annotation-item">Basic Info</div>
-        <div class="phone-annotation-item">Certification</div>
-        <div class="phone-annotation-item">Records</div>
+    <div class="app-block">
+      <div class="app-subtitle">Diving Map - Diving Area - Search</div>
+      <div class="phone-gallery">
+        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-29.png" alt="Map overview"></div></div>
+        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-30.png" alt="Map detail"></div></div>
+        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-31.png" alt="Search screen"></div></div>
+      </div>
+      <div class="phone-note">
+        <div class="phone-note-title">Diving Areas Information</div>
+        <div class="phone-note-item">Area name and geographical location</div>
+        <div class="phone-note-item">Common marine species and diving season</div>
+        <div class="phone-note-item">Sea visibility, temperature, climate, and diving level</div>
+        <div class="phone-note-item">Typography, geology, and water depth</div>
       </div>
     </div>
-    <div class="app-subtitle" style="margin:20px 0 4px;">Post -Photo|Film -Diving Record -Diving Information</p>
-    <div class="phone-flow">
-      <img src="images/project-2-38.png" alt="Record screen">
-      <img src="images/project-2-39.png" alt="Record screen">
+
+    <div class="app-block">
+      <div class="app-subtitle">Event - Diving Introduction - Event Category</div>
+      <div class="phone-gallery">
+        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-32.png" alt="Event screen 1"></div></div>
+        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-33.png" alt="Event screen 2"></div></div>
+        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-34.png" alt="Event screen 3"></div></div>
       </div>
-    <div class="annotation-row">
-      <div class="phone-annotation">
-        <div class="phone-annotation-title">Site Evaluation</div>
-        <div class="phone-annotation-title">Information</div>
-        <div class="phone-annotation-item">Location</div>
-        <div class="phone-annotation-item">Weather</div>
-        <div class="phone-annotation-item">Wave Conditions</div>
-        <div class="phone-annotation-item">Sea Visibility</div>
-        <div class="phone-annotation-item">Surface Temperature</div>
-        <div class="phone-annotation-item">Underwater Temperature</div>
-        <div class="phone-annotation-title">Cylinder</div>
-        <div class="phone-annotation-item">Diving Concentration (%)</div>
-        <div class="phone-annotation-item">Diving Volume (Bar)</div>
-        <div class="phone-annotation-item">Empty Volume (Bar)</div>
-        <div class="phone-annotation-title">Equipment</div>
-        <div class="phone-annotation-item">Diving Mask</div>
-        <div class="phone-annotation-item">Diving Watch</div>
-        <div class="phone-annotation-item">Air Tube</div>
-        <div class="phone-annotation-item">Diving Cylinder</div>
+      <div class="phone-note">
+        <div class="phone-note-title">Event Category</div>
+        <div class="phone-note-item">Discussion</div>
+        <div class="phone-note-item">Group and international coach diving certification</div>
+        <div class="phone-note-item">Course and ecological sustainability activities</div>
+      </div>
+    </div>
+
+    <div class="app-block">
+      <div class="app-subtitle">Profile - User Profile - Diving Posts - Diving Map</div>
+      <div class="phone-gallery">
+        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-35.png" alt="Profile screen 1"></div></div>
+        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-36.png" alt="Profile screen 2"></div></div>
+        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-37.png" alt="Profile screen 3"></div></div>
+      </div>
+      <div class="phone-note">
+        <div class="phone-note-title">Profile Content</div>
+        <div class="phone-note-item">Basic information</div>
+        <div class="phone-note-item">Certification</div>
+        <div class="phone-note-item">Records</div>
+      </div>
+    </div>
+
+    <div class="app-block">
+      <div class="app-subtitle">Post - Photo / Film - Diving Record - Diving Information</div>
+      <div class="phone-gallery phone-two">
+        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-38.png" alt="Post screen 1"></div></div>
+        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-39.png" alt="Post screen 2"></div></div>
+      </div>
+      <div class="phone-note">
+        <div class="phone-note-title">Site Evaluation Information</div>
+        <div class="phone-note-item">Location, weather, wave conditions, and sea visibility</div>
+        <div class="phone-note-item">Surface and underwater temperature</div>
+        <div class="phone-note-item">Cylinder concentration, volume, and empty volume</div>
+        <div class="phone-note-item">Diving mask, diving watch, air tube, and diving cylinder</div>
       </div>
     </div>
   </section>
 
-  <!-- GOGGLES FULL SPREAD -->
-  <img src="images/project-2-40.png" alt="Diving+ Goggles spread">
+  <div class="goggles-wide">
+    <img src="images/project-2-40.png" alt="Diving+ goggles spread">
+  </div>
 
-  <!-- GOGGLES SECTION -->
-  <section class="section section-border">
+  <section class="section">
     <div class="section-header">
       <h2>Diving+ Goggles</h2>
     </div>
@@ -1153,19 +2297,18 @@
     </div>
   </section>
 
-  <!-- IDEATION -->
-  <section class="section section-border">
+  <section class="section">
     <div class="section-header">
       <h2>Ideation</h2>
     </div>
-    <p class="body-text" style="margin-bottom:20px;">Exploration of concepts through iteration sketching.</p>
-    <div style="display:flex; gap:0;">
-      <img src="images/project-2-41.png" alt="Sketch 1" style="flex:1;">
-      <img src="images/project-2-42.png" alt="Sketch 2" style="flex:1;">
-      <div class="goggles-img-row" style="margin-top:24px;">
-      </div>
+    <p class="body-text">Exploration of concepts through iteration sketching.</p>
+
+    <div class="sketch-row">
+      <img src="images/project-2-41.png" alt="Sketch 1">
+      <img src="images/project-2-42.png" alt="Sketch 2">
     </div>
-    <div class="goggles-specs">
+
+    <div class="spec-grid">
       <div class="spec-block">
         <div class="spec-label">Size</div>
         <div class="spec-value">Frame: 15.7 × 7.7 cm<br>Lens: 13.9 × 6.0 cm</div>
@@ -1182,157 +2325,134 @@
           <div style="width:28px;height:28px;background:#f5df4d;border-radius:50%;"></div>
         </div>
         <div class="spec-value" style="margin-top:6px;">Ultimate Gray · Classic Blue · Illuminating Yellow</div>
-      </div>    
+      </div>
     </div>
   </section>
 
-  <!-- EXPLODED VIEW -->
-  <section class="section section-border">
+  <section class="section">
     <div class="section-header">
       <h2>Exploded View</h2>
     </div>
-    <p class="body-text" style="margin-bottom:24px;">Highlights the smart diving goggle's components, showcasing its functional design.</p>
-    <img src="images/project-2-43.png" alt="Exploded view">
-    <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:20px;">
-      <span style="font-size:13px;color:var(--silver);">Tempered Glass</span>
-      <span style="font-size:13px;color:var(--silver);">Photography Module</span>
-      <span style="font-size:13px;color:var(--silver);">Power Switch</span>
-      <span style="font-size:13px;color:var(--silver);">Camera Lens</span>
-      <span style="font-size:13px;color:var(--silver);">Silicone Eyeglass Strap</span>
-      <span style="font-size:13px;color:var(--silver);">Lens Waterproof Seal</span>
-      <span style="font-size:13px;color:var(--silver);">Silicone Strap</span>
-      <span style="font-size:13px;color:var(--silver);">Bluetooth</span>
-      <span style="font-size:13px;color:var(--silver);">Timer</span>
-      <span style="font-size:13px;color:var(--silver);">Diving Mask Frame</span>
-      <span style="font-size:13px;color:var(--silver);">Sapphire Crystal Surface</span>
-      <span style="font-size:13px;color:var(--silver);">Motherboard Location</span>
-      <span style="font-size:13px;color:var(--silver);">Recording Module</span>
+    <p class="body-text">Highlights the smart diving goggle's components, showcasing its functional design.</p>
+    <div class="exploded-main">
+      <img src="images/project-2-43.png" alt="Exploded view">
+    </div>
+    <div class="chip-list">
+      <span class="chip">Tempered Glass</span>
+      <span class="chip">Photography Module</span>
+      <span class="chip">Power Switch</span>
+      <span class="chip">Camera Lens</span>
+      <span class="chip">Silicone Eyeglass Strap</span>
+      <span class="chip">Lens Waterproof Seal</span>
+      <span class="chip">Silicone Strap</span>
+      <span class="chip">Bluetooth</span>
+      <span class="chip">Timer</span>
+      <span class="chip">Diving Mask Frame</span>
+      <span class="chip">Sapphire Crystal Surface</span>
+      <span class="chip">Motherboard Location</span>
+      <span class="chip">Recording Module</span>
     </div>
   </section>
 
-  <!-- MAIN BUTTONS -->
-  <section class="section section-border">
+  <section class="section">
     <div class="section-header">
       <h2>Main Buttons</h2>
     </div>
-    <p class="body-text" style="margin-bottom:24px;">Showcases the key control buttons, designed for intuitive and easy operation.</p>
-    <img src="images/project-2-44.png" alt="Main buttons diagram" style="max-width:720px;">
+    <p class="body-text">Showcases the key control buttons, designed for intuitive and easy operation.</p>
+    <div class="main-buttons">
+      <img src="images/project-2-44.png" alt="Main buttons diagram">
+    </div>
   </section>
 
-  <!-- PHOTO & VIDEO INTERFACE -->
-  <section class="section section-border">
+  <section class="section">
     <div class="section-header">
       <h2>Photo &amp; Video Interface</h2>
     </div>
-    <div class="interface-row">
-      <div class="interface-col">
+
+    <div class="interface-layout">
+      <div class="interface-panel">
         <span class="interface-label">Camera</span>
-        <span class="interface-note">The frame flashes once to indicate a successful photo.</span>
-        <img src="images/project-2-45.png" alt="Camera interface" style="height:180px;width:auto;object-fit:cover;">
-        <div style="display:flex; gap:10px;">
-          <div style="display:flex; align-items:flex-start; gap:8px;">
+        <p class="interface-note">The frame flashes once to indicate a successful photo.</p>
+        <div class="interface-main"><img src="images/project-2-45.png" alt="Camera interface"></div>
+        <div class="interface-steps">
+          <div class="step-card">
             <div class="step-num">1</div>
-            <img src="images/project-2-46.png" alt="" style="height:93px;width:auto;object-fit:cover;">
+            <div class="step-visual"><img src="images/project-2-46.png" alt="Camera step 1"></div>
           </div>
-          <div style="display:flex; align-items:flex-start; gap:8px;">
+          <div class="step-card">
             <div class="step-num">2</div>
-            <img src="images/project-2-47.png" alt="" style="height:93px;width:auto;object-fit:cover;">
+            <div class="step-visual"><img src="images/project-2-47.png" alt="Camera step 2"></div>
           </div>
         </div>
       </div>
-      <div class="divider-v"></div>
-      <div class="interface-col">
+
+      <div class="interface-panel">
         <span class="interface-label">Recording</span>
-        <span class="interface-note">Recording starts when the frame and red dot light up.</span>
-        <img src="images/project-2-48.png" alt="Recording interface" style="height:180px;width:auto;object-fit:cover;">
-        <div style="display:flex; gap:10px;">
-          <div style="display:flex; align-items:flex-start; gap:8px;">
+        <p class="interface-note">Recording starts when the frame and red dot light up.</p>
+        <div class="interface-main"><img src="images/project-2-48.png" alt="Recording interface"></div>
+        <div class="interface-steps">
+          <div class="step-card">
             <div class="step-num">1</div>
-            <img src="images/project-2-49.png" alt="" style="height:93px;width:auto;object-fit:cover;">
+            <div class="step-visual"><img src="images/project-2-49.png" alt="Recording step 1"></div>
           </div>
-          <div style="display:flex; align-items:flex-start; gap:8px;">
+          <div class="step-card">
             <div class="step-num">2</div>
-            <img src="images/project-2-50.png" alt="" style="height:93px;width:auto;object-fit:cover;">
+            <div class="step-visual"><img src="images/project-2-50.png" alt="Recording step 2"></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- LENS DISPLAY INFORMATION -->
-  <section class="section section-border">
+  <section class="section">
     <div class="section-header">
       <h2>Lens Display Information</h2>
     </div>
-    <p class="body-text" style="margin-bottom:24px;">Displays essential dive information directly on the lens for easy viewing during the dive.</p>
-    <div class="lens-grid">
-      <div class="lens-img">
+    <p class="body-text">Displays essential dive information directly on the lens for easy viewing during the dive.</p>
+
+    <div class="lens-layout">
+      <div class="lens-image">
         <img src="images/project-2-51.png" alt="Lens display diagram">
       </div>
+
       <div class="lens-annotations">
-        <div class="lens-row">
-          <div class="lens-dot gray"></div>
-          <div class="lens-text">Depth — current / maximum / average</div>
-        </div>
-        <div class="lens-row">
-          <div class="lens-dot gray"></div>
-          <div class="lens-text">Water temperature detection</div>
-        </div>
-        <div class="lens-row">
-          <div class="lens-dot gray"></div>
-          <div class="lens-text">
-            Time data — current time &amp; dive time
-          </div>
-        </div>
-        <div class="lens-row">
-          <div class="lens-dot gray"></div>
-          <div class="lens-text">
-            Bluetooth
-            <div class="lens-sub">(users can directly share basic information to the Diving+ APP)</div>
-          </div>
-        </div>
-        <div class="lens-row">
-          <div class="lens-dot red"></div>
-          <div class="lens-text">SOS System</div>
-        </div>
-        <div class="lens-row">
-          <div class="lens-dot gold"></div>
-          <div class="lens-text">
-            Safe Stop Alert
-            <div class="lens-sub">(alerts you when you reach a safe stop depth)</div>
-          </div>
-        </div>
-        <div class="lens-row">
-          <div class="lens-dot blue"></div>
-          <div class="lens-text">GPS Positioning System</div>
-        </div>
+        <div class="lens-row"><div class="lens-dot dot-gray"></div><div class="lens-text">Depth — current / maximum / average</div></div>
+        <div class="lens-row"><div class="lens-dot dot-gray"></div><div class="lens-text">Water temperature detection</div></div>
+        <div class="lens-row"><div class="lens-dot dot-gray"></div><div class="lens-text">Time data — current time &amp; dive time</div></div>
+        <div class="lens-row"><div class="lens-dot dot-gray"></div><div class="lens-text">Bluetooth<span class="lens-sub">Users can directly share basic information to the Diving+ app.</span></div></div>
+        <div class="lens-row"><div class="lens-dot dot-red"></div><div class="lens-text">SOS System</div></div>
+        <div class="lens-row"><div class="lens-dot dot-gold"></div><div class="lens-text">Safe Stop Alert<span class="lens-sub">Alerts you when you reach a safe stop depth.</span></div></div>
+        <div class="lens-row"><div class="lens-dot dot-blue"></div><div class="lens-text">GPS Positioning System</div></div>
       </div>
     </div>
   </section>
 
-  <!-- USAGE PROCESS -->
-  <section class="section section-border">
+  <section class="section">
     <div class="section-header">
       <h2>Usage Process</h2>
     </div>
-    <div class="process-steps">
+
+    <div class="process-flow">
       <div class="process-step">Hold power button<br>3 sec to activate</div>
       <span class="process-arrow">→</span>
       <div class="process-step">Wear &amp; adjust<br>the diving gear</div>
       <span class="process-arrow">→</span>
       <div class="process-step">Hold Bluetooth button<br>3 sec to pair with phone</div>
     </div>
-    <div class="process-images">
+
+    <div class="process-image-grid">
       <img src="images/project-2-52.png" alt="Usage step 1">
       <img src="images/project-2-53.png" alt="Usage step 2">
       <img src="images/project-2-54.png" alt="Usage step 3">
     </div>
-    <div class="process-images">
+
+    <div class="process-image-grid">
       <img src="images/project-2-55.png" alt="Usage step 4">
       <img src="images/project-2-56.png" alt="Usage step 5">
       <img src="images/project-2-57.png" alt="Usage step 6">
     </div>
-    <div class="process-steps" style="margin-top:12px;">
+
+    <div class="process-flow" style="margin-top:12px;">
       <div class="process-step">Hold timer button<br>3 sec to log diving time upon entering the water</div>
       <span class="process-arrow">→</span>
       <div class="process-step">Press camera button<br>once for photos</div>
@@ -1341,63 +2461,111 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
+    <!-- ── FOOTER ── -->
   <footer>
-    <div class="footer-top">
-      <div class="footer-logo">
-        <img src="img/e-.svg" alt="E." style="height:28px;width:auto;">
-        <img src="img/c-.svg" alt="C." style="height:28px;width:auto;">
-        <img src="img/d-.svg" alt="D." style="height:28px;width:auto;">
-      </div>
-      <div class="footer-links">
-        <div class="footer-col">
-          <a href="#">About Me</a>
-          <a href="#">Projects</a>
-          <a href="#">Others</a>
+    <div class="footer-shell">
+      <div class="footer-head">
+        <div class="footer-mark" aria-label="E. C. brand mark">
+          <span>E.</span>
+          <span>C.</span>
         </div>
-        <div class="footer-col">
-          <p>Taipei, Taiwan</p>
-        </div>
-        <div class="footer-col">
-          <a href="mailto:emiliachen881230@gmail.com">emiliachen881230@gmail.com</a>
-          <a href="https://www.behance.net/emiliachen1230" target="_blank">behance.net/emiliachen1230</a>
+        <div class="footer-top-items">
+          <nav class="footer-main-links" aria-label="Footer navigation">
+            <a href="#about">About ME</a>
+            <a href="#projects">Projects</a>
+          </nav>
+          <div class="footer-contact">
+            <span>Taipei, Taiwan</span>
+            <div class="footer-contact-secondary">
+              <a href="mailto:emiliachen881230@gmail.com">emiliachen881230@gmail.com</a>
+              <a href="https://www.behance.net/emiliachen1230" target="_blank" rel="noopener">behance.net/emiliachen1230</a>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="footer-socials">
-        <a href="https://www.facebook.com/figmadesign/" target="_blank">
-          <img src="img/vector.svg" alt="Facebook">
-        </a>
-        <a href="https://www.instagram.com/figma/" target="_blank">
-          <img src="img/vector-1.svg" alt="Instagram">
-        </a>
-        <a href="https://www.youtube.com/figmadesign" target="_blank">
-          <img src="img/vector-3.svg" alt="YouTube">
-        </a>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 All Rights Reserved</p>
       </div>
-      <p class="footer-copy">© 2026 All Rights Reserved</p>
     </div>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     const io = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.style.opacity = '1';
-          e.target.style.transform = 'translateY(0)';
-          io.unobserve(e.target);
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          io.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('h2, .feature-item, .dive-card, .swatch, .process-step, .phone-annotation').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(16px)';
-      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-      io.observe(el);
+    document.querySelectorAll('h2, .feature-item, .dive-card, .swatch, .process-step
+  </script>
+
+<script>
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const btn = document.querySelector('.hamburger');
+      menu.classList.toggle('open');
+      btn.classList.toggle('open');
+    }
+    function closeMenu() {
+      document.getElementById('mobileMenu').classList.remove('open');
+      document.querySelector('.hamburger').classList.remove('open');
+    }
+    // close menu on outside click
+    document.addEventListener('click', function(e) {
+      const menu = document.getElementById('mobileMenu');
+      const btn = document.querySelector('.hamburger');
+      if (!menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.classList.remove('open');
+      }
+    });
+
+    // Replace img-placeholder with actual images when they exist
+    // To use real images: replace <div class="img-placeholder"> with <img src="your-image.png" alt="...">
+
+    const navBar = document.querySelector('nav');
+    const revealEls = document.querySelectorAll('.reveal');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealEls.forEach((el, index) => {
+      el.style.transitionDelay = `${Math.min(index * 70, 420)}ms`;
+      revealObserver.observe(el);
+    });
+
+    window.addEventListener('scroll', () => {
+      navBar.classList.toggle('nav-scrolled', window.scrollY > 10);
     });
   </script>
 
+<script>
+    const navInteractive = document.getElementById('siteNav');
+    if (navInteractive) {
+      navInteractive.addEventListener('mousemove', (e) => {
+        const rect = navInteractive.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        navInteractive.style.setProperty('--mouse-x', `${x}%`);
+        navInteractive.style.setProperty('--mouse-y', `${y}%`);
+        navInteractive.style.setProperty('--mouse-opacity', '0.72');
+      });
+      navInteractive.addEventListener('mouseleave', () => {
+        navInteractive.style.setProperty('--mouse-x', '50%');
+        navInteractive.style.setProperty('--mouse-y', '50%');
+        navInteractive.style.setProperty('--mouse-opacity', '0');
+      });
+    }
+  </script>
 </body>
 </html>
