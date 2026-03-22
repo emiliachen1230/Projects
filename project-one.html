@@ -1514,31 +1514,63 @@
       position: fixed !important;
       bottom: max(22px, env(safe-area-inset-bottom, 22px)) !important;
       left: 50% !important;
-      top: auto !important;           /* override any inherited top */
+      top: auto !important;
       right: auto !important;
-      /* centre horizontally */
       transform: translateX(-50%) translateY(16px);
       z-index: 200;
-      /* layout: one row, no wrap, hug content */
       display: inline-flex;
       flex-direction: row;
       flex-wrap: nowrap;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      /* invisible wrapper */
-      background: none !important;
-      border: none !important;
-      box-shadow: none !important;
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-      padding: 0 !important;
-      max-width: calc(100vw - 24px);
-      /* hidden until trigger */
+      width: max-content;
+      max-width: calc(100vw - 40px);
+      padding: 10px 14px !important;
+      background: linear-gradient(135deg, rgba(253,248,246,0.44) 0%, rgba(246,239,255,0.38) 22%, rgba(237,245,255,0.34) 46%, rgba(238,250,244,0.34) 70%, rgba(255,244,250,0.38) 100%) !important;
+      border: 1px solid rgba(255,255,255,0.46) !important;
+      box-shadow: 0 8px 28px rgba(120,132,154,0.14), inset 0 1px 0 rgba(255,255,255,0.52) !important;
+      backdrop-filter: blur(22px) saturate(150%) !important;
+      -webkit-backdrop-filter: blur(22px) saturate(150%) !important;
+      border-radius: 999px;
+      overflow: hidden;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.40s ease, transform 0.40s cubic-bezier(0.4,0,0.2,1);
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      isolation: isolate;
     }
+    #float-nav::-webkit-scrollbar { display: none; }
+    #float-nav::before,
+    #float-nav::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 26px;
+      height: 52px;
+      border-radius: 999px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.24s ease;
+      z-index: 3;
+      background:
+        linear-gradient(135deg,
+          rgba(253,248,246,0.62) 0%,
+          rgba(246,239,255,0.54) 24%,
+          rgba(237,245,255,0.48) 50%,
+          rgba(238,250,244,0.48) 74%,
+          rgba(255,244,250,0.54) 100%);
+      border: 1px solid rgba(255,255,255,0.52);
+      box-shadow:
+        0 4px 14px rgba(120,132,154,0.14),
+        inset 0 1px 0 rgba(255,255,255,0.70);
+      backdrop-filter: blur(16px) saturate(150%);
+      -webkit-backdrop-filter: blur(16px) saturate(150%);
+    }
+    #float-nav::before { left: 8px; }
+    #float-nav::after  { right: 8px; }
     #float-nav.fn-visible {
       opacity: 1;
       transform: translateX(-50%) translateY(0);
@@ -1672,40 +1704,40 @@
     #float-nav.fn-compact .fc-label  { display: none; }
     #float-nav.fn-compact .fc-letter { display: block; }
 
-    /* active in compact: label chip above the circle */
-    #float-nav.fn-compact .fc-item.fc-active::after {
-      display: none;
 
-      content: attr(data-label);
-      position: absolute;
-      bottom: calc(100% + 8px);
-      left: 50%;
-      transform: translateX(-50%);
-      white-space: nowrap;
-      font-family: var(--ff-display);
-      font-size: 12.75px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.93);
-      background: rgba(29,35,28,0.78);
-      backdrop-filter: blur(20px) saturate(160%);
-      -webkit-backdrop-filter: blur(20px) saturate(160%);
-      border: 1px solid rgba(255,255,255,0.22);
-      border-radius: 999px;
-      padding: 8px 18px;
-      box-shadow: 0 4px 14px rgba(29,35,28,0.22);
-      pointer-events: none;
-      z-index: 10;
-    }
-
-    /* body padding so footer isn't clipped */
-    body { padding-bottom: calc(70px + env(safe-area-inset-bottom, 0px)); }
 
     @media (max-width: 799px) {
-      #float-nav { gap: 7px; }
-      .fc-item   { padding: 9px 18px; }
+      #float-nav {
+        gap: 8px;
+        width: auto;
+        max-width: calc(100vw - 44px);
+        justify-content: flex-start;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 11px 14px !important;
+        border-radius: 999px;
+        scroll-snap-type: x proximity;
+        scroll-padding-inline: 22px;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+      }
+      #float-nav.fn-scrollable::before,
+      #float-nav.fn-scrollable::after {
+        opacity: 0.92;
+      }
+      #float-nav.fn-scrollable.fn-at-start::before { opacity: 0; }
+      #float-nav.fn-scrollable.fn-at-end::after { opacity: 0; }
+      .fc-item {
+        padding: 9px 18px;
+        scroll-snap-align: start;
+      }
       .fc-label  { font-size: 12px; letter-spacing: 1.9px; }
       #float-nav.fn-compact .fc-item { width: 45px; height: 45px; }
+      #float-nav.fn-compact .fc-item.fc-active {
+        min-height: 45px;
+        padding: 9px 16px;
+        max-width: calc(100vw - 120px);
+      }
     }
   </style></head>
 <body>
@@ -1714,7 +1746,7 @@
   <nav id="float-nav" aria-label="Page sections">
     <a class="fc-item" href="#overview"   data-sections="overview"                                           data-label="Overview">       <span class="fc-label">Overview</span>       <span class="fc-letter">O</span></a>
     <a class="fc-item" href="#research"   data-sections="research,research-foundation,methodology"           data-label="Research">       <span class="fc-label">Research</span>       <span class="fc-letter">R</span></a>
-    <a class="fc-item" href="#user-story" data-sections="user-story,user-flow,ia"                            data-label="Design Process"> <span class="fc-label">Design Process</span> <span class="fc-letter">D</span></a>
+    <a class="fc-item" href="#user-story" data-sections="user-story,user-flow,ia"                            data-label="Process"> <span class="fc-label">Process</span> <span class="fc-letter">P</span></a>
     <a class="fc-item" href="#brand"      data-sections="brand,cis-document"                                 data-label="Identity">       <span class="fc-label">Identity</span>       <span class="fc-letter">Id</span></a>
     <a class="fc-item" href="#decisions"  data-sections="decisions,interface,app-functions,family-functions" data-label="Interface">      <span class="fc-label">Interface</span>      <span class="fc-letter">If</span></a>
     <a class="fc-item" href="#prototype"  data-sections="prototype,outcome"                                  data-label="Outcome">        <span class="fc-label">Outcome</span>        <span class="fc-letter">Ou</span></a>
@@ -3086,14 +3118,40 @@
      Measure full-text width vs available viewport.
      Switch to circles only when it genuinely overflows.
   ─────────────────────────────────────────────── */
-  function checkCompact() {
-    var available = Math.max(window.innerWidth - 24, 0); /* fit screen width closely */
+  function updateScrollHints() {
+    var isMobile = window.matchMedia('(max-width: 799px)').matches;
+    if (!isMobile) {
+      nav.classList.remove('fn-scrollable', 'fn-at-start', 'fn-at-end');
+      nav.scrollLeft = 0;
+      return;
+    }
 
-    /* temporarily force full mode to measure natural width */
+    var overflow = nav.scrollWidth > nav.clientWidth + 2;
+    nav.classList.toggle('fn-scrollable', overflow);
+    if (!overflow) {
+      nav.classList.remove('fn-at-start', 'fn-at-end');
+      return;
+    }
+
+    var atStart = nav.scrollLeft <= 2;
+    var atEnd = nav.scrollLeft + nav.clientWidth >= nav.scrollWidth - 2;
+    nav.classList.toggle('fn-at-start', atStart);
+    nav.classList.toggle('fn-at-end', atEnd);
+  }
+
+  function checkCompact() {
+    var isMobile = window.matchMedia('(max-width: 799px)').matches;
+    if (isMobile) {
+      nav.classList.add('fn-compact');
+      updateScrollHints();
+      return;
+    }
+
+    var available = Math.max(window.innerWidth - 40, 0);
     nav.classList.remove('fn-compact');
-    /* read after layout */
     var needed = nav.scrollWidth;
     nav.classList.toggle('fn-compact', needed > available);
+    updateScrollHints();
   }
 
   /* ── show/hide + active ── */
@@ -3126,6 +3184,7 @@
     });
     items.forEach(function (i) { i.classList.remove('fc-active'); });
     if (current) current.item.classList.add('fc-active');
+    updateScrollHints();
   }
 
   /* resize → re-check compact */
@@ -3136,11 +3195,13 @@
   });
 
   window.addEventListener('scroll', update, { passive: true });
+  nav.addEventListener('scroll', updateScrollHints, { passive: true });
 
   /* init — wait one frame so layout is ready */
   requestAnimationFrame(function () {
     checkCompact();
     update();
+    updateScrollHints();
   });
 })();
 </script>
