@@ -933,8 +933,6 @@
       .portrait-pair img { max-width:none; }
       .body-grid, .card-grid-3, .card-grid-6 { grid-template-columns:1fr; }
       .card-grid-2, .features-list { grid-template-columns:1fr; }
-      .footer-top { flex-direction:column; gap:40px; padding-bottom:48px; }
-      .footer-bottom { flex-direction:column; align-items:flex-start; }
       nav .nav-links { display:none; }
       .stats-row { flex-wrap:wrap; }
       .stat-cell { min-width:50%; border-bottom:1px solid var(--black); }
@@ -974,7 +972,7 @@
     }
 
     /* ── NAV ── */
-    nav {
+    #siteNav {
       height: auto;
       position: sticky;
       top: 0;
@@ -999,7 +997,7 @@
       isolation: isolate;
     }
 
-    nav::before {
+    #siteNav::before {
       content: "";
       position: absolute;
       inset: -24% -6%;
@@ -1015,7 +1013,7 @@
       animation: pastelGlowFloat 28s ease-in-out infinite;
     }
 
-    nav::after {
+    #siteNav::after {
       content: "";
       position: absolute;
       inset: 0;
@@ -1242,9 +1240,11 @@
     }
 
     .footer-top-items {
-      display: flex;
+      display: grid;
+      grid-template-columns: 297px minmax(220px, 1fr);
       justify-content: space-between;
       align-items: flex-start;
+      column-gap: 48px;
       width: 557px;
       max-width: 100%;
       flex: 0 0 auto;
@@ -1257,14 +1257,18 @@
     }
 
     .footer-main-links {
-      display: flex;
+      display: flex !important;
       background: transparent;
       flex-direction: column;
       gap: 2px;
       align-items: flex-start;
+      justify-self: start;
       width: 297px;
+      min-width: 160px;
       flex: 0 0 auto;
       white-space: nowrap;
+      visibility: visible;
+      opacity: 1;
     }
 
     .footer-contact {
@@ -1283,15 +1287,17 @@
     }
 
     .footer-main-links a {
+      display: block;
       background: transparent;
       font-family: var(--f-display);
       font-size: 16px;
       font-weight: 400;
       line-height: 1.5;
       letter-spacing: 0;
-      color: #ffffff;
+      color: #ffffff !important;
       text-decoration: none;
       opacity: 1;
+      visibility: visible;
       transition: opacity 0.25s ease;
       word-break: break-word;
     }
@@ -1370,6 +1376,8 @@
         max-width: 100%;
       }
       .footer-top-items {
+        display: grid;
+        grid-template-columns: 297px minmax(220px, 1fr);
         width: 100%;
       }
     }
@@ -1474,6 +1482,7 @@
         gap: 100px;
       }
       .footer-top-items {
+        display: flex;
         flex-direction: column;
         gap: 58px;
         width: 100%;
@@ -1489,8 +1498,227 @@
       }
     }
 
+
+    /* ══════════════════════════════════════════════════
+       FLOATING CAPSULE NAV — fixed bottom, all viewports
+    ══════════════════════════════════════════════════ */
+    @keyframes fcGlass {
+      0%   { background-position: 0%   50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0%   50%; }
+    }
+
+    /* ── wrapper ──────────────────────────────────── */
+    #float-nav {
+      /* anchor: bottom-centre, never moves */
+      position: fixed !important;
+      bottom: max(22px, env(safe-area-inset-bottom, 22px)) !important;
+      left: 50% !important;
+      top: auto !important;           /* override any inherited top */
+      right: auto !important;
+      /* centre horizontally */
+      transform: translateX(-50%) translateY(16px);
+      z-index: 200;
+      /* layout: one row, no wrap, hug content */
+      display: inline-flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      /* invisible wrapper */
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      padding: 0 !important;
+      max-width: calc(100vw - 24px);
+      /* hidden until trigger */
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.40s ease, transform 0.40s cubic-bezier(0.4,0,0.2,1);
+    }
+    #float-nav.fn-visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: all;
+    }
+    #float-nav.fn-hidden {
+      opacity: 0;
+      transform: translateX(-50%) translateY(16px);
+      pointer-events: none;
+    }
+
+    /* ── full-text capsule ────────────────────────── */
+    .fc-item {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 24px;
+      border-radius: 999px;
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
+      flex-shrink: 0;
+      background:
+        linear-gradient(135deg,
+          rgba(253,248,246,0.66) 0%,
+          rgba(246,239,255,0.62) 22%,
+          rgba(237,245,255,0.58) 46%,
+          rgba(238,250,244,0.58) 70%,
+          rgba(255,244,250,0.62) 100%);
+      background-size: 300% 300%;
+      animation: fcGlass 18s ease-in-out infinite;
+      backdrop-filter: blur(32px) saturate(185%);
+      -webkit-backdrop-filter: blur(32px) saturate(185%);
+      border: 1px solid rgba(255,255,255,0.70);
+      box-shadow:
+        0 4px 18px rgba(120,132,154,0.15),
+        inset 0 1px 0 rgba(255,255,255,0.80),
+        inset 0 -1px 0 rgba(255,255,255,0.22);
+      /* no transform on active — no popping */
+      transition:
+        box-shadow   0.22s ease,
+        background   0.25s ease,
+        border-color 0.25s ease;
+    }
+
+    /* shimmer on hover */
+    .fc-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.46) 50%, transparent 70%);
+      transform: translateX(120%);
+      transition: transform 0.50s ease;
+      pointer-events: none;
+    }
+    .fc-item:hover::before { transform: translateX(-120%); }
+    .fc-item:hover {
+      box-shadow:
+        0 6px 24px rgba(120,132,154,0.20),
+        inset 0 1px 0 rgba(255,255,255,0.88);
+    }
+
+    /* active: dark glass, no movement */
+    .fc-item.fc-active {
+      background:
+        linear-gradient(135deg,
+          rgba(29,35,28,0.76) 0%,
+          rgba(38,48,37,0.70) 50%,
+          rgba(29,35,28,0.76) 100%);
+      background-size: 300% 300%;
+      animation: fcGlass 18s ease-in-out infinite;
+      border-color: rgba(255,255,255,0.24);
+      box-shadow:
+        0 4px 22px rgba(29,35,28,0.24),
+        inset 0 1px 0 rgba(255,255,255,0.22);
+    }
+
+    /* labels */
+    .fc-label {
+      font-family: var(--ff-display);
+      font-size: 13.5px;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+      color: rgba(38,48,37,0.72);
+      transition: color 0.22s ease;
+      position: relative;
+      z-index: 1;
+      white-space: nowrap;
+    }
+    .fc-item:hover .fc-label    { color: rgba(38,48,37,0.92); }
+    .fc-item.fc-active .fc-label { color: rgba(255,255,255,0.94); }
+
+    /* initial letter — hidden in full mode */
+    .fc-letter {
+      display: none;
+      font-family: var(--ff-display);
+      font-size: 16px;
+      letter-spacing: 0.75px;
+      text-transform: uppercase;
+      color: rgba(38,48,37,0.72);
+      position: relative;
+      z-index: 1;
+      transition: color 0.22s ease;
+    }
+    .fc-item.fc-active .fc-letter { color: rgba(255,255,255,0.94); }
+
+    #float-nav.fn-compact .fc-item.fc-active {
+      width: auto;
+      height: auto;
+      min-height: 51px;
+      padding: 10px 24px;
+      border-radius: 999px;
+    }
+    #float-nav.fn-compact .fc-item.fc-active .fc-label { display: block; }
+    #float-nav.fn-compact .fc-item.fc-active .fc-letter { display: none; }
+
+    /* ── compact: circles ─────────────────────────
+       applied by JS when full row doesn't fit
+    ──────────────────────────────────────────── */
+    #float-nav.fn-compact { gap: 8px; }
+
+    #float-nav.fn-compact .fc-item {
+      width: 51px;
+      height: 51px;
+      padding: 0;
+      border-radius: 50%;
+    }
+    #float-nav.fn-compact .fc-label  { display: none; }
+    #float-nav.fn-compact .fc-letter { display: block; }
+
+    /* active in compact: label chip above the circle */
+    #float-nav.fn-compact .fc-item.fc-active::after {
+      display: none;
+
+      content: attr(data-label);
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      font-family: var(--ff-display);
+      font-size: 12.75px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.93);
+      background: rgba(29,35,28,0.78);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 999px;
+      padding: 8px 18px;
+      box-shadow: 0 4px 14px rgba(29,35,28,0.22);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* body padding so footer isn't clipped */
+    body { padding-bottom: calc(70px + env(safe-area-inset-bottom, 0px)); }
+
+    @media (max-width: 799px) {
+      #float-nav { gap: 7px; }
+      .fc-item   { padding: 9px 18px; }
+      .fc-label  { font-size: 12px; letter-spacing: 1.9px; }
+      #float-nav.fn-compact .fc-item { width: 45px; height: 45px; }
+    }
   </style></head>
 <body>
+
+  <!-- FLOATING CAPSULE NAV -->
+  <nav id="float-nav" aria-label="Page sections">
+    <a class="fc-item" href="#overview"   data-sections="overview"                                           data-label="Overview">       <span class="fc-label">Overview</span>       <span class="fc-letter">O</span></a>
+    <a class="fc-item" href="#research"   data-sections="research,research-foundation,methodology"           data-label="Research">       <span class="fc-label">Research</span>       <span class="fc-letter">R</span></a>
+    <a class="fc-item" href="#user-story" data-sections="user-story,user-flow,ia"                            data-label="Design Process"> <span class="fc-label">Design Process</span> <span class="fc-letter">D</span></a>
+    <a class="fc-item" href="#brand"      data-sections="brand,cis-document"                                 data-label="Identity">       <span class="fc-label">Identity</span>       <span class="fc-letter">Id</span></a>
+    <a class="fc-item" href="#decisions"  data-sections="decisions,interface,app-functions,family-functions" data-label="Interface">      <span class="fc-label">Interface</span>      <span class="fc-letter">If</span></a>
+    <a class="fc-item" href="#prototype"  data-sections="prototype,outcome"                                  data-label="Outcome">        <span class="fc-label">Outcome</span>        <span class="fc-letter">Ou</span></a>
+  </nav>
 
   <!-- ── NAV ── -->
   <nav id="siteNav">
@@ -1575,7 +1803,7 @@
   </div>
 
   <!-- DESCRIPTION -->
-  <div class="description">
+  <div class="description" id="desc-trigger">
     <p>Soultime is a mobile service platform built on time banking — where elderly users can request help, offer support, and accumulate service hours as a form of mutual care. A parallel family interface extends the system to health monitoring and coordination, without over-control.</p>
   </div>
 
@@ -1656,7 +1884,7 @@
   </section>
 
   <!-- RESEARCH FOUNDATION -->
-  <section class="section section-border">
+  <section class="section section-border" id="research-foundation">
     <div class="section-header reveal">
       <h2>Research Foundation</h2>
     </div>
@@ -1691,7 +1919,7 @@
   </section>
 
   <!-- METHODOLOGY -->
-  <section class="section section-border">
+  <section class="section section-border" id="methodology">
     <div class="section-header reveal">
       <h2>Methodology</h2>
     </div>
@@ -1860,7 +2088,7 @@
   </section>
 
   <!-- 02 USER STORY / PERSONA -->
-  <section class="section section-border">
+  <section class="section section-border" id="user-story">
     <div class="section-header reveal">
       <div class="pd-label">Design Process · 02</div>
       <h2>User Story</h2>
@@ -1909,7 +2137,7 @@
   </section>
 
   <!-- 03 USER FLOW -->
-  <section class="section section-border">
+  <section class="section section-border" id="user-flow">
     <div class="section-header reveal">
       <div class="pd-label">Design Process · 03</div>
       <h2>User Flow</h2>
@@ -1993,7 +2221,7 @@
   </section>
 
   <!-- 04 SITE MAP -->
-  <section class="section section-border">
+  <section class="section section-border" id="ia">
     <div class="section-header reveal">
       <div class="pd-label">Design Process · 04</div>
       <h2>Information Architecture</h2>
@@ -2270,7 +2498,7 @@
   </div>
 
   <!-- APP FUNCTIONS -->
-  <section class="section section-border">
+  <section class="section section-border" id="app-functions">
     <div class="section-header reveal">
       <h2>App Interface &amp; Functions</h2>
     </div>
@@ -2289,7 +2517,7 @@
   </section>
 
   <!-- SOULTIME FAMILY FUNCTIONS -->
-  <section class="section section-border">
+  <section class="section section-border" id="family-functions">
     <div class="section-header reveal">
       <h2>Soultime Family Functions</h2>
     </div>
@@ -2338,7 +2566,7 @@
   </section>
 
   <!-- OUTCOME & REFLECTION -->
-  <section class="section section-border">
+  <section class="section section-border" id="outcome">
     <div class="section-header reveal">
       <h2>Outcome &amp; Reflection</h2>
     </div>
@@ -2370,6 +2598,7 @@
 
   <!-- FOOTER -->
     <!-- ── FOOTER ── -->
+  <!-- ── FOOTER ── -->
   <footer>
     <div class="footer-shell">
       <div class="footer-head">
@@ -2398,7 +2627,7 @@
     </div>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script>
   pdfjsLib.GlobalWorkerOptions.workerSrc =
     'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -2821,11 +3050,100 @@
         navInteractive.style.setProperty('--mouse-opacity', '0.72');
       });
       navInteractive.addEventListener('mouseleave', () => {
-        navInteractive.style.setProperty('--mouse-x', '50%');
-        navInteractive.style.setProperty('--mouse-y', '50%');
         navInteractive.style.setProperty('--mouse-opacity', '0');
       });
     }
   </script>
+
+<script>
+/* ── FLOATING CAPSULE NAV ─────────────────── */
+(function () {
+  var nav     = document.getElementById('float-nav');
+  var trigger = document.querySelector('.meta-row');
+  if (!nav) return;
+
+  var items = nav.querySelectorAll('.fc-item');
+
+  /* section map */
+  var map = Array.prototype.map.call(items, function (item) {
+    var ids = (item.getAttribute('data-sections') || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+    return { item: item, els: ids.map(function (id) { return document.getElementById(id); }).filter(Boolean) };
+  });
+
+  /* smooth scroll */
+  items.forEach(function (item) {
+    item.addEventListener('click', function (e) {
+      var target = document.querySelector(item.getAttribute('href') || '');
+      if (!target) return;
+      e.preventDefault();
+      var siteNav = document.querySelector('nav#siteNav');
+      var navH = siteNav ? siteNav.getBoundingClientRect().height : 0;
+      window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - navH - 20, behavior: 'smooth' });
+    });
+  });
+
+  /* ── compact detection ───────────────────────────
+     Measure full-text width vs available viewport.
+     Switch to circles only when it genuinely overflows.
+  ─────────────────────────────────────────────── */
+  function checkCompact() {
+    var available = Math.max(window.innerWidth - 24, 0); /* fit screen width closely */
+
+    /* temporarily force full mode to measure natural width */
+    nav.classList.remove('fn-compact');
+    /* read after layout */
+    var needed = nav.scrollWidth;
+    nav.classList.toggle('fn-compact', needed > available);
+  }
+
+  /* ── show/hide + active ── */
+  function update() {
+    var siteNav   = document.querySelector('nav#siteNav');
+    var navH      = siteNav ? siteNav.getBoundingClientRect().height : 0;
+    var threshold = window.pageYOffset + navH + window.innerHeight * 0.32;
+
+    /* show after description, hide at footer */
+    var showAfter = trigger ? trigger.getBoundingClientRect().bottom + window.pageYOffset : 0;
+    var footer    = document.querySelector('footer');
+    var hideAfter = footer ? footer.getBoundingClientRect().top + window.pageYOffset : Infinity;
+    var past   = window.pageYOffset + window.innerHeight * 0.5 > showAfter;
+    var atFoot = window.pageYOffset + window.innerHeight >= hideAfter;
+
+    if (past && !atFoot) {
+      nav.classList.add('fn-visible');
+      nav.classList.remove('fn-hidden');
+    } else {
+      nav.classList.remove('fn-visible');
+      nav.classList.add('fn-hidden');
+    }
+
+    /* active section */
+    var current = null;
+    map.forEach(function (e) {
+      e.els.forEach(function (el) {
+        if (el && el.getBoundingClientRect().top + window.pageYOffset <= threshold) current = e;
+      });
+    });
+    items.forEach(function (i) { i.classList.remove('fc-active'); });
+    if (current) current.item.classList.add('fc-active');
+  }
+
+  /* resize → re-check compact */
+  var rsTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(rsTimer);
+    rsTimer = setTimeout(checkCompact, 60);
+  });
+
+  window.addEventListener('scroll', update, { passive: true });
+
+  /* init — wait one frame so layout is ready */
+  requestAnimationFrame(function () {
+    checkCompact();
+    update();
+  });
+})();
+</script>
+
 </body>
 </html>
