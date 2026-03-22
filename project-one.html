@@ -1385,9 +1385,9 @@
     /* ── MOBILE ≤799px ── */
     @media (max-width: 799px) {
 
-      nav { min-height: auto; padding: 12px 14px; }
+      #siteNav { min-height: auto; padding: 12px 14px; }
       .nav-inner { min-height: auto; }
-      .mobile-menu { top: 76px; margin-top: 0; }
+      /* mobile-menu top set dynamically in JS to match actual nav height */
       .nav-links { display: none; }
       .hamburger { display: flex; }
       .nav-logo { font-size: 18px; letter-spacing: 3px; }
@@ -1515,6 +1515,7 @@
       bottom: max(22px, env(safe-area-inset-bottom, 22px)) !important;
       left: 50% !important;
       top: auto !important;
+      height: auto !important;
       right: auto !important;
       transform: translateX(-50%) translateY(16px);
       z-index: 200;
@@ -2647,7 +2648,7 @@
           <div class="footer-contact">
             <span>Taipei, Taiwan</span>
             <div class="footer-contact-secondary">
-              <a href="mailto:emiliachen881230@gmail.com">emiliachen881230@gmail.com</a>
+              <a href="/cdn-cgi/l/email-protection#5b3e363237323a38333e3563636a69686b1b3c363a323775383436"><span class="__cf_email__" data-cfemail="0a6f676366636b69626f6432323b38393a4a6d676b636624696567">[email&#160;protected]</span></a>
               <a href="https://www.behance.net/emiliachen1230" target="_blank" rel="noopener">behance.net/emiliachen1230</a>
             </div>
           </div>
@@ -2660,7 +2661,7 @@
     </div>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script>
   pdfjsLib.GlobalWorkerOptions.workerSrc =
     'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -3027,9 +3028,17 @@
   });
   </script>
 <script>
+    function positionMobileMenu() {
+      const siteNav = document.getElementById('siteNav');
+      const menu = document.getElementById('mobileMenu');
+      if (siteNav && menu) {
+        menu.style.top = siteNav.getBoundingClientRect().height + 'px';
+      }
+    }
     function toggleMenu() {
       const menu = document.getElementById('mobileMenu');
       const btn = document.querySelector('.hamburger');
+      positionMobileMenu();
       menu.classList.toggle('open');
       btn.classList.toggle('open');
     }
@@ -3037,6 +3046,9 @@
       document.getElementById('mobileMenu').classList.remove('open');
       document.querySelector('.hamburger').classList.remove('open');
     }
+    // Set initial position and keep updated on resize
+    window.addEventListener('DOMContentLoaded', positionMobileMenu);
+    window.addEventListener('resize', positionMobileMenu);
     // close menu on outside click
     document.addEventListener('click', function(e) {
       const menu = document.getElementById('mobileMenu');
@@ -3049,7 +3061,7 @@
     // Replace img-placeholder with actual images when they exist
     // To use real images: replace <div class="img-placeholder"> with <img src="your-image.png" alt="...">
 
-    const navBar = document.querySelector('nav');
+    const navBar = document.querySelector('#siteNav');
     const revealEls = document.querySelectorAll('.reveal');
 
     const revealObserver = new IntersectionObserver((entries) => {
@@ -3196,16 +3208,4 @@
   });
 
   window.addEventListener('scroll', update, { passive: true });
-  nav.addEventListener('scroll', updateScrollHints, { passive: true });
-
-  /* init — wait one frame so layout is ready */
-  requestAnimationFrame(function () {
-    checkCompact();
-    update();
-    updateScrollHints();
-  });
-})();
-</script>
-
-</body>
-</html>
+  n
