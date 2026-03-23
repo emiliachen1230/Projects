@@ -38,8 +38,8 @@
     .nav-links a:hover { opacity: 0.5; }
 
     /* ── HERO ────────────────────────────────────────── */
-    .hero { margin-top: 0; height: 500px; overflow: hidden; }
-    .hero img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+    .hero { margin-top: 0; height: 65svh; min-height: 380px; overflow: hidden; width: 100vw; margin-left: calc(-1 * var(--pad, 24px)); }
+    .hero img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; display: block; }
 
     /* ── META ROW ────────────────────────────────────── */
     .meta-row { display: flex; align-items: stretch; border-bottom: 1px solid var(--dark); }
@@ -47,30 +47,30 @@
     .meta-num { font-size: 100px; line-height: 1; color: var(--silver); letter-spacing: 3px; font-family: Georgia, serif; }
     .meta-title { font-family: var(--ff-display); font-size: 22px; color: var(--bg); letter-spacing: 1.5px; line-height: 1.4; }
     .meta-sub { font-family: var(--ff-display); font-size: 16px; color: var(--bg); letter-spacing: 1px; margin-top: 12px; }
-    .meta-tag { font-family: var(--ff-display); font-size: 12px; color: var(--silver); letter-spacing: 0.7px; }
+    .meta-tag { font-family: var(--ff-display); font-size: 14px; color: var(--silver); letter-spacing: 0.7px; }
     .meta-label { flex: 1; padding: 24px 32px; display: flex; align-items: flex-end; }
     .meta-label span { font-family: var(--ff-display); font-size: 20px; color: var(--text); letter-spacing: 1px; }
 
     /* ── DESCRIPTION ─────────────────────────────────── */
     .description { padding: 60px var(--pad); max-width: 680px; }
-    .description p { font-size: 15px; color: var(--text); line-height: 1.8; }
+    .description p { font-size: 16px; color: var(--text); line-height: 1.8; }
 
     /* ── SECTION BASE ────────────────────────────────── */
     .section { padding: 0 var(--pad) 48px; }
-    .section-border { border-top: 1px solid var(--black); }
+    .section-border { border-top: 1px solid rgba(0,0,0,0.12); }
     .section-header { padding: 40px 0 20px; display: flex; align-items: flex-start; gap: 16px; }
 
     /* ── TYPOGRAPHY ──────────────────────────────────── */
     h2 { font-family: var(--ff-display); font-size: clamp(28px,4vw,48px); color: var(--text); letter-spacing: 2px; line-height: 1.2; font-weight: 400; }
     h3 { font-family: var(--ff-display); font-size: clamp(20px,2.5vw,32px); color: var(--black); font-weight: 400; letter-spacing: 1.5px; line-height: 1.3; }
     h4 { font-family: var(--ff-display); font-size: 16px; color: var(--text); font-weight: 400; letter-spacing: 0.8px; }
-    .body-text { font-size: 15px; color: var(--text); line-height: 1.8; max-width: 720px; }
-    .num { font-family: var(--ff-display); font-size: 12px; color: var(--silver); letter-spacing: 1px; }
+    .body-text { font-size: 16px; color: var(--text); line-height: 1.8; max-width: 720px; }
+    .num { font-family: var(--ff-display); font-size: 14px; color: var(--silver); letter-spacing: 1px; }
 
     /* ── PILLARS (p4 style) ──────────────────────────── */
     .pillars { display: flex; flex-wrap: wrap; gap: 24px; padding: 28px 0; justify-content: center; }
     .pillar { width: 200px; height: 200px; border: 1px solid var(--black); border-radius: 100px; display: flex; align-items: center; justify-content: center; padding: 0 20px; }
-    .pillar p { font-family: var(--ff-display); font-size: 13px; color: var(--black); text-align: center; letter-spacing: 0.7px; line-height: 1.6; }
+    .pillar p { font-family: var(--ff-display); font-size: 14px; color: var(--black); text-align: center; letter-spacing: 0.7px; line-height: 1.6; }
 
     /* ── SPLIT ROW (p4 style) ────────────────────────── */
     .split-row { display: flex; border: 1px solid var(--black); overflow: hidden; }
@@ -84,15 +84,15 @@
     /* ── SERVICES GRID (p4 style) ────────────────────── */
     .services-grid { display: flex; gap: 40px; padding: 20px 0; align-items: flex-start; flex-wrap: wrap; }
     .services-imgs { display: flex; flex-direction: column; gap: 20px; flex: 0 1 260px; min-width: 180px; max-width: 260px; }
-    .services-imgs img { width: 100%; aspect-ratio: 0.7; object-fit: cover; }
+    .services-imgs img { width: 100%; object-fit: contain; display: block; }
     .services-list { flex: 1; display: flex; flex-direction: column; gap: 32px; min-width: 0; }
     .service-row { display: flex; gap: 40px; align-items: flex-start; }
     .service-label { width: 220px; flex-shrink: 0; font-family: var(--ff-display); font-size: 18px; color: var(--text); letter-spacing: 1px; }
-    .service-desc { flex: 1; font-size: 15px; color: var(--text); line-height: 1.75; }
+    .service-desc { flex: 1; font-size: 16px; color: var(--text); line-height: 1.75; }
 
     /* ── BODY GRID (two columns, original) ──────────── */
     .body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: 980px; }
-    .body-grid p { font-size: 15px; color: var(--text); line-height: 1.9; }
+    .body-grid p { font-size: 16px; color: var(--text); line-height: 1.9; }
 
     /* ── CARD GRIDS (original, cleaned up) ──────────── */
     .card-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
@@ -104,12 +104,12 @@
       display: flex; flex-direction: column; gap: 10px;
     }
     .card h3 { font-size: 17px; letter-spacing: .5px; }
-    .card h4 { font-size: 15px; letter-spacing: .5px; }
+    .card h4 { font-size: 16px; letter-spacing: .5px; }
     .card p { font-size: 14px; color: var(--gray); line-height: 1.75; }
 
     /* ── QUOTE ───────────────────────────────────────── */
     .quote-block { padding: 32px var(--pad); border-top: 1px solid rgba(0,0,0,0.08); }
-    .quote-block p { font-size: 15px; color: var(--text); line-height: 1.9; max-width: 820px; border-left: 2px solid var(--black); padding-left: 20px; }
+    .quote-block p { font-size: 16px; color: var(--text); line-height: 1.9; max-width: 820px; border-left: 2px solid rgba(0,0,0,0.25); padding-left: 20px; }
 
     /* ── PORTRAIT PAIR (p4 style) ────────────────────── */
     .portrait-pair { display: flex; gap: 60px; justify-content: center; padding: 60px 80px 20px; }
@@ -122,7 +122,7 @@
     /* ── FEATURE LIST (original 2-col, cleaned) ─────── */
     .features-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 40px; padding-top: 8px; }
     .feature-item { display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); align-items: flex-start; }
-    .feature-num { font-family: var(--ff-display); font-size: 12px; color: var(--silver); letter-spacing: 1px; flex-shrink: 0; padding-top: 2px; width: 28px; }
+    .feature-num { font-family: var(--ff-display); font-size: 14px; color: var(--silver); letter-spacing: 1px; flex-shrink: 0; padding-top: 2px; width: 28px; }
     .feature-content { flex: 1; }
     .feature-content h3 { font-size: 16px; letter-spacing: .5px; margin-bottom: 5px; }
     .feature-content p { font-size: 14px; color: var(--gray); line-height: 1.7; }
@@ -131,12 +131,12 @@
     .proto-wrap { padding-bottom: 40px; }
     .proto-wrap + .proto-wrap { border-top: 1px solid var(--line); padding-top: 40px; }
     .proto-header { padding: 20px 0 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-    .proto-label { font-family: var(--ff-display); font-size: 13px; color: var(--silver); letter-spacing: 1px; }
+    .proto-label { font-family: var(--ff-display); font-size: 14px; color: var(--silver); letter-spacing: 1px; }
     .proto-btn { background: var(--dark); color: #fff; padding: 9px 20px; font-family: var(--ff-display); font-size: 11px; letter-spacing: 1.2px; border: none; cursor: pointer; transition: opacity .2s; }
     .proto-btn:hover { opacity: 0.8; }
     .proto-stage { width: 100%; overflow: hidden; border: 1px solid rgba(0,0,0,0.08); }
     .proto-stage iframe { width: 100%; height: 780px; border: 0; display: block; background: #fff; }
-    .proto-note { font-size: 13px; color: var(--silver); line-height: 1.7; padding: 10px 0 0; max-width: 680px; }
+    .proto-note { font-size: 14px; color: var(--silver); line-height: 1.7; padding: 10px 0 0; max-width: 680px; }
 
     /* ── DARK CLOSING ────────────────────────────────── */
     .dark-section { background: var(--black); text-align: center; padding: 48px var(--pad) 0; }
@@ -145,13 +145,13 @@
     .dark-section img { display: block; width: 100%; max-width: 1024px; margin: 0 auto; }
 
     /* ── CLOSING ─────────────────────────────────────── */
-    .closing-section { border-top: 1px solid var(--black); }
+    .closing-section { border-top: 1px solid rgba(0,0,0,0.12); }
     .closing-quote { padding: 40px var(--pad); max-width: 780px; }
     .closing-quote p { font-size: 16px; color: var(--black); line-height: 1.8; }
 
     /* ── FLIPBOOK ────────────────────────────────────── */
     .flipbook-section { border-top: 1px solid var(--black); padding: 0 var(--pad) 60px; }
-    .flipbook-section .section-header p { margin-top: 12px; font-size: 15px; color: var(--gray); max-width: 600px; line-height: 1.75; }
+    .flipbook-section .section-header p { margin-top: 12px; font-size: 16px; color: var(--gray); max-width: 600px; line-height: 1.75; }
     .book-panel { display: flex; flex-direction: column; border: 1px solid var(--black); overflow: hidden; }
     .book-panel-header { background: var(--dark); padding: 18px 22px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
     .book-panel-header-left { display: flex; flex-direction: column; gap: 4px; }
@@ -227,32 +227,32 @@
     .stat-cell { flex:1; padding:26px 22px; border-right:1px solid var(--black); display:flex; flex-direction:column; gap:5px; }
     .stat-cell:last-child { border-right:none; }
     .stat-n { font-family:Georgia,serif; font-size:48px; line-height:1; color:var(--dark); letter-spacing:-1px; }
-    .stat-u { font-family:var(--ff-display); font-size:11px; color:var(--text); letter-spacing:.8px; margin-top:3px; }
-    .stat-l { font-family:var(--ff-display); font-size:10px; color:var(--silver); letter-spacing:.6px; }
+    .stat-u { font-family:var(--ff-display); font-size:14px; color:var(--text); letter-spacing:.8px; margin-top:3px; }
+    .stat-l { font-family:var(--ff-display); font-size:14px; color:var(--silver); letter-spacing:.6px; }
 
     /* ── TIME BANK FLOW ──────────────────────────────── */
     .tb-flow { display:flex; flex-direction:column; gap:0; margin-top:14px; border:1px solid rgba(0,0,0,.1); }
     .tb-flow-item { display:flex; align-items:center; gap:14px; padding:12px 14px; border-bottom:1px solid rgba(0,0,0,.06); }
     .tb-flow-item:last-child { border-bottom:none; }
-    .tb-flow-icon { width:30px; height:30px; border:1px solid var(--black); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-    .tb-flow-text h5 { font-family:var(--ff-display); font-size:11px; color:var(--black); letter-spacing:.5px; margin-bottom:2px; }
-    .tb-flow-text p  { font-size:11px; color:var(--gray); line-height:1.5; }
+    .tb-flow-icon { width:30px; height:30px; border:1px solid rgba(0,0,0,0.18); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .tb-flow-text h5 { font-family:var(--ff-display); font-size:14px; color:var(--black); letter-spacing:.5px; margin-bottom:2px; }
+    .tb-flow-text p  { font-size:14px; color:var(--gray); line-height:1.5; }
 
     /* ── PROCESS TIMELINE ────────────────────────────── */
     .process-timeline { display:flex; position:relative; padding:28px 0 8px; }
-    .process-timeline::before { content:''; position:absolute; top:48px; left:20px; right:24px; height:1px; background:var(--black); z-index:0; }
-    .process-timeline::after  { content:''; position:absolute; top:44px; right:18px; width:0; height:0; border-top:5px solid transparent; border-bottom:5px solid transparent; border-left:7px solid var(--black); }
+    .process-timeline::before { content:''; position:absolute; top:48px; left:20px; right:24px; height:1px; background:rgba(0,0,0,0.18); z-index:0; }
+    .process-timeline::after  { content:''; position:absolute; top:44px; right:18px; width:0; height:0; border-top:5px solid transparent; border-bottom:5px solid transparent; border-left:7px solid rgba(0,0,0,0.25); }
     .process-step { flex:1; display:flex; flex-direction:column; align-items:center; text-align:center; padding:0 6px; }
-    .process-dot { width:38px; height:38px; border:1px solid var(--black); display:flex; align-items:center; justify-content:center; margin-bottom:14px; position:relative; z-index:1; background:var(--bg); }
+    .process-dot { width:38px; height:38px; border:1px solid rgba(0,0,0,0.25); display:flex; align-items:center; justify-content:center; margin-bottom:14px; position:relative; z-index:1; background:var(--bg); }
     .process-dot.done   { background:var(--dark); }
     .process-dot.active { background:var(--black); }
     .process-dot span { font-family:var(--ff-display); font-size:9px; letter-spacing:.5px; color:var(--silver); }
     .process-dot.done span, .process-dot.active span { color:var(--bg); }
-    .process-step h4 { font-family:var(--ff-display); font-size:12px; color:var(--black); letter-spacing:.8px; margin-bottom:5px; font-weight:400; }
-    .process-step p  { font-size:11px; color:var(--gray); line-height:1.6; max-width:130px; }
+    .process-step h4 { font-family:var(--ff-display); font-size:14px; color:var(--black); letter-spacing:.8px; margin-bottom:5px; font-weight:400; }
+    .process-step p  { font-size:14px; color:var(--gray); line-height:1.6; max-width:130px; }
 
     /* ── PROCESS DIAGRAM SECTIONS ────────────────────── */
-    .pd-label { font-family:var(--ff-display); font-size:10px; color:var(--silver); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+    .pd-label { font-family:var(--ff-display); font-size:14px; color:var(--silver); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
     .overflow { overflow-x:auto; overflow-y:visible; scrollbar-width:thin; scrollbar-color:var(--dark) transparent; cursor:grab; padding-bottom:4px; }
     .overflow:active { cursor:grabbing; }
     .overflow::-webkit-scrollbar { height:3px; }
@@ -266,39 +266,39 @@
     .jm-blank { background:var(--dark); }
     .jm-stage { background:var(--dark); padding:16px 14px; border-right:1px solid rgba(255,255,255,.06); }
     .jm-stage:last-child { border-right:none; }
-    .jm-stage .s-n { font-family:var(--ff-display); font-size:9px; color:var(--silver); letter-spacing:1.5px; margin-bottom:4px; }
-    .jm-stage .s-t { font-family:var(--ff-display); font-size:11px; color:#fff; letter-spacing:.4px; line-height:1.4; }
+    .jm-stage .s-n { font-family:var(--ff-display); font-size:14px; color:var(--silver); letter-spacing:1.5px; margin-bottom:4px; }
+    .jm-stage .s-t { font-family:var(--ff-display); font-size:14px; color:#fff; letter-spacing:.4px; line-height:1.4; }
     .jm-rl { background:#f8f8f6; border-right:1px solid var(--line); border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:center; padding:12px 6px; }
-    .jm-rl span { font-family:var(--ff-display); font-size:8px; color:var(--silver); letter-spacing:1.5px; writing-mode:vertical-rl; text-orientation:mixed; transform:rotate(180deg); text-transform:uppercase; white-space:nowrap; }
+    .jm-rl span { font-family:var(--ff-display); font-size:14px; color:var(--silver); letter-spacing:1.5px; writing-mode:vertical-rl; text-orientation:mixed; transform:rotate(180deg); text-transform:uppercase; white-space:nowrap; }
     .jm-c { padding:12px 12px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
     .jm-c:nth-child(7n) { border-right:none; }
     .jm-c ul { list-style:none; display:flex; flex-direction:column; gap:3px; }
-    .jm-c ul li { font-size:11px; color:var(--text); padding-left:10px; position:relative; line-height:1.5; }
+    .jm-c ul li { font-size:14px; color:var(--text); padding-left:10px; position:relative; line-height:1.5; }
     .jm-c ul li::before { content:'–'; position:absolute; left:0; color:var(--silver); }
     .jm-emo { display:flex; align-items:center; justify-content:center; padding:10px 6px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
     .emo { width:28px; height:28px; border-radius:50%; border:1px solid var(--dark); display:flex; align-items:center; justify-content:center; font-size:11px; font-family:var(--ff-display); }
     .emo.hi { background:var(--dark); border-color:var(--dark); color:var(--bg); }
     .jm-pills { display:flex; flex-wrap:wrap; gap:2px; }
-    .jm-pills span { font-size:10px; color:var(--gray); }
+    .jm-pills span { font-size:14px; color:var(--gray); }
     .jm-tags { display:flex; flex-wrap:wrap; gap:3px; }
-    .jm-tag { font-family:var(--ff-display); font-size:9px; letter-spacing:.3px; color:var(--gray); border:1px solid var(--line); padding:2px 6px; line-height:1.5; }
+    .jm-tag { font-family:var(--ff-display); font-size:14px; letter-spacing:.3px; color:var(--gray); border:1px solid var(--line); padding:2px 6px; line-height:1.5; }
 
     /* Persona */
     .persona-wrap { display:grid; grid-template-columns:1fr 1fr; border:1px solid var(--black); }
     .p-col { padding:32px 28px; }
-    .p-col + .p-col { border-left:1px solid var(--black); }
-    .p-type { font-family:var(--ff-display); font-size:9px; color:var(--silver); letter-spacing:2px; margin-bottom:8px; }
+    .p-col + .p-col { border-left:1px solid rgba(0,0,0,0.12); }
+    .p-type { font-family:var(--ff-display); font-size:14px; color:var(--silver); letter-spacing:2px; margin-bottom:8px; }
     .p-name { font-family:var(--ff-display); font-size:20px; letter-spacing:1px; font-weight:400; margin-bottom:2px; color:var(--dark); }
-    .p-demo { font-size:11px; color:var(--gray); margin-bottom:18px; }
-    .p-quote { font-size:12px; font-style:italic; color:var(--text); line-height:1.8; max-width:340px; margin-bottom:20px; padding-left:14px; border-left:1.5px solid var(--black); }
+    .p-demo { font-size:14px; color:var(--gray); margin-bottom:18px; }
+    .p-quote { font-size:14px; font-style:italic; color:var(--text); line-height:1.8; max-width:340px; margin-bottom:20px; padding-left:14px; border-left:1.5px solid rgba(0,0,0,0.25); }
     .p-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px; }
-    .p-block .p-bl { font-family:var(--ff-display); font-size:8px; color:var(--silver); letter-spacing:1.5px; margin-bottom:4px; }
-    .p-block .p-bv { font-size:11px; color:var(--text); line-height:1.6; }
+    .p-block .p-bl { font-family:var(--ff-display); font-size:14px; color:var(--silver); letter-spacing:1.5px; margin-bottom:4px; }
+    .p-block .p-bv { font-size:14px; color:var(--text); line-height:1.6; }
     .p-chips { display:flex; flex-wrap:wrap; gap:5px; margin-top:14px; }
-    .p-chip { font-family:var(--ff-display); font-size:9px; letter-spacing:.5px; color:var(--gray); border:1px solid var(--line); padding:3px 10px; }
+    .p-chip { font-family:var(--ff-display); font-size:14px; letter-spacing:.5px; color:var(--gray); border:1px solid var(--line); padding:3px 10px; }
     .p-story { background:var(--dark); padding:16px 20px; margin-top:16px; }
-    .p-story .p-sl { font-family:var(--ff-display); font-size:8px; color:var(--silver); letter-spacing:1.5px; margin-bottom:7px; }
-    .p-story p { font-size:11px; color:rgba(255,255,255,.72); line-height:1.8; }
+    .p-story .p-sl { font-family:var(--ff-display); font-size:14px; color:var(--silver); letter-spacing:1.5px; margin-bottom:7px; }
+    .p-story p { font-size:14px; color:rgba(255,255,255,.72); line-height:1.8; }
 
     /* User Flow */
     .flow-legend {
@@ -311,7 +311,7 @@
       width:100%;
       max-width:none;
     }
-    .fl-item { display:flex; align-items:center; gap:8px; font-size:11px; color:var(--gray); }
+    .fl-item { display:flex; align-items:center; gap:8px; font-size:14px; color:var(--gray); }
     .fl-rect, .fl-pill, .fl-dark, .fl-diam { flex-shrink:0; }
     .fl-rect { width:28px; height:16px; border:1px solid rgba(0,0,0,.16); background:#fff; }
     .fl-pill { width:28px; height:16px; border:1px solid rgba(0,0,0,.16); border-radius:999px; background:#fff; }
@@ -333,7 +333,7 @@
     .fg:last-child { margin-bottom:0; }
     .fg-label {
       font-family:var(--ff-display);
-      font-size:10px;
+      font-size:14px;
       letter-spacing:1.5px;
       color:var(--dark);
       padding:18px 0 14px;
@@ -357,7 +357,7 @@
       align-items:center;
       justify-content:center;
       text-align:center;
-      font-size:11px;
+      font-size:14px;
       color:var(--text);
       line-height:1.45;
       min-height:48px;
@@ -453,7 +453,7 @@
     .flow-note {
       margin-top:12px;
       font-family:var(--ff-display);
-      font-size:10px;
+      font-size:14px;
       color:var(--silver);
       letter-spacing:.5px;
       padding-left:0;
@@ -476,14 +476,14 @@
     }
     .sm-app {
       font-family:var(--ff-display);
-      font-size:9px;
+      font-size:14px;
       color:var(--silver);
       letter-spacing:2px;
       margin-bottom:20px;
     }
     .sm-root {
       font-family:var(--ff-display);
-      font-size:10px;
+      font-size:14px;
       letter-spacing:.8px;
       color:#fff;
       background:var(--dark);
@@ -506,10 +506,10 @@
     .sm-group { margin-bottom:0; }
     .sm-group-label {
       font-family:var(--ff-display);
-      font-size:9px;
+      font-size:14px;
       letter-spacing:.8px;
       color:var(--dark);
-      border:1px solid var(--black);
+      border:1px solid rgba(0,0,0,0.22);
       padding:6px 10px;
       display:inline-block;
       margin-bottom:8px;
@@ -533,13 +533,13 @@
       content:'';
       width:10px;
       height:1px;
-      background:var(--black);
+      background:rgba(0,0,0,0.25);
       flex-shrink:0;
       margin-right:6px;
       margin-top:10px;
     }
     .sm-item span {
-      font-size:11px;
+      font-size:14px;
       color:var(--gray);
       padding:4px 0;
       border:none;
@@ -562,14 +562,14 @@
       .process-timeline { flex-wrap:wrap; gap:20px; }
       .process-timeline::before { display:none; }
       .persona-wrap, .sm-wrap { grid-template-columns:1fr; gap:24px; }
-      .p-col + .p-col { border-left:none; border-top:1px solid var(--black); }
+      .p-col + .p-col { border-left:none; border-top:1px solid rgba(0,0,0,0.12); }
       .sm-compact-grid { grid-template-columns:1fr; }
     }
 
     @media (max-width:760px) {
       .flow-track {
         flex-direction:column;
-        align-items:flex-start;
+        align-items:center;
         gap:14px;
       }
       .flow-node,
@@ -579,17 +579,7 @@
       .flow-node.end,
       .flow-node.muted {
         min-width:0;
-      }
-      .flow-node.screen,
-      .flow-node.action {
-        width:150px;
-      }
-      .flow-node.start,
-      .flow-node.end {
-        width:108px;
-      }
-      .flow-node.muted {
-        width:132px;
+        width:clamp(180px, 60vw, 280px);
       }
       .flow-node.decision {
         width:86px;
@@ -599,7 +589,10 @@
         width:auto;
         min-width:0;
         flex:0 0 auto;
-        margin-left:18px;
+        align-self:center;
+        margin-left:0;
+        display:flex;
+        justify-content:center;
       }
       .flow-connector .line {
         width:1px;
@@ -679,22 +672,7 @@
 
     /* ── HERO OVERLAY TEXT ───────────────────────────── */
     .hero { position:relative; }
-    .hero-text {
-      position:absolute; bottom:0; left:0; right:0;
-      padding:80px var(--pad) 40px;
-      background:linear-gradient(to top, rgba(0,0,0,.55) 0%, transparent 100%);
-      display:flex; align-items:flex-end; justify-content:space-between;
-      pointer-events:none;
-    }
-    .hero-text h1 {
-      font-family:var(--ff-display); font-size:clamp(32px,5vw,64px);
-      color:#fff; letter-spacing:4px; font-weight:400; line-height:1;
-    }
-    .hero-text .hero-sub {
-      font-family:var(--ff-display); font-size:11px;
-      color:rgba(255,255,255,.6); letter-spacing:1.5px; text-align:right;
-      line-height:1.8;
-    }
+    .hero-text { display:none; }
 
     /* ── QUICK-READ STRIP ────────────────────────────── */
     .quick-strip {
@@ -710,7 +688,7 @@
     .qs-item:first-child { padding-left:0; }
     .qs-item:not(:first-child):not(:last-child) { padding-left:24px; }
     .qs-lbl { font-family:var(--ff-display); font-size:9px; color:var(--silver); letter-spacing:1.5px; margin-bottom:4px; }
-    .qs-val { font-family:var(--ff-display); font-size:12px; color:var(--text); letter-spacing:.5px; line-height:1.5; }
+    .qs-val { font-family:var(--ff-display); font-size:14px; color:var(--text); letter-spacing:.5px; line-height:1.5; }
 
     /* ── DARK BAND ───────────────────────────────────── */
     .dark-band {
@@ -728,7 +706,7 @@
     .dark-band-right { display:flex; gap:48px; flex-wrap:wrap; }
     .db-item { display:flex; flex-direction:column; gap:4px; }
     .db-n { font-family:Georgia,serif; font-size:44px; color:#fff; line-height:1; letter-spacing:-1px; }
-    .db-t { font-family:var(--ff-display); font-size:10px; color:rgba(255,255,255,.4); letter-spacing:1px; line-height:1.6; }
+    .db-t { font-family:var(--ff-display); font-size:14px; color:rgba(255,255,255,.4); letter-spacing:1px; line-height:1.6; }
 
     /* ── COLOR FUNNEL SYSTEM ─────────────────────────── */
     .color-funnel-wrap {
@@ -745,7 +723,7 @@
     }
     .funnel-card-title {
       font-family:var(--ff-display);
-      font-size:11px;
+      font-size:14px;
       letter-spacing:1.2px;
       color:var(--silver);
       text-transform:uppercase;
@@ -790,7 +768,7 @@
     }
     .funnel-step span {
       font-family:var(--ff-display);
-      font-size:10px;
+      font-size:14px;
       letter-spacing:1px;
       color:rgba(255,255,255,.78);
       text-align:center;
@@ -810,14 +788,14 @@
     .funnel-meta-item strong {
       display:block;
       font-family:var(--ff-display);
-      font-size:10px;
+      font-size:14px;
       letter-spacing:1px;
       color:var(--text);
       font-weight:400;
       margin-bottom:4px;
     }
     .funnel-meta-item span {
-      font-size:11px;
+      font-size:14px;
       color:var(--gray);
       line-height:1.6;
     }
@@ -871,7 +849,7 @@
       color:var(--text); line-height:1.4;
     }
     .dc-before, .dc-after {
-      padding:28px 24px; font-size:13px; color:var(--text); line-height:1.75;
+      padding:28px 24px; font-size:14px; color:var(--text); line-height:1.75;
     }
     .dc-before { border-right:1px solid var(--line); background:#fafafa; }
     .dc-before-lbl, .dc-after-lbl {
@@ -885,13 +863,165 @@
     .result-chips { display:flex; gap:8px; flex-wrap:wrap; margin-top:24px; }
     .result-chip {
       display:flex; align-items:center; gap:8px;
-      border:1px solid var(--black); padding:8px 16px;
+      border:1px solid rgba(0,0,0,0.20); padding:8px 16px;
       font-family:var(--ff-display); font-size:10px;
       letter-spacing:.6px; color:var(--text);
     }
     .result-chip .rc-dot {
       width:6px; height:6px; border-radius:50%;
       background:var(--dark); flex-shrink:0;
+    }
+
+
+
+    /* ── PORTFOLIO DECISION NOTES ───────────────────── */
+    .decision-note {
+      margin: 0 0 18px;
+      padding: 12px 16px;
+      border-left: 2px solid var(--black);
+      background: #fafafa;
+      max-width: 760px;
+    }
+    .decision-note strong {
+      font-family: var(--ff-display);
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: var(--dark);
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 400;
+    }
+    .decision-note span {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.75;
+    }
+
+    /* ── JOURNEY MOBILE ACCORDION ───────────────────── */
+    .jm-mobile {
+      display: none;
+      margin-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+    .jm-acc {
+      border-bottom: 1px solid var(--line);
+    }
+    .jm-acc summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 0;
+    }
+    .jm-acc summary::-webkit-details-marker { display: none; }
+    .jm-acc-title {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .jm-acc-num {
+      font-family: var(--ff-display);
+      font-size: 11px;
+      letter-spacing: 1.2px;
+      color: var(--silver);
+    }
+    .jm-acc-stage {
+      font-family: var(--ff-display);
+      font-size: 15px;
+      letter-spacing: 0.6px;
+      color: var(--dark);
+      line-height: 1.4;
+    }
+    .jm-acc-arrow {
+      font-family: var(--ff-display);
+      font-size: 16px;
+      color: var(--silver);
+      transition: transform .2s ease;
+    }
+    .jm-acc[open] .jm-acc-arrow { transform: rotate(45deg); }
+    .jm-acc-body {
+      padding: 0 0 16px;
+      display: grid;
+      gap: 12px;
+    }
+    .jm-acc-block {
+      padding: 12px 14px;
+      background: #fafafa;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    .jm-acc-block strong {
+      display: block;
+      font-family: var(--ff-display);
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: var(--silver);
+      margin-bottom: 6px;
+      font-weight: 400;
+    }
+    .jm-acc-block p,
+    .jm-acc-block li,
+    .jm-acc-block span {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.7;
+    }
+    .jm-acc-block ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    /* ── OUTCOME METRICS / NEXT STEPS ───────────────── */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 28px;
+    }
+    .metric-card {
+      border-top: 1px solid var(--black);
+      padding: 20px 0 0;
+    }
+    .metric-value {
+      font-family: Georgia, serif;
+      font-size: 42px;
+      line-height: 1;
+      color: var(--dark);
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+    .metric-label {
+      font-family: var(--ff-display);
+      font-size: 13px;
+      letter-spacing: 0.8px;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .metric-desc {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+    .next-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 24px;
+    }
+    .next-step-card {
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+    }
+    .next-step-card h3 {
+      font-size: 17px;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .next-step-card p {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.75;
     }
 
     /* ── VISUAL RULE ─────────────────────────────────── */
@@ -905,12 +1035,12 @@
       flex:1; position:relative; display:flex; flex-direction:column; gap:10px;
     }
     .cis-img-wrap img {
-      width:100%; height:320px; object-fit:contain; display:block; background:#fafafa;
+      width:100%; height:320px; object-fit:contain; display:block; background:transparent;
       border:none;
     }
     .cis-img-wrap.cis-ph img { display:none; }
     .cis-img-wrap.cis-ph::before {
-      content:''; display:block; height:320px; background:#fafafa; border:none;
+      content:''; display:block; height:320px; background:transparent; border:none;
     }
     .cis-img-label {
       font-family:var(--ff-display); font-size:9px; letter-spacing:1.2px; color:var(--silver);
@@ -919,11 +1049,15 @@
 
     /* ── IA + CIS responsive ─────────────────────────── */
     @media(max-width:700px){
+      .jm-mobile { display:block; }
+      .overflow { display:none; }
+      .emotion-curve-wrap { display:none; }
       .ia-grid { grid-template-columns:repeat(2,1fr); }
       .cis-img-row { flex-direction:column; }
-      .cis-img-wrap { border-right:none; border-bottom:1px solid var(--black); }
+      .cis-img-wrap { border-right:none; border-bottom:1px solid rgba(0,0,0,0.12); }
       .cis-img-wrap:last-child { border-bottom:none; }
       .flow-row { gap:4px; }
+      .cis-icon-wrap { width: clamp(180px, 50%, 280px) !important; align-self: center; margin: 0 auto; }
     }
     @media(max-width:900px){
       .meta-row, .split-row { flex-direction:column; }
@@ -940,14 +1074,19 @@
       .process-timeline { flex-wrap:wrap; gap:20px; }
       .process-timeline::before, .process-timeline::after { display:none; }
       .persona-wrap, .sm-wrap { grid-template-columns:1fr; gap:24px; }
-      .p-col + .p-col { border-left:none; border-top:1px solid var(--black); }
-      .sm-col + .sm-col { border-left:none; border-top:1px solid rgba(0,0,0,.08); padding-left:0; padding-top:24px; }
+      .p-col + .p-col { border-left:none; border-top:1px solid rgba(0,0,0,0.12); }
+      .sm-col { padding-left:0; padding-right:0; padding-bottom:0; }
+      .meta-title-line { display:block; margin-bottom:2.4em; }
+      .sm-col + .sm-col { border-left:none; border-top:1px solid rgba(0,0,0,.12); padding-top:28px; }
+      .sm-entry-wrap { margin-left:0; }
+      .sm-compact-grid { padding:0; }
       .jm { min-width:860px; }
       .dark-band { flex-direction:column; gap:32px; }
       .dark-band-right { gap:32px; }
       .color-funnel-wrap { grid-template-columns:1fr; }
       .logo-grid { grid-template-columns:repeat(2,1fr); }
       .aux-grid  { grid-template-columns:repeat(2,1fr); }
+      .metric-grid, .next-steps-grid { grid-template-columns:1fr; }
       .dc { grid-template-columns:1fr; }
       .dc-label { border-right:none; border-bottom:1px solid var(--line); padding:20px 20px 14px; }
       .dc-before { border-right:none; border-bottom:1px solid var(--line); }
@@ -1343,17 +1482,18 @@
 
     /* ── TABLET 800–1279px ── */
     @media (max-width: 1279px) and (min-width: 800px) {
+      .cis-icon-wrap { width: clamp(160px, 35%, 240px) !important; align-self: center; margin: 0 auto; }
       .projects-grid {
         grid-template-columns: 1fr 1fr;
         gap: 22px;
       }
 
       .hero {
-        grid-template-columns: 240px minmax(0, 1fr);
-        gap: 28px;
-        padding: 132px 24px 74px;
+        height: 55svh;
+        min-height: 320px;
+        margin-left: -24px;
+        width: calc(100% + 48px);
       }
-      .hero::after { left: 24px; right: 24px; }
       .hero-media { position: static; }
       .hero-name { max-width: none; white-space: nowrap; }
       .projects-section { padding: 32px 24px 108px; }
@@ -1409,11 +1549,11 @@
       .nav-logo-wrap { width: 52px; height: 52px; flex-basis: 52px; }
 
       .hero {
-        grid-template-columns: 1fr;
-        gap: 24px;
-        padding: 108px 20px 58px;
+        height: 45svh;
+        min-height: 260px;
+        margin-left: -14px;
+        width: calc(100% + 28px);
       }
-      .hero::after { left: 20px; right: 20px; }
       .hero-media {
         position: static;
       }
@@ -1755,6 +1895,228 @@
         max-width: calc(100vw - 120px);
       }
     }
+
+    /* ── APP INTERFACE ───────────────────────────────── */
+    #interface { padding: 0 var(--pad); }
+
+    /* Section heading */
+    .app-heading {
+      padding: 60px 0 48px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 24px;
+    }
+    .app-heading-eyebrow {
+      font-family: var(--ff-display);
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      color: var(--silver);
+      margin-bottom: 14px;
+    }
+    .app-heading h2 {
+      font-family: var(--ff-display);
+      font-size: clamp(32px, 5vw, 56px);
+      letter-spacing: 3px;
+      color: var(--dark);
+      font-weight: 400;
+      line-height: 1;
+    }
+    .app-heading-desc {
+      font-size: 16px;
+      color: var(--text);
+      line-height: 1.75;
+      max-width: 420px;
+      margin-top: 16px;
+      opacity: 0.75;
+    }
+    .app-heading-count {
+      font-family: var(--ff-display);
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      color: var(--silver);
+      text-align: right;
+      white-space: nowrap;
+    }
+    .app-heading-count strong {
+      display: block;
+      font-family: Georgia, serif;
+      font-size: 42px;
+      color: var(--dark);
+      letter-spacing: -1px;
+      line-height: 1;
+      font-weight: 400;
+    }
+
+    /* Groups */
+    .app-group {
+      border-top: 1px solid rgba(0,0,0,0.12);
+      padding: 28px 0 0;
+    }
+    .app-group-header {
+      display: grid;
+      grid-template-columns: 180px 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 18px;
+    }
+    .app-group-index {
+      font-family: var(--ff-display);
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      color: var(--silver);
+    }
+    .app-group-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      justify-content: flex-end;
+    }
+    /* flow line on left */
+    #interface {
+      position: relative;
+      padding-left: calc(var(--pad) + 36px);
+    }
+    #interface::before {
+      content: '';
+      position: absolute;
+      left: calc(var(--pad) + 11px);
+      top: 180px;
+      bottom: 48px;
+      width: 2px;
+      background: var(--dark);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .app-group { position: relative; }
+    .app-group::before {
+      content: '';
+      position: absolute;
+      left: -30px;
+      top: 33px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--dark);
+      box-shadow: 0 0 0 3px rgba(255,255,255,1), 0 0 0 4px var(--dark);
+      opacity: 0.7;
+    }
+
+    .app-screens {
+      display: flex;
+      align-items: flex-end;
+      gap: 0;
+      overflow-x: auto;
+      padding-bottom: 32px;
+      scrollbar-width: none;
+    }
+    .app-screens::-webkit-scrollbar { display: none; }
+    .app-screens img {
+      flex-shrink: 0;
+      height: 400px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+      border: none;
+      transition: transform 0.3s ease;
+    }
+    .app-screens img:hover { transform: translateY(-4px); }
+    .screen-sep {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      color: var(--silver);
+      font-size: 16px;
+      align-self: center;
+      line-height: 1;
+      opacity: 0.5;
+    }
+
+    .app-group-label {
+      font-family: var(--ff-display);
+      font-size: 16px;
+      letter-spacing: 1.8px;
+      color: var(--dark);
+      font-weight: 400;
+    }
+    .app-group-tag {
+      font-family: var(--ff-display);
+      font-size: 10px;
+      letter-spacing: 0.7px;
+      color: var(--silver);
+      border: 1px solid var(--line);
+      padding: 3px 9px;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 799px) {
+      .app-heading { grid-template-columns: 1fr; padding: 40px 0 32px; }
+      .app-heading-count { display: none; }
+      .app-group-header { grid-template-columns: 1fr; gap: 8px; }
+      .app-group-tags { justify-content: flex-start; }
+      .app-screens img { height: 240px; }
+      #interface {
+        padding-left: calc(var(--pad) + 28px);
+      }
+      #interface::before {
+        left: calc(var(--pad) + 8px);
+        top: 160px;
+        width: 2px;
+      }
+      .app-group::before {
+        left: -24px;
+        width: 10px;
+        height: 10px;
+      }
+    }
+  
+
+    /* ── PORTFOLIO ROUND 2 REFINEMENTS ───────────────── */
+    main { display:block; }
+    .portfolio-snapshot { padding: 28px var(--pad) 42px; border-top: 1px solid rgba(0,0,0,0.08); border-bottom: 1px solid rgba(0,0,0,0.08); background: linear-gradient(180deg, rgba(249,248,245,0.75) 0%, rgba(255,255,255,1) 100%); }
+    .snapshot-eyebrow, .section-kicker { font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--silver); margin-bottom: 10px; }
+    .snapshot-grid { display:grid; grid-template-columns: minmax(0,1.1fr) minmax(0,0.9fr); gap: 24px; align-items: start; }
+    .snapshot-card { background:#fff; border:1px solid rgba(0,0,0,0.08); border-radius: 22px; padding: 22px; }
+    .snapshot-card h3 { font-size: clamp(20px,2vw,26px); letter-spacing:1.2px; margin-bottom:10px; }
+    .snapshot-card p { color: var(--text); font-size: 15px; line-height: 1.75; }
+    .snapshot-list { display:grid; gap: 14px; }
+    .snapshot-item { padding-bottom: 14px; border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .snapshot-item:last-child { padding-bottom:0; border-bottom:none; }
+    .snapshot-item strong { display:block; font-family: var(--ff-display); font-size: 13px; font-weight:400; letter-spacing:0.9px; color: var(--text); margin-bottom:4px; }
+    .snapshot-item span { font-size: 14px; color: var(--text); line-height: 1.7; display:block; }
+    .section-intro { max-width: 760px; margin: -2px 0 20px; color: var(--text); font-size: 15px; line-height: 1.8; }
+    .section-summary-band { margin: 0 0 22px; display:flex; flex-wrap:wrap; gap: 10px; }
+    .summary-chip { border:1px solid rgba(0,0,0,0.09); border-radius:999px; padding: 8px 12px; font-size: 12px; line-height:1.3; color: var(--text); background:#fff; }
+    .proto-callout { margin: 0 0 22px; display:grid; grid-template-columns: minmax(0,1fr) auto; gap: 16px; align-items:center; border:1px solid rgba(0,0,0,0.08); border-radius: 22px; padding: 18px 20px; background: rgba(249,248,245,0.8); }
+    .proto-callout h3 { font-size: 18px; letter-spacing: 1px; margin-bottom: 6px; }
+    .proto-callout p { font-size: 14px; color: var(--text); line-height:1.7; max-width: 620px; }
+    .proto-callout .proto-btn { white-space: nowrap; }
+    .impact-layout { display:grid; grid-template-columns: minmax(0,1.05fr) minmax(0,0.95fr); gap: 24px; margin-top: 24px; }
+    .impact-panel { border:1px solid rgba(0,0,0,0.08); border-radius: 22px; padding: 22px; background:#fff; }
+    .impact-panel h3 { font-size: 24px; margin-bottom: 10px; }
+    .impact-panel p { font-size: 15px; color: var(--text); line-height: 1.8; }
+    .impact-list { display:grid; gap: 14px; margin-top: 16px; }
+    .impact-item { padding-bottom:14px; border-bottom:1px solid rgba(0,0,0,0.06); }
+    .impact-item:last-child { padding-bottom:0; border-bottom:none; }
+    .impact-item strong { display:block; font-family: var(--ff-display); font-size:14px; letter-spacing:0.9px; font-weight:400; margin-bottom:5px; color: var(--text); }
+    .impact-item span { display:block; font-size:14px; color: var(--text); line-height:1.7; }
+    .reflection-points { display:grid; gap: 12px; margin-top: 16px; }
+    .reflection-point { border:1px solid rgba(0,0,0,0.06); border-radius: 16px; padding: 14px 16px; background: rgba(249,248,245,0.85); }
+    .reflection-point strong { display:block; font-family: var(--ff-display); font-size:13px; letter-spacing:0.8px; font-weight:400; margin-bottom:6px; }
+    .reflection-point span { display:block; font-size:14px; color: var(--text); line-height:1.7; }
+    .closing-note { max-width: 760px; margin-top: 18px; color: var(--silver); font-size: 13px; line-height: 1.7; }
+    @media (max-width: 900px) {
+      .snapshot-grid, .impact-layout, .proto-callout { grid-template-columns: 1fr; }
+      .proto-callout .proto-btn { justify-self: start; }
+    }
+    @media (max-width: 640px) {
+      .portfolio-snapshot { padding-top: 24px; padding-bottom: 30px; }
+      .snapshot-card, .impact-panel { border-radius: 18px; padding: 18px; }
+      .section-summary-band { gap: 8px; }
+      .summary-chip { font-size: 11px; padding: 7px 10px; }
+    }
+
   </style></head>
 <body>
 
@@ -1793,29 +2155,28 @@
     <a href="index.html#about" onclick="closeMenu()">About Me</a>
   </div>
 
+  <main id="main-content">
+
   <!--
   ================================================================
   📸 IMAGE PLACEMENT GUIDE
-  project-1-hero.png     → HERO 橫幅（500px 高，全幅）App 情境或 mockup
-  project-1-cis-overview → 全幅展示圖（meta-row 後）CIS 識別板
-  project-1-logo.png     → split-left：品牌 logo / 識別排列
-  project-1-hero.png     → split-right（半透明遮罩）使用情境
-  project-1-8.png        → services img 1（直式 0.7）色票或 icon
-  project-1-9.png        → services img 2（直式 0.7）字型樣本
-  project-1-screen-1~6   → portrait pair + spread（已有）
-  project-1-16.png       → 黑底全幅情境圖
-  project-1-17~18.png    → closing 上下橫圖
+  project-1-hero.png     → HERO banner (500px tall, full-width) — App context or mockup
+  project-1-cis-overview → Full-width showcase (after meta-row) — CIS identity board
+  project-1-logo.png     → split-left：Brand logo / identity layout
+  project-1-hero.png     → split-right (semi-transparent overlay) — usage context
+  project-1-8.png        → services img 1 (portrait 0.7) — color swatches or icon
+  project-1-9.png        → services img 2 (portrait 0.7) — typeface specimen
+  project-1-screen-1~6   → portrait pair + spread (existing)
+  project-1-16.png       → Full-width context image on black background
+  project-1-17~18.png    → closing top/bottom banner images
   ================================================================
   -->
 
   <!-- SECTION PROGRESS INDICATOR -->
 <!-- HERO: full-width image -->
   <section class="hero" id="overview">
-    <img src="images/project-1-hero.png" alt="Soultime">
-    <div class="hero-text">
-      <h1>SOULTIME</h1>
-      <div class="hero-sub">Time Banking App &amp; Brand Identity<br>Elder Care Service · iOS · Android · 2024</div>
-    </div>
+    <img src="images/project-1-1.png" alt="Soultime">
+
   </section>
 
   <!-- META ROW -->
@@ -1828,8 +2189,8 @@
       <div class="meta-tag">Focus / Time Banking &amp; Age-Inclusive Interface</div>
     </div>
     <div class="meta-label" style="display:flex;flex-direction:column;justify-content:space-between;padding:24px 32px;">
-      <span style="font-family:var(--ff-display);font-size:20px;color:var(--text);letter-spacing:1px;">Time Banking App &amp; Brand Identity</span>
-      <div style="display:flex;gap:48px;padding-bottom:4px;flex-wrap:wrap;">
+      <span style="font-family:var(--ff-display);font-size:20px;color:var(--text);letter-spacing:1px;" class="meta-title-line">Time Banking App &amp; Brand Identity</span>
+      <div style="display:flex;gap:24px;padding-bottom:4px;flex-wrap:wrap;row-gap:10px;">
         <div>
           <div style="font-family:var(--ff-display);font-size:11px;color:var(--silver);letter-spacing:1px;margin-bottom:4px;">Role</div>
           <div style="font-family:var(--ff-display);font-size:13px;color:var(--text);letter-spacing:0.5px;">UX Research · App Design · Brand Identity</div>
@@ -1855,8 +2216,24 @@
     <p>Soultime is a mobile service platform built on time banking — where elderly users can request help, offer support, and accumulate service hours as a form of mutual care. A parallel family interface extends the system to health monitoring and coordination, without over-control.</p>
   </div>
 
+  <section class="portfolio-snapshot reveal" aria-labelledby="snapshot-title">
+    <div class="snapshot-grid">
+      <div class="snapshot-card">
+        <div class="snapshot-eyebrow">Portfolio Snapshot</div>
+        <h3 id="snapshot-title">What this project demonstrates for a UX / Product Designer role</h3>
+        <p>Soultime is positioned here not only as an interface exercise, but as a systems design case study. The project moves from social problem framing to research synthesis, interaction structure, visual identity, and a testable prototype, making the design rationale legible at each stage.</p>
+      </div>
+      <div class="snapshot-card snapshot-list" aria-label="Project highlights">
+        <div class="snapshot-item"><strong>Problem Framing</strong><span>Translated aging society, care access, and participation gaps into a product opportunity grounded in service logic rather than feature accumulation.</span></div>
+        <div class="snapshot-item"><strong>Design Contribution</strong><span>Defined the core interaction direction, structured the app and family-side flows, and extended the system into a complete visual identity deliverable.</span></div>
+        <div class="snapshot-item"><strong>Evidence</strong><span>Used demographic research and 15 qualitative interviews to prioritise trust, readability, and low-friction service actions.</span></div>
+        <div class="snapshot-item"><strong>Recruiter Readout</strong><span>This case demonstrates end-to-end thinking: research-backed decisions, interface prioritisation, brand consistency, and prototype communication.</span></div>
+      </div>
+    </div>
+  </section>
+
   <!-- FULL IMAGE -->
-  <img src="images/project-1-cis-overview.png" alt="Soultime CIS overview">
+  <img src="images/project-1-2.png" alt="Soultime CIS overview">
 
   <!-- PROJECT OVERVIEW -->
   <section class="section section-border">
@@ -1910,15 +2287,15 @@
   </section>
 
   <!-- BRAND INTRO -->
-  <section class="section section-border reveal">
-    <div class="section-header">
-      <h2>Caring, age-friendly,<br>and service-oriented</h2>
+  <section class="section-border reveal" style="padding:0;">
+    <div style="width:100%;overflow:hidden;">
+      <img src="images/project-1-3.png" alt="Soultime brand" style="width:100%;display:block;object-fit:cover;">
     </div>
-    <div class="services-grid" style="margin-top:24px;">
-      <div class="services-imgs">
-        <img src="images/project-1-logo.png" alt="Soultime brand">
+    <div style="padding:40px var(--pad);">
+      <div class="section-header" style="padding-top:0;">
+        <h2>Caring, age-friendly,<br>and service-oriented</h2>
       </div>
-      <div class="services-list">
+      <div class="services-list" style="margin-top:20px;">
         <div class="service-row">
           <div class="service-label">Brand Position</div>
           <div class="service-desc">The brand does not frame elderly users as only recipients of care, but as participants who can request support, contribute time, join activities, and remain socially connected.</div>
@@ -1934,8 +2311,13 @@
   <!-- RESEARCH FOUNDATION -->
   <section class="section section-border" id="research-foundation">
     <div class="section-header reveal">
-      <h2>Research Foundation</h2>
+      <div>
+        <div class="section-kicker">Why this project exists</div>
+        <h2>Research Foundation</h2>
+      </div>
     </div>
+    <p class="section-intro reveal rd1">This section condenses the social context, user evidence, and design constraints that shaped the product direction. The goal is to show not only what was researched, but how that research was converted into interface priorities.</p>
+    <div class="decision-note reveal rd1"><strong>Design Decision</strong><span>I decided to ground the project in demographic data, interview evidence, and the logic of time banking first, so the later interface decisions would read as responses to a real social problem rather than a purely aesthetic exercise.</span></div>
 
     <!-- STATS ROW -->
     <div class="stats-row reveal rd1">
@@ -2010,26 +2392,22 @@
     <div class="section-header reveal">
       <h2>Design Criteria</h2>
     </div>
-    <div class="services-grid reveal rd1">
-      <div class="services-imgs">
-        <!-- placeholder for criteria illustration if needed -->
-        <div style="background:#f5f5f3;aspect-ratio:.7;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);">
-          <span style="font-family:var(--ff-display);font-size:10px;color:var(--silver);letter-spacing:1px;">Criteria</span>
-        </div>
+    <div class="reveal rd1" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;">
+      <img src="images/project-1-13.png" alt="Design criteria poster" style="width:100%;object-fit:contain;display:block;" onerror="this.style.minHeight='320px';this.style.background='#f5f5f5'">
+      <img src="images/project-1-14.png" alt="Design criteria poster" style="width:100%;object-fit:contain;display:block;" onerror="this.style.minHeight='320px';this.style.background='#f0f0f0'">
+    </div>
+    <div class="services-list reveal rd2">
+      <div class="service-row">
+        <div class="service-label">Hierarchy &amp; Flow</div>
+        <div class="service-desc">Few page levels, clear function divisions, direct CTA patterns, and generous white space. Every screen should resolve in a single decision — users should never feel lost or need to backtrack.</div>
       </div>
-      <div class="services-list">
-        <div class="service-row">
-          <div class="service-label">Hierarchy &amp; Flow</div>
-          <div class="service-desc">Few page levels, clear function divisions, direct CTA patterns, and generous white space. Every screen should resolve in a single decision — users should never feel lost or need to backtrack.</div>
-        </div>
-        <div class="service-row">
-          <div class="service-label">Typography &amp; Contrast</div>
-          <div class="service-desc">Solid type at approximately 20pt, strong background contrast, and simple wording. The option to adjust text size must be accessible from the first screen — not buried in settings.</div>
-        </div>
-        <div class="service-row">
-          <div class="service-label">Accessible Interaction</div>
-          <div class="service-desc">Large tap targets, rounded button shapes, minimal text input burden, and concrete icons paired with text labels. Abstract symbols are avoided to reduce cognitive load and support immediate recognition.</div>
-        </div>
+      <div class="service-row">
+        <div class="service-label">Typography &amp; Contrast</div>
+        <div class="service-desc">Solid type at approximately 20pt, strong background contrast, and simple wording. The option to adjust text size must be accessible from the first screen — not buried in settings.</div>
+      </div>
+      <div class="service-row">
+        <div class="service-label">Accessible Interaction</div>
+        <div class="service-desc">Large tap targets, rounded button shapes, minimal text input burden, and concrete icons paired with text labels. Abstract symbols are avoided to reduce cognitive load and support immediate recognition.</div>
       </div>
     </div>
   </section>
@@ -2057,10 +2435,18 @@
   <!-- 01 JOURNEY MAP -->
   <section class="section section-border" id="process">
     <div class="section-header reveal">
-      <div class="pd-label">Design Process · 01</div>
-      <h2>Journey Map</h2>
+      <div>
+        <div class="pd-label">Design Process · 01</div>
+        <h2>Journey Map</h2>
+      </div>
+    </div>
+    <div class="section-summary-band reveal rd1">
+      <span class="summary-chip">Maps emotional friction across six service stages</span>
+      <span class="summary-chip">Highlights where guidance and reassurance matter most</span>
+      <span class="summary-chip">Turns service complexity into a readable design brief</span>
     </div>
     <p class="body-text reveal rd1" style="margin-bottom:16px;">Mr. A's emotional arc across six service stages — from application through post-service review. Each column maps actions, emotional state, and design improvement opportunities.</p>
+    <div class="decision-note reveal rd2"><strong>Key Challenge</strong><span>The key challenge was translating a long and emotionally uneven service journey into something that stayed readable at a glance, so the map privileges emotional turning points and intervention moments instead of documenting every minor action.</span></div>
 
     <!-- Emotion Curve -->
     <div class="emotion-curve-wrap reveal rd2">
@@ -2133,6 +2519,57 @@
     </div><!-- /jm -->
     </div><!-- /overflow -->
 
+    <div class="jm-mobile reveal rd3">
+      <details class="jm-acc" open>
+        <summary><div class="jm-acc-title"><span class="jm-acc-num">01</span><span class="jm-acc-stage">Apply For Service</span></div><span class="jm-acc-arrow">+</span></summary>
+        <div class="jm-acc-body">
+          <div class="jm-acc-block"><strong>Action</strong><ul><li>Fill request form</li><li>Select service type</li><li>Submit application</li></ul></div>
+          <div class="jm-acc-block"><strong>Emotion</strong><p>Hopeful · Uncertain</p></div>
+          <div class="jm-acc-block"><strong>Improve</strong><p>Guided input · Simplify form</p></div>
+        </div>
+      </details>
+      <details class="jm-acc">
+        <summary><div class="jm-acc-title"><span class="jm-acc-num">02</span><span class="jm-acc-stage">Check Invitations</span></div><span class="jm-acc-arrow">+</span></summary>
+        <div class="jm-acc-body">
+          <div class="jm-acc-block"><strong>Action</strong><ul><li>View notifications</li><li>Confirm or decline</li></ul></div>
+          <div class="jm-acc-block"><strong>Emotion</strong><p>Relieved · Curious</p></div>
+          <div class="jm-acc-block"><strong>Improve</strong><p>Clear notification · One-tap confirm</p></div>
+        </div>
+      </details>
+      <details class="jm-acc">
+        <summary><div class="jm-acc-title"><span class="jm-acc-num">03</span><span class="jm-acc-stage">Confirmed Orders</span></div><span class="jm-acc-arrow">+</span></summary>
+        <div class="jm-acc-body">
+          <div class="jm-acc-block"><strong>Action</strong><ul><li>View confirmed orders</li><li>Check service details</li><li>Check scheduled time</li></ul></div>
+          <div class="jm-acc-block"><strong>Emotion</strong><p>Safe · Managed</p></div>
+          <div class="jm-acc-block"><strong>Improve</strong><p>Detailed order view · Add to calendar</p></div>
+        </div>
+      </details>
+      <details class="jm-acc">
+        <summary><div class="jm-acc-title"><span class="jm-acc-num">04</span><span class="jm-acc-stage">Get To Location</span></div><span class="jm-acc-arrow">+</span></summary>
+        <div class="jm-acc-body">
+          <div class="jm-acc-block"><strong>Action</strong><ul><li>Open navigation</li><li>Follow route</li><li>Check in at location</li></ul></div>
+          <div class="jm-acc-block"><strong>Emotion</strong><p>Independent · Focused</p></div>
+          <div class="jm-acc-block"><strong>Improve</strong><p>Real-time navigation · Route preference</p></div>
+        </div>
+      </details>
+      <details class="jm-acc">
+        <summary><div class="jm-acc-title"><span class="jm-acc-num">05</span><span class="jm-acc-stage">Participate In Activity</span></div><span class="jm-acc-arrow">+</span></summary>
+        <div class="jm-acc-body">
+          <div class="jm-acc-block"><strong>Action</strong><ul><li>Begin activity</li><li>System tracks time</li><li>Participate with support</li></ul></div>
+          <div class="jm-acc-block"><strong>Emotion</strong><p>Connected · Valued</p></div>
+          <div class="jm-acc-block"><strong>Improve</strong><p>Progress tracking · Activity variety</p></div>
+        </div>
+      </details>
+      <details class="jm-acc">
+        <summary><div class="jm-acc-title"><span class="jm-acc-num">06</span><span class="jm-acc-stage">Review Service</span></div><span class="jm-acc-arrow">+</span></summary>
+        <div class="jm-acc-body">
+          <div class="jm-acc-block"><strong>Action</strong><ul><li>View complete history</li><li>Leave rating</li><li>Submit feedback</li></ul></div>
+          <div class="jm-acc-block"><strong>Emotion</strong><p>Accomplished · Grateful</p></div>
+          <div class="jm-acc-block"><strong>Improve</strong><p>Combined history · Rating guidance</p></div>
+        </div>
+      </details>
+    </div>
+
   </section>
 
   <!-- 02 USER STORY / PERSONA -->
@@ -2142,6 +2579,7 @@
       <h2>User Story</h2>
     </div>
     <p class="body-text reveal rd1" style="margin-bottom:28px;">Two personas anchor every interaction decision — one representing the elderly user seeking participation and connection, one representing the family member coordinating care from a distance.</p>
+    <div class="decision-note reveal rd2"><strong>Design Decision</strong><span>I decided to keep the personas intentionally asymmetrical: one focuses on dignity, participation, and digital reassurance, while the other focuses on remote awareness, because the product only works when both motivations are visible in parallel.</span></div>
     <div class="persona-wrap reveal rd2">
         <div class="p-col">
           <div class="p-type">Primary User</div>
@@ -2178,10 +2616,7 @@
           </div>
         </div>
     </div>
-    <div class="ph reveal rd3">
-      <span class="ph-t">Insert Sketch — User Story</span>
-      <span class="ph-s">Replace with @2x PNG export, white background</span>
-    </div>
+
   </section>
 
   <!-- 03 USER FLOW -->
@@ -2191,6 +2626,7 @@
       <h2>User Flow</h2>
     </div>
     <p class="body-text reveal rd1" style="margin-bottom:28px;">Three primary task flows traced from app open through task completion and time currency reward. Decision nodes show where the system branches and how incomplete actions loop back.</p>
+    <div class="decision-note reveal rd2"><strong>Design Decision</strong><span>I decided to compress the system into three core flows because most other features are supporting layers. That framing makes the product feel learnable, and it tells recruiters exactly what the product is asking users to do.</span></div>
     <div class="flow-legend reveal rd1">
       <div class="fl-item"><div class="fl-dark"></div><span>Start / End</span></div>
       <div class="fl-item"><div class="fl-rect"></div><span>Screen</span></div>
@@ -2274,6 +2710,7 @@
       <div class="pd-label">Design Process · 04</div>
       <h2>Information Architecture</h2>
     </div>
+    <div class="decision-note reveal rd1"><strong>Key Challenge</strong><span>The key challenge was protecting elderly users from cognitive overload without flattening the service system, so the architecture keeps high-frequency actions near the surface and moves administrative details one level deeper.</span></div>
         <div class="reveal rd2">
       <div class="sm-wrap">
         <div class="sm-col">
@@ -2312,6 +2749,14 @@
         </div>
       </div>
     </div>
+    <div class="reveal rd3" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:32px;">
+      <div>
+        <img src="images/project-1-62.png" alt="User Side IA" style="width:100%;display:block;object-fit:contain;" onerror="this.style.display='none'">
+      </div>
+      <div>
+        <img src="images/project-1-63.png" alt="Family Side IA" style="width:100%;display:block;object-fit:contain;" onerror="this.style.display='none'">
+      </div>
+    </div>
   </section>
 
   <!-- BRAND IDENTITY & CIS -->
@@ -2323,12 +2768,14 @@
 
     <div class="cis-img-row reveal rd2">
       <div class="cis-img-wrap">
-        <img src="images/cis-aux-shapes.png" alt="Auxiliary graphic elements" onerror="this.parentElement.classList.add('cis-ph')">
+        <img src="images/project-1-4.png" alt="Auxiliary graphic elements" onerror="this.parentElement.classList.add('cis-ph')">
+        <img src="images/project-1-5.png" alt="Auxiliary graphic elements" onerror="this.parentElement.classList.add('cis-ph')">
         <span class="cis-img-label">Auxiliary Shapes</span>
       </div>
       <div class="cis-img-wrap">
-        <img src="images/cis-logo-combinations.png" alt="Logo combinations" onerror="this.parentElement.classList.add('cis-ph')">
-        <span class="cis-img-label">Logo Combinations</span>
+        <img src="images/project-1-6.png" alt="Logo combinations" onerror="this.parentElement.classList.add('cis-ph')">
+        <img src="images/project-1-7.png" alt="Logo combinations" onerror="this.parentElement.classList.add('cis-ph')">
+        <span class="cis-img-label">Logo Clear Space</span>
       </div>
     </div>
 
@@ -2337,16 +2784,16 @@
     </div>
     <div class="cis-img-row reveal rd1">
       <div class="cis-img-wrap" style="flex:2;">
-        <img src="images/cis-logo-light.png" alt="Logo on light" onerror="this.parentElement.classList.add('cis-ph')">
+        <img src="images/project-1-8.png" alt="Logo on light" onerror="this.parentElement.classList.add('cis-ph')">
         <span class="cis-img-label">Standard — Light Background</span>
       </div>
       <div class="cis-img-wrap" style="flex:2;">
-        <img src="images/cis-logo-dark.png" alt="Logo on dark" onerror="this.parentElement.classList.add('cis-ph')">
+        <img src="images/project-1-9.png" alt="Logo on dark" onerror="this.parentElement.classList.add('cis-ph')">
         <span class="cis-img-label">Standard — Dark Background</span>
       </div>
-      <div class="cis-img-wrap" style="flex:1;">
-        <img src="images/cis-logo-icon.png" alt="Icon only" onerror="this.parentElement.classList.add('cis-ph')">
-        <span class="cis-img-label">Icon Only</span>
+      <div class="cis-img-wrap cis-icon-wrap" style="flex:0 0 auto;width:clamp(80px,12%,140px);align-items:center;">
+        <img src="images/project-1-10.png" alt="Icon" style="height:auto;width:100%;object-fit:contain;background:transparent;margin:auto;" onerror="this.parentElement.classList.add('cis-ph')">
+        <span class="cis-img-label" style="text-align:center;display:block;">Icon</span>
       </div>
     </div>
 
@@ -2360,15 +2807,15 @@
           <div class="funnel-half left">
             <div class="funnel-step" style="background:#21005D;"><span>Deep Purple</span></div>
             <div class="funnel-step" style="background:#1D2087;"><span>Dark Blue</span></div>
-            <div class="funnel-step" style="background:#3268A5;"><span>Mid Blue</span></div>
-            <div class="funnel-step" style="background:#658CF5;"><span>Light Blue</span></div>
+            <div class="funnel-step" style="background:#658CF5;"><span>Mid Blue</span></div>
+            <div class="funnel-step" style="background:#AEC5E7;"><span>Light Blue</span></div>
             <div class="funnel-step light" style="background:#DEE9F0;"><span>Surface Blue</span></div>
           </div>
           <div class="funnel-half right">
             <div class="funnel-step" style="background:#21005D;"><span>#21005D</span></div>
             <div class="funnel-step" style="background:#1D2087;"><span>#1D2087</span></div>
-            <div class="funnel-step" style="background:#3268A5;"><span>#3268A5</span></div>
             <div class="funnel-step" style="background:#658CF5;"><span>#658CF5</span></div>
+            <div class="funnel-step" style="background:#AEC5E7;"><span>#AEC5E7</span></div>
             <div class="funnel-step light" style="background:#DEE9F0;"><span>#DEE9F0</span></div>
           </div>
         </div>
@@ -2404,8 +2851,8 @@
     <!-- services-grid for brand description -->
     <div class="services-grid reveal rd2" style="margin-top:40px;">
       <div class="services-imgs">
-        <img src="images/project-1-8.png" alt="Color identity">
-        <img src="images/project-1-9.png" alt="Typography">
+        <img src="images/project-1-11.png" alt="Logo">
+        <img src="images/project-1-12.png" alt="Typography">
       </div>
       <div class="services-list">
         <div class="service-row">
@@ -2431,8 +2878,11 @@
   <!-- CIS FLIPBOOK -->
   <section class="flipbook-section" id="cis-document">
     <div class="section-header reveal">
-      <h2>CIS Document</h2>
-      <p style="margin-top:10px;font-size:12px;color:var(--silver);letter-spacing:0.5px;line-height:1.6;">Drag left or right to flip pages. Click EXPAND for fullscreen reading.</p>
+      <div>
+        <div class="section-kicker">Brand deliverable</div>
+        <h2>CIS Document</h2>
+        <p style="margin-top:10px;font-size:12px;color:var(--silver);letter-spacing:0.5px;line-height:1.6;max-width:760px;">This is the complete brand identity document for Soultime, presented as a readable flipbook rather than a static appendix. It shows how the product system was extended into a deployable visual language covering logo, colour, typography, and application rules.</p>
+      </div>
     </div>
     <div class="book-panel" id="panel-cis">
       <div class="book-panel-header">
@@ -2492,6 +2942,7 @@
       <h2>Key Design<br>Decisions</h2>
     </div>
     <p class="body-text reveal rd1" style="margin-bottom:28px;">Each decision traces back to a specific research finding. What follows is not a list of features — it is a record of how evidence was turned into design constraints.</p>
+    <div class="decision-note reveal rd2"><strong>Portfolio Framing</strong><span>I decided to keep this section in a before-and-after format so the reasoning remains visible. For a hiring portfolio, the point is not only what changed, but why a change was necessary and what trade-off it resolved.</span></div>
     <div class="decision-grid reveal rd2">
       <div class="dc">
         <div class="dc-label"><span>Homepage<br>Entry Point</span></div>
@@ -2529,20 +2980,225 @@
     </div>
   </section>
 
-  <!-- APP INTERFACE -->
-  <div style="border-top:1px solid var(--dark);" id="interface">
-    <div class="portrait-pair">
-      <div class="screen-hover-wrap"><img src="images/project-1-screen-1.png" alt="Soultime home"><span class="screen-label">Homepage</span></div>
-      <div class="screen-hover-wrap"><img src="images/project-1-screen-4.png" alt="Soultime records"><span class="screen-label">Time Currency</span></div>
+    <!-- APP INTERFACE -->
+  <div id="interface" style="border-top:1px solid var(--dark);">
+    <div class="app-heading reveal">
+      <div>
+        <div class="app-heading-eyebrow">05 — App Interface</div>
+        <h2>Key Screens</h2>
+        <p class="app-heading-desc">Selected screens across critical user flows — representative steps from onboarding through service completion.</p>
+      </div>
+      <div class="app-heading-count">
+        <strong>12</strong>
+        Flows · 44 Screens
+      </div>
     </div>
-    <div class="spread-images">
-      <div class="screen-hover-wrap"><img src="images/project-1-screen-1.png" alt="Home"><span class="screen-label">Home</span></div>
-      <div class="screen-hover-wrap"><img src="images/project-1-screen-2.png" alt="Request"><span class="screen-label">Request Help</span></div>
-      <div class="screen-hover-wrap"><img src="images/project-1-screen-3.png" alt="Activities"><span class="screen-label">Calendar</span></div>
-      <div class="screen-hover-wrap"><img src="images/project-1-screen-4.png" alt="Records"><span class="screen-label">Time Records</span></div>
-      <div class="screen-hover-wrap"><img src="images/project-1-screen-5.png" alt="Health"><span class="screen-label">Health Status</span></div>
-      <div class="screen-hover-wrap"><img src="images/project-1-screen-6.png" alt="Profile"><span class="screen-label">Profile</span></div>
+
+    <div class="app-group">
+      <div class="app-group-header">
+        <span class="app-group-index">01</span>
+        <span class="app-group-label">Sign In</span>
+        <div class="app-group-tags">
+          <span class="app-group-tag">Sign In / Register</span>
+          <span class="app-group-tag">User Screen</span>
+          <span class="app-group-tag">Health Status</span>
+        </div>
+      </div>
+      <div class="app-screens">
+        <img src="images/project-1-15.png" alt="Sign In / Register">
+        <img src="images/project-1-16.png" alt="Sign In / Register">
+        <img src="images/project-1-17.png" alt="User Screen">
+        <img src="images/project-1-18.png" alt="User Screen">
+        <img src="images/project-1-19.png" alt="Health Status">
+        <img src="images/project-1-20.png" alt="Health Status">
+      </div>
     </div>
+
+    <div class="app-group">
+      <div class="app-group-header">
+        <span class="app-group-index">02</span>
+        <span class="app-group-label">Home</span>
+        <div class="app-group-tags">
+          <span class="app-group-tag">Service Hours</span>
+          <span class="app-group-tag">Request Help</span>
+          <span class="app-group-tag">Help Others</span>
+          <span class="app-group-tag">Calendar</span>
+          <span class="app-group-tag">Achievement Badges</span>
+        </div>
+      </div>
+      <div class="app-screens">
+        <img src="images/project-1-21.png" alt="Home">
+        <img src="images/project-1-22.png" alt="Home">
+      </div>
+    </div>
+
+    <div class="app-group">
+      <div class="app-group-header">
+        <span class="app-group-index">03</span>
+        <span class="app-group-label">Hours Log</span>
+        <div class="app-group-tags">
+          <span class="app-group-tag">Service Hours History</span>
+          <span class="app-group-tag">Transfer</span>
+          <span class="app-group-tag">Redeem</span>
+        </div>
+      </div>
+      <div class="app-screens">
+        <img src="images/project-1-23.png" alt="Hours Log">
+        <img src="images/project-1-24.png" alt="Hours Log">
+        <img src="images/project-1-25.png" alt="Hours Log">
+        <img src="images/project-1-26.png" alt="Hours Log">
+        <img src="images/project-1-27.png" alt="Hours Log">
+        <img src="images/project-1-28.png" alt="Hours Log">
+      </div>
+    </div>
+
+    <div class="app-group">
+      <div class="app-group-header">
+        <span class="app-group-index">04</span>
+        <span class="app-group-label">Customer Support</span>
+        <div class="app-group-tags">
+          <span class="app-group-tag">Phone Call</span>
+        </div>
+      </div>
+      <div class="app-screens">
+        <img src="images/project-1-29.png" alt="Customer Support">
+      </div>
+    </div>
+
+    <div class="app-group">
+      <div class="app-group-header">
+        <span class="app-group-index">05</span>
+        <span class="app-group-label">User Profile</span>
+        <div class="app-group-tags">
+          <span class="app-group-tag">Account Details</span>
+        </div>
+      </div>
+      <div class="app-screens">
+        <img src="images/project-1-30.png" alt="User Profile">
+      </div>
+    </div>
+
+    <div class="app-group">
+      <div class="app-group-header">
+        <span class="app-group-index">06</span>
+        <span class="app-group-label">Achievement Badges</span>
+        <div class="app-group-tags">
+          <span class="app-group-tag">Service Expert Badge</span>
+          <span class="app-group-tag">Helping Hand Badge</span>
+          <span class="app-group-tag">High Rating Badge</span>
+        </div>
+      </div>
+      <div class="app-screens">
+        <img src="images/project-1-31.png" alt="Achievement Badges">
+      </div>
+    </div>
+
+    <div class="app-group">
+      <div class="app-group-header">
+        <span class="app-group-index">07</span>
+        <span class="app-group-label">Request Help</span>
+        <div class="app-group-tags">
+          <span class="app-group-tag">New Request</span>
+          <span class="app-group-tag">Confirmed Requests</span>
+        </div>
+      </div>
+      <div class="app-screens">
+        <img src="images/project-1-32.png" alt="Request Help">
+        <img src="images/project-1-33.png" alt="Request Help">
+        <img src="images/project-1-34.png" alt="Request Help">
+        <img src="images/project-1-35.png" alt="Request Help">
+        <img src="images/project-1-36.png" alt="Request Help">
+      </div>
+    </div>
+
+    <div class="app-group">
+      <div class="app-group-header">
+        <span class="app-group-index">08</span>
+        <span class="app-group-label">Help Others</span>
+        <div class="app-group-tags">
+          <span class="app-group-tag">Nearby Requests</span>
+          <span class="app-group-tag">Matched List</span>
+        </div>
+      </div>
+      <div class="app-screens">
+        <img src="images/project-1-37.png" alt="Help Others">
+        <img src="images/project-1-38.png" alt="Help Others">
+        <img src="images/project-1-39.png" alt="Help Others">
+        <img src="images/project-1-40.png" alt="Help Others">
+        <img src="images/project-1-41.png" alt="Help Others">
+      </div>
+    </div>
+
+    <div class="app-group">
+      <div class="app-group-header">
+        <span class="app-group-index">09</span>
+        <span class="app-group-label">Calendar</span>
+        <div class="app-group-tags">
+          <span class="app-group-tag">Upcoming Events</span>
+          <span class="app-group-tag">Past Events</span>
+        </div>
+      </div>
+      <div class="app-screens">
+        <img src="images/project-1-42.png" alt="Calendar">
+        <img src="images/project-1-43.png" alt="Calendar">
+        <img src="images/project-1-44.png" alt="Calendar">
+      </div>
+    </div>
+
+    <div class="app-group">
+      <div class="app-group-header">
+        <span class="app-group-index">10</span>
+        <span class="app-group-label">Service Navigation</span>
+        <div class="app-group-tags">
+          <span class="app-group-tag">Route</span>
+          <span class="app-group-tag">Transport Mode</span>
+          <span class="app-group-tag">Arrival Check-In</span>
+        </div>
+      </div>
+      <div class="app-screens">
+        <img src="images/project-1-45.png" alt="Service Navigation">
+        <img src="images/project-1-46.png" alt="Service Navigation">
+        <img src="images/project-1-47.png" alt="Service Navigation">
+        <img src="images/project-1-48.png" alt="Service Navigation">
+      </div>
+    </div>
+
+    <div class="app-group">
+      <div class="app-group-header">
+        <span class="app-group-label">Service Check-In & Out</span>
+        <div class="app-group-tags">
+          <span class="app-group-tag">Navigate to Service Location</span>
+          <span class="app-group-tag">Service Details</span>
+          <span class="app-group-tag">Check-In / Check-Out</span>
+        </div>
+      </div>
+      <div class="app-screens">
+        <img src="images/project-1-49.png" alt="Service Check-In & Out">
+        <img src="images/project-1-50.png" alt="Service Check-In & Out">
+        <img src="images/project-1-51.png" alt="Service Check-In & Out">
+        <img src="images/project-1-52.png" alt="Service Check-In & Out">
+        <img src="images/project-1-53.png" alt="Service Check-In & Out">
+        <img src="images/project-1-54.png" alt="Service Check-In & Out">
+      </div>
+    </div>
+
+    <div class="app-group">
+      <div class="app-group-header">
+        <span class="app-group-index">12</span>
+        <span class="app-group-label">Reviews</span>
+        <div class="app-group-tags">
+          <span class="app-group-tag">Review List</span>
+          <span class="app-group-tag">Review Details</span>
+        </div>
+      </div>
+      <div class="app-screens">
+        <img src="images/project-1-55.png" alt="Reviews">
+        <img src="images/project-1-56.png" alt="Reviews">
+        <img src="images/project-1-57.png" alt="Reviews">
+        <img src="images/project-1-58.png" alt="Reviews">
+      </div>
+    </div>
+
   </div>
 
   <!-- APP FUNCTIONS -->
@@ -2580,7 +3236,18 @@
   <!-- PROTOTYPE -->
   <section class="section section-border" id="prototype">
     <div class="section-header reveal">
-      <h2>Prototype Showcase</h2>
+      <div>
+        <div class="section-kicker">Interactive validation</div>
+        <h2>Prototype Showcase</h2>
+      </div>
+    </div>
+    <div class="decision-note reveal rd1"><strong>Why This Matters</strong><span>For a UX hiring portfolio, the prototype is where the system stops being descriptive and becomes testable. I embedded both flows here so reviewers can inspect interaction logic, pacing, and hierarchy directly.</span></div>
+    <div class="proto-callout reveal rd1">
+      <div>
+        <h3>Review the interaction logic directly</h3>
+        <p>The two embedded prototypes below are the clearest evidence of how the service flow, family coordination, and age-inclusive hierarchy behave in sequence. They are intentionally placed before the final outcome section so reviewers can inspect the interaction quality first.</p>
+      </div>
+      <a class="proto-btn" href="https://www.figma.com/proto/6XfK7ewMxQ6VxF0riGc0oI/SoulTime?node-id=1165-68036&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1165%3A64843&page-id=0%3A1" target="_blank" rel="noopener">Open main prototype ↗</a>
     </div>
 
     <div class="proto-wrap reveal rd1">
@@ -2619,33 +3286,69 @@
       <h2>Outcome &amp; Reflection</h2>
     </div>
     <div class="body-grid reveal rd1">
-      <p>Soultime confirms that the combination of time banking logic and age-inclusive interface design can address both service access and social participation at once. The project does not simply create a care app — it proposes a digital environment where elderly users can request help, contribute time, connect with others, and remain visible within a mutual support network.</p>
-      <p>The central tension throughout was between simplicity and completeness. Every feature that made the system more capable also risked making it harder to use. Resolving that tension — through guided flows, layered disclosure, and a visual language calm enough for daily use — became the defining design challenge of the project.</p>
+      <p>Soultime demonstrates how time banking logic and age-inclusive interface design can work together as both a service system and a participation system. The project frames elderly users not only as care recipients, but as people who can request help, contribute time, and remain socially visible within a reciprocal network.</p>
+      <p>The central tension throughout the project was between simplicity and completeness. Every feature that made the system more capable also risked making it harder to use, so the final design relies on guided flows, reduced first-screen choices, and layered disclosure to keep the experience calm enough for daily use.</p>
     </div>
-    <div class="result-chips reveal rd2">
+    <div class="metric-grid reveal rd2">
+      <div class="metric-card">
+        <div class="metric-value">15</div>
+        <div class="metric-label">Interview Participants</div>
+        <div class="metric-desc">Primary qualitative input used to shape feature priorities, trust concerns, and navigation preferences.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">2</div>
+        <div class="metric-label">Primary Entry Actions</div>
+        <div class="metric-desc">Homepage choices were reduced to two core directions, turning a crowded menu into a faster first decision.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">19</div>
+        <div class="metric-label">CIS Pages Delivered</div>
+        <div class="metric-desc">The project outcome extends beyond interface screens into a complete and implementation-ready visual identity system.</div>
+      </div>
+    </div>
+    <div class="result-chips reveal rd3">
       <div class="result-chip"><span class="rc-dot"></span>Second Review Passed</div>
       <div class="result-chip"><span class="rc-dot"></span>Full Prototype — Figma</div>
       <div class="result-chip"><span class="rc-dot"></span>CIS Manual — 19 Pages</div>
       <div class="result-chip"><span class="rc-dot"></span>Dual Platform — App + Family App</div>
+      <div class="result-chip"><span class="rc-dot"></span>15 Interviews Synthesised</div>
+    </div>
+  </section>
+
+  <!-- NEXT STEPS -->
+  <section class="section section-border" id="next-steps">
+    <div class="section-header reveal">
+      <h2>Next Steps</h2>
+    </div>
+    <div class="decision-note reveal rd1"><strong>Reflection</strong><span>If I had more time and resources, I would move the project from strong concept validation into measurable usability validation, focusing on whether the interface truly lowers hesitation, improves task completion, and strengthens trust over repeated use.</span></div>
+    <div class="next-steps-grid reveal rd2">
+      <div class="next-step-card">
+        <h3>Usability Testing</h3>
+        <p>Run task-based tests with elderly users and family members, then document completion rate, hesitation points, and average time on key flows such as request submission and service confirmation.</p>
+      </div>
+      <div class="next-step-card">
+        <h3>Service Pilot</h3>
+        <p>Test the time-banking logic with a small community pilot to observe whether the exchange model remains understandable, motivating, and sustainable outside a prototype setting.</p>
+      </div>
+      <div class="next-step-card">
+        <h3>Accessibility Refinement</h3>
+        <p>Further tune type scale, feedback timing, onboarding assistance, and family-side reporting patterns based on repeated real-world usage rather than one-time review.</p>
+      </div>
     </div>
   </section>
 
   <!-- DARK CLOSING SECTION (p4 style) -->
-  <section class="dark-section">
-    <img src="images/project-1-16.png" alt="Soultime in use">
-  </section>
-
-  <!-- CLOSING -->
   <section class="closing-section">
-    <img src="images/project-1-17.png" alt="Soultime exhibition">
+    <img src="images/project-1-59.png" alt="Soultime in use">
+    <img src="images/project-1-60.png" alt="Soultime exhibition">
     <div class="closing-quote">
-      <p>Good care is not a service delivered to people — it is built between them. Soultime is one proposal for what that infrastructure might look like.</p>
+      <p>Good care is not a service delivered to people — it is built between them. Soultime became a way to test how interface design, service logic, and visual identity can work together as one piece of social infrastructure.</p>
     </div>
-    <img src="images/project-1-18.png" alt="Soultime life">
+    <img src="images/project-1-61.png" alt="Soultime life">
   </section>
 
-  <!-- FOOTER -->
-    <!-- ── FOOTER ── -->
+  </main>
+
   <!-- ── FOOTER ── -->
   <footer>
     <div class="footer-shell">
@@ -2675,7 +3378,7 @@
     </div>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script>
   pdfjsLib.GlobalWorkerOptions.workerSrc =
     'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -3221,5 +3924,19 @@
 })();
 </script>
 
+
+<script>
+  document.querySelectorAll('.app-screens').forEach(function(row) {
+    var imgs = Array.from(row.querySelectorAll('img'));
+    imgs.forEach(function(img, i) {
+      if (i < imgs.length - 1) {
+        var sep = document.createElement('span');
+        sep.className = 'screen-sep';
+        sep.innerHTML = '&#8250;';
+        img.parentNode.insertBefore(sep, img.nextSibling);
+      }
+    });
+  });
+</script>
 </body>
 </html>
