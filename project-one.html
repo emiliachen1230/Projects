@@ -128,8 +128,9 @@
     .feature-content p { font-size: 14px; color: var(--gray); line-height: 1.7; }
 
     /* ── PROTOTYPE ───────────────────────────────────── */
-    .proto-wrap { padding-bottom: 40px; }
-    .proto-wrap + .proto-wrap { border-top: 1px solid var(--line); padding-top: 40px; }
+    .proto-grid { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap: 32px; align-items:start; }
+    .proto-wrap { padding-bottom: 0; }
+    .proto-wrap + .proto-wrap { border-top: none; padding-top: 0; }
     .proto-header { padding: 20px 0 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
     .proto-label { font-family: var(--ff-display); font-size: 14px; color: var(--silver); letter-spacing: 1px; }
     .proto-btn { background: var(--dark); color: #fff; padding: 9px 20px; font-family: var(--ff-display); font-size: 11px; letter-spacing: 1.2px; border: none; cursor: pointer; transition: opacity .2s; }
@@ -1068,7 +1069,6 @@
       .portrait-pair img { max-width:none; }
       .body-grid, .card-grid-3, .card-grid-6 { grid-template-columns:1fr; }
       .card-grid-2, .features-list { grid-template-columns:1fr; }
-      nav .nav-links { display:none; }
       .stats-row { flex-wrap:wrap; }
       .stat-cell { min-width:50%; border-bottom:1px solid var(--black); }
       .process-timeline { flex-wrap:wrap; gap:20px; }
@@ -1086,7 +1086,7 @@
       .color-funnel-wrap { grid-template-columns:1fr; }
       .logo-grid { grid-template-columns:repeat(2,1fr); }
       .aux-grid  { grid-template-columns:repeat(2,1fr); }
-      .metric-grid, .next-steps-grid { grid-template-columns:1fr; }
+      .metric-grid, .next-steps-grid, .proto-grid { grid-template-columns:1fr; }
       .dc { grid-template-columns:1fr; }
       .dc-label { border-right:none; border-bottom:1px solid var(--line); padding:20px 20px 14px; }
       .dc-before { border-right:none; border-bottom:1px solid var(--line); }
@@ -1483,6 +1483,8 @@
     /* ── TABLET 800–1279px ── */
     @media (max-width: 1279px) and (min-width: 800px) {
       .cis-icon-wrap { width: clamp(160px, 35%, 240px) !important; align-self: center; margin: 0 auto; }
+      .nav-links { display: flex; gap: 24px; }
+      .hamburger { display: none; }
       .projects-grid {
         grid-template-columns: 1fr 1fr;
         gap: 22px;
@@ -3316,6 +3318,7 @@
       </div>
     </div>
     <div class="decision-note reveal rd1"><strong>Why This Matters</strong><span>The prototype is where the system stops being descriptive and becomes testable. Both flows are embedded here so the interaction, pacing, and hierarchy can be examined directly.</span></div>
+    <div class="proto-grid">
     <div class="proto-wrap reveal rd1">
       <div class="proto-header">
         <span class="proto-label">Soultime — Interactive Figma Prototype</span>
@@ -3343,6 +3346,7 @@
         </div>
       </div>
       <p class="proto-note">The family version shifts focus from personal reflection to shared awareness — emotional status, daily conditions, and collaborative care routines.</p>
+    </div>
     </div>
   </section>
 
