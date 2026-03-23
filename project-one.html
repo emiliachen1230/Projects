@@ -31,6 +31,7 @@
 
     /* ── NAV ─────────────────────────────────────────── */
     nav { position: fixed; top: 0; left: 0; width: 100%; background: var(--bg); z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.08); padding: 0 var(--pad); display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    nav#siteNav { padding: 10px 22px; align-items: flex-start; height: auto; min-height: 100px; }
     .nav-logo { font-family: var(--ff-display); font-size: 18px; letter-spacing: 3px; color: var(--dark); }
     .nav-links { display: flex; gap: 32px; list-style: none; }
     .nav-links a { font-size: 14px; color: var(--black); transition: opacity .2s; }
@@ -1386,11 +1387,25 @@
     @media (max-width: 799px) {
 
       nav { min-height: auto; padding: 12px 14px; }
-      .nav-inner { min-height: auto; }
+      nav#siteNav {
+        min-height: auto;
+        padding: 12px 14px;
+        align-items: center;
+      }
+      .nav-inner {
+        min-height: auto;
+        align-items: center;
+        padding-top: 0;
+      }
+      .nav-brand { align-items: center; }
       .mobile-menu { top: 76px; margin-top: 0; }
       .nav-links { display: none; }
-      .hamburger { display: flex; }
-      .nav-logo { font-size: 18px; letter-spacing: 3px; }
+      .hamburger { display: flex; align-self: center; }
+      .nav-logo {
+        font-size: 18px;
+        letter-spacing: 3px;
+        padding-top: 0;
+      }
       .nav-logo-wrap { width: 52px; height: 52px; flex-basis: 52px; }
 
       .hero {
@@ -1598,20 +1613,20 @@
       flex-shrink: 0;
       background:
         linear-gradient(135deg,
-          rgba(253,248,246,0.66) 0%,
-          rgba(246,239,255,0.62) 22%,
-          rgba(237,245,255,0.58) 46%,
-          rgba(238,250,244,0.58) 70%,
-          rgba(255,244,250,0.62) 100%);
+          rgba(255,243,240,0.80) 0%,
+          rgba(244,232,255,0.78) 22%,
+          rgba(230,243,255,0.74) 46%,
+          rgba(228,250,239,0.74) 70%,
+          rgba(255,237,247,0.78) 100%);
       background-size: 300% 300%;
       animation: fcGlass 18s ease-in-out infinite;
-      backdrop-filter: blur(32px) saturate(185%);
-      -webkit-backdrop-filter: blur(32px) saturate(185%);
-      border: 1px solid rgba(255,255,255,0.70);
+      backdrop-filter: blur(32px) saturate(240%);
+      -webkit-backdrop-filter: blur(32px) saturate(240%);
+      border: 1px solid rgba(255,255,255,0.78);
       box-shadow:
-        0 4px 18px rgba(120,132,154,0.15),
-        inset 0 1px 0 rgba(255,255,255,0.80),
-        inset 0 -1px 0 rgba(255,255,255,0.22);
+        0 5px 20px rgba(120,132,154,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.86),
+        inset 0 -1px 0 rgba(255,255,255,0.26);
       /* no transform on active — no popping */
       transition:
         box-shadow   0.22s ease,
@@ -1625,7 +1640,7 @@
       position: absolute;
       inset: 0;
       border-radius: 999px;
-      background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.46) 50%, transparent 70%);
+      background: linear-gradient(105deg, transparent 28%, rgba(255,255,255,0.54) 50%, transparent 72%);
       transform: translateX(120%);
       transition: transform 0.50s ease;
       pointer-events: none;
@@ -1633,17 +1648,17 @@
     .fc-item:hover::before { transform: translateX(-120%); }
     .fc-item:hover {
       box-shadow:
-        0 6px 24px rgba(120,132,154,0.20),
-        inset 0 1px 0 rgba(255,255,255,0.88);
+        0 8px 28px rgba(120,132,154,0.22),
+        inset 0 1px 0 rgba(255,255,255,0.92);
     }
 
     /* active: dark glass, no movement */
     .fc-item.fc-active {
       background:
         linear-gradient(135deg,
-          rgba(29,35,28,0.76) 0%,
-          rgba(38,48,37,0.70) 50%,
-          rgba(29,35,28,0.76) 100%);
+          rgba(31,38,30,0.82) 0%,
+          rgba(45,58,44,0.78) 50%,
+          rgba(31,38,30,0.82) 100%);
       background-size: 300% 300%;
       animation: fcGlass 18s ease-in-out infinite;
       border-color: rgba(255,255,255,0.24);
@@ -2647,7 +2662,7 @@
           <div class="footer-contact">
             <span>Taipei, Taiwan</span>
             <div class="footer-contact-secondary">
-              <a href="mailto:emiliachen881230@gmail.com">emiliachen881230@gmail.com</a>
+              <a href="/cdn-cgi/l/email-protection#b5d0d8dcd9dcd4d6ddd0db8d8d84878685f5d2d8d4dcd99bd6dad8"><span class="__cf_email__" data-cfemail="9ffaf2f6f3f6fefcf7faf1a7a7aeadacafdff8f2fef6f3b1fcf0f2">[email&#160;protected]</span></a>
               <a href="https://www.behance.net/emiliachen1230" target="_blank" rel="noopener">behance.net/emiliachen1230</a>
             </div>
           </div>
@@ -2660,7 +2675,7 @@
     </div>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script>
   pdfjsLib.GlobalWorkerOptions.workerSrc =
     'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -3202,7 +3217,6 @@
   requestAnimationFrame(function () {
     checkCompact();
     update();
-    updateScrollHints();
   });
 })();
 </script>
