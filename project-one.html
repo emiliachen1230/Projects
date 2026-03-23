@@ -1075,7 +1075,7 @@
       .process-timeline::before, .process-timeline::after { display:none; }
       .persona-wrap, .sm-wrap { grid-template-columns:1fr; gap:24px; }
       .p-col + .p-col { border-left:none; border-top:1px solid rgba(0,0,0,0.12); }
-      .sm-col { padding-left:0; padding-right:0; padding-bottom:0; }
+      .sm-col { padding-left:48px; padding-right:48px; padding-bottom:0; }
       .meta-title-line { display:block; margin-bottom:2.4em; }
       .sm-col + .sm-col { border-left:none; border-top:1px solid rgba(0,0,0,.12); padding-top:28px; }
       .sm-entry-wrap { margin-left:0; }
@@ -2050,11 +2050,33 @@
       white-space: nowrap;
     }
 
+    .app-group-note {
+      display: grid;
+      grid-template-columns: 180px minmax(0,1fr);
+      gap: 16px;
+      padding: 0 0 18px;
+    }
+    .app-group-note-label {
+      font-family: var(--ff-display);
+      font-size: 10px;
+      letter-spacing: 1.2px;
+      color: var(--silver);
+      text-transform: uppercase;
+      padding-top: 2px;
+    }
+    .app-group-note p {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--text);
+      max-width: 760px;
+    }
+
     @media (max-width: 799px) {
       .app-heading { grid-template-columns: 1fr; padding: 40px 0 32px; }
       .app-heading-count { display: none; }
       .app-group-header { grid-template-columns: 1fr; gap: 8px; }
       .app-group-tags { justify-content: flex-start; }
+      .app-group-note { grid-template-columns: 1fr; gap: 8px; }
       .app-screens img { height: 240px; }
       #interface {
         padding-left: calc(var(--pad) + 28px);
@@ -2074,10 +2096,10 @@
 
     /* ── PORTFOLIO ROUND 2 REFINEMENTS ───────────────── */
     main { display:block; }
-    .portfolio-snapshot { padding: 28px var(--pad) 42px; border-top: 1px solid rgba(0,0,0,0.08); border-bottom: 1px solid rgba(0,0,0,0.08); background: linear-gradient(180deg, rgba(249,248,245,0.75) 0%, rgba(255,255,255,1) 100%); }
+    .portfolio-snapshot { padding: 28px var(--pad) 42px; border-top: 1px solid rgba(0,0,0,0.08); border-bottom: 1px solid rgba(0,0,0,0.08); background: linear-gradient(135deg, rgba(253,248,246,0.56) 0%, rgba(246,239,255,0.52) 22%, rgba(237,245,255,0.48) 46%, rgba(238,250,244,0.48) 70%, rgba(255,244,250,0.52) 100%); }
     .snapshot-eyebrow, .section-kicker { font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--silver); margin-bottom: 10px; }
     .snapshot-grid { display:grid; grid-template-columns: minmax(0,1.1fr) minmax(0,0.9fr); gap: 24px; align-items: start; }
-    .snapshot-card { background:#fff; border:1px solid rgba(0,0,0,0.08); border-radius: 22px; padding: 22px; }
+    .snapshot-card { background: rgba(255,255,255,0.72); border:1px solid rgba(0,0,0,0.08); border-radius: 0; padding: 22px; backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); }
     .snapshot-card h3 { font-size: clamp(20px,2vw,26px); letter-spacing:1.2px; margin-bottom:10px; }
     .snapshot-card p { color: var(--text); font-size: 15px; line-height: 1.75; }
     .snapshot-list { display:grid; gap: 14px; }
@@ -2112,7 +2134,7 @@
     }
     @media (max-width: 640px) {
       .portfolio-snapshot { padding-top: 24px; padding-bottom: 30px; }
-      .snapshot-card, .impact-panel { border-radius: 18px; padding: 18px; }
+      .snapshot-card, .impact-panel { border-radius: 0; padding: 18px; }
       .section-summary-band { gap: 8px; }
       .summary-chip { font-size: 11px; padding: 7px 10px; }
     }
@@ -2219,8 +2241,8 @@
   <section class="portfolio-snapshot reveal" aria-labelledby="snapshot-title">
     <div class="snapshot-grid">
       <div class="snapshot-card">
-        <div class="snapshot-eyebrow">Portfolio Snapshot</div>
-        <h3 id="snapshot-title">What this project demonstrates for a UX / Product Designer role</h3>
+        <div class="snapshot-eyebrow">Project Snapshot</div>
+        <h3 id="snapshot-title">What this project demonstrates</h3>
         <p>Soultime is positioned here not only as an interface exercise, but as a systems design case study. The project moves from social problem framing to research synthesis, interaction structure, visual identity, and a testable prototype, making the design rationale legible at each stage.</p>
       </div>
       <div class="snapshot-card snapshot-list" aria-label="Project highlights">
@@ -2986,12 +3008,19 @@
       <div>
         <div class="app-heading-eyebrow">05 — App Interface</div>
         <h2>Key Screens</h2>
-        <p class="app-heading-desc">Selected screens across critical user flows — representative steps from onboarding through service completion.</p>
+        <p class="app-heading-desc">A curated set of screens that best shows how the product balances clarity, emotional tone, and service coordination across the full experience.</p>
       </div>
       <div class="app-heading-count">
         <strong>12</strong>
         Flows · 44 Screens
       </div>
+    </div>
+    <p class="section-intro reveal rd1">Rather than presenting every page with equal weight, this section highlights the moments where hierarchy, reassurance, and task guidance mattered most. The goal was to make each major action feel calm, explicit, and easy to follow for elderly users and their families.</p>
+    <div class="section-summary-band reveal rd2">
+      <span class="summary-chip">Reduced first-screen decision load</span>
+      <span class="summary-chip">Guided multi-step service flows</span>
+      <span class="summary-chip">Age-inclusive visual hierarchy</span>
+      <span class="summary-chip">Family awareness without over-control</span>
     </div>
 
     <div class="app-group">
@@ -3003,6 +3032,10 @@
           <span class="app-group-tag">User Screen</span>
           <span class="app-group-tag">Health Status</span>
         </div>
+      </div>
+            <div class="app-group-note">
+        <div class="app-group-note-label">Why it matters</div>
+        <p>The onboarding sequence establishes trust before function. Registration, personal status, and first recognition cues are intentionally simplified so the product feels welcoming before it asks for action.</p>
       </div>
       <div class="app-screens">
         <img src="images/project-1-15.png" alt="Sign In / Register">
@@ -3026,6 +3059,10 @@
           <span class="app-group-tag">Achievement Badges</span>
         </div>
       </div>
+            <div class="app-group-note">
+        <div class="app-group-note-label">Why it matters</div>
+        <p>The home screen is the clearest example of interface reduction. Primary actions are kept visible and limited so users can immediately understand where to begin without scanning a crowded dashboard.</p>
+      </div>
       <div class="app-screens">
         <img src="images/project-1-21.png" alt="Home">
         <img src="images/project-1-22.png" alt="Home">
@@ -3041,6 +3078,10 @@
           <span class="app-group-tag">Transfer</span>
           <span class="app-group-tag">Redeem</span>
         </div>
+      </div>
+            <div class="app-group-note">
+        <div class="app-group-note-label">Why it matters</div>
+        <p>This flow makes the time-banking model legible. Service hours, transfer records, and redemption history are presented as understandable value rather than abstract system data.</p>
       </div>
       <div class="app-screens">
         <img src="images/project-1-23.png" alt="Hours Log">
@@ -3060,6 +3101,10 @@
           <span class="app-group-tag">Phone Call</span>
         </div>
       </div>
+            <div class="app-group-note">
+        <div class="app-group-note-label">Why it matters</div>
+        <p>Support access is treated as part of the core experience, not a buried utility. The screen keeps help close at hand for moments of uncertainty or technical hesitation.</p>
+      </div>
       <div class="app-screens">
         <img src="images/project-1-29.png" alt="Customer Support">
       </div>
@@ -3072,6 +3117,10 @@
         <div class="app-group-tags">
           <span class="app-group-tag">Account Details</span>
         </div>
+      </div>
+            <div class="app-group-note">
+        <div class="app-group-note-label">Why it matters</div>
+        <p>Profile information is kept straightforward and low-friction so account maintenance does not compete with higher-value service tasks.</p>
       </div>
       <div class="app-screens">
         <img src="images/project-1-30.png" alt="User Profile">
@@ -3088,6 +3137,10 @@
           <span class="app-group-tag">High Rating Badge</span>
         </div>
       </div>
+            <div class="app-group-note">
+        <div class="app-group-note-label">Why it matters</div>
+        <p>Recognition is framed as personal encouragement rather than competition. The badge system makes contribution visible while keeping the emotional tone affirmative and non-comparative.</p>
+      </div>
       <div class="app-screens">
         <img src="images/project-1-31.png" alt="Achievement Badges">
       </div>
@@ -3101,6 +3154,10 @@
           <span class="app-group-tag">New Request</span>
           <span class="app-group-tag">Confirmed Requests</span>
         </div>
+      </div>
+            <div class="app-group-note">
+        <div class="app-group-note-label">Why it matters</div>
+        <p>This is one of the most important task flows in the product. Each step aims to reduce ambiguity by making request creation, status tracking, and confirmation feel explicit and sequential.</p>
       </div>
       <div class="app-screens">
         <img src="images/project-1-32.png" alt="Request Help">
@@ -3120,6 +3177,10 @@
           <span class="app-group-tag">Matched List</span>
         </div>
       </div>
+            <div class="app-group-note">
+        <div class="app-group-note-label">Why it matters</div>
+        <p>The matching flow translates community participation into an understandable series of choices. Nearby opportunities and accepted requests are organized to keep volunteering approachable.</p>
+      </div>
       <div class="app-screens">
         <img src="images/project-1-37.png" alt="Help Others">
         <img src="images/project-1-38.png" alt="Help Others">
@@ -3138,6 +3199,10 @@
           <span class="app-group-tag">Past Events</span>
         </div>
       </div>
+            <div class="app-group-note">
+        <div class="app-group-note-label">Why it matters</div>
+        <p>The calendar turns service participation into a predictable routine. Upcoming and completed activities are surfaced in a format that supports reassurance, memory, and daily planning.</p>
+      </div>
       <div class="app-screens">
         <img src="images/project-1-42.png" alt="Calendar">
         <img src="images/project-1-43.png" alt="Calendar">
@@ -3155,6 +3220,10 @@
           <span class="app-group-tag">Arrival Check-In</span>
         </div>
       </div>
+            <div class="app-group-note">
+        <div class="app-group-note-label">Why it matters</div>
+        <p>Navigation screens reduce real-world uncertainty during travel to service locations. Route guidance and arrival states are designed to support confidence outside the app itself.</p>
+      </div>
       <div class="app-screens">
         <img src="images/project-1-45.png" alt="Service Navigation">
         <img src="images/project-1-46.png" alt="Service Navigation">
@@ -3165,6 +3234,7 @@
 
     <div class="app-group">
       <div class="app-group-header">
+        <span class="app-group-index">11</span>
         <span class="app-group-label">Service Check-In & Out</span>
         <div class="app-group-tags">
           <span class="app-group-tag">Navigate to Service Location</span>
@@ -3190,6 +3260,10 @@
           <span class="app-group-tag">Review List</span>
           <span class="app-group-tag">Review Details</span>
         </div>
+      </div>
+            <div class="app-group-note">
+        <div class="app-group-note-label">Why it matters</div>
+        <p>The review flow closes the service loop. It makes feedback visible as part of trust-building and helps the platform reinforce reciprocity through reflection after the task is complete.</p>
       </div>
       <div class="app-screens">
         <img src="images/project-1-55.png" alt="Reviews">
@@ -3241,15 +3315,7 @@
         <h2>Prototype Showcase</h2>
       </div>
     </div>
-    <div class="decision-note reveal rd1"><strong>Why This Matters</strong><span>For a UX hiring portfolio, the prototype is where the system stops being descriptive and becomes testable. I embedded both flows here so reviewers can inspect interaction logic, pacing, and hierarchy directly.</span></div>
-    <div class="proto-callout reveal rd1">
-      <div>
-        <h3>Review the interaction logic directly</h3>
-        <p>The two embedded prototypes below are the clearest evidence of how the service flow, family coordination, and age-inclusive hierarchy behave in sequence. They are intentionally placed before the final outcome section so reviewers can inspect the interaction quality first.</p>
-      </div>
-      <a class="proto-btn" href="https://www.figma.com/proto/6XfK7ewMxQ6VxF0riGc0oI/SoulTime?node-id=1165-68036&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1165%3A64843&page-id=0%3A1" target="_blank" rel="noopener">Open main prototype ↗</a>
-    </div>
-
+    <div class="decision-note reveal rd1"><strong>Why This Matters</strong><span>The prototype is where the system stops being descriptive and becomes testable. Both flows are embedded here so the interaction, pacing, and hierarchy can be examined directly.</span></div>
     <div class="proto-wrap reveal rd1">
       <div class="proto-header">
         <span class="proto-label">Soultime — Interactive Figma Prototype</span>
@@ -3365,7 +3431,7 @@
           <div class="footer-contact">
             <span>Taipei, Taiwan</span>
             <div class="footer-contact-secondary">
-              <a href="/cdn-cgi/l/email-protection#b5d0d8dcd9dcd4d6ddd0db8d8d84878685f5d2d8d4dcd99bd6dad8"><span class="__cf_email__" data-cfemail="9ffaf2f6f3f6fefcf7faf1a7a7aeadacafdff8f2fef6f3b1fcf0f2">[email&#160;protected]</span></a>
+              <a href="mailto:emiliachen881230@gmail.com">emiliachen881230@gmail.com</a>
               <a href="https://www.behance.net/emiliachen1230" target="_blank" rel="noopener">behance.net/emiliachen1230</a>
             </div>
           </div>
