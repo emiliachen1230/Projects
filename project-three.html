@@ -2819,6 +2819,231 @@
       user-select: none;
     }
 
+
+
+/* ── PDF SELECTION IMPORT ─────────────────────────── */
+.selection-archive {
+  border-top: 1px solid rgba(0,0,0,0.12);
+}
+.selection-archive + .selection-archive {
+  margin-top: 0;
+}
+.selection-kicker {
+  font-family: var(--ff-display);
+  font-size: 11px;
+  letter-spacing: 1.6px;
+  color: var(--silver);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.pdf-purpose-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 22px;
+}
+.pdf-purpose-card {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+}
+.pdf-purpose-index {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--dark);
+  margin-bottom: 10px;
+}
+.pdf-purpose-card h3 {
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+.pdf-purpose-card p {
+  font-size: 14px;
+  color: var(--gray);
+  line-height: 1.75;
+}
+.pdf-keyword-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+.pdf-keyword-chip {
+  font-family: var(--ff-display);
+  font-size: 11px;
+  letter-spacing: 0.9px;
+  color: var(--text);
+  border: 1px solid rgba(0,0,0,0.12);
+  padding: 7px 12px;
+  background: #fff;
+}
+.pdf-chart-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+.pdf-chart-card {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+}
+.pdf-chart-card h3 {
+  font-size: 17px;
+  margin-bottom: 14px;
+}
+.pdf-chart-head {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.pie-chart {
+  width: 124px;
+  height: 124px;
+  flex-shrink: 0;
+}
+.pie-chart svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.pie-chart-center {
+  font-family: var(--ff-display);
+  font-size: 12px;
+  letter-spacing: 1px;
+  fill: var(--dark);
+}
+.pdf-chart-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pdf-chart-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text);
+}
+.pdf-chart-legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.pdf-chart-note {
+  margin-top: 14px;
+  font-size: 14px;
+  color: var(--gray);
+  line-height: 1.75;
+}
+.pdf-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 26px;
+}
+.pdf-detail-card {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+}
+.pdf-detail-card h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+.pdf-detail-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pdf-detail-card li {
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text);
+  position: relative;
+  padding-left: 14px;
+}
+.pdf-detail-card li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: var(--silver);
+}
+.pdf-stage-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 22px;
+}
+.pdf-stage-grid.ordering {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.pdf-stage-card {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+}
+.pdf-stage-label {
+  font-family: var(--ff-display);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--silver);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.pdf-stage-card h3 {
+  font-size: 16px;
+  margin-bottom: 14px;
+}
+.pdf-stage-block + .pdf-stage-block {
+  margin-top: 14px;
+}
+.pdf-stage-block strong {
+  display: block;
+  font-family: var(--ff-display);
+  font-size: 11px;
+  letter-spacing: 1.3px;
+  color: var(--dark);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+.pdf-stage-block p, .pdf-stage-block li {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.75;
+}
+.pdf-stage-block ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pdf-stage-block li {
+  position: relative;
+  padding-left: 14px;
+}
+.pdf-stage-block li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: var(--silver);
+}
+@media (max-width: 1100px) {
+  .pdf-purpose-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pdf-stage-grid { grid-template-columns: 1fr; }
+  .pdf-stage-grid.ordering { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 820px) {
+  .pdf-chart-grid, .pdf-detail-grid { grid-template-columns: 1fr; }
+  .pdf-chart-head { align-items: flex-start; }
+}
+@media (max-width: 640px) {
+  .pdf-purpose-grid,
+  .pdf-stage-grid.ordering { grid-template-columns: 1fr; }
+  .pie-chart { width: 108px; height: 108px; }
+  .pdf-chart-head { flex-direction: column; }
+}
 </style><style>
 /* merged from project-three-inserted-content.html */
 
@@ -6852,7 +7077,6 @@
     }
   }
 </style>
-
 <style id="project-three-round4-fixes">
   .food-flow-summary {
     display: flex;
@@ -6922,7 +7146,6 @@
     .persona-story-card:last-child { border-bottom: none; }
   }
 </style>
-
 <style id="capsule-nav-projectone-override">
   /* exact visual override to match project-one floating capsule nav */
   #float-nav {
@@ -7084,8 +7307,6 @@
     }
   }
 </style>
-
-
 <style id="key-screens-v6-override">
 #key-screens {
   border-top: 1px solid var(--dark);
@@ -7378,7 +7599,388 @@
   }
 }
 </style>
-</head>
+<style id="project-three-selection-v4-fixes">
+  .ffx-header-brand {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .ffx-brand-lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border: 1px solid rgba(0,0,0,0.12);
+    background: #fff;
+    white-space: nowrap;
+  }
+
+  .ffx-brand-lockup img {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    flex: 0 0 34px;
+  }
+
+  .ffx-brand-lockup span {
+    font-family: var(--ff-display);
+    font-size: 13px;
+    letter-spacing: 0.9px;
+    color: var(--text);
+  }
+
+  .journey-flow-chart {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: minmax(0,1fr) 32px minmax(0,1fr) 32px minmax(0,1fr) 32px minmax(0,1fr);
+    align-items: stretch;
+  }
+
+  .journey-stage {
+    border: 1px solid rgba(0,0,0,0.12);
+    padding: 24px 22px;
+    background: #fff;
+    min-width: 0;
+  }
+
+  .journey-stage-top {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .journey-stage-index {
+    font-family: var(--ff-display);
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--silver);
+    flex: 0 0 auto;
+  }
+
+  .journey-stage h3 {
+    margin: 0;
+    font-family: var(--ff-display);
+    font-size: 18px;
+    line-height: 1.3;
+    font-weight: 400;
+    letter-spacing: 0.4px;
+  }
+
+  .journey-stage-summary {
+    margin: 0 0 16px;
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--text);
+  }
+
+  .journey-stage-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .journey-stage-tags span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 6px 12px;
+    border: 1px solid rgba(0,0,0,0.12);
+    font-family: var(--ff-display);
+    font-size: 12px;
+    letter-spacing: 0.6px;
+    color: var(--text);
+    background: #fff;
+  }
+
+  .journey-stage-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 12px;
+  }
+
+  .journey-stage-list li {
+    display: grid;
+    gap: 4px;
+  }
+
+  .journey-stage-list strong {
+    font-family: var(--ff-display);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.8px;
+    color: var(--silver);
+  }
+
+  .journey-stage-list span {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--text);
+  }
+
+  .journey-flow-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--ff-display);
+    font-size: 18px;
+    color: rgba(0,0,0,0.35);
+  }
+
+  .journey-flow-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-top: 18px;
+  }
+
+  .journey-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  .journey-legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--black);
+    flex: 0 0 8px;
+  }
+
+  .case-closing.no-image {
+    padding-top: 40px;
+  }
+
+  @media (max-width: 1100px) {
+    .journey-flow-chart {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .journey-flow-arrow {
+      transform: rotate(90deg);
+      min-height: 18px;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .ffx-header-brand {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .ffx-brand-lockup {
+      padding: 8px 12px;
+    }
+  }
+</style>
+<style id="project-three-selection-v5-fixes">
+  .ffx-hero-logo {
+    display: flex;
+    justify-content: flex-end;
+    margin: 18px 0 8px;
+  }
+
+  .ffx-hero-logo img {
+    width: 170px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .design-purpose-pillars {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    padding: 24px 0 4px;
+    justify-content: flex-start;
+  }
+
+  .design-purpose-pillar {
+    width: 176px;
+    height: 176px;
+    border: 1px solid var(--black);
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 22px;
+    text-align: center;
+    background: #fff;
+    font-family: var(--ff-display);
+    font-size: 14px;
+    line-height: 1.6;
+    letter-spacing: 0.7px;
+    color: var(--black);
+  }
+
+  .shop-journey-table {
+    margin-top: 28px;
+    border-top: 1px solid rgba(0,0,0,0.12);
+  }
+
+  .shop-journey-head,
+  .shop-journey-row {
+    display: grid;
+    grid-template-columns: 180px repeat(3, minmax(0, 1fr));
+  }
+
+  .shop-cell {
+    min-width: 0;
+    padding: 18px 18px 16px;
+    border-right: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    background: #fff;
+  }
+
+  .shop-journey-head .shop-cell,
+  .shop-axis {
+    background: #f1f1ee;
+  }
+
+  .shop-journey-head .shop-cell:last-child,
+  .shop-journey-row .shop-cell:last-child {
+    border-right: none;
+  }
+
+  .shop-axis {
+    font-family: var(--ff-display);
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--text);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+  }
+
+  .shop-phase-num {
+    font-family: var(--ff-display);
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    color: var(--silver);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .shop-phase-title {
+    font-family: var(--ff-display);
+    font-size: 18px;
+    line-height: 1.35;
+    color: var(--black);
+  }
+
+  .shop-detail p,
+  .shop-detail li {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--text);
+  }
+
+  .shop-detail ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .shop-detail li {
+    position: relative;
+    padding-left: 14px;
+  }
+
+  .shop-detail li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--silver);
+  }
+
+  .journey-flow-chart-gray {
+    gap: 14px 18px;
+  }
+
+  .journey-flow-chart-gray .journey-stage {
+    background: #f1f1ee;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+
+  .journey-flow-chart-gray .journey-stage-tags span {
+    background: rgba(255,255,255,0.82);
+  }
+
+  .journey-flow-chart-gray .journey-stage-list li {
+    background: rgba(255,255,255,0.72);
+    padding: 12px 12px 12px 14px;
+    border-top: none;
+  }
+
+  .journey-flow-chart-gray .journey-flow-arrow {
+    color: rgba(0,0,0,0.35);
+  }
+
+  @media (max-width: 1100px) {
+    .design-purpose-pillars {
+      justify-content: center;
+      gap: 18px;
+    }
+
+    .design-purpose-pillar {
+      width: 152px;
+      height: 152px;
+      padding: 0 18px;
+    }
+
+    .shop-journey-head,
+    .shop-journey-row {
+      grid-template-columns: 1fr;
+    }
+
+    .shop-axis {
+      min-height: 52px;
+    }
+
+    .shop-cell {
+      border-right: none;
+    }
+
+    .ffx-hero-logo {
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .design-purpose-pillar {
+      width: calc(50% - 9px);
+      min-width: 136px;
+      height: 136px;
+      font-size: 13px;
+    }
+
+    .ffx-hero-logo img {
+      width: 132px;
+    }
+  }
+</style>
+<style>
+#service-strategy, #shop-journey-map, #customer-ordering-journey-map {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+#service-strategy .ffx-header, #shop-journey-map .ffx-header, #customer-ordering-journey-map .ffx-header,
+#service-strategy .section-header {
+  scroll-margin-top: 120px;
+}
+</style></head>
 <body>
 <!-- ── NAV ── -->
 <nav id="siteNav">
@@ -7403,8 +8005,7 @@
 <a href="index.html#projects" onclick="closeMenu()">Projects</a>
 <a href="index.html#about" onclick="closeMenu()">About Me</a>
 </div>
-<main id="main-content">
-<nav aria-label="Page sections" id="float-nav">
+<main id="main-content"><nav aria-label="Page sections" id="float-nav">
 <a class="fc-item" data-label="Overview" data-sections="overview" href="#overview"><span class="fc-label">Overview</span><span class="fc-letter">O</span></a>
 <a class="fc-item" data-label="Strategy" data-sections="problem,research-foundation,opportunity,process" href="#problem"><span class="fc-label">Strategy</span><span class="fc-letter">S</span></a>
 <a class="fc-item" data-label="Screens" data-sections="key-screens,touchpoints" href="#key-screens"><span class="fc-label">Screens</span><span class="fc-letter">Sc</span></a>
@@ -7461,7 +8062,32 @@
 <div class="snapshot-item"><strong>Product Direction</strong><span>Positioned rescued meals as a visible, desirable, and repeatable service instead of a hidden discount leftover flow.</span></div>
 </div>
 </div>
-</section><section class="section section-border" id="problem"><div class="section-header reveal"><div><div class="section-kicker">Problem framing</div><h2>Why This Problem Matters</h2></div></div><p class="section-intro reveal rd1">Surplus meals often go unsold not only because of timing, but because the experience around them feels uncertain. People may not know what is still available, how much food they will actually get, or whether the pickup effort will be worth it. Restaurants, meanwhile, need a lightweight way to publish and manage rescued meals without adding friction to daily operations.</p><div class="decision-note reveal rd1"><strong>Portfolio Positioning</strong><span>For a hiring case study, the value of this project is not only the sustainability topic itself, but the way the service translates ambiguity into clearer product structure, interface logic, and cross-platform coordination.</span></div><div class="body-grid reveal rd2"><p>The design challenge was to reduce hesitation. That meant making rescued meals easier to discover, easier to trust, and easier to reserve before they disappeared from the daily food cycle.</p><p>The stronger direction was to treat food rescue as a product-system problem rather than a message campaign. Once the work was framed that way, the app, LINE flow, and merchant tools could be designed as one connected service instead of three separate interfaces.</p></div></section><section class="section section-border" id="research-foundation">
+</section>
+<section class="section section-border">
+<div class="section-header">
+<h2>Motivation</h2>
+</div>
+<div class="stat-icons">
+<img alt="Hunger stat" src="images/project-3-4.png"/>
+<img alt="Food waste stat" src="images/project-3-5.png"/>
+</div>
+<p class="body-text">
+      In 2021, the UN Food and Agriculture Organization highlighted a critical disparity: while 828 million people globally suffered from hunger, nearly one-third of all produced food was wasted. This alarming gap inspired us to seek solutions that reduce food waste and align with the Sustainable Development Goals (SDGs) for responsible consumption and production.
+    </p>
+<div class="ways-block">
+<p>Several ways to reduce food waste</p>
+<div class="ways-row">
+<span>Making a shopping plan</span>
+<span class="ways-divider"></span>
+<span>Ordering just the right amount</span>
+</div>
+<div class="ways-row">
+<span>Sharing leftover food with those who need it</span>
+</div>
+</div>
+</section>
+<section class="section section-border" id="problem"><div class="section-header reveal"><div><div class="section-kicker">Problem framing</div><h2>Why This Problem Matters</h2></div></div><p class="section-intro reveal rd1">Surplus meals often go unsold not only because of timing, but because the experience around them feels uncertain. People may not know what is still available, how much food they will actually get, or whether the pickup effort will be worth it. Restaurants, meanwhile, need a lightweight way to publish and manage rescued meals without adding friction to daily operations.</p><div class="decision-note reveal rd1"><strong>Portfolio Positioning</strong><span>For a hiring case study, the value of this project is not only the sustainability topic itself, but the way the service translates ambiguity into clearer product structure, interface logic, and cross-platform coordination.</span></div><div class="body-grid reveal rd2"><p>The design challenge was to reduce hesitation. That meant making rescued meals easier to discover, easier to trust, and easier to reserve before they disappeared from the daily food cycle.</p><p>The stronger direction was to treat food rescue as a product-system problem rather than a message campaign. Once the work was framed that way, the app, LINE flow, and merchant tools could be designed as one connected service instead of three separate interfaces.</p></div></section>
+<section class="section section-border" id="research-foundation">
 <div class="section-header reveal">
 <div>
 <div class="section-kicker">Project context</div>
@@ -7479,7 +8105,8 @@
 <p>The early research highlighted two linked realities: edible food is repeatedly discarded in small everyday moments, and most of that waste happens long before people ever see it as an option. The problem therefore was not awareness alone, but the absence of a usable redistribution mechanism.</p>
 <p>The concept was scoped near National Taiwan Normal University so the proposal could stay grounded in a believable urban routine. Nearby restaurants, student ordering habits, and rescue timing were treated as the real terrain the design needed to serve.</p>
 </div>
-</section><div class="research-hero-image" id="research-figure">
+</section>
+<div class="research-hero-image" id="research-figure">
 <img alt="Foody Foody research overview" src="images/project-3-2.png"/>
 </div>
 <section class="section section-border">
@@ -7566,45 +8193,242 @@
 </div>
 </div>
 </section>
-<section class="section section-border">
-<div class="section-header">
-<img alt="Motivation icon" class="icon" src="images/project-3-3.png"/>
-<h2>Motivation</h2>
+<section class="ffx-section selection-archive">
+<div class="ffx-header">
+<div>
+<div class="selection-kicker">Selection deck page 3</div>
+<h2>Customer Analysis Survey</h2>
 </div>
-<div class="stat-icons">
-<img alt="Hunger stat" src="images/project-3-4.png"/>
-<img alt="Food waste stat" src="images/project-3-5.png"/>
 </div>
-<p class="body-text">
-      In 2021, the UN Food and Agriculture Organization highlighted a critical disparity: while 828 million people globally suffered from hunger, nearly one-third of all produced food was wasted. This alarming gap inspired us to seek solutions that reduce food waste and align with the Sustainable Development Goals (SDGs) for responsible consumption and production.
-    </p>
-<div class="ways-block">
-<p>Several ways to reduce food waste</p>
-<div class="ways-row">
-<span>Making a shopping plan</span>
-<span class="ways-divider"></span>
-<span>Ordering just the right amount</span>
+<p class="ffx-intro">The survey covered 167 students from National Taiwan Normal University and focused on meal ordering habits, rescued-food acceptance, and the role of portion control in purchase decisions. The charts below convert the original PDF graphics into portfolio-ready HTML while keeping the data intact.</p>
+<div class="pdf-chart-grid">
+<div class="pdf-chart-card">
+<h3>Ever Bought Leftovers</h3>
+<div class="pdf-chart-head">
+<div class="pie-chart"><svg aria-hidden="true" viewbox="0 0 100 100"><circle cx="50" cy="50" fill="none" r="42" stroke="#f1f1ee" stroke-width="14"></circle><circle cx="50" cy="50" fill="none" r="42" stroke="#78C753" stroke-dasharray="182.087 81.807" stroke-dashoffset="0.000" stroke-linecap="butt" stroke-width="14" transform="rotate(-90 50 50)"></circle><circle cx="50" cy="50" fill="none" r="42" stroke="#D9DED2" stroke-dasharray="81.807 182.087" stroke-dashoffset="-182.087" stroke-linecap="butt" stroke-width="14" transform="rotate(-90 50 50)"></circle><text class="pie-chart-center" text-anchor="middle" x="50" y="47">69%</text><text class="pie-chart-center" text-anchor="middle" x="50" y="61">YES</text></svg></div>
+<div class="pdf-chart-legend">
+<div class="pdf-chart-legend-item"><span class="pdf-chart-legend-swatch" style="background:#78C753"></span><span>Yes · 69%</span></div>
+<div class="pdf-chart-legend-item"><span class="pdf-chart-legend-swatch" style="background:#D9DED2"></span><span>No · 31%</span></div>
 </div>
-<div class="ways-row">
-<span>Sharing leftover food with those who need it</span>
+</div>
+<p class="pdf-chart-note">Rescued-meal buying already exists as a familiar behavior for most respondents, which means the design challenge is not inventing a new habit from nothing, but reducing hesitation and making the behavior feel easier and more trustworthy.</p>
+</div>
+<div class="pdf-chart-card">
+<h3>Ordering System Users</h3>
+<div class="pdf-chart-head">
+<div class="pie-chart"><svg aria-hidden="true" viewbox="0 0 100 100"><circle cx="50" cy="50" fill="none" r="42" stroke="#f1f1ee" stroke-width="14"></circle><circle cx="50" cy="50" fill="none" r="42" stroke="#F7B718" stroke-dasharray="163.614 100.280" stroke-dashoffset="0.000" stroke-linecap="butt" stroke-width="14" transform="rotate(-90 50 50)"></circle><circle cx="50" cy="50" fill="none" r="42" stroke="#E7E1D7" stroke-dasharray="100.280 163.614" stroke-dashoffset="-163.614" stroke-linecap="butt" stroke-width="14" transform="rotate(-90 50 50)"></circle><text class="pie-chart-center" text-anchor="middle" x="50" y="47">62%</text><text class="pie-chart-center" text-anchor="middle" x="50" y="61">YES</text></svg></div>
+<div class="pdf-chart-legend">
+<div class="pdf-chart-legend-item"><span class="pdf-chart-legend-swatch" style="background:#F7B718"></span><span>Yes · 62%</span></div>
+<div class="pdf-chart-legend-item"><span class="pdf-chart-legend-swatch" style="background:#E7E1D7"></span><span>No · 38%</span></div>
+</div>
+</div>
+<p class="pdf-chart-note">A majority had already used ordering systems, so digital behavior is not the main barrier. Friction comes more from poor information, awkward timing, and low confidence in what will actually be received.</p>
+</div>
+<div class="pdf-chart-card">
+<h3>Custom Portion Size Boosts Purchase Intent</h3>
+<div class="pdf-chart-head">
+<div class="pie-chart"><svg aria-hidden="true" viewbox="0 0 100 100"><circle cx="50" cy="50" fill="none" r="42" stroke="#f1f1ee" stroke-width="14"></circle><circle cx="50" cy="50" fill="none" r="42" stroke="#AC6C29" stroke-dasharray="245.421 18.473" stroke-dashoffset="0.000" stroke-linecap="butt" stroke-width="14" transform="rotate(-90 50 50)"></circle><circle cx="50" cy="50" fill="none" r="42" stroke="#E5DDD6" stroke-dasharray="18.473 245.421" stroke-dashoffset="-245.421" stroke-linecap="butt" stroke-width="14" transform="rotate(-90 50 50)"></circle><text class="pie-chart-center" text-anchor="middle" x="50" y="47">93%</text><text class="pie-chart-center" text-anchor="middle" x="50" y="61">YES</text></svg></div>
+<div class="pdf-chart-legend">
+<div class="pdf-chart-legend-item"><span class="pdf-chart-legend-swatch" style="background:#AC6C29"></span><span>Yes · 93%</span></div>
+<div class="pdf-chart-legend-item"><span class="pdf-chart-legend-swatch" style="background:#E5DDD6"></span><span>No · 7%</span></div>
+</div>
+</div>
+<p class="pdf-chart-note">This is one of the clearest signals in the deck. Portion flexibility does not function as a minor feature. It changes willingness to buy, which is why adjustable quantity becomes central to the concept.</p>
+</div>
+<div class="pdf-chart-card">
+<h3>Meal Choice Factors</h3>
+<div class="pdf-chart-head">
+<div class="pie-chart"><svg aria-hidden="true" viewbox="0 0 100 100"><circle cx="50" cy="50" fill="none" r="42" stroke="#f1f1ee" stroke-width="14"></circle><circle cx="50" cy="50" fill="none" r="42" stroke="#78C753" stroke-dasharray="163.614 100.280" stroke-dashoffset="0.000" stroke-linecap="butt" stroke-width="14" transform="rotate(-90 50 50)"></circle><circle cx="50" cy="50" fill="none" r="42" stroke="#F7B718" stroke-dasharray="100.280 163.614" stroke-dashoffset="-163.614" stroke-linecap="butt" stroke-width="14" transform="rotate(-90 50 50)"></circle><text class="pie-chart-center" text-anchor="middle" x="50" y="47">62%</text><text class="pie-chart-center" text-anchor="middle" x="50" y="61">SIZE</text></svg></div>
+<div class="pdf-chart-legend">
+<div class="pdf-chart-legend-item"><span class="pdf-chart-legend-swatch" style="background:#78C753"></span><span>Size · 62%</span></div>
+<div class="pdf-chart-legend-item"><span class="pdf-chart-legend-swatch" style="background:#F7B718"></span><span>Price · 38%</span></div>
+</div>
+</div>
+<p class="pdf-chart-note">Respondents cared more about getting a manageable meal size at the same price than simply ordering the regular portion. The implication is sharp: value perception is tied to fit, not only to cost.</p>
+</div>
+</div>
+<div class="pdf-detail-grid">
+<div class="pdf-detail-card">
+<h3>Ordering Behavior</h3>
+<ul>
+<li>Ordering channels: LINE 40%, app 33%, phone 21%, delivery platforms 5%, website 1%.</li>
+<li>Pre-order timing clustered around one hour before meals, two hours before meals, and next-day advance ordering.</li>
+<li>The most commonly ordered meal type was lunch boxes, followed by desserts, fast food, breakfast shops, and beverages.</li>
+</ul>
+</div>
+<div class="pdf-detail-card">
+<h3>Why People Buy or Avoid Leftovers</h3>
+<ul>
+<li>Main motivations for buying leftovers were saving money and being eco-conscious.</li>
+<li>Main barriers were low leftover visibility, face-consciousness, fear of stale food, and the time needed to search for suitable items.</li>
+<li>According to the survey, 15% often have leftover meals themselves, with appetite uncertainty and dieting among the main reasons.</li>
+</ul>
 </div>
 </div>
 </section>
-<section class="section modern-trends">
-<div class="app-title-row">
-<h2>Modern Trends</h2>
+<section class="ffx-section persona-highlights">
+<div class="ffx-header"><h2>Persona Highlights</h2></div>
+<p class="ffx-intro">The personas show that rescued-meal adoption is not a single eco-conscious behavior. It intersects with appetite uncertainty, schedule pressure, fitness needs, and value-driven decision making.</p>
+<div class="persona-four-grid reveal rd2">
+<div class="persona-story-card">
+<div class="p-type">Primary User</div>
+<div class="p-name">Amy</div>
+<div class="p-demo">24 · Female · Master’s student · Reasonable price, small appetite</div>
+<div class="p-quote">"I want a meal that feels worth buying, but I also do not want to waste food I cannot finish."</div>
+<div class="p-grid">
+<div class="p-block"><div class="p-bl">Goals</div><div class="p-bv">Find affordable meals · Choose manageable portions · Reduce waste without extra effort</div></div>
+<div class="p-block"><div class="p-bl">Frustrations</div><div class="p-bv">Set meals are often too large · Online ordering rarely supports portion adjustment · Waste creates guilt</div></div>
 </div>
-<div class="pillars">
-<div class="pillar"><p>Low<br/>Birthrate</p></div>
-<div class="pillar"><p>Refinement</p></div>
-<div class="pillar"><p>Anti-obesity</p></div>
-<div class="pillar"><p>Rising<br/>Labor Costs</p></div>
-<div class="pillar"><p>Health<br/>Awareness</p></div>
-<div class="pillar"><p>SDGs</p></div>
+<div class="p-chips"><span class="p-chip">Portion Control</span><span class="p-chip">Affordable Meals</span><span class="p-chip">Low Waste</span></div>
+<div class="p-story"><div class="p-sl">User Story</div><p>As a student with a small appetite, I want to quickly find rescued meals with clearer portion expectations so I can eat affordably without over-ordering or wasting food.</p></div>
+</div>
+<div class="persona-story-card">
+<div class="p-type">Primary User</div>
+<div class="p-name">Grace</div>
+<div class="p-demo">28 · Female · PhD student · Irregular appetite under stress</div>
+<div class="p-quote">"My appetite changes every day, so fixed meals often feel like the wrong choice at the wrong moment."</div>
+<div class="p-grid">
+<div class="p-block"><div class="p-bl">Goals</div><div class="p-bv">Order quickly between tasks · Match meals to changing appetite · Avoid decision fatigue</div></div>
+<div class="p-block"><div class="p-bl">Frustrations</div><div class="p-bv">Busy schedules reduce patience · Meal flexibility is limited · Rushed interfaces increase hesitation</div></div>
+</div>
+<div class="p-chips"><span class="p-chip">Time Pressure</span><span class="p-chip">Flexible Choice</span><span class="p-chip">Quick Ordering</span></div>
+<div class="p-story"><div class="p-sl">User Story</div><p>As a busy graduate student, I want a rescue-ordering flow that is fast and flexible so I can decide according to my current appetite instead of abandoning the purchase.</p></div>
+</div>
+<div class="persona-story-card">
+<div class="p-type">Primary User</div>
+<div class="p-name">Andy</div>
+<div class="p-demo">23 · Male · Student athlete · Eats according to training needs</div>
+<div class="p-quote">"If I cannot tell whether a meal will actually be enough, I cannot trust the order."</div>
+<div class="p-grid">
+<div class="p-block"><div class="p-bl">Goals</div><div class="p-bv">Compare options clearly · Confirm portion size before checkout · Buy meals that support training</div></div>
+<div class="p-block"><div class="p-bl">Frustrations</div><div class="p-bv">Portion details are vague · Quantity is hard to compare · Unsure meals may not feel filling enough</div></div>
+</div>
+<div class="p-chips"><span class="p-chip">Meal Quantity</span><span class="p-chip">Training Needs</span><span class="p-chip">Predictability</span></div>
+<div class="p-story"><div class="p-sl">User Story</div><p>As a student athlete, I want clear quantity and portion information before I place an order so I can choose a rescued meal that still meets my eating needs.</p></div>
+</div>
+<div class="persona-story-card">
+<div class="p-type">Primary User</div>
+<div class="p-name">Jane</div>
+<div class="p-demo">26 · Female · Office worker · Value-conscious and time-sensitive</div>
+<div class="p-quote">"A discounted meal only feels worthwhile when pickup is simple and the information feels trustworthy."</div>
+<div class="p-grid">
+<div class="p-block"><div class="p-bl">Goals</div><div class="p-bv">Grab meals efficiently · Judge value quickly · Avoid uncertain pickups during busy days</div></div>
+<div class="p-block"><div class="p-bl">Frustrations</div><div class="p-bv">Tight pickup windows create risk · Rescue meals can feel unclear · Value is hard to assess at a glance</div></div>
+</div>
+<div class="p-chips"><span class="p-chip">Fast Pickup</span><span class="p-chip">Value Judgement</span><span class="p-chip">Trust</span></div>
+<div class="p-story"><div class="p-sl">User Story</div><p>As an office worker in a hurry, I want to understand rescue-meal value and pickup details immediately so I can make a confident decision without slowing down my schedule.</p></div>
+</div>
 </div>
 </section>
-<!-- merged unique sections from project-three-inserted-content.html -->
-<section class="section section-border" id="opportunity">
+<section class="ffx-section selection-archive" id="shop-journey-map">
+<div class="ffx-header">
+<div>
+<div class="selection-kicker">Selection deck page 2</div>
+<h2>Shop Journey Map</h2>
+</div>
+</div>
+<p class="ffx-intro">The shop-side journey map is short in the PDF, but it reveals the operating tension behind the platform. Waste is not created in one dramatic moment. It accumulates as demand estimates, reservations, in-store rushes, and end-of-day leftovers drift apart.</p>
+<div class="shop-journey-table"><div class="shop-journey-head row"><div class="shop-cell shop-axis">Phase</div><div class="shop-cell shop-phase"><div class="shop-phase-num">Stage 01</div><div class="shop-phase-title">Before Opening</div></div><div class="shop-cell shop-phase"><div class="shop-phase-num">Stage 02</div><div class="shop-phase-title">During Open Hours</div></div><div class="shop-cell shop-phase"><div class="shop-phase-num">Stage 03</div><div class="shop-phase-title">Before Closing</div></div></div><div class="shop-journey-row"><div class="shop-cell shop-axis">Thoughts</div><div class="shop-cell shop-detail"><p>How much food is needed to meet today’s demand?</p></div><div class="shop-cell shop-detail"><p>Balancing reservations and cooking is hectic, and customers are already waiting in line.</p></div><div class="shop-cell shop-detail"><p>Prepared too much food? It feels wasteful to throw it away. What should be done?</p></div></div><div class="shop-journey-row"><div class="shop-cell shop-axis">Actions</div><div class="shop-cell shop-detail"><ul><li>Preparing meals</li><li>Estimating demand before service starts</li></ul></div><div class="shop-cell shop-detail"><ul><li>Taking orders by phone or through the reservation and ordering system</li><li>Serving meals while tracking available stock</li><li>Clearing plates during rush periods</li></ul></div><div class="shop-cell shop-detail"><ul><li>Reviewing what remains unsold</li><li>Disposing of leftovers into waste bins when there is no recovery channel</li></ul></div></div><div class="shop-journey-row"><div class="shop-cell shop-axis">Emotion</div><div class="shop-cell shop-detail"><p>Cautious and uncertain. The store has to make quantity decisions before real customer behavior appears.</p></div><div class="shop-cell shop-detail"><p>Busy and compressed. Operational overload makes it difficult to update inventory or communicate rescued-food opportunities clearly.</p></div><div class="shop-cell shop-detail"><p>Regret and pressure. The store can see the waste directly, but still lacks a lightweight way to convert that surplus into a final sale.</p></div></div></div>
+</section>
+<section class="ffx-section selection-archive" id="customer-ordering-journey-map">
+<div class="ffx-header">
+<div>
+<div class="selection-kicker">Selection deck page 4</div>
+<h2>Customer Ordering Journey Map</h2>
+</div>
+</div>
+<p class="ffx-intro">The customer-side journey map is clearer as a sequence rather than four isolated text blocks, because the real design issue is transition: desire becomes comparison, comparison becomes commitment, and commitment only feels complete when pickup reassurance arrives on time.</p>
+<div class="journey-flow-chart journey-flow-chart-gray">
+<div class="journey-stage">
+<div class="journey-stage-top">
+<div class="journey-stage-index">01</div>
+<h3>Before Ordering</h3>
+</div>
+<p class="journey-stage-summary">Discovery begins with hunger, value, craving, or recommendation.</p>
+<div class="journey-stage-tags">
+<span>Need State</span>
+<span>Recommendation</span>
+<span>Discount Trigger</span>
+</div>
+<ul class="journey-stage-list">
+<li><strong>Motivations</strong><span>Hunger, breakfast/lunch/dinner needs, appetizing meals, discounts, cravings, and friend recommendations.</span></li>
+<li><strong>Pain Points</strong><span>People cannot clearly know quantity, price, or portion before committing.</span></li>
+<li><strong>Touchpoints</strong><span>Social media, ads, Google Maps, store signage, word of mouth, and food apps.</span></li>
+</ul>
+</div>
+<div aria-hidden="true" class="journey-flow-arrow">→</div>
+<div class="journey-stage">
+<div class="journey-stage-top">
+<div class="journey-stage-index">02</div>
+<h3>During Ordering</h3>
+</div>
+<p class="journey-stage-summary">The interface must collapse hesitation into a quick, confident decision.</p>
+<div class="journey-stage-tags">
+<span>Comparison</span>
+<span>Timing</span>
+<span>Selection</span>
+</div>
+<ul class="journey-stage-list">
+<li><strong>Goals</strong><span>Complete the purchase quickly, understand the offer, and secure a meal with clear value.</span></li>
+<li><strong>Pain Points</strong><span>Queues, limited time, interface friction, and uncertainty about remaining stock.</span></li>
+<li><strong>Actions</strong><span>Compare stores, check pickup timing, choose meals, and place the order.</span></li>
+</ul>
+</div>
+<div aria-hidden="true" class="journey-flow-arrow">→</div>
+<div class="journey-stage">
+<div class="journey-stage-top">
+<div class="journey-stage-index">03</div>
+<h3>After Ordering</h3>
+</div>
+<p class="journey-stage-summary">Trust shifts from choice quality to order reassurance and pickup clarity.</p>
+<div class="journey-stage-tags">
+<span>Reassurance</span>
+<span>Status</span>
+<span>Pickup Logic</span>
+</div>
+<ul class="journey-stage-list">
+<li><strong>Needs</strong><span>Order visibility, reassurance, and clear pickup instructions.</span></li>
+<li><strong>Pain Points</strong><span>Uncertainty about order progress and whether the reserved meal will match expectations.</span></li>
+<li><strong>Touchpoints</strong><span>App records, LINE notifications, and restaurant confirmation.</span></li>
+</ul>
+</div>
+<div aria-hidden="true" class="journey-flow-arrow">→</div>
+<div class="journey-stage">
+<div class="journey-stage-top">
+<div class="journey-stage-index">04</div>
+<h3>Meal Completion</h3>
+</div>
+<p class="journey-stage-summary">A smooth ending is what turns a rescued meal from one-off purchase into habit.</p>
+<div class="journey-stage-tags">
+<span>Consumption</span>
+<span>Evaluation</span>
+<span>Habit Loop</span>
+</div>
+<ul class="journey-stage-list">
+<li><strong>Outcome</strong><span>The meal is consumed and remembered as either worthwhile and convenient or frustrating and risky.</span></li>
+<li><strong>Design Implication</strong><span>When the post-order experience stays smooth, leftover buying becomes normal behavior rather than compromise.</span></li>
+<li><strong>Product Lens</strong><span>Discovery, checkout, and pickup must read as one continuous service, not three separate tasks.</span></li>
+</ul>
+</div>
+</div>
+<div class="journey-flow-legend">
+<div class="journey-legend-item"><span class="journey-legend-dot"></span>Motivation and discovery</div>
+<div class="journey-legend-item"><span class="journey-legend-dot"></span>Decision and reservation</div>
+<div class="journey-legend-item"><span class="journey-legend-dot"></span>Reassurance and pickup</div>
+<div class="journey-legend-item"><span class="journey-legend-dot"></span>Completion and repeat behavior</div>
+</div>
+</section>
+<section class="ffx-section" id="journey-highlights">
+<div class="ffx-header"><h2>Journey Highlights</h2></div>
+<p class="ffx-intro">The journey map shows that friction happens both before purchase and after checkout. Clarity around quantity, pickup, and reassurance becomes just as important as the initial discovery step.</p>
+<div class="ffx-grid-4">
+<div class="ffx-card"><h3>Before Ordering</h3><p><strong>Motivations:</strong> hunger, appetizing meals, discounts, cravings, and recommendations from friends.</p><p><strong>Pain Points:</strong> people cannot know remaining meal quantities, prices, or meal portions before purchase.</p><p><strong>Touchpoints:</strong> social media, online ads, Google Maps, store signage, word of mouth, and food-platform apps.</p></div>
+<div class="ffx-card"><h3>During Ordering</h3><p><strong>Goals:</strong> quickly complete the purchase, get clear information, and secure a good-value meal.</p><p><strong>Pain Points:</strong> long queues, limited time before class, complex interfaces, and difficulty confirming what is still available.</p><p><strong>Actions:</strong> compare stores, check pickup timing, choose meal portions, and place an order.</p></div>
+<div class="ffx-card"><h3>After Ordering</h3><p><strong>Needs:</strong> reassurance, order visibility, and clear pickup instructions.</p><p><strong>Pain Points:</strong> uncertainty about order progress and whether the reserved meal will still match expectations.</p><p><strong>Touchpoints:</strong> app records, LINE notifications, and restaurant confirmation.</p></div>
+<div class="ffx-card"><h3>Meal Completion</h3><p><strong>Outcome:</strong> the meal is consumed, evaluated, and remembered as either convenient and worthwhile or frustrating and risky.</p><p><strong>Design Implication:</strong> if the post-order experience is smooth, leftover buying can become a normalized habit rather than an occasional compromise.</p></div>
+</div>
+</section>
+<section class="section section-border" id="service-strategy">
 <div class="section-header reveal">
 <div>
 <div class="section-kicker">From research to product structure</div>
@@ -7623,7 +8447,91 @@
 <p>The resulting strategy was to make food rescue feel visible, desirable, and ordinary rather than charitable or leftover in tone. Recommendation, environmental feedback, and reward cues were used to support adoption, but the real goal was to make rescued meals feel like a normal part of local ordering behavior.</p>
 <p>On the store side, the service needed to remain operationally realistic. Publishing meals, adjusting quantity, managing pickup windows, and reviewing order patterns were treated as part of one coordinated system, which is why the project extends beyond consumer UI into LINE and backend tooling.</p>
 </div>
-</section><section class="section section-border" id="process">
+</section>
+<section class="section section-border" id="research-highlights"><div class="section-header reveal"><div><div class="section-kicker">Supporting evidence</div><h2>Research Highlights</h2></div></div><p class="section-intro reveal rd1">The research below is deliberately compressed into portfolio-ready evidence. Instead of acting as separate academic deliverables, the survey, personas, journey mapping, and visual-language study are shown here only where they clarify why the service was structured the way it was.</p></section>
+<section class="section section-border">
+<div class="goal-header">
+<div class="goal-icon">
+<img alt="Goal icon" src="images/project-3-8.png"/>
+</div>
+<h2>Goal</h2>
+</div>
+<p class="body-text">Foody Foody aims to make surplus meals easier to discover, easier to trust, and easier to manage. The goal is to transform food rescue from an occasional compromise into a visible, user-friendly ordering habit that can fit real restaurant operations.</p>
+<div class="info-list" style="margin-top: 40px;">
+<div class="info-row">
+<div class="info-label">Solution</div>
+<div class="info-desc">The app links users to local stores with surplus food. It tracks carbon emissions and rewards eco-friendly actions, encouraging users to make sustainable choices.</div>
+</div>
+<div class="info-row">
+<div class="info-label">Quality</div>
+<div class="info-desc">The LINE ordering system and app are simple and user-friendly. Key features include order history with portion details, ensuring reliability and ease of use.</div>
+</div>
+<div class="info-row">
+<div class="info-label">Function</div>
+<div class="info-desc">Key functions include a map of stores with surplus food, carbon emission tracking, and rewards for eco-friendly actions. Users can also view past orders and portions.</div>
+</div>
+</div>
+</section>
+<section class="ffx-section selection-archive">
+<div class="ffx-header">
+<div>
+<div class="selection-kicker">Foody Foody Selection PDF</div>
+<h2>Design Purpose</h2>
+</div>
+</div>
+<p class="ffx-intro">This imported block preserves the original interface presentation of <em>project-three.html</em> and only adds the supporting material from the Foody Foody selection deck. The source deck frames the project around convenience, exploration, innovation, environmentalism, and sustainability, then turns those values into five concrete design purposes.</p><div class="ffx-hero-logo"><img alt="Foody Foody logo" src="images/project-3-3.png"/></div>
+<div class="design-purpose-pillars">
+<span class="design-purpose-pillar">Convenience</span>
+<span class="design-purpose-pillar">Exploration</span>
+<span class="design-purpose-pillar">Innovation</span>
+<span class="design-purpose-pillar">Environmentalism</span>
+<span class="design-purpose-pillar">Sustainability</span>
+</div>
+<div class="pdf-purpose-grid">
+<div class="pdf-purpose-card"><div class="pdf-purpose-index">1</div><h3>Address food waste from both consumers and businesses</h3><p>The service is positioned as a bridge between demand uncertainty on the store side and appetite uncertainty on the user side, so waste reduction is built into everyday ordering instead of treated as a separate campaign.</p></div>
+<div class="pdf-purpose-card"><div class="pdf-purpose-index">2</div><h3>Reduce the overall waste volume</h3><p>The system turns leftover food into visible inventory, giving stores a second sales window before food becomes disposal, and giving users a clearer way to absorb that surplus.</p></div>
+<div class="pdf-purpose-card"><div class="pdf-purpose-index">3</div><h3>Save energy and reduce carbon emissions</h3><p>Lower waste means fewer ingredients, packaging, and logistics are spent on meals that never get eaten. The design therefore treats operational clarity as an environmental lever.</p></div>
+<div class="pdf-purpose-card"><div class="pdf-purpose-index">4</div><h3>Mitigate global warming and climate change</h3><p>The project links rescued-meal behavior to a larger ecological argument: food waste is not only a pricing issue or a campus issue, but part of a broader climate burden.</p></div>
+<div class="pdf-purpose-card"><div class="pdf-purpose-index">5</div><h3>Create a positive cycle</h3><p>Stores recover value, users access affordable meals, and the platform normalizes circular food behavior. That loop is the service model the selection PDF keeps pointing toward.</p></div>
+</div>
+</section>
+<section class="section section-border design-objective">
+<div class="section-header">
+<h2>Design Objective</h2>
+</div>
+<p class="body-text">The objective was to turn food-waste reduction into a practical service model that benefits both consumers and restaurants. Instead of relying on moral persuasion alone, the design focuses on convenience, visibility, and repeatable behavior so sustainability can emerge through ordinary use.</p>
+<div class="pillars" style="margin-top: 20px;">
+<div class="pillar"><p>Convenience</p></div>
+<div class="pillar"><p>Clarity</p></div>
+<div class="pillar"><p>Trust</p></div>
+<div class="pillar"><p>Environmental Value</p></div>
+<div class="pillar"><p>Repeat Use</p></div>
+</div>
+</section>
+<section class="ffx-section">
+<div class="ffx-header"><h2>Feature Principles</h2></div>
+<div class="ffx-grid-5">
+<div class="ffx-feature">Measure meal portions accurately with specific pricing.</div>
+<div class="ffx-feature">Include detailed restaurant meal information.</div>
+<div class="ffx-feature">Offer member rewards.</div>
+<div class="ffx-feature">Support green and sustainable practices.</div>
+<div class="ffx-feature">Encourage eco-friendly eating.</div>
+</div>
+</section>
+<section class="section modern-trends">
+<div class="app-title-row">
+<h2>Modern Trends</h2>
+</div>
+<div class="pillars">
+<div class="pillar"><p>Low<br/>Birthrate</p></div>
+<div class="pillar"><p>Refinement</p></div>
+<div class="pillar"><p>Anti-obesity</p></div>
+<div class="pillar"><p>Rising<br/>Labor Costs</p></div>
+<div class="pillar"><p>Health<br/>Awareness</p></div>
+<div class="pillar"><p>SDGs</p></div>
+</div>
+</section>
+<section class="section section-border" id="process">
 <div class="section-header reveal">
 <div>
 <div class="section-kicker">How the case study was built</div>
@@ -7665,7 +8573,8 @@
 <p>The merchant dashboard keeps publishing, order flow, scheduling, settings, and data review manageable enough for real restaurant participation.</p>
 </div>
 </div>
-</section><div id="key-screens" style="border-top:1px solid var(--dark);">
+</section>
+<div id="key-screens" style="border-top:1px solid var(--dark);">
 <div class="app-heading reveal">
 <div>
 <div class="app-heading-eyebrow">04 — Product Interface</div>
@@ -7779,81 +8688,6 @@
 <div class="dashboard-carousel-card"><img alt="Stock ingredients" src="images/project-3-39.png"/><h4>Inventory Overview</h4><p>Tracks ingredients and stock-related information to support planning between regular service and leftover redistribution.</p></div>
 </div></div>
 <div class="section-header reveal" style="margin-top:40px; padding-top:28px; border-top:1px solid var(--dark);"><div><div class="section-kicker">Platform Breakdown</div><h2>System Details</h2></div></div><p class="section-intro reveal rd4">The supporting platform details below are kept inside the same chapter so the entire ecosystem can be read as one hiring case study, from consumer entry points to merchant-side coordination and personal sustainability feedback.</p></div>
-<section class="section section-border" id="research-highlights"><div class="section-header reveal"><div><div class="section-kicker">Supporting evidence</div><h2>Research Highlights</h2></div></div><p class="section-intro reveal rd1">The research below is deliberately compressed into portfolio-ready evidence. Instead of acting as separate academic deliverables, the survey, personas, journey mapping, and visual-language study are shown here only where they clarify why the service was structured the way it was.</p></section><section class="ffx-section">
-<div class="ffx-header"><h2>Survey Highlights</h2></div>
-<p class="ffx-intro">The survey covered 167 students from National Taiwan Normal University. It clarified how people already order meals, what blocks rescued-food purchases, and why portion clarity matters in ordinary food decisions.</p>
-<div class="ffx-grid-3">
-<div class="ffx-card soft"><h3>Ordering Habits</h3><ul><li>62% had used an ordering system.</li><li>Ordering channels: LINE 40%, app 33%, phone 21%, food delivery platforms 5%, website 1%.</li><li>Pre-order timing clustered around one hour before meals and next-day advance ordering.</li><li>Lunch boxes were the most frequently ordered meal type.</li></ul></div>
-<div class="ffx-card soft"><h3>Leftover Buying Behavior</h3><ul><li>69% had previously bought leftovers.</li><li>Main motivations were saving money and being eco-conscious.</li><li>Most commonly bought leftover categories were beverages and lunch boxes.</li><li>15% reported that they often have leftover meals themselves.</li></ul></div>
-<div class="ffx-card soft"><h3>Barriers and Opportunity</h3><ul><li>Main reasons for not buying leftovers were lack of information, uncertainty about quantity, and inconvenience.</li><li>People wanted clearer pricing, portion selection, and fast pickup logic.</li><li>The data supports a system that reduces hesitation and turns surplus food into a visible, manageable option.</li></ul></div>
-</div>
-</section>
-
-<section class="ffx-section persona-highlights">
-<div class="ffx-header"><h2>Persona Highlights</h2></div>
-<p class="ffx-intro">The personas show that rescued-meal adoption is not a single eco-conscious behavior. It intersects with appetite uncertainty, schedule pressure, fitness needs, and value-driven decision making.</p>
-<div class="persona-four-grid reveal rd2">
-<div class="persona-story-card">
-<div class="p-type">Primary User</div>
-<div class="p-name">Amy</div>
-<div class="p-demo">24 · Female · Master’s student · Reasonable price, small appetite</div>
-<div class="p-quote">"I want a meal that feels worth buying, but I also do not want to waste food I cannot finish."</div>
-<div class="p-grid">
-<div class="p-block"><div class="p-bl">Goals</div><div class="p-bv">Find affordable meals · Choose manageable portions · Reduce waste without extra effort</div></div>
-<div class="p-block"><div class="p-bl">Frustrations</div><div class="p-bv">Set meals are often too large · Online ordering rarely supports portion adjustment · Waste creates guilt</div></div>
-</div>
-<div class="p-chips"><span class="p-chip">Portion Control</span><span class="p-chip">Affordable Meals</span><span class="p-chip">Low Waste</span></div>
-<div class="p-story"><div class="p-sl">User Story</div><p>As a student with a small appetite, I want to quickly find rescued meals with clearer portion expectations so I can eat affordably without over-ordering or wasting food.</p></div>
-</div>
-<div class="persona-story-card">
-<div class="p-type">Primary User</div>
-<div class="p-name">Grace</div>
-<div class="p-demo">28 · Female · PhD student · Irregular appetite under stress</div>
-<div class="p-quote">"My appetite changes every day, so fixed meals often feel like the wrong choice at the wrong moment."</div>
-<div class="p-grid">
-<div class="p-block"><div class="p-bl">Goals</div><div class="p-bv">Order quickly between tasks · Match meals to changing appetite · Avoid decision fatigue</div></div>
-<div class="p-block"><div class="p-bl">Frustrations</div><div class="p-bv">Busy schedules reduce patience · Meal flexibility is limited · Rushed interfaces increase hesitation</div></div>
-</div>
-<div class="p-chips"><span class="p-chip">Time Pressure</span><span class="p-chip">Flexible Choice</span><span class="p-chip">Quick Ordering</span></div>
-<div class="p-story"><div class="p-sl">User Story</div><p>As a busy graduate student, I want a rescue-ordering flow that is fast and flexible so I can decide according to my current appetite instead of abandoning the purchase.</p></div>
-</div>
-<div class="persona-story-card">
-<div class="p-type">Primary User</div>
-<div class="p-name">Andy</div>
-<div class="p-demo">23 · Male · Student athlete · Eats according to training needs</div>
-<div class="p-quote">"If I cannot tell whether a meal will actually be enough, I cannot trust the order."</div>
-<div class="p-grid">
-<div class="p-block"><div class="p-bl">Goals</div><div class="p-bv">Compare options clearly · Confirm portion size before checkout · Buy meals that support training</div></div>
-<div class="p-block"><div class="p-bl">Frustrations</div><div class="p-bv">Portion details are vague · Quantity is hard to compare · Unsure meals may not feel filling enough</div></div>
-</div>
-<div class="p-chips"><span class="p-chip">Meal Quantity</span><span class="p-chip">Training Needs</span><span class="p-chip">Predictability</span></div>
-<div class="p-story"><div class="p-sl">User Story</div><p>As a student athlete, I want clear quantity and portion information before I place an order so I can choose a rescued meal that still meets my eating needs.</p></div>
-</div>
-<div class="persona-story-card">
-<div class="p-type">Primary User</div>
-<div class="p-name">Jane</div>
-<div class="p-demo">26 · Female · Office worker · Value-conscious and time-sensitive</div>
-<div class="p-quote">"A discounted meal only feels worthwhile when pickup is simple and the information feels trustworthy."</div>
-<div class="p-grid">
-<div class="p-block"><div class="p-bl">Goals</div><div class="p-bv">Grab meals efficiently · Judge value quickly · Avoid uncertain pickups during busy days</div></div>
-<div class="p-block"><div class="p-bl">Frustrations</div><div class="p-bv">Tight pickup windows create risk · Rescue meals can feel unclear · Value is hard to assess at a glance</div></div>
-</div>
-<div class="p-chips"><span class="p-chip">Fast Pickup</span><span class="p-chip">Value Judgement</span><span class="p-chip">Trust</span></div>
-<div class="p-story"><div class="p-sl">User Story</div><p>As an office worker in a hurry, I want to understand rescue-meal value and pickup details immediately so I can make a confident decision without slowing down my schedule.</p></div>
-</div>
-</div>
-</section>
-
-<section class="ffx-section journey-highlights">
-<div class="ffx-header"><h2>Journey Highlights</h2></div>
-<p class="ffx-intro">The journey map shows that friction happens both before purchase and after checkout. Clarity around quantity, pickup, and reassurance becomes just as important as the initial discovery step.</p>
-<div class="ffx-grid-4">
-<div class="ffx-card"><h3>Before Ordering</h3><p><strong>Motivations:</strong> hunger, appetizing meals, discounts, cravings, and recommendations from friends.</p><p><strong>Pain Points:</strong> people cannot know remaining meal quantities, prices, or meal portions before purchase.</p><p><strong>Touchpoints:</strong> social media, online ads, Google Maps, store signage, word of mouth, and food-platform apps.</p></div>
-<div class="ffx-card"><h3>During Ordering</h3><p><strong>Goals:</strong> quickly complete the purchase, get clear information, and secure a good-value meal.</p><p><strong>Pain Points:</strong> long queues, limited time before class, complex interfaces, and difficulty confirming what is still available.</p><p><strong>Actions:</strong> compare stores, check pickup timing, choose meal portions, and place an order.</p></div>
-<div class="ffx-card"><h3>After Ordering</h3><p><strong>Needs:</strong> reassurance, order visibility, and clear pickup instructions.</p><p><strong>Pain Points:</strong> uncertainty about order progress and whether the reserved meal will still match expectations.</p><p><strong>Touchpoints:</strong> app records, LINE notifications, and restaurant confirmation.</p></div>
-<div class="ffx-card"><h3>Meal Completion</h3><p><strong>Outcome:</strong> the meal is consumed, evaluated, and remembered as either convenient and worthwhile or frustrating and risky.</p><p><strong>Design Implication:</strong> if the post-order experience is smooth, leftover buying can become a normalized habit rather than an occasional compromise.</p></div>
-</div>
-</section>
 <section class="ffx-section">
 <div class="ffx-header"><h2>Visual Language</h2></div>
 <p class="ffx-intro">The visual system translates the original deck into a friendlier product language tied to nature, regeneration, and lightness. In portfolio terms, it shows how the interface tone supports adoption instead of making rescued food feel punitive or compromised.</p>
@@ -7862,56 +8696,9 @@
 <div class="ffx-card"><h3>Color System</h3><p>The palette is described through ideas of nature, healing, energy, earth, and regeneration. Key deck colors include Spectra Yellow, Green Flash, and Sudan Brown, supported by softer tones that keep the interface friendly rather than punitive.</p><div class="ffx-swatch-row"><div><div class="ffx-swatch-color" style="background:#F7B718"></div><div class="ffx-swatch-label">Spectra Yellow<br/>#F7B718</div></div><div><div class="ffx-swatch-color" style="background:#78C753"></div><div class="ffx-swatch-label">Green Flash<br/>#78C753</div></div><div><div class="ffx-swatch-color" style="background:#AC6C29"></div><div class="ffx-swatch-label">Sudan Brown<br/>#AC6C29</div></div><div><div class="ffx-swatch-color" style="background:#F7E6E8"></div><div class="ffx-swatch-label">Barely Pink<br/>#F7E6E8</div></div></div></div>
 </div>
 </section>
-<section class="section section-border design-objective">
-<div class="section-header">
-<h2>Design Objective</h2>
-</div>
-<p class="body-text">The objective was to turn food-waste reduction into a practical service model that benefits both consumers and restaurants. Instead of relying on moral persuasion alone, the design focuses on convenience, visibility, and repeatable behavior so sustainability can emerge through ordinary use.</p>
-<div class="pillars" style="margin-top: 20px;">
-<div class="pillar"><p>Convenience</p></div>
-<div class="pillar"><p>Clarity</p></div>
-<div class="pillar"><p>Trust</p></div>
-<div class="pillar"><p>Environmental Value</p></div>
-<div class="pillar"><p>Repeat Use</p></div>
-</div>
-</section>
-<section class="ffx-section">
-<div class="ffx-header"><h2>Feature Principles</h2></div>
-<div class="ffx-grid-5">
-<div class="ffx-feature">Measure meal portions accurately with specific pricing.</div>
-<div class="ffx-feature">Include detailed restaurant meal information.</div>
-<div class="ffx-feature">Offer member rewards.</div>
-<div class="ffx-feature">Support green and sustainable practices.</div>
-<div class="ffx-feature">Encourage eco-friendly eating.</div>
-</div>
-</section>
 <div style="border-top: 1px solid var(--dark);">
 <img alt="Foody Foody design overview" src="images/project-3-7.png"/>
 </div>
-<section class="section section-border">
-<div class="goal-header">
-<div class="goal-icon">
-<img alt="Goal icon" src="images/project-3-8.png"/>
-</div>
-<h2>Goal</h2>
-</div>
-<p class="body-text">Foody Foody aims to make surplus meals easier to discover, easier to trust, and easier to manage. The goal is to transform food rescue from an occasional compromise into a visible, user-friendly ordering habit that can fit real restaurant operations.</p>
-<div class="info-list" style="margin-top: 40px;">
-<div class="info-row">
-<div class="info-label">Solution</div>
-<div class="info-desc">The app links users to local stores with surplus food. It tracks carbon emissions and rewards eco-friendly actions, encouraging users to make sustainable choices.</div>
-</div>
-<div class="info-row">
-<div class="info-label">Quality</div>
-<div class="info-desc">The LINE ordering system and app are simple and user-friendly. Key features include order history with portion details, ensuring reliability and ease of use.</div>
-</div>
-<div class="info-row">
-<div class="info-label">Function</div>
-<div class="info-desc">Key functions include a map of stores with surplus food, carbon emission tracking, and rewards for eco-friendly actions. Users can also view past orders and portions.</div>
-</div>
-</div>
-</section>
-<!-- merged detailed UI and research sections from project-three-inserted-content.html -->
 <section class="section section-border" id="outcome">
 <div class="section-header reveal">
 <h2>Outcome &amp; Reflection</h2>
@@ -7944,8 +8731,7 @@
 <div class="next-step-card"><h3>Impact Tracking</h3><p>Translate rescue volume, repeat participation, and restaurant adoption into clearer metrics so environmental value and service value can be evaluated together.</p></div>
 </div>
 </section>
-<section class="closing-section case-closing">
-<img alt="Foody Foody visual overview" src="images/project-3-7.png"/>
+<section class="closing-section case-closing no-image">
 <div class="closing-quote">
 <p>Foody Foody became a way to test how design can make sustainability operational. The project is less about persuading people to care in the abstract, and more about building a service where caring becomes an easy, visible, and repeatable action.</p>
 </div>
