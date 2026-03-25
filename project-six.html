@@ -12,18 +12,19 @@
 
     :root {
       --bg: #ffffff;
-      --bg-dark: #1d231c;
+      --dark: #1d231c;
       --text: #263025;
       --black: #000000;
       --gray: #3e3e3e;
       --silver: #aeabab;
-      --text-dark: #ffffff;
+      --line: rgba(0,0,0,0.10);
       --ff-display: 'Aboreto', serif;
       --ff-body: 'Geist', sans-serif;
+      --pad: 24px;
+      --content: 1320px;
     }
 
     html { scroll-behavior: smooth; }
-
     body {
       background: var(--bg);
       color: var(--black);
@@ -36,68 +37,73 @@
     img { display: block; width: 100%; height: auto; object-fit: cover; }
     a { text-decoration: none; color: inherit; }
 
-    .site-nav {
+    nav {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 64px;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       z-index: 100;
       border-bottom: 1px solid rgba(0,0,0,0.08);
-      padding: 0 24px;
+      padding: 10px 22px;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
+      min-height: 92px;
     }
 
     .nav-logo {
       font-family: var(--ff-display);
-      font-size: 18px;
-      letter-spacing: 3px;
-      color: var(--text);
-      white-space: nowrap;
+      font-size: 27px;
+      letter-spacing: 3.4px;
+      color: var(--dark);
+      line-height: 1;
+      padding-top: 2px;
     }
 
     .nav-links {
       display: flex;
-      gap: 28px;
+      gap: 30px;
       list-style: none;
-      align-items: center;
+      padding-top: 2px;
     }
 
     .nav-links a {
-      font-size: 14px;
-      color: var(--black);
+      font-family: var(--ff-display);
+      font-size: 15px;
+      color: rgba(29,35,28,0.72);
       transition: opacity .2s ease;
     }
 
     .nav-links a:hover { opacity: 0.5; }
 
+    main { padding-top: 92px; }
+
     .hero {
-      margin-top: 0;
-      height: 540px;
+      height: clamp(360px, 65svh, 760px);
+      min-height: 360px;
       overflow: hidden;
-      border-top: 1px solid rgba(0,0,0,0.08);
+      background: #f4f4f1;
+      border-top: 1px solid rgba(0,0,0,0.06);
     }
 
     .hero img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 44%;
+      object-position: center top;
     }
 
     .meta-row {
       display: flex;
       align-items: stretch;
-      border-bottom: 1px solid var(--bg-dark);
+      border-bottom: 1px solid var(--dark);
     }
 
     .meta-info {
-      background: var(--bg-dark);
+      background: var(--dark);
       padding: 24px 20px;
       min-width: 300px;
       display: flex;
@@ -131,7 +137,7 @@
 
     .meta-tag {
       font-family: var(--ff-display);
-      font-size: 12px;
+      font-size: 14px;
       color: var(--silver);
       letter-spacing: 0.7px;
     }
@@ -140,177 +146,298 @@
       flex: 1;
       padding: 24px 32px;
       display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       align-items: flex-end;
+      gap: 20px;
+      text-align: right;
     }
 
-    .meta-label span {
+    .meta-title-line {
       font-family: var(--ff-display);
       font-size: 20px;
       color: var(--text);
       letter-spacing: 1px;
+      line-height: 1.4;
+      text-align: right;
+      width: 100%;
+    }
+
+    .meta-facts {
+      display: flex;
+      gap: 24px;
+      width: 100%;
+      padding-bottom: 4px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .meta-fact {
+      min-width: 160px;
+      text-align: left;
+    }
+
+    .meta-fact-label {
+      font-family: var(--ff-display);
+      font-size: 11px;
+      color: var(--silver);
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .meta-fact-value {
+      font-family: var(--ff-display);
+      font-size: 13px;
+      color: var(--text);
+      letter-spacing: 0.5px;
+      line-height: 1.6;
     }
 
     .description {
-      padding: 60px 24px;
+      padding: 60px var(--pad);
       max-width: 720px;
     }
 
-    .description p {
-      font-size: 15px;
+    .description p,
+    .body-text,
+    .goal-desc,
+    .detail-note,
+    .caption,
+    .grid-card p {
+      font-size: 16px;
       color: var(--text);
-      line-height: 1.85;
+      line-height: 1.8;
+    }
+
+    .section,
+    .goal-section,
+    .ideation-section,
+    .detail-section {
+      padding: 0 var(--pad) 56px;
+    }
+
+    .project-snapshot {
+      padding: 28px var(--pad) 42px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      background: linear-gradient(135deg, rgba(253,248,246,0.56) 0%, rgba(246,239,255,0.52) 22%, rgba(237,245,255,0.48) 46%, rgba(238,250,244,0.48) 70%, rgba(255,244,250,0.52) 100%);
+    }
+
+    .snapshot-grid {
+      display: grid;
+      grid-template-columns: minmax(0,1.1fr) minmax(0,0.9fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .snapshot-card {
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 0;
+      padding: 22px;
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+    }
+
+    .snapshot-eyebrow {
+      font-family: var(--ff-display);
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: var(--silver);
+      margin-bottom: 8px;
+    }
+
+    .snapshot-card h3 {
+      font-size: clamp(20px,2vw,26px);
+      letter-spacing: 1.2px;
+      margin-bottom: 10px;
+      color: var(--text);
+      font-family: var(--ff-display);
+      font-weight: 400;
+    }
+
+    .snapshot-card p {
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .snapshot-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .snapshot-item {
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .snapshot-item:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .snapshot-item strong {
+      display: block;
+      font-family: var(--ff-display);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.9px;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .snapshot-item span {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.7;
+      display: block;
+    }
+
+    .section-border { border-top: 1px solid rgba(0,0,0,0.12); }
+
+    .section-header {
+      padding: 40px 0 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .num {
+      font-family: var(--ff-display);
+      font-size: 14px;
+      color: var(--silver);
+      letter-spacing: 1px;
+      min-width: 34px;
+      padding-top: 10px;
     }
 
     h2 {
       font-family: var(--ff-display);
-      font-size: clamp(26px, 3.5vw, 48px);
+      font-size: clamp(28px, 4vw, 48px);
       color: var(--text);
       letter-spacing: 2px;
       line-height: 1.2;
       font-weight: 400;
     }
 
-    .section {
-      padding: 0 24px 40px;
-    }
-
-    .section-border { border-top: 1px solid var(--black); }
-
-    .body-text {
-      font-size: 16px;
+    h3 {
+      font-family: var(--ff-display);
+      font-size: 18px;
       color: var(--black);
-      line-height: 1.8;
-      max-width: 720px;
+      font-weight: 400;
+      letter-spacing: 1px;
+      line-height: 1.4;
     }
 
     .full-image {
       width: 100%;
-      border-top: 1px solid var(--bg-dark);
+      border-top: 1px solid rgba(0,0,0,0.08);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
     }
 
-    .motivation-header {
-      display: flex;
-      gap: 24px;
-      align-items: flex-start;
-      padding: 40px 0 20px;
+    .motivation-layout {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr);
+      gap: 28px;
+      align-items: start;
     }
 
-    .motivation-header img.icon {
-      width: 75px;
-      height: 100px;
+    .motivation-layout img.icon {
+      width: 100px;
+      aspect-ratio: 3 / 4;
       object-fit: cover;
-      flex-shrink: 0;
-    }
-
-    .motivation-header-text {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      flex: 1;
+      margin-top: 10px;
     }
 
     .pillars {
       display: flex;
       flex-wrap: wrap;
-      gap: 20px;
-      padding: 24px 0;
+      gap: 24px;
+      padding: 28px 0 4px;
+      justify-content: center;
     }
 
     .pillar {
-      width: 125px;
-      height: 125px;
+      width: 200px;
+      height: 200px;
       border: 1px solid var(--black);
-      border-radius: 62.5px;
+      border-radius: 999px;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 5px;
-      flex-shrink: 0;
-    }
-
-    .pillar-inner {
-      width: 100%;
-      height: 100%;
-      border: 1px solid var(--black);
-      border-radius: 57.5px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding: 0 20px;
     }
 
     .pillar p {
       font-family: var(--ff-display);
-      font-size: 12px;
+      font-size: 14px;
       color: var(--black);
       text-align: center;
       letter-spacing: 0.7px;
+      line-height: 1.6;
     }
 
-    .content-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 40px;
-      padding: 40px 0 20px;
-      justify-content: space-around;
+    .split-cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+      padding-top: 8px;
     }
 
-    .content-col {
+    .grid-card {
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      flex: 1;
-      min-width: 240px;
-      max-width: 380px;
+      gap: 14px;
     }
 
-    .content-col img {
-      aspect-ratio: 1.34;
+    .grid-card img {
+      aspect-ratio: 4 / 3;
       object-fit: cover;
     }
 
-    .col-label {
-      font-family: var(--ff-display);
-      font-size: clamp(22px, 3vw, 48px);
-      color: var(--text);
-      letter-spacing: 2px;
-      line-height: 1.2;
-    }
-
-    .col-tag {
+    .eyebrow {
       font-family: var(--ff-display);
       font-size: 13px;
-      color: var(--text);
-      letter-spacing: 0.7px;
-      margin-top: 4px;
+      color: var(--silver);
+      letter-spacing: 1px;
+      margin-bottom: 2px;
     }
 
-    .goal-section {
-      padding: 0 24px 60px;
-      border-top: 1px solid var(--text);
+    .goal-grid {
+      display: grid;
+      grid-template-columns: 160px minmax(0, 1fr);
+      gap: 28px;
+      align-items: start;
+      padding-top: 20px;
     }
 
     .goal-icon-wrap {
-      width: 100px;
-      height: 100px;
+      width: 112px;
+      height: 112px;
       border: 1px solid var(--black);
-      border-radius: 50px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 40px 0 24px;
       position: relative;
+      margin-top: 6px;
     }
 
     .goal-icon-wrap::after {
       content: '';
       position: absolute;
-      inset: 4px;
+      inset: 6px;
       border: 1px solid var(--black);
       border-radius: 50%;
     }
 
     .goal-icon-wrap img {
-      width: 44px;
+      width: 46px;
       height: auto;
       object-fit: contain;
       position: relative;
@@ -320,91 +447,377 @@
     .goal-content {
       display: flex;
       flex-direction: column;
-      gap: 40px;
+      gap: 26px;
     }
 
     .goal-row {
-      display: flex;
-      gap: 40px;
-      align-items: flex-start;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
     }
 
     .goal-label {
-      width: 220px;
-      flex-shrink: 0;
       font-family: var(--ff-display);
       font-size: 18px;
       color: var(--text);
       letter-spacing: 1px;
     }
 
-    .goal-desc {
-      flex: 1;
-      min-width: 200px;
-      font-size: 16px;
-      color: var(--black);
-      line-height: 1.8;
+
+    .decision-section {
+      padding: 0 var(--pad) 56px;
     }
 
-    .ideation-section {
-      padding: 0 24px 60px;
-      border-top: 1px solid var(--text);
+    .decision-intro {
+      max-width: 760px;
+      padding-top: 4px;
+      padding-bottom: 22px;
     }
 
-    .ideation-header {
-      padding: 40px 0 20px;
+    .decision-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .decision-card {
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 12px;
     }
 
-    .ideation-header p {
-      font-size: 16px;
+    .decision-card h3 {
+      margin: 0;
+    }
+
+    .decision-card p {
+      font-size: 15px;
+      line-height: 1.75;
       color: var(--text);
     }
 
+    .ideation-intro {
+      padding-bottom: 22px;
+      max-width: 760px;
+    }
+
     .ideation-feature {
-      width: 33.333%;
-      margin-bottom: 20px;
+      width: min(28%, 360px);
+      margin-bottom: 18px;
     }
 
-    .ideation-feature img {
-      width: 100%;
-      display: block;
-      object-fit: cover;
+    .process-caption {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.7;
+      max-width: 560px;
+      margin: 0 0 28px;
     }
 
-    .ideation-grid-eight {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-      margin-bottom: 0;
-    }
-
-    .ideation-grid-eight img {
-      width: 100%;
-      display: block;
-      object-fit: cover;
-    }
-
-    .ideation-extra {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
+    .ideation-feature img,
+    .ideation-grid-eight img,
     .ideation-extra img {
       width: 100%;
       display: block;
       object-fit: cover;
     }
 
+    .sketch-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 16px;
+      padding-top: 4px;
+    }
+
+    .sketch-grid img {
+      width: 100%;
+      aspect-ratio: 1.1;
+      object-fit: contain;
+      background: #faf9f7;
+      padding: 8px;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .final-intro {
+      max-width: 860px;
+      padding-bottom: 30px;
+    }
+
+    .final-intro p + p {
+      margin-top: 14px;
+    }
+
+    .detail-list {
+      display: flex;
+      flex-direction: column;
+      gap: 42px;
+      padding-top: 8px;
+    }
+
+    .detail-row {
+      display: grid;
+      grid-template-columns: minmax(320px, 460px) minmax(0, 1fr);
+      gap: 32px;
+      align-items: start;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+    }
+
+    .detail-row.image-only {
+      grid-template-columns: minmax(320px, 460px);
+    }
+
+    .detail-img img {
+      aspect-ratio: 1.4;
+      object-fit: cover;
+      border: none;
+    }
+
+    .detail-info {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 0;
+      text-align: left;
+    }
+
+    .detail-summary {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.75;
+      max-width: 720px;
+    }
+
+    .detail-name {
+      font-family: var(--ff-display);
+      font-size: 18px;
+      color: var(--text);
+      letter-spacing: 1px;
+    }
+
+    .detail-parts {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    .detail-nums,
+    .detail-vals {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    .detail-nums { white-space: nowrap; }
+
+    .colour-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      padding-top: 8px;
+      align-items: start;
+    }
+
+    .colour-row {
+      padding-top: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .colour-row img {
+      width: 100%;
+      aspect-ratio: 1.18;
+      object-fit: contain;
+      background: #faf9f7;
+      padding: 4px;
+      border: none;
+    }
+
+    .colour-name {
+      font-family: var(--ff-body);
+      font-size: 14px;
+      color: var(--text);
+      letter-spacing: 0;
+      line-height: 1.6;
+    }
+
+    .closing-line {
+      font-family: var(--ff-body);
+      font-size: 15px;
+      color: var(--text);
+      letter-spacing: 0;
+      line-height: 1.8;
+      max-width: 620px;
+      padding-top: 4px;
+    }
+
+
+    #float-nav {
+      position: fixed !important;
+      bottom: max(22px, env(safe-area-inset-bottom, 22px)) !important;
+      left: 50% !important;
+      top: auto !important;
+      right: auto !important;
+      transform: translateX(-50%) translateY(16px);
+      z-index: 200;
+      display: inline-flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: max-content;
+      max-width: calc(100vw - 40px);
+      padding: 10px 14px !important;
+      background: linear-gradient(135deg, rgba(253,248,246,0.44) 0%, rgba(246,239,255,0.38) 22%, rgba(237,245,255,0.34) 46%, rgba(238,250,244,0.34) 70%, rgba(255,244,250,0.38) 100%) !important;
+      border: 1px solid rgba(255,255,255,0.46) !important;
+      box-shadow: 0 8px 28px rgba(120,132,154,0.14), inset 0 1px 0 rgba(255,255,255,0.52) !important;
+      backdrop-filter: blur(22px) saturate(150%) !important;
+      -webkit-backdrop-filter: blur(22px) saturate(150%) !important;
+      border-radius: 999px;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.40s ease, transform 0.40s cubic-bezier(0.4,0,0.2,1);
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      isolation: isolate;
+    }
+    #float-nav::-webkit-scrollbar { display: none; }
+    #float-nav::before,
+    #float-nav::after {
+      content: '';
+      position: absolute;
+      top: 4px;
+      bottom: 4px;
+      width: 44px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.24s ease;
+      z-index: 3;
+      border-radius: 999px;
+      filter: blur(10px);
+    }
+    #float-nav::before {
+      left: 0;
+      background: linear-gradient(90deg, rgba(250,247,248,0.74) 0%, rgba(248,243,255,0.52) 28%, rgba(241,246,255,0.24) 58%, rgba(241,246,255,0.00) 100%);
+    }
+    #float-nav::after {
+      right: 0;
+      background: linear-gradient(270deg, rgba(250,247,248,0.74) 0%, rgba(248,243,255,0.52) 28%, rgba(241,246,255,0.24) 58%, rgba(241,246,255,0.00) 100%);
+    }
+    #float-nav.fn-visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: all;
+    }
+    #float-nav.fn-hidden {
+      opacity: 0;
+      transform: translateX(-50%) translateY(16px);
+      pointer-events: none;
+    }
+    .fc-item {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 24px;
+      border-radius: 999px;
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, rgba(255,243,240,0.80) 0%, rgba(244,232,255,0.78) 22%, rgba(230,243,255,0.74) 46%, rgba(228,250,239,0.74) 70%, rgba(255,237,247,0.78) 100%);
+      background-size: 300% 300%;
+      animation: fcGlass 18s ease-in-out infinite;
+      backdrop-filter: blur(32px) saturate(240%);
+      -webkit-backdrop-filter: blur(32px) saturate(240%);
+      border: 1px solid rgba(255,255,255,0.78);
+      box-shadow: 0 5px 20px rgba(120,132,154,0.18), inset 0 1px 0 rgba(255,255,255,0.86), inset 0 -1px 0 rgba(255,255,255,0.26);
+      transition: box-shadow 0.22s ease, background 0.25s ease, border-color 0.25s ease;
+    }
+    .fc-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: linear-gradient(105deg, transparent 28%, rgba(255,255,255,0.54) 50%, transparent 72%);
+      transform: translateX(120%);
+      transition: transform 0.50s ease;
+      pointer-events: none;
+    }
+    .fc-item:hover::before { transform: translateX(-120%); }
+    .fc-item:hover {
+      box-shadow: 0 8px 28px rgba(120,132,154,0.22), inset 0 1px 0 rgba(255,255,255,0.92);
+    }
+    .fc-item.fc-active {
+      background: linear-gradient(135deg, rgba(31,38,30,0.82) 0%, rgba(45,58,44,0.78) 50%, rgba(31,38,30,0.82) 100%);
+      background-size: 300% 300%;
+      animation: fcGlass 18s ease-in-out infinite;
+      border-color: rgba(255,255,255,0.24);
+      box-shadow: 0 4px 22px rgba(29,35,28,0.24), inset 0 1px 0 rgba(255,255,255,0.22);
+    }
+    .fc-label {
+      font-family: var(--ff-display);
+      font-size: 13.5px;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+      color: rgba(38,48,37,0.72);
+      transition: color 0.22s ease;
+      position: relative;
+      z-index: 1;
+      white-space: nowrap;
+    }
+    .fc-item:hover .fc-label { color: rgba(38,48,37,0.92); }
+    .fc-item.fc-active .fc-label { color: rgba(255,255,255,0.94); }
+    .fc-letter {
+      display: none;
+      font-family: var(--ff-display);
+      font-size: 16px;
+      letter-spacing: 0.75px;
+      text-transform: uppercase;
+      color: rgba(38,48,37,0.72);
+      position: relative;
+      z-index: 1;
+      transition: color 0.22s ease;
+    }
+    .fc-item.fc-active .fc-letter { color: rgba(255,255,255,0.94); }
+    #float-nav.fn-compact .fc-item.fc-active {
+      width: auto;
+      height: auto;
+      min-height: 51px;
+      padding: 10px 24px;
+      border-radius: 999px;
+    }
+    #float-nav.fn-compact .fc-item.fc-active .fc-label { display: block; }
+    #float-nav.fn-compact .fc-item.fc-active .fc-letter { display: none; }
+    #float-nav.fn-compact { gap: 8px; }
+    #float-nav.fn-compact .fc-item {
+      width: 51px;
+      height: 51px;
+      padding: 0;
+      border-radius: 50%;
+    }
+    #float-nav.fn-compact .fc-label { display: none; }
+    #float-nav.fn-compact .fc-letter { display: block; }
+
+    @keyframes fcGlass {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     footer {
-      background: var(--bg-dark);
-      color: var(--text-dark);
+      background: var(--dark);
+      color: var(--bg);
       padding: 60px 40px 0;
-      margin-top: 20px;
+      margin-top: 24px;
     }
 
     .footer-top {
@@ -420,6 +833,8 @@
       font-family: var(--ff-display);
       font-size: 28px;
       letter-spacing: 4px;
+      color: var(--bg);
+      line-height: 1;
     }
 
     .footer-nav,
@@ -434,123 +849,116 @@
     .footer-contact a {
       font-size: 16px;
       line-height: 1.6;
-      color: var(--text-dark);
+      color: var(--bg);
       letter-spacing: -0.2px;
       opacity: 0.85;
     }
 
     .footer-nav a:hover,
-    .footer-contact a:hover {
-      opacity: 1;
-    }
+    .footer-contact a:hover { opacity: 1; }
 
     .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.15);
+      padding: 24px 0 28px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 24px 0 28px;
-      border-top: 1px solid rgba(255,255,255,0.1);
       flex-wrap: wrap;
       gap: 16px;
     }
 
-    .footer-socials {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-    }
-
-    .footer-socials a {
-      opacity: 0.6;
-      transition: opacity 0.2s ease;
-      display: flex;
-      align-items: center;
-    }
-
-    .footer-socials a:hover { opacity: 1; }
-
-    .footer-socials svg {
-      width: 18px;
-      height: 18px;
-      fill: var(--text-dark);
-    }
-
     .footer-copy {
       font-size: 13px;
-      color: var(--text-dark);
+      color: var(--bg);
       opacity: 0.6;
-      letter-spacing: -0.1px;
     }
 
-    @media (max-width: 1279px) {
-      .hero { height: 460px; }
-      .ideation-feature { width: 50%; }
-      .ideation-grid-eight { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 980px) {
+      .split-cards,
+      .colour-list,
+      .decision-grid { grid-template-columns: 1fr; }
+      .sketch-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .goal-grid,
+      .detail-row,
+      .motivation-layout { grid-template-columns: 1fr; }
+      .goal-row { grid-template-columns: 1fr; gap: 8px; }
+      .ideation-feature { width: min(42%, 320px); }
+      .detail-row.image-only { grid-template-columns: 1fr; }
     }
 
-    @media (max-width: 860px) {
-      .site-nav { padding: 0 16px; }
-      .nav-links { display: none; }
-      .meta-row { flex-direction: column; }
-      .meta-info { min-width: 100%; }
-      .meta-label { padding: 20px 24px; }
-      .motivation-header { flex-direction: column; }
-      .content-grid { flex-direction: column; }
-      .goal-row { flex-direction: column; gap: 8px; }
-      .goal-label { width: auto; }
-      .footer-top { flex-direction: column; }
-      .footer-bottom { flex-direction: column; align-items: flex-start; }
+
+    @media (max-width: 1279px) and (min-width: 800px) {
+      .hero {
+        height: clamp(320px, 55svh, 620px);
+        min-height: 320px;
+        margin-left: 0;
+        width: 100%;
+      }
     }
 
     @media (max-width: 799px) {
-      .hero {
-        height: 360px;
-        margin-top: 0;
+      #float-nav {
+        gap: 8px;
+        width: auto;
+        max-width: calc(100vw - 44px);
+        justify-content: flex-start;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 11px 14px !important;
+        border-radius: 999px;
+        scroll-snap-type: x proximity;
+        scroll-padding-inline: 22px;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
       }
+      #float-nav.fn-scrollable::before,
+      #float-nav.fn-scrollable::after { opacity: 0.92; }
+      #float-nav.fn-scrollable.fn-at-start::before { opacity: 0; }
+      #float-nav.fn-scrollable.fn-at-end::after { opacity: 0; }
+      .fc-item { padding: 9px 18px; scroll-snap-align: start; }
+      .fc-label { font-size: 12px; letter-spacing: 1.9px; }
+      #float-nav.fn-compact .fc-item { width: 45px; height: 45px; }
+      #float-nav.fn-compact .fc-item.fc-active { min-height: 45px; padding: 9px 16px; max-width: calc(100vw - 120px); }
+    }
 
+    @media (max-width: 760px) {
+      nav {
+        min-height: 72px;
+        padding: 14px 16px;
+        align-items: center;
+      }
+      .nav-logo { font-size: 22px; letter-spacing: 2.6px; }
+      .nav-links { display: none; }
+      main { padding-top: 72px; }
+      .meta-row { flex-direction: column; }
+      .meta-info { min-width: 100%; }
+      .meta-label { padding: 20px 24px; gap: 16px; align-items: flex-start; text-align: left; }
+      .meta-title-line { text-align: left; }
+      .meta-facts { justify-content: flex-start; }
+      .meta-fact { text-align: left; }
+      .meta-facts { display: flex; flex-direction: column; gap: 12px; }
+      .snapshot-grid { grid-template-columns: 1fr; }
+      .project-snapshot { padding-top: 24px; padding-bottom: 30px; }
+      .snapshot-card { padding: 18px; }
       .section,
-      .description,
       .goal-section,
-      .ideation-section {
-        padding-left: 16px;
-        padding-right: 16px;
+      .ideation-section,
+      .detail-section,
+      .description { padding-left: 16px; padding-right: 16px; }
+      .pillars { gap: 16px; }
+      .pillar {
+        width: calc(50% - 8px);
+        min-width: 140px;
+        height: 140px;
       }
-
       .ideation-feature { width: 100%; }
-      .ideation-grid-eight { grid-template-columns: 1fr; }
-
-      footer {
-        padding: 48px 20px 0;
-      }
-
-      .footer-top {
-        flex-direction: column;
-        gap: 40px;
-        padding-bottom: 48px;
-      }
-
-      .footer-bottom {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+      footer { padding: 48px 20px 0; }
+      .footer-top,
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
     }
   
-    /* ═══════════════════════════════════════════════════════
-       NAV & FOOTER — from index.html (missing vars only)
-    ═══════════════════════════════════════════════════════ */
-    :root {
-      --f-display: "Aboreto", Helvetica, sans-serif;
-      --f-body:    "Geist", Helvetica, sans-serif;
-      --muted:     #aeabab;
-      --dark-green:#263025;
-      --bg-light:  #ffffff;
-      --bg-dark:   #1d231c;
-      --accent:    #aeabab;
-      --text-dark: #ffffff;
-    }
-
-    /* ── NAV ── */
-    nav {
+    /* project-one nav / footer system */
+    #siteNav {
       height: auto;
       position: sticky;
       top: 0;
@@ -575,7 +983,7 @@
       isolation: isolate;
     }
 
-    nav::before {
+    #siteNav::before {
       content: "";
       position: absolute;
       inset: -24% -6%;
@@ -591,7 +999,7 @@
       animation: pastelGlowFloat 28s ease-in-out infinite;
     }
 
-    nav::after {
+    #siteNav::after {
       content: "";
       position: absolute;
       inset: 0;
@@ -654,7 +1062,7 @@
     }
 
     .nav-logo {
-      font-family: var(--f-display);
+      font-family: var(--ff-display);
       font-size: 27px;
       letter-spacing: 3.6px;
       line-height: 1;
@@ -670,10 +1078,11 @@
       align-items: flex-start;
       padding-top: 2px;
       margin-top: 0;
+      margin-left: 0;
     }
 
     .nav-links a {
-      font-family: var(--f-display);
+      font-family: var(--ff-display);
       font-size: 16px;
       line-height: 1;
       color: rgba(29, 35, 28, 0.72);
@@ -682,7 +1091,6 @@
     }
     .nav-links a:hover { color: var(--text); }
 
-    /* hamburger — mobile only */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -698,12 +1106,12 @@
       display: block;
       width: 22px;
       height: 1.5px;
-      background: var(--muted);
+      background: var(--gray);
       border-radius: 2px;
       transition: all 0.3s;
+      margin: 0;
     }
 
-    /* mobile menu */
     .mobile-menu {
       display: flex;
       flex-direction: column;
@@ -719,15 +1127,12 @@
       border-bottom: 1px solid rgba(29, 35, 28, 0.10);
       z-index: 119;
       box-shadow: 0 12px 30px rgba(120, 132, 154, 0.10);
-      /* Slide-down animation */
       overflow: hidden;
       max-height: 0;
       opacity: 0;
       transform: translateY(-6px);
       pointer-events: none;
-      transition: max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1),
-                  opacity 0.28s ease,
-                  transform 0.28s ease;
+      transition: max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s ease, transform 0.28s ease;
     }
     .mobile-menu.open {
       max-height: 200px;
@@ -742,7 +1147,7 @@
       flex-shrink: 0;
       box-sizing: border-box;
       font-size: 16px;
-      font-family: var(--f-display);
+      font-family: var(--ff-display);
       line-height: 1;
       letter-spacing: 0.2px;
       color: rgba(29, 35, 28, 0.76);
@@ -753,20 +1158,10 @@
     .mobile-menu a:last-child { border-bottom: none; }
     .mobile-menu a:hover { color: rgba(29, 35, 28, 1); }
 
-    /* Hamburger → X animation */
-    .hamburger span {
-      transform-origin: center;
-    }
-    .hamburger.open span:nth-child(1) {
-      transform: translateY(6.5px) rotate(45deg);
-    }
-    .hamburger.open span:nth-child(2) {
-      opacity: 0;
-      transform: scaleX(0);
-    }
-    .hamburger.open span:nth-child(3) {
-      transform: translateY(-6.5px) rotate(-45deg);
-    }
+    .hamburger span { transform-origin: center; }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
     @keyframes pastelGradientShift {
       0% { background-position: 0% 50%; }
@@ -780,7 +1175,325 @@
       100% { transform: translate3d(0, 0, 0) scale(1); }
     }
 
-    /* ── FOOTER ── */
+    .meta-row {
+      display: flex;
+      align-items: stretch;
+      border-bottom: 1px solid var(--dark);
+    }
+    .meta-label {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-end;
+      text-align: right;
+      padding: 24px 32px;
+      gap: 18px;
+      flex: 1;
+    }
+    .meta-title-line {
+      text-align: right;
+      width: 100%;
+      max-width: none;
+      font-family: var(--ff-display);
+      font-size: 20px;
+      color: var(--text);
+      letter-spacing: 1px;
+    }
+    .meta-facts {
+      display: flex;
+      gap: 24px;
+      padding-bottom: 4px;
+      flex-wrap: wrap;
+      row-gap: 10px;
+      width: 100%;
+      justify-content: flex-end;
+      align-items: flex-start;
+    }
+    .meta-fact {
+      min-width: 160px;
+      width: auto;
+      text-align: right;
+      text-align: left;
+      flex: 0 0 auto;
+    }
+    .meta-fact-value {
+      white-space: nowrap;
+      font-size: 13px;
+      color: var(--text);
+      letter-spacing: 0.5px;
+    }
+
+    .sketch-grid { display: none !important; }
+    .sketch-lightbox {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: 56px minmax(0, 1fr) 56px;
+      gap: 14px;
+      align-items: stretch;
+    }
+    .sketch-stage {
+      min-height: 560px;
+      background: #efede7;
+      border: 1px solid rgba(29,35,28,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      overflow: hidden;
+      cursor: zoom-in;
+    }
+    .sketch-stage img {
+      width: 100%;
+      height: 100%;
+      max-height: 500px;
+      object-fit: contain;
+      object-position: center;
+    }
+    .sketch-nav-btn {
+      width: 56px;
+      height: auto;
+      border-radius: 0;
+      border: 1px solid rgba(29,35,28,0.12);
+      background: #f4f4f1;
+      font-family: var(--ff-display);
+      font-size: 30px;
+      line-height: 1;
+      color: var(--dark);
+      cursor: pointer;
+      transition: background .2s ease, color .2s ease;
+    }
+    .sketch-nav-btn:hover {
+      background: var(--dark);
+      color: var(--bg);
+    }
+    .sketch-lightbox-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      margin-top: 14px;
+    }
+    .sketch-counter {
+      font-family: var(--ff-display);
+      font-size: 12px;
+      letter-spacing: 1.2px;
+      color: var(--silver);
+      white-space: nowrap;
+      padding-top: 2px;
+    }
+    .sketch-helper {
+      max-width: 780px;
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text);
+    }
+    .sketch-current-caption {
+      margin-top: 8px;
+      font-family: var(--ff-display);
+      font-size: 13px;
+      letter-spacing: 0.8px;
+      color: var(--text);
+    }
+    .sketch-thumbs {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0,1fr));
+      gap: 12px;
+      margin-top: 22px;
+    }
+    .sketch-thumb {
+      border: 0;
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
+      opacity: 0.72;
+      transition: opacity .2s ease, transform .2s ease;
+      text-align: left;
+    }
+    .sketch-thumb img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: contain;
+      background: #efede7;
+      border: 1px solid rgba(29,35,28,0.08);
+      padding: 8px;
+    }
+    .sketch-thumb-caption {
+      display: block;
+      margin-top: 8px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--text);
+    }
+    .sketch-thumb.is-active { opacity: 1; }
+    .sketch-thumb:hover { opacity: 1; transform: translateY(-2px); }
+    .sketch-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(244,244,241,0.96);
+      backdrop-filter: blur(10px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+    }
+    .sketch-overlay.is-open { display: flex; }
+    .sketch-overlay-inner {
+      position: relative;
+      width: min(1280px, calc(100vw - 64px));
+      height: min(820px, calc(100vh - 64px));
+      display: grid;
+      grid-template-columns: 72px minmax(0,1fr) 72px;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .sketch-overlay-stage {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ebe8e1;
+      border: 1px solid rgba(29,35,28,0.08);
+      padding: 32px;
+    }
+    .sketch-overlay-stage img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    .sketch-overlay-btn,
+    .sketch-overlay-close {
+      border: 1px solid rgba(29,35,28,0.12);
+      background: #f8f7f3;
+      color: var(--dark);
+      cursor: pointer;
+      font-family: var(--ff-display);
+      border-radius: 0;
+      transition: background .2s ease, color .2s ease;
+    }
+    .sketch-overlay-btn:hover,
+    .sketch-overlay-close:hover {
+      background: var(--dark);
+      color: var(--bg);
+    }
+    .sketch-overlay-btn {
+      width: 72px;
+      height: 100%;
+      font-size: 34px;
+      line-height: 1;
+    }
+    .sketch-overlay-close {
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      width: 56px;
+      height: 56px;
+      font-size: 24px;
+      z-index: 2;
+    }
+    .sketch-overlay-caption {
+      position: absolute;
+      left: 0;
+      bottom: -34px;
+      transform: none;
+      color: rgba(29,35,28,0.72);
+      font-size: 12px;
+      letter-spacing: 1px;
+      font-family: var(--ff-display);
+    }
+
+    .detail-feature {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding: 44px 0 0;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      margin-top: 44px;
+    }
+    .feature-copy {
+      max-width: 760px;
+      padding: 0 4px;
+    }
+    .feature-image img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+    .inserted-full-image {
+      width: 100%;
+      display: block;
+      margin-top: 34px;
+    }
+    .next-step-block {
+      padding: 44px 0 0;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      margin-top: 44px;
+    }
+    .next-step-intro {
+      max-width: 820px;
+      margin-top: 10px;
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+    .next-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+    .next-step-card {
+      border: 1px solid rgba(0,0,0,0.08);
+      padding: 20px 18px 18px;
+      background: #faf9f7;
+    }
+    .next-step-card h3 {
+      font-family: var(--ff-display);
+      font-size: 18px;
+      letter-spacing: 0.3px;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+    .next-step-card p,
+    .next-step-block .detail-summary,
+    .feature-copy .detail-summary,
+    .feature-copy .closing-line {
+      display: block;
+      margin-top: 10px;
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+    .colour-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 20px;
+      margin-top: 18px;
+      padding-top: 0;
+      align-items: start;
+    }
+    .colour-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .colour-row img {
+      width: 100%;
+      aspect-ratio: 1.18;
+      object-fit: contain;
+      background: transparent !important;
+      padding: 0;
+      border: none !important;
+      display: block;
+    }
+    .colour-name {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text);
+    }
+
     footer {
       background: #000000;
       color: #ffffff;
@@ -809,7 +1522,7 @@
       width: 450px;
       height: 30px;
       flex: 0 0 auto;
-      font-family: var(--f-display);
+      font-family: var(--ff-display);
       font-size: 30px;
       line-height: 1.5;
       letter-spacing: 0;
@@ -818,13 +1531,15 @@
     }
 
     .footer-top-items {
-      display: flex;
+      display: grid;
+      grid-template-columns: 297px minmax(220px, 1fr);
       justify-content: space-between;
       align-items: flex-start;
+      column-gap: 48px;
       width: 557px;
       max-width: 100%;
       flex: 0 0 auto;
-      font-family: var(--f-body);
+      font-family: var(--ff-body);
       font-size: 16px;
       font-weight: 400;
       line-height: 1.5;
@@ -833,14 +1548,18 @@
     }
 
     .footer-main-links {
-      display: flex;
+      display: flex !important;
       background: transparent;
       flex-direction: column;
       gap: 2px;
       align-items: flex-start;
+      justify-self: start;
       width: 297px;
+      min-width: 160px;
       flex: 0 0 auto;
       white-space: nowrap;
+      visibility: visible;
+      opacity: 1;
     }
 
     .footer-contact {
@@ -859,15 +1578,17 @@
     }
 
     .footer-main-links a {
+      display: block;
       background: transparent;
-      font-family: var(--f-display);
+      font-family: var(--ff-display);
       font-size: 16px;
       font-weight: 400;
       line-height: 1.5;
       letter-spacing: 0;
-      color: #ffffff;
+      color: #ffffff !important;
       text-decoration: none;
       opacity: 1;
+      visibility: visible;
       transition: opacity 0.25s ease;
       word-break: break-word;
     }
@@ -875,7 +1596,7 @@
     .footer-contact a,
     .footer-contact span {
       background: transparent;
-      font-family: var(--f-body);
+      font-family: var(--ff-body);
       font-size: 14px;
       font-weight: 400;
       line-height: 1.5;
@@ -898,146 +1619,235 @@
       justify-content: space-between;
       width: 100%;
       padding: 40px 0;
+      border-top: none;
     }
 
     .footer-copy {
-      font-family: var(--f-body);
+      font-family: var(--ff-body);
       font-size: 14px;
       font-weight: 400;
       line-height: 1.5;
       letter-spacing: -0.14px;
       color: #ffffff;
-      white-space: nowrap;
+      opacity: 1;
     }
 
-    /* ── TABLET 800–1279px ── */
-    @media (max-width: 1279px) and (min-width: 800px) {
-      .projects-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 22px;
-      }
-
-      .hero {
-        grid-template-columns: 240px minmax(0, 1fr);
-        gap: 28px;
-        padding: 132px 24px 74px;
-      }
-      .hero::after { left: 24px; right: 24px; }
-      .hero-media { position: static; }
-      .hero-name { max-width: none; white-space: nowrap; }
-      .projects-section { padding: 32px 24px 108px; }
-      .projects-header {
-        margin-bottom: 28px;
-        gap: 16px;
-      }
-      .projects-note {
-        max-width: 320px;
-      }
-
-      footer { padding: 40px 40px 0; }
-      .footer-shell { gap: 241px; }
-      .footer-head {
+    @media (max-width: 980px) {
+      .meta-row {
         flex-direction: column;
-        gap: 150px;
-        align-items: flex-start;
       }
-      .footer-mark {
-        width: 450px;
-        max-width: 100%;
+      .meta-facts {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
       }
-      .footer-top-items {
+      .meta-fact-value { white-space: normal; }
+      .sketch-lightbox {
+        grid-template-columns: 52px minmax(0, 1fr) 52px;
+        gap: 10px;
+      }
+      .sketch-stage {
+        min-height: 340px;
+        padding: 18px;
+      }
+      .sketch-nav-btn {
+        width: 52px;
+        height: 52px;
+        font-size: 30px;
+      }
+      .sketch-lightbox-meta {
+        flex-direction: column;
+      }
+      .sketch-thumbs {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+      .sketch-overlay {
+        padding: 0;
+      }
+      .sketch-overlay-inner {
         width: 100%;
+        height: 100vh;
+        grid-template-columns: 52px minmax(0,1fr) 52px;
+        gap: 0;
       }
+      .sketch-overlay-btn {
+        width: 52px;
+        height: 52px;
+        font-size: 30px;
+      }
+      .sketch-overlay-close {
+        top: -10px;
+        right: 0;
+      }
+      .next-steps-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav-links { display: none; }
+      .hamburger { display: flex; align-self: center; }
+      .mobile-menu.open { max-height: 200px; opacity: 1; transform: translateY(0); pointer-events: auto; }
+      .footer-shell { gap: 120px; }
+      .footer-head { gap: 60px; }
     }
 
-    /* ── MOBILE ≤799px ── */
+
+    /* v13 corrective overrides */
+    main {
+      padding-top: 0;
+    }
+
+    nav#siteNav {
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+    }
+
+    nav#float-nav {
+      position: fixed !important;
+    }
+
+    footer nav.footer-main-links,
+    .footer-main-links {
+      position: static !important;
+      top: auto !important;
+      left: auto !important;
+      right: auto !important;
+      width: auto !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      background: transparent !important;
+      overflow: visible !important;
+      z-index: auto !important;
+    }
+
+    .hero {
+      height: clamp(360px, 65svh, 760px);
+      min-height: 360px;
+      border-top: 0;
+      margin-top: 0;
+      width: 100%;
+      margin-left: 0;
+    }
+
+    .hero img {
+      object-position: center top;
+    }
+
+    .sketch-overlay {
+      background: linear-gradient(180deg, #ece7dd 0%, #e6e1d7 100%);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      padding: 0;
+    }
+    .sketch-overlay.is-open {
+      display: flex;
+      align-items: stretch;
+      justify-content: stretch;
+    }
+    .sketch-overlay-inner {
+      width: 100vw;
+      height: 100vh;
+      grid-template-columns: 88px minmax(0,1fr) 88px;
+      gap: 0;
+    }
+    .sketch-overlay-stage {
+      position: relative;
+      background: #f8f5ee;
+      border-left: 1px solid rgba(29,35,28,0.10);
+      border-right: 1px solid rgba(29,35,28,0.10);
+      padding: 72px 72px 96px;
+    }
+    .sketch-overlay-stage::before {
+      content: 'Sketch Viewer';
+      position: absolute;
+      top: 26px;
+      left: 32px;
+      font-family: var(--ff-display);
+      font-size: 12px;
+      letter-spacing: 1.4px;
+      color: rgba(29,35,28,0.52);
+      text-transform: uppercase;
+    }
+    .sketch-overlay-stage img {
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      max-height: none;
+      object-fit: contain;
+    }
+    .sketch-overlay-btn,
+    .sketch-overlay-close {
+      border: 0;
+      background: transparent;
+      color: rgba(29,35,28,0.72);
+    }
+    .sketch-overlay-btn:hover,
+    .sketch-overlay-close:hover {
+      background: rgba(255,255,255,0.38);
+      color: var(--dark);
+    }
+    .sketch-overlay-btn {
+      width: 88px;
+      height: 100vh;
+      font-size: 42px;
+    }
+    .sketch-overlay-close {
+      top: 18px;
+      right: 18px;
+      width: 52px;
+      height: 52px;
+      font-size: 22px;
+      background: rgba(255,255,255,0.56);
+      border: 1px solid rgba(29,35,28,0.08);
+    }
+    .sketch-overlay-caption {
+      left: 32px;
+      bottom: 26px;
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: rgba(29,35,28,0.68);
+    }
+
     @media (max-width: 799px) {
-
       nav { min-height: auto; padding: 12px 14px; }
-      .nav-inner { min-height: auto; }
-      .mobile-menu { top: 76px; margin-top: 0; }
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-      .nav-logo { font-size: 18px; letter-spacing: 3px; }
-      .nav-logo-wrap { width: 52px; height: 52px; flex-basis: 52px; }
-
-      .hero {
-        grid-template-columns: 1fr;
-        gap: 24px;
-        padding: 108px 20px 58px;
+      nav#siteNav {
+        min-height: auto;
+        padding: 12px 14px;
+        align-items: center;
       }
-      .hero::after { left: 20px; right: 20px; }
-      .hero-media {
-        position: static;
-      }
-      .hero-profile {
-        width: min(100%, 220px);
-        aspect-ratio: 4 / 5;
-        border-radius: 0;
-        box-shadow: none;
-      }
-      .hero-copy {
-        gap: 18px;
+      .nav-inner {
+        min-height: auto;
+        align-items: center;
         padding-top: 0;
       }
-      .hero-kicker {
-        font-size: 22px;
-        line-height: 1.2;
-        letter-spacing: 1.2px;
+      .nav-brand { align-items: center; }
+      .mobile-menu { top: 76px; margin-top: 0; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; align-self: center; margin-left: 0; padding: 4px; }
+      .hamburger span { width: 22px; height: 1.5px; }
+      .nav-logo {
+        font-size: 18px;
+        letter-spacing: 3px;
+        padding-top: 0;
       }
-      .hero-name {
-        font-size: 32px;
-        letter-spacing: 2px;
-        max-width: none;
+      .nav-logo-wrap { width: 52px; height: 52px; flex-basis: 52px; }
+      .hero {
+        height: clamp(260px, 45svh, 420px);
+        min-height: 260px;
+        margin-left: 0;
+        width: 100%;
       }
-
-      .hero-bio {
-        font-size: 14px;
-        line-height: 1.8;
+      footer {
+        padding: 40px 40px 0;
       }
-
-      .hero-meta {
-        gap: 8px;
+      .footer-shell {
+        gap: 150px;
       }
-
-      .hero-pill {
-        min-height: 32px;
-        padding: 7px 12px;
-        font-size: 11px;
-      }
-
-      .projects-section { padding: 28px 20px 84px; }
-      .projects-header {
-        flex-direction: column;
-        align-items: flex-start;
-        margin-bottom: 24px;
-      }
-      .projects-note {
-        max-width: none;
-        text-align: left;
-        font-size: 13px;
-      }
-
-      .projects-grid {
-        grid-template-columns: 1fr;
-        gap: 18px;
-      }
-
-      .project-card {
-        gap: 18px;
-        padding: 14px 14px 44px;
-        margin-bottom: 0;
-      }
-
-      .card-number {
-        font-size: 72px;
-      }
-
-      .card-category { font-size: 26px; }
-      .card-description { max-width: 100%; }
-
-      footer { padding: 40px 40px 0; }
-      .footer-shell { gap: 150px; }
       .footer-head {
         flex-direction: column;
         gap: 150px;
@@ -1050,6 +1860,7 @@
         gap: 100px;
       }
       .footer-top-items {
+        display: flex;
         flex-direction: column;
         gap: 58px;
         width: 100%;
@@ -1063,13 +1874,39 @@
         align-items: flex-start;
         padding: 40px 0;
       }
+      .sketch-overlay-inner {
+        grid-template-columns: 56px minmax(0,1fr) 56px;
+      }
+      .sketch-overlay-stage {
+        padding: 72px 18px 72px;
+      }
+      .sketch-overlay-btn {
+        width: 56px;
+        height: 100vh;
+        font-size: 30px;
+      }
+      .sketch-overlay-close {
+        top: 10px;
+        right: 10px;
+      }
+      .sketch-overlay-caption {
+        left: 18px;
+        right: 18px;
+        bottom: 18px;
+      }
     }
 
   </style>
 </head>
 <body>
+  <nav id="float-nav" aria-label="Page sections">
+    <a class="fc-item" href="#overview" data-sections="overview,case-overview" data-label="Overview"><span class="fc-label">Overview</span><span class="fc-letter">O</span></a>
+    <a class="fc-item" href="#motivation" data-sections="motivation,purpose" data-label="Foundation"><span class="fc-label">Foundation</span><span class="fc-letter">F</span></a>
+    <a class="fc-item" href="#goal" data-sections="goal,decisions" data-label="Direction"><span class="fc-label">Direction</span><span class="fc-letter">D</span></a>
+    <a class="fc-item" href="#ideation" data-sections="ideation" data-label="Process"><span class="fc-label">Process</span><span class="fc-letter">P</span></a>
+    <a class="fc-item" href="#details" data-sections="details" data-label="Outcome"><span class="fc-label">Outcome</span><span class="fc-letter">O</span></a>
+  </nav>
 
-  <!-- ── NAV ── -->
   <nav id="siteNav">
     <div class="nav-inner">
       <a class="nav-brand" href="index.html#about" aria-label="Go to top">
@@ -1094,116 +1931,341 @@
     <a href="index.html#about" onclick="closeMenu()">About Me</a>
   </div>
 
-  <section class="hero">
-    <img src="images/project-6-1.png" alt="Y-Chair hero">
-  </section>
+  <main>
+    <section class="hero" id="overview">
+      <img src="images/project-6-1.png" alt="Y-Chair hero">
+    </section>
 
-  <div class="meta-row">
-    <div class="meta-info">
-      <div class="meta-num">06</div>
-      <div class="meta-title">Project Six</div>
-      <div class="meta-sub">Product</div>
-      <div class="meta-tag" style="margin-top:6px;">Category / Furniture</div>
-      <div class="meta-tag">Date / 2022.11</div>
+    <div class="meta-row">
+      <div class="meta-info">
+        <div class="meta-num">06</div>
+        <div class="meta-title">Y-Chair</div>
+        <div class="meta-sub">Furniture Design</div>
+        <div class="meta-tag" style="margin-top:6px;">Category / Seating Concept</div>
+        <div class="meta-tag">Focus / Form Development &amp; CMF Exploration</div>
+      </div>
+      <div class="meta-label">
+        <span class="meta-title-line">Y-Chair / Contemporary Seating Design</span>
+        <div class="meta-facts">
+          <div class="meta-fact">
+            <div style="font-family:var(--ff-display);font-size:11px;color:var(--silver);letter-spacing:1px;margin-bottom:4px;">Role</div>
+            <div style="font-family:var(--ff-display);font-size:13px;color:var(--text);letter-spacing:0.5px;white-space:nowrap;">Product Design · Form Development · CMF Exploration</div>
+          </div>
+          <div class="meta-fact">
+            <div style="font-family:var(--ff-display);font-size:11px;color:var(--silver);letter-spacing:1px;margin-bottom:4px;">Category</div>
+            <div style="font-family:var(--ff-display);font-size:13px;color:var(--text);letter-spacing:0.5px;white-space:nowrap;">Furniture Design · Seating Concept</div>
+          </div>
+          <div class="meta-fact">
+            <div style="font-family:var(--ff-display);font-size:11px;color:var(--silver);letter-spacing:1px;margin-bottom:4px;">Year</div>
+            <div style="font-family:var(--ff-display);font-size:13px;color:var(--text);letter-spacing:0.5px;white-space:nowrap;">2022</div>
+          </div>
+          <div class="meta-fact">
+            <div style="font-family:var(--ff-display);font-size:11px;color:var(--silver);letter-spacing:1px;margin-bottom:4px;">Scope</div>
+            <div style="font-family:var(--ff-display);font-size:13px;color:var(--text);letter-spacing:0.5px;white-space:nowrap;">Independent Project</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="meta-label">
-      <span>Chair</span>
+
+    <div class="description">
+      <p>Y-Chair is a contemporary seating proposal developed from a single formal cue and resolved as a coherent furniture concept. The project demonstrates the ability to move from visual motif to product definition through proportion control, structural thinking, CMF direction, and detail refinement, shaping a chair that feels recognizable, spatially composed, and credible as a premium seating product.</p>
+    </div>
+
+    <section class="project-snapshot" id="case-overview" aria-labelledby="snapshot-title">
+      <div class="snapshot-grid">
+        <div class="snapshot-card">
+          <div class="snapshot-eyebrow">Project Snapshot</div>
+          <h3 id="snapshot-title">What this project demonstrates</h3>
+          <p>Y-Chair shows a product design workflow that begins with a simple formal premise and develops it into a readable, production-aware furniture proposal. The value of the project lies in how concept, proportion, structure, and CMF are kept in dialogue rather than treated as separate layers, allowing the final chair to feel both visually distinctive and realistically positioned.</p>
+        </div>
+        <div class="snapshot-card snapshot-list" aria-label="Project highlights">
+          <div class="snapshot-item"><strong>Role & Focus</strong><span>Led concept development, sketch iteration, render refinement, and CMF direction while defining how the Y-form could operate as both identity and structure.</span></div>
+          <div class="snapshot-item"><strong>Design Challenge</strong><span>Turned a graphic letterform into a chair language that could remain elegant, usable, and spatially convincing instead of becoming a superficial styling gesture.</span></div>
+          <div class="snapshot-item"><strong>Process Translation</strong><span>Moved from rendered three-view studies into sketch exploration and detail articulation to test silhouette, stance, support, and product coherence.</span></div>
+          <div class="snapshot-item"><strong>Outcome Signal</strong><span>Resulted in a premium seating concept with clear form language, adjustable structure, and material options suited to residential and boutique hospitality contexts.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <img class="full-image" src="images/project-6-2.png" alt="Y-Chair overview">
+
+    <section class="section section-border" id="motivation">
+      <div class="section-header">
+        <div class="num">01</div>
+        <h2>Design Foundation</h2>
+      </div>
+      <div class="motivation-layout">
+        <img class="icon" src="images/project-6-3.png" alt="Y-Chair icon">
+        <div>
+          <p class="body-text">The project started from a deliberate design question: how can a letterform become product language without turning into graphic decoration. The Y shape was used as a structural cue that organizes the backrest, posture, and stance of the chair, giving the concept instant recognition while still leaving enough freedom for ergonomic adjustment, proportion tuning, and material refinement.</p>
+        </div>
+      </div>
+      <div class="pillars">
+        <div class="pillar"><p>Adjustable</p></div>
+        <div class="pillar"><p>Balance</p></div>
+        <div class="pillar"><p>Y-Inspired</p></div>
+        <div class="pillar"><p>Elegant</p></div>
+        <div class="pillar"><p>Modern</p></div>
+      </div>
+    </section>
+
+    <section class="section section-border" id="purpose">
+      <div class="section-header">
+        <div class="num">02</div>
+        <h2>Product Positioning</h2>
+      </div>
+      <div class="split-cards">
+        <article class="grid-card">
+          <img src="images/project-6-4.png" alt="Design Purpose">
+          <div class="eyebrow">Positioning</div>
+          <h3>Design Purpose</h3>
+          <p>The chair is positioned as a premium modern seating concept for interiors where furniture contributes to atmosphere, identity, and perceived quality. It is intended to operate as both a usable everyday chair and a statement object within curated spaces.</p>
+        </article>
+        <article class="grid-card">
+          <img src="images/project-6-5.png" alt="User Type">
+          <div class="eyebrow">Audience</div>
+          <h3>User Profile</h3>
+          <p>The target user responds to contemporary furniture with a memorable silhouette, tactile richness, and a polished finish. This audience tends to read furniture as part of a wider lifestyle and interior language rather than as a purely utilitarian purchase.</p>
+        </article>
+        <article class="grid-card">
+          <img src="images/project-6-6.png" alt="Usage Environment">
+          <div class="eyebrow">Context</div>
+          <h3>Spatial Context</h3>
+          <p>The intended setting includes upscale residential interiors, reception corners, boutique hospitality spaces, and other environments where seating must contribute visually to the room while still performing comfortably in use.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="goal-section section-border" id="goal">
+      <div class="section-header">
+        <div class="num">03</div>
+        <h2>Design Objectives</h2>
+      </div>
+      <div class="goal-grid">
+        <div class="goal-icon-wrap">
+          <img src="images/project-6-7.png" alt="Goal icon">
+        </div>
+        <div class="goal-content">
+          <div class="goal-row">
+            <div class="goal-label">Objective</div>
+            <div class="goal-desc">Develop a chair with a distinctive visual signature while preserving comfort, adjustability, and everyday usability. The intention is to show that formal clarity and practical value can be resolved as one product system.</div>
+          </div>
+          <div class="goal-row">
+            <div class="goal-label">Challenge</div>
+            <div class="goal-desc">The main challenge is to keep the chair visually distinctive without sacrificing credibility as a real product. Silhouette, material selection, and adjustable structure therefore needed to support one another rather than compete for attention.</div>
+          </div>
+          <div class="goal-row">
+            <div class="goal-label">Core Features</div>
+            <div class="goal-desc">Key features include the Y-shaped back expression, adjustable base system, and CMF options designed to balance softness, durability, and visual sophistication. Together these elements define both ergonomic intent and emotional appeal.</div>
+          </div>
+          <div class="goal-row">
+            <div class="goal-label">Design Language</div>
+            <div class="goal-desc">The design language is restrained, elegant, and contemporary. Its geometry remains clean enough for varied interiors, while the Y-derived back keeps the chair identifiable and memorable within a broader product context.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="decision-section section-border" id="decisions">
+      <div class="section-header">
+        <div class="num">04</div>
+        <h2>Key Design Decisions</h2>
+      </div>
+      <div class="decision-intro">
+        <p class="body-text">The project became convincing once the concept moved beyond a decorative Y and was tested as a set of product decisions. The final direction was shaped by three priorities: turning the letterform into structure, balancing elegance with support, and using CMF contrast to reinforce the chair’s identity.</p>
+      </div>
+      <div class="decision-grid">
+        <article class="decision-card">
+          <div class="eyebrow">Decision 01</div>
+          <h3>Translate the Y into structure</h3>
+          <p>The Y form was treated as a spatial and structural cue rather than surface decoration. This gave the backrest a reason for its geometry, helped define the chair’s posture, and made the formal language feel product-led instead of graphic-led.</p>
+        </article>
+        <article class="decision-card">
+          <div class="eyebrow">Decision 02</div>
+          <h3>Balance softness and support</h3>
+          <p>The silhouette was refined to feel elegant without becoming fragile. Back height, seat width, and base proportion were adjusted together so the chair could communicate comfort, stability, and premium presence in one read.</p>
+        </article>
+        <article class="decision-card">
+          <div class="eyebrow">Decision 03</div>
+          <h3>Use CMF to sharpen identity</h3>
+          <p>Velvet, leather, metal, and wood-based options were explored to create a deliberate contrast between soft contact surfaces and crisp supporting elements. This sharpened the chair’s interior character and moved the concept closer to a credible product proposal.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="ideation-section section-border" id="ideation">
+      <div class="section-header">
+        <div class="num">05</div>
+        <h2>Design Process</h2>
+      </div>
+      <div class="ideation-intro">
+        <p class="body-text">The process begins with a rendered three-view study that defines the chair’s core geometry, proportion, and backrest logic. Hand sketches then expand the concept through repeated variation, testing how the same design language can shift across backrest geometry, base form, stance, and silhouette while remaining coherent as one product family.</p>
+      </div>
+
+      <div class="ideation-feature">
+        <img src="images/project-6-8.png" alt="Y-Chair three-view render study">
+      </div>
+      <p class="process-caption">Rendered three-view study establishing the chair’s primary geometry, backrest language, and overall proportion before sketch exploration expands the concept into multiple formal variations.</p>
+
+      <div class="sketch-lightbox" aria-label="Sketch exploration gallery">
+        <button class="sketch-nav-btn sketch-prev" type="button" aria-label="Previous sketch">‹</button>
+        <div class="sketch-stage">
+          <img id="sketch-main-image" src="images/project-6-9.png" alt="Ideation sketch 1">
+        </div>
+        <button class="sketch-nav-btn sketch-next" type="button" aria-label="Next sketch">›</button>
+      </div>
+      <div class="sketch-lightbox-meta">
+        <div class="sketch-counter" id="sketch-counter">01 / 10</div>
+        <div><p class="sketch-helper">Sketches explore how the same Y-derived language can shift in stance, backrest contour, and support expression without losing product coherence.</p><p class="sketch-current-caption" id="sketch-current-caption">Testing backrest contour</p></div>
+      </div>
+      <div class="sketch-thumbs" id="sketch-thumbs">
+        <button class="sketch-thumb is-active" type="button" data-src="images/project-6-9.png" data-alt="Ideation sketch 1" data-caption="Testing backrest contour"><img src="images/project-6-9.png" alt="Ideation sketch 1 thumbnail"><span class="sketch-thumb-caption">Testing backrest contour</span></button>
+        <button class="sketch-thumb" type="button" data-src="images/project-6-10.png" data-alt="Ideation sketch 2" data-caption="Exploring seat-to-back flow"><img src="images/project-6-10.png" alt="Ideation sketch 2 thumbnail"><span class="sketch-thumb-caption">Exploring seat-to-back flow</span></button>
+        <button class="sketch-thumb" type="button" data-src="images/project-6-11.png" data-alt="Ideation sketch 3" data-caption="Adjusting stance proportion"><img src="images/project-6-11.png" alt="Ideation sketch 3 thumbnail"><span class="sketch-thumb-caption">Adjusting stance proportion</span></button>
+        <button class="sketch-thumb" type="button" data-src="images/project-6-12.png" data-alt="Ideation sketch 4" data-caption="Testing support geometry"><img src="images/project-6-12.png" alt="Ideation sketch 4 thumbnail"><span class="sketch-thumb-caption">Testing support geometry</span></button>
+        <button class="sketch-thumb" type="button" data-src="images/project-6-13.png" data-alt="Ideation sketch 5" data-caption="Refining side silhouette"><img src="images/project-6-13.png" alt="Ideation sketch 5 thumbnail"><span class="sketch-thumb-caption">Refining side silhouette</span></button>
+        <button class="sketch-thumb" type="button" data-src="images/project-6-14.png" data-alt="Ideation sketch 6" data-caption="Comparing base language"><img src="images/project-6-14.png" alt="Ideation sketch 6 thumbnail"><span class="sketch-thumb-caption">Comparing base language</span></button>
+        <button class="sketch-thumb" type="button" data-src="images/project-6-15.png" data-alt="Design exploration 7" data-caption="Balancing visual weight"><img src="images/project-6-15.png" alt="Design exploration 7 thumbnail"><span class="sketch-thumb-caption">Balancing visual weight</span></button>
+        <button class="sketch-thumb" type="button" data-src="images/project-6-16.png" data-alt="Design exploration 8" data-caption="Shifting posture angle"><img src="images/project-6-16.png" alt="Design exploration 8 thumbnail"><span class="sketch-thumb-caption">Shifting posture angle</span></button>
+        <button class="sketch-thumb" type="button" data-src="images/project-6-17.png" data-alt="Design exploration 9" data-caption="Tightening Y-language"><img src="images/project-6-17.png" alt="Design exploration 9 thumbnail"><span class="sketch-thumb-caption">Tightening Y-language</span></button>
+        <button class="sketch-thumb" type="button" data-src="images/project-6-18.png" data-alt="Design exploration 10" data-caption="Resolving final proportion"><img src="images/project-6-18.png" alt="Design exploration 10 thumbnail"><span class="sketch-thumb-caption">Resolving final proportion</span></button>
+      </div>
+    </section>
+
+    <section class="detail-section section-border" id="details">
+      <div class="section-header">
+        <div class="num">06</div>
+        <h2>Final Proposal & Details</h2>
+      </div>
+      <div class="final-intro">
+        <p class="body-text">The final proposal consolidates the chair as a complete seating concept rather than a single formal sketch. At this stage, structure, dimensions, material expression, comfort options, and spatial compatibility are brought together to clarify how the Y-form works as a product identity across multiple levels of resolution.</p>
+        <p class="body-text">What matters here is not only the visual coherence of the chair, but the way each detail decision supports a shared reading: light in silhouette, stable in stance, refined in surface, and adaptable enough to sit comfortably within premium residential and boutique hospitality environments.</p>
+      </div>
+
+      <div class="detail-list">
+        <div class="detail-row">
+          <div class="detail-img"><img src="images/project-6-19.png" alt="Chair Base"></div>
+          <div class="detail-info">
+            <div class="detail-name">Base System</div>
+            <div class="detail-parts">
+              <div class="detail-nums">I.<br>II.<br>III.</div>
+              <div class="detail-vals">Metal legs create a lighter visual footprint while keeping the base legible and clean<br>Solid foot plate anchors the chair body and improves perceived stability<br>Integrated button allows height adjustment across different seating situations and user preferences</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-row">
+          <div class="detail-img"><img src="images/project-6-20.png" alt="Chair Size"></div>
+          <div class="detail-info">
+            <div class="detail-name">Dimensions</div>
+            <div class="detail-parts">
+              <div class="detail-nums">I.<br>II.<br>III.<br>IV.</div>
+              <div class="detail-vals">Back height 100 cm to preserve a clear vertical presence in space<br>Seat height 45 cm for familiar everyday usability<br>Back width 50 cm to keep the Y expression compact and controlled<br>Front width 65 cm to support a wider, more relaxed sitting posture</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-row">
+          <div class="detail-img"><img src="images/project-6-21.png" alt="Material"></div>
+          <div class="detail-info">
+            <div class="detail-name">Material Strategy</div>
+            <div class="detail-summary">Velvet, leather, metal, and plastic are proposed as a mixed-material system that balances tactile softness, structural stability, and premium visual character. The palette is organized to keep the seat and back inviting at the point of contact while allowing the supporting structure to remain crisp, precise, and visually restrained.</div>
+          </div>
+        </div>
+
+        <div class="detail-row">
+          <div class="detail-img"><img src="images/project-6-22.png" alt="Comfortable Materials"></div>
+          <div class="detail-info">
+            <div class="detail-name">Seat Comfort Options</div>
+            <div class="detail-parts">
+              <div class="detail-nums">I.<br>II.<br>III.</div>
+              <div class="detail-vals">Velvet finish for a softer and more atmospheric visual presence<br>Leather chair cushion for a polished premium touch with stronger hospitality appeal<br>Wood chair seat for a cleaner, more architectural variation suited to restrained interiors</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-row image-only">
+          <div class="detail-img"><img src="images/project-6-23.png" alt="Three chairs"></div>
+        </div>
+
+        <div class="detail-row">
+          <div class="detail-img"><img src="images/project-6-24.png" alt="Colour Options"></div>
+          <div class="detail-info">
+            <div class="detail-name">CMF Variations</div>
+            <div class="detail-summary">Three velvet-led CMF directions were developed to test how the same form could shift in mood without losing its identity. The variations explore depth, softness, and spatial tone while keeping the chair’s structure and silhouette consistent.</div>
+            <div class="colour-list">
+              <div class="colour-row">
+                <img src="images/project-6-28.png" alt="Velvet Deep Green">
+                <span class="colour-name">Velvet Deep Green</span>
+              </div>
+              <div class="colour-row">
+                <img src="images/project-6-29.png" alt="Velvet Soft Powder Pink">
+                <span class="colour-name">Velvet Soft Powder Pink</span>
+              </div>
+              <div class="colour-row">
+                <img src="images/project-6-30.png" alt="Velvet Sea Green">
+                <span class="colour-name">Velvet Sea Green</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <img class="inserted-full-image" src="images/project-6-25.png" alt="Y-Chair full proposal presentation">
+
+        <div class="detail-feature full-bleed-feature">
+          <div class="feature-copy">
+            <div class="detail-name">Spatial Application</div>
+            <p class="closing-line">The final proposal positions Y-Chair within interiors where furniture is expected to contribute atmosphere as much as function. In this context, the chair reads as a refined seating piece with a clear silhouette, controlled surface language, and enough visual restraint to integrate into residential, lounge, or boutique hospitality spaces.</p>
+          </div>
+          <div class="feature-image">
+            <img src="images/project-6-26.png" alt="Y-Chair lifestyle scene">
+          </div>
+        </div>
+
+        <div class="detail-feature full-bleed-feature">
+          <div class="feature-copy">
+            <div class="detail-name">Design Takeaway</div>
+            <p class="detail-summary">This project clarified an essential design lesson: a recognizable form gains value only when it can organize structure, use, and material as one system. The strength of Y-Chair lies not only in its Y-shaped identity, but in how that identity is carried consistently from the first rendered study to the final proposal, detail articulation, and spatial reading.</p>
+          </div>
+          <div class="feature-image">
+            <img src="images/project-6-27.png" alt="Y-Chair mark and final presentation">
+          </div>
+        </div>
+
+        <div class="next-step-block" id="next-step">
+          <div class="detail-name">Next Steps</div>
+          <p class="next-step-intro">The strongest next phase for Y-Chair is to move from a resolved concept into a validated furniture prototype, where form, comfort, structure, and production logic can be tested together rather than assumed from renders alone.</p>
+          <div class="next-steps-grid">
+            <div class="next-step-card">
+              <h3>Ergonomic Prototype</h3>
+              <p>Build a full-scale seating mockup to test backrest angle, seat depth, and the transition between the Y-shaped support and the body-contact surfaces, then adjust the geometry based on actual sitting posture rather than visual judgment alone.</p>
+            </div>
+            <div class="next-step-card">
+              <h3>Structural Verification</h3>
+              <p>Refine the adjustable base and its connection points so the chair can maintain its light silhouette while meeting realistic stability and durability requirements, especially at the joint where the back expression and lower support system converge.</p>
+            </div>
+            <div class="next-step-card">
+              <h3>CMF & Production Refinement</h3>
+              <p>Translate the current velvet, leather, and wood directions into a tighter production-ready CMF proposal by defining finish combinations, evaluating maintenance and wear, and selecting the material pairings most suitable for residential and boutique hospitality use.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <div class="sketch-overlay" id="sketchOverlay" aria-hidden="true">
+    <div class="sketch-overlay-inner">
+      <button class="sketch-overlay-close" type="button" aria-label="Close sketch viewer">×</button>
+      <button class="sketch-overlay-btn sketch-overlay-prev" type="button" aria-label="Previous sketch">‹</button>
+      <div class="sketch-overlay-stage"><img id="sketch-overlay-image" src="" alt=""></div>
+      <button class="sketch-overlay-btn sketch-overlay-next" type="button" aria-label="Next sketch">›</button>
+      <div class="sketch-overlay-caption" id="sketch-overlay-caption">01 / 10</div>
     </div>
   </div>
 
-  <div class="description">
-    <p>The &quot;Y-Chair&quot; draws inspiration from the letter &quot;Y&quot; — a symbol of balance, elegance, and support. This inspiration led to a design that is both aesthetically striking and functionally purposeful, creating a piece that enhances any space while providing practical, adjustable comfort.</p>
-  </div>
-
-  <img class="full-image" src="images/project-6-2.png" alt="Y-Chair overview">
-
-  <section class="section section-border">
-    <div class="motivation-header">
-      <img class="icon" src="images/project-6-3.png" alt="Y-Chair icon">
-      <div class="motivation-header-text">
-        <h2>Design Motivation</h2>
-        <p class="body-text">The &quot;Y-Chair&quot; draws inspiration from the letter &quot;Y&quot; — a symbol of balance, elegance, and support. This inspiration led to a design that is both aesthetically striking and functionally purposeful. The motivation behind the Y-Chair was to create a piece that not only enhances the visual appeal of any space but also provides practical, adjustable comfort, making it a perfect blend of form and function.</p>
-      </div>
-    </div>
-    <div class="pillars">
-      <div class="pillar"><div class="pillar-inner"><p>Adjustable</p></div></div>
-      <div class="pillar"><div class="pillar-inner"><p>Balance</p></div></div>
-      <div class="pillar"><div class="pillar-inner"><p>Y-Inspired</p></div></div>
-      <div class="pillar"><div class="pillar-inner"><p>Elegant</p></div></div>
-      <div class="pillar"><div class="pillar-inner"><p>Modern</p></div></div>
-    </div>
-  </section>
-
-  <section class="section section-border">
-    <div class="content-grid">
-      <div class="content-col">
-        <img src="images/project-6-4.png" alt="Design Purpose">
-        <div class="col-label">Design Purpose</div>
-        <p class="body-text">The Y-Chair is designed for individuals who value both luxury and aesthetic refinement. It offers a perfect balance of elegance and functionality, complementing sophisticated modern interiors. Beyond practical seating, it serves as a distinctive decorative statement that enhances the ambiance of any space.</p>
-      </div>
-      <div class="content-col">
-        <img src="images/project-6-5.png" alt="User Type">
-        <div class="col-tag">User Type</div>
-      </div>
-      <div class="content-col">
-        <img src="images/project-6-6.png" alt="Usage Environment">
-        <div class="col-tag">Usage Environment</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="goal-section">
-    <div class="goal-icon-wrap">
-      <img src="images/project-6-7.png" alt="Goal icon">
-    </div>
-    <div class="goal-content">
-      <div class="goal-row">
-        <div class="goal-label"><h2>Goal</h2></div>
-        <div class="goal-desc">The goal of the Y-Chair is to offer a sophisticated seating solution that complements modern interiors. It seeks to combine elegance with functionality, providing a chair that is not only beautiful to look at but also practical to use. The chair is designed to enhance user comfort while standing out as a distinctive piece in any setting.</div>
-      </div>
-      <div class="goal-row">
-        <div class="goal-label">Opportunity</div>
-        <div class="goal-desc">The Y-Chair redefines seating by combining modern design with adaptable features. Its use of premium materials and adjustable components makes it a luxurious, personalized seating option for diverse environments.</div>
-      </div>
-      <div class="goal-row">
-        <div class="goal-label">Feature</div>
-        <div class="goal-desc">The Y-Chair's elegant &quot;Y&quot; shape, adjustable legs, and sleek lines contribute to its modern, ergonomic design. Crafted from high-quality materials, it ensures both comfort and durability.</div>
-      </div>
-      <div class="goal-row">
-        <div class="goal-label">Style</div>
-        <div class="goal-desc">With minimalist lines and a refined aesthetic, the Y-Chair is versatile for various interiors, blending seamlessly while maintaining a stylish, distinctive presence.</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="ideation-section">
-    <div class="ideation-header">
-      <h2>Ideation</h2>
-      <p>Exploration of concepts through iteration sketching.</p>
-    </div>
-
-    <div class="ideation-feature">
-      <img src="images/project-6-8.png" alt="Ideation sketch featured">
-    </div>
-
-    <div class="ideation-grid-eight">
-      <img src="images/project-6-9.png" alt="Ideation sketch 9">
-      <img src="images/project-6-10.png" alt="Ideation sketch 10">
-      <img src="images/project-6-11.png" alt="Ideation sketch 11">
-      <img src="images/project-6-12.png" alt="Ideation sketch 12">
-      <img src="images/project-6-13.png" alt="Ideation sketch 13">
-      <img src="images/project-6-14.png" alt="Ideation sketch 14">
-      <img src="images/project-6-15.png" alt="Ideation sketch 15">
-      <img src="images/project-6-16.png" alt="Ideation sketch 16">
-    </div>
-
-    <div class="ideation-extra">
-      <img src="images/project-6-17.png" alt="Ideation sketch 17">
-      <img src="images/project-6-18.png" alt="Ideation sketch 18">
-    </div>
-  </section>
-
-    <!-- ── FOOTER ── -->
   <footer>
     <div class="footer-shell">
       <div class="footer-head">
@@ -1232,82 +2294,182 @@
     </div>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.style.opacity = '1';
-          e.target.style.transform = 'translateY(0)';
-          io.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('h2,
-  </script>
-
 <script>
-    function toggleMenu() {
-      const menu = document.getElementById('mobileMenu');
-      const btn = document.querySelector('.hamburger');
-      menu.classList.toggle('open');
-      btn.classList.toggle('open');
+function toggleMenu() {
+  var menu = document.getElementById('mobileMenu');
+  var button = document.querySelector('.hamburger');
+  if (menu) menu.classList.toggle('open');
+  if (button) button.classList.toggle('open');
+}
+function closeMenu() {
+  var menu = document.getElementById('mobileMenu');
+  var button = document.querySelector('.hamburger');
+  if (menu) menu.classList.remove('open');
+  if (button) button.classList.remove('open');
+}
+
+(function () {
+  var navInteractive = document.getElementById('siteNav');
+  if (!navInteractive) return;
+  navInteractive.addEventListener('mousemove', function (e) {
+    var rect = navInteractive.getBoundingClientRect();
+    var x = ((e.clientX - rect.left) / rect.width) * 100;
+    var y = ((e.clientY - rect.top) / rect.height) * 100;
+    navInteractive.style.setProperty('--mouse-x', x + '%');
+    navInteractive.style.setProperty('--mouse-y', y + '%');
+    navInteractive.style.setProperty('--mouse-opacity', '0.72');
+  });
+  navInteractive.addEventListener('mouseleave', function () {
+    navInteractive.style.setProperty('--mouse-opacity', '0');
+  });
+})();
+
+(function () {
+  var mainImage = document.getElementById('sketch-main-image');
+  var counter = document.getElementById('sketch-counter');
+  var thumbs = Array.prototype.slice.call(document.querySelectorAll('.sketch-thumb'));
+  var overlay = document.getElementById('sketchOverlay');
+  var overlayImage = document.getElementById('sketch-overlay-image');
+  var overlayCaption = document.getElementById('sketch-overlay-caption');
+  var currentCaption = document.getElementById('sketch-current-caption');
+  var closeBtn = document.querySelector('.sketch-overlay-close');
+  var overlayPrev = document.querySelector('.sketch-overlay-prev');
+  var overlayNext = document.querySelector('.sketch-overlay-next');
+  if (mainImage && thumbs.length) {
+    var currentIndex = 0;
+    function syncOverlay() {
+      if (!overlayImage) return;
+      overlayImage.src = mainImage.src;
+      overlayImage.alt = mainImage.alt;
+      var caption = thumbs[currentIndex].getAttribute('data-caption') || '';
+      if (overlayCaption) overlayCaption.textContent = String(currentIndex + 1).padStart(2, '0') + ' / ' + String(thumbs.length).padStart(2, '0') + (caption ? ' · ' + caption : '');
     }
-    function closeMenu() {
-      document.getElementById('mobileMenu').classList.remove('open');
-      document.querySelector('.hamburger').classList.remove('open');
+    function updateSketch(index) {
+      currentIndex = (index + thumbs.length) % thumbs.length;
+      var btn = thumbs[currentIndex];
+      mainImage.src = btn.getAttribute('data-src');
+      mainImage.alt = btn.getAttribute('data-alt');
+      var caption = btn.getAttribute('data-caption') || '';
+      if (counter) counter.textContent = String(currentIndex + 1).padStart(2, '0') + ' / ' + String(thumbs.length).padStart(2, '0');
+      if (currentCaption) currentCaption.textContent = caption;
+      thumbs.forEach(function (thumb, i) {
+        thumb.classList.toggle('is-active', i === currentIndex);
+      });
+      syncOverlay();
     }
-    // close menu on outside click
-    document.addEventListener('click', function(e) {
-      const menu = document.getElementById('mobileMenu');
-      const btn = document.querySelector('.hamburger');
-      if (!menu.contains(e.target) && !btn.contains(e.target)) {
-        menu.classList.remove('open');
-      }
-    });
-
-    // Replace img-placeholder with actual images when they exist
-    // To use real images: replace <div class="img-placeholder"> with <img src="your-image.png" alt="...">
-
-    const navBar = document.querySelector('nav');
-    const revealEls = document.querySelectorAll('.reveal');
-
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
-
-    revealEls.forEach((el, index) => {
-      el.style.transitionDelay = `${Math.min(index * 70, 420)}ms`;
-      revealObserver.observe(el);
-    });
-
-    window.addEventListener('scroll', () => {
-      navBar.classList.toggle('nav-scrolled', window.scrollY > 10);
-    });
-  </script>
-
-<script>
-    const navInteractive = document.getElementById('siteNav');
-    if (navInteractive) {
-      navInteractive.addEventListener('mousemove', (e) => {
-        const rect = navInteractive.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        navInteractive.style.setProperty('--mouse-x', `${x}%`);
-        navInteractive.style.setProperty('--mouse-y', `${y}%`);
-        navInteractive.style.setProperty('--mouse-opacity', '0.72');
-      });
-      navInteractive.addEventListener('mouseleave', () => {
-        navInteractive.style.setProperty('--mouse-x', '50%');
-        navInteractive.style.setProperty('--mouse-y', '50%');
-        navInteractive.style.setProperty('--mouse-opacity', '0');
-      });
+    function openOverlay() {
+      if (!overlay) return;
+      syncOverlay();
+      overlay.classList.add('is-open');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
     }
-  </script>
+    function closeOverlay() {
+      if (!overlay) return;
+      overlay.classList.remove('is-open');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    thumbs.forEach(function (thumb, index) {
+      thumb.addEventListener('click', function () { updateSketch(index); });
+      thumb.addEventListener('dblclick', function () { updateSketch(index); openOverlay(); });
+    });
+    var prev = document.querySelector('.sketch-prev');
+    var next = document.querySelector('.sketch-next');
+    if (prev) prev.addEventListener('click', function () { updateSketch(currentIndex - 1); });
+    if (next) next.addEventListener('click', function () { updateSketch(currentIndex + 1); });
+    if (mainImage) mainImage.addEventListener('click', openOverlay);
+    var stage = document.querySelector('.sketch-stage');
+    if (stage) stage.addEventListener('click', openOverlay);
+    if (overlayPrev) overlayPrev.addEventListener('click', function () { updateSketch(currentIndex - 1); });
+    if (overlayNext) overlayNext.addEventListener('click', function () { updateSketch(currentIndex + 1); });
+    if (closeBtn) closeBtn.addEventListener('click', closeOverlay);
+    if (overlay) overlay.addEventListener('click', function (e) { if (e.target === overlay) closeOverlay(); });
+    document.addEventListener('keydown', function (e) {
+      if (!overlay || !overlay.classList.contains('is-open')) return;
+      if (e.key === 'Escape') closeOverlay();
+      if (e.key === 'ArrowLeft') updateSketch(currentIndex - 1);
+      if (e.key === 'ArrowRight') updateSketch(currentIndex + 1);
+    });
+    updateSketch(0);
+  }
+})();
+
+(function () {
+  var nav = document.getElementById('float-nav');
+  var trigger = document.querySelector('.meta-row');
+  if (!nav) return;
+  var items = nav.querySelectorAll('.fc-item');
+  var map = Array.prototype.map.call(items, function (item) {
+    var ids = (item.getAttribute('data-sections') || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+    return { item: item, els: ids.map(function (id) { return document.getElementById(id); }).filter(Boolean) };
+  });
+  items.forEach(function (item) {
+    item.addEventListener('click', function (e) {
+      var target = document.querySelector(item.getAttribute('href') || '');
+      if (!target) return;
+      e.preventDefault();
+      var siteNav = document.getElementById('siteNav');
+      var navH = siteNav ? siteNav.getBoundingClientRect().height : 0;
+      window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - navH - 20, behavior: 'smooth' });
+    });
+  });
+  function updateScrollHints() {
+    var isMobile = window.matchMedia('(max-width: 799px)').matches;
+    if (!isMobile) {
+      nav.classList.remove('fn-scrollable', 'fn-at-start', 'fn-at-end');
+      nav.scrollLeft = 0;
+      return;
+    }
+    var overflow = nav.scrollWidth > nav.clientWidth + 2;
+    nav.classList.toggle('fn-scrollable', overflow);
+    if (!overflow) {
+      nav.classList.remove('fn-at-start', 'fn-at-end');
+      return;
+    }
+    var atStart = nav.scrollLeft <= 2;
+    var atEnd = nav.scrollLeft + nav.clientWidth >= nav.scrollWidth - 2;
+    nav.classList.toggle('fn-at-start', atStart);
+    nav.classList.toggle('fn-at-end', atEnd);
+  }
+  function checkCompact() {
+    var isMobile = window.matchMedia('(max-width: 799px)').matches;
+    if (isMobile) {
+      nav.classList.add('fn-compact');
+      updateScrollHints();
+      return;
+    }
+    var available = Math.max(window.innerWidth - 40, 0);
+    nav.classList.remove('fn-compact');
+    var needed = nav.scrollWidth;
+    nav.classList.toggle('fn-compact', needed > available);
+    updateScrollHints();
+  }
+  function update() {
+    var siteNav = document.getElementById('siteNav');
+    var navH = siteNav ? siteNav.getBoundingClientRect().height : 0;
+    var threshold = window.pageYOffset + navH + window.innerHeight * 0.32;
+    var showAfter = trigger ? trigger.getBoundingClientRect().bottom + window.pageYOffset : 0;
+    var footer = document.querySelector('footer');
+    var hideAfter = footer ? footer.getBoundingClientRect().top + window.pageYOffset : Infinity;
+    var past = window.pageYOffset + window.innerHeight * 0.5 > showAfter;
+    var atFoot = window.pageYOffset + window.innerHeight >= hideAfter;
+    if (past && !atFoot) { nav.classList.add('fn-visible'); nav.classList.remove('fn-hidden'); }
+    else { nav.classList.remove('fn-visible'); nav.classList.add('fn-hidden'); }
+    var current = null;
+    map.forEach(function (e) {
+      e.els.forEach(function (el) { if (el && el.getBoundingClientRect().top + window.pageYOffset <= threshold) current = e; });
+    });
+    items.forEach(function (i) { i.classList.remove('fc-active'); });
+    if (current) current.item.classList.add('fc-active');
+    updateScrollHints();
+  }
+  var rsTimer;
+  window.addEventListener('resize', function () { clearTimeout(rsTimer); rsTimer = setTimeout(checkCompact, 60); });
+  window.addEventListener('scroll', update, { passive: true });
+  nav.addEventListener('scroll', updateScrollHints, { passive: true });
+  requestAnimationFrame(function () { checkCompact(); update(); });
+})();
+</script>
 </body>
 </html>
