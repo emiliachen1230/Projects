@@ -48,7 +48,7 @@
       color: inherit;
     }
 
-    nav {
+    #siteNav {
       position: fixed;
       top: 0;
       left: 0;
@@ -1482,7 +1482,7 @@
     }
 
     @media (max-width: 900px) {
-      nav .nav-links { display: none; }
+      #siteNav .nav-links { display: none; }
       .meta-row { flex-direction: column; }
       .info-row { flex-direction: column; gap: 8px; }
       .info-label { width: auto; }
@@ -1553,7 +1553,7 @@
     }
 
     /* ── NAV ── */
-    nav {
+    #siteNav {
       height: auto;
       position: sticky;
       top: 0;
@@ -1578,7 +1578,7 @@
       isolation: isolate;
     }
 
-    nav::before {
+    #siteNav::before {
       content: "";
       position: absolute;
       inset: -24% -6%;
@@ -1594,7 +1594,7 @@
       animation: pastelGlowFloat 28s ease-in-out infinite;
     }
 
-    nav::after {
+    #siteNav::after {
       content: "";
       position: absolute;
       inset: 0;
@@ -1956,7 +1956,7 @@
     /* ── MOBILE ≤799px ── */
     @media (max-width: 799px) {
 
-      nav { min-height: auto; padding: 12px 14px; }
+      #siteNav { min-height: auto; padding: 12px 14px; }
       .nav-inner { min-height: auto; }
       .mobile-menu { top: 76px; margin-top: 0; }
       .nav-links { display: none; }
@@ -2068,7 +2068,209 @@
       }
     }
 
-  </style>
+  
+
+    /* ── RECRUITMENT SNAPSHOT + METHODOLOGY (project-one aligned) ───────────────── */
+    .project-snapshot {
+      padding: 28px 24px 42px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      background: linear-gradient(135deg, rgba(253,248,246,0.56) 0%, rgba(246,239,255,0.52) 22%, rgba(237,245,255,0.48) 46%, rgba(238,250,244,0.48) 70%, rgba(255,244,250,0.52) 100%);
+    }
+    .snapshot-grid,
+    .methodology-grid {
+      display: grid;
+      grid-template-columns: minmax(0,1.1fr) minmax(0,0.9fr);
+      gap: 24px;
+      align-items: start;
+    }
+    .snapshot-card,
+    .methodology-card {
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 0;
+      padding: 22px;
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+    }
+    .snapshot-eyebrow,
+    .methodology-eyebrow,
+    .challenge-eyebrow {
+      font-family: var(--ff-display);
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      color: var(--silver);
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+    .snapshot-card h3,
+    .methodology-card h3 {
+      font-size: clamp(20px, 2vw, 26px);
+      letter-spacing: 1.2px;
+      margin-bottom: 10px;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .snapshot-card p,
+    .methodology-card p {
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.75;
+    }
+    .snapshot-list,
+    .challenge-list { display: grid; gap: 14px; }
+    .snapshot-item,
+    .challenge-item {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr);
+      gap: 18px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      align-items: start;
+    }
+    .snapshot-item:last-child,
+    .challenge-item:last-child { border-bottom: none; }
+    .snapshot-item strong,
+    .challenge-item strong {
+      font-family: var(--ff-display);
+      font-size: 14px;
+      letter-spacing: 1px;
+      color: var(--text);
+      font-weight: 400;
+      text-transform: uppercase;
+      line-height: 1.6;
+    }
+    .snapshot-item span,
+    .challenge-item span {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.75;
+    }
+    .methodology-flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .flow-step {
+      position: relative;
+      border: 1px solid rgba(0,0,0,0.08);
+      padding: 16px 14px 18px;
+      min-height: 168px;
+      background: rgba(255,255,255,0.58);
+    }
+    .flow-step:not(:last-child)::after {
+      content: '→';
+      position: absolute;
+      right: -12px;
+      top: 18px;
+      color: rgba(38,48,37,0.35);
+      font-size: 18px;
+      z-index: 2;
+    }
+    .flow-step .step-no {
+      font-family: Georgia, serif;
+      font-size: 34px;
+      line-height: 1;
+      color: rgba(38,48,37,0.28);
+      margin-bottom: 12px;
+    }
+    .flow-step h4 {
+      font-family: var(--ff-display);
+      font-size: 14px;
+      letter-spacing: 1px;
+      color: var(--text);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .flow-step p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .challenge-note {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(38,48,37,0.78);
+    }
+
+    /* ── FLOATING CAPSULE NAV (project-one aligned) ───────────────────────────── */
+    #float-nav {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.62);
+      border: 1px solid rgba(255,255,255,0.55);
+      box-shadow: 0 12px 38px rgba(29,35,28,0.12);
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+      z-index: 110;
+      max-width: calc(100vw - 32px);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    #float-nav::-webkit-scrollbar { display: none; }
+    .fc-item {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.55);
+      background: rgba(244,241,248,0.7);
+      color: rgba(38,48,37,0.78);
+      font-family: var(--ff-display);
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: background .25s ease, color .25s ease, transform .25s ease, box-shadow .25s ease;
+    }
+    .fc-item:hover { transform: translateY(-1px); }
+    .fc-item.fc-active {
+      background: rgba(67,82,70,0.88);
+      color: #f5f5f2;
+      box-shadow: 0 6px 20px rgba(29,35,28,0.18);
+    }
+
+    @media (max-width: 980px) {
+      .snapshot-grid,
+      .methodology-grid { grid-template-columns: 1fr; }
+      .methodology-flow { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .snapshot-item,
+      .challenge-item { grid-template-columns: 1fr; gap: 6px; }
+    }
+    @media (max-width: 640px) {
+      .project-snapshot { padding-top: 24px; padding-bottom: 30px; }
+      .snapshot-card,
+      .methodology-card { padding: 18px; }
+      .methodology-flow { grid-template-columns: 1fr; }
+      .flow-step:not(:last-child)::after { display: none; }
+      #float-nav {
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+        transform: none;
+        justify-content: flex-start;
+      }
+      .fc-item {
+        min-height: 40px;
+        padding: 0 16px;
+        font-size: 11px;
+        letter-spacing: 1.6px;
+      }
+    }
+</style>
 </head>
 <body>
 <!-- ── NAV ── -->
@@ -2105,22 +2307,62 @@
 <div class="meta-tag" style="margin-top:6px;">Category / Sport</div>
 <div class="meta-tag">Date / 2022.12</div>
 </div>
-<div class="meta-label">
-<span>Diving +</span>
-</div>
+<div class="meta-label"><div style="display:flex;flex-direction:column;justify-content:space-between;padding:24px 32px;width:100%;"><span style="font-family:var(--ff-display);font-size:20px;color:var(--text);letter-spacing:1px;">Diving+ / Dive Discovery App &amp; Service Direction</span><div style="display:flex;gap:24px;padding-bottom:4px;flex-wrap:wrap;row-gap:10px;"><div><div style="font-family:var(--ff-display);font-size:11px;color:var(--silver);letter-spacing:1px;margin-bottom:4px;">Role</div><div style="font-family:var(--ff-display);font-size:13px;color:var(--text);letter-spacing:0.5px;">UX Research · Product Strategy · App Design</div></div><div><div style="font-family:var(--ff-display);font-size:11px;color:var(--silver);letter-spacing:1px;margin-bottom:4px;">Year</div><div style="font-family:var(--ff-display);font-size:13px;color:var(--text);letter-spacing:0.5px;">2022</div></div><div><div style="font-family:var(--ff-display);font-size:11px;color:var(--silver);letter-spacing:1px;margin-bottom:4px;">Platform</div><div style="font-family:var(--ff-display);font-size:13px;color:var(--text);letter-spacing:0.5px;">iOS · Android · Service Concept</div></div><div><div style="font-family:var(--ff-display);font-size:11px;color:var(--silver);letter-spacing:1px;margin-bottom:4px;">Scope</div><div style="font-family:var(--ff-display);font-size:13px;color:var(--text);letter-spacing:0.5px;">Solo Project — Independent</div></div></div></div></div>
 </div>
 <div class="description">
-<p>Diving+ is a product design project that reframes fragmented diving information into a mobile experience for exploration, community sharing, and sustainable engagement. Built for beginners and recreational divers as well as more experienced users, the app brings together dive-site discovery, event participation, instructor access, and personal records in one coherent platform.</p>
+<p>Diving+ reframes fragmented dive-site information, activity discovery, and community participation into a clearer mobile product. Positioned as a recruitment-ready case, the project moves from market observation and survey synthesis to interface structure, feature prioritisation, and a speculative hardware extension that demonstrates broader product thinking.</p>
 </div>
+
+<section aria-labelledby="snapshot-title" class="project-snapshot reveal" id="snapshot">
+<div class="snapshot-grid">
+<div class="snapshot-card">
+<div class="snapshot-eyebrow">Project Snapshot</div>
+<h3 id="snapshot-title">What this project demonstrates</h3>
+<p>Diving+ is positioned here as a recruitment-ready product case that moves from user research and market reading to information architecture, feature definition, interface direction, and service extension. The project demonstrates an ability to structure a fragmented leisure ecosystem into a coherent product experience while keeping the visual language approachable for younger and lower-frequency divers.</p>
+</div>
+<div aria-label="Project highlights" class="snapshot-card snapshot-list">
+<div class="snapshot-item"><strong>Problem Framing</strong><span>Translated scattered dive information, trust barriers, and low-frequency participation into a clearer service opportunity with stronger decision support.</span></div>
+<div class="snapshot-item"><strong>Design Contribution</strong><span>Defined the core product structure, dive-site browsing flow, feature priorities, and interaction direction for a mobile-first diving platform.</span></div>
+<div class="snapshot-item"><strong>Evidence</strong><span>Used survey findings and journey-based analysis to prioritise legibility, confidence-building, and low-friction access to essential diving information.</span></div>
+<div class="snapshot-item"><strong>Outcome Signal</strong><span>This case demonstrates end-to-end thinking across UX research, interface design, visual system building, and concept-level product expansion.</span></div>
+</div>
+</div>
+</section>
+<section aria-labelledby="methodology-title" class="project-snapshot reveal" id="methodology" style="border-top:none;">
+<div class="methodology-grid">
+<div class="methodology-card">
+<div class="methodology-eyebrow">Methodology</div>
+<h3 id="methodology-title">From fragmented category insight to product structure</h3>
+<p>The project was developed as a staged design process that began with category observation and progressively narrowed into clearer information design decisions. Rather than treating the interface as styling alone, the work focused on what users need to trust, compare, and act on before entering a relatively infrequent and information-sensitive activity.</p>
+<div aria-label="Methodology flow chart" class="methodology-flow">
+<div class="flow-step"><div class="step-no">01</div><h4>Observe</h4><p>Mapped the diving ecosystem through audience types, market actors, and participation contexts to define the real service surface.</p></div>
+<div class="flow-step"><div class="step-no">02</div><h4>Synthesize</h4><p>Used survey signals and journey mapping to identify trust, readability, and information access as the primary design constraints.</p></div>
+<div class="flow-step"><div class="step-no">03</div><h4>Structure</h4><p>Translated insights into product layers such as dive sites, activities, courses, community content, and personal records.</p></div>
+<div class="flow-step"><div class="step-no">04</div><h4>Extend</h4><p>Expanded the system into a speculative goggles concept to show how the service logic could evolve beyond the mobile screen.</p></div>
+</div>
+</div>
+<div aria-label="Recruitment-facing challenge notes" class="methodology-card challenge-list">
+<div>
+<div class="challenge-eyebrow">Key Challenge Notes</div>
+<h3>Signals that make the case feel stronger for recruitment</h3>
+</div>
+<div class="challenge-item"><strong>Product Judgment</strong><span>Prioritised trust-building and navigability over novelty, because occasional divers need reassurance before they need more features.</span></div>
+<div class="challenge-item"><strong>Audience Range</strong><span>Balanced the needs of curious beginners and more experienced users without turning the interface into an expert-only tool.</span></div>
+<div class="challenge-item"><strong>System Thinking</strong><span>Connected information, participation, and sustainability into one service narrative rather than presenting isolated screens.</span></div>
+<div class="challenge-item"><strong>Portfolio Signal</strong><span>The case communicates research synthesis, product framing, visual coherence, and concept extension in one readable storyline.</span></div>
+<p class="challenge-note">For a recruitment portfolio, this section foregrounds how the work thinks: not only what the screens look like, but how research was converted into priorities, structure, and a scalable product direction.</p>
+</div>
+</div>
+</section>
 <div class="full-bleed-divider">
 <img alt="Diving+ full spread" src="images/project-2-2.png"/>
 </div>
-<section class="section">
+<section class="section" id="overview">
 <div class="section-header">
 <img alt="Motivation icon" class="icon" src="images/project-2-3.png"/>
-<h2>Design Motivation</h2>
+<h2>Project Overview</h2>
 </div>
-<p class="body-text">This project began with a simple product question: how can diving be made easier to approach, easier to understand, and more worth returning to? Diving+ responds by connecting community content, ecological knowledge, and diving utilities within one system, turning underwater exploration into a clearer and more engaging user journey.</p>
+<p class="body-text">This project started from a practical product question: how can diving be made easier to approach, easier to understand, and more worth returning to? Diving+ answers that question by connecting community content, ecological knowledge, and dive utilities into one service system, turning underwater exploration into a clearer and more engaging decision journey.</p>
 <div class="tags">
 <span class="tag"># Marine Conservation</span>
 <span class="tag"># Global Diving Community</span>
@@ -2131,7 +2373,7 @@
 </section>
 <section class="section">
 <div class="section-header">
-<h2>Design Purpose</h2>
+<h2>Product Framing</h2>
 </div>
 <div class="img-row">
 <div class="img-side">
@@ -2141,7 +2383,7 @@
 <div class="research-table">
 <div class="research-col">
 <div class="research-col-title">User</div>
-<p>Non-Divers</p>
+<p>The service is framed for a broad diving ecosystem that includes curious non-divers, beginners, certified divers, instructors, shops, and related media communities. From a recruitment perspective, the core challenge was designing a product structure that serves both discovery-oriented newcomers and information-heavy experienced users without overwhelming either group.</p>
 <p>Diving Beginners</p>
 <p>Diving Instructors</p>
 <p>Equipment Developers</p>
@@ -2191,9 +2433,9 @@
 </div>
 </div>
 </section>
-<section class="section">
+<section class="section" id="research">
 <div class="section-header">
-<h2>Current Survey</h2>
+<h2>Research Insights</h2>
 </div>
 <div class="survey-wrap">
 <p class="survey-lead">The survey clarified who the product should serve and why the interface needed to be highly legible. Scuba diving with oxygen tanks is the dominant activity at 70.2%, the largest age group is 15 to 25 at 72.6%, and 59.6% of respondents dive five times or less per year. These findings point to a product opportunity centered on entry accessibility, lightweight guidance, and fast access to trustworthy information.</p>
@@ -2243,7 +2485,7 @@
 <div class="chart-kicker">Dive Site Type</div>
 <h4>Most interest concentrates around accessible and scenic recreational locations.</h4>
 <div class="stack-card">
-<div class="stack-bar" aria-label="Dive site type distribution">
+<div aria-label="Dive site type distribution" class="stack-bar">
 <div class="stack-seg" style="width:42%;background:#0f4c81;"></div>
 <div class="stack-seg" style="width:33%;background:#2d78b5;"></div>
 <div class="stack-seg" style="width:25%;background:#7cc1eb;"></div>
@@ -2329,8 +2571,8 @@
 </section>
 <section class="cis-section">
 <div class="cis-header">
-<h2>User Analysis × Journey Map</h2>
-<p>This map translates the brand strategy into user behavior, showing how Diving+ attracts attention, supports evaluation, and guides users toward app download and course participation.</p>
+<h2>User Analysis × Decision Journey</h2>
+<p>This journey translates brand strategy into user behavior, showing how Diving+ attracts attention, supports evaluation, and guides users toward app download and course participation. It frames the product as a trust-building service, not just an information archive.</p>
 </div>
 <div class="journey-layout">
 <div class="journey-image journey-html">
@@ -2376,7 +2618,7 @@
 </div>
 </div>
 <div class="journey-board">
-<div class="chart-kicker">Touchpoints & Growth</div>
+<div class="chart-kicker">Touchpoints &amp; Growth</div>
 <h4>Community trust matters more than advertising alone.</h4>
 <div class="touchpoint-grid">
 <div class="touchpoint-card">
@@ -2431,10 +2673,10 @@
 </div>
 </div>
 </section>
-<section class="cis-section">
+<section class="cis-section" id="identity">
 <div class="cis-header">
-<h2>Visual Design</h2>
-<p>The visual system combines marine-inspired blue tones, simplified interface structures, and soft geometric shapes to communicate clarity, trust, exploration, and environmental awareness across both digital and promotional applications.</p>
+<h2>Identity System</h2>
+<p>The visual system combines marine-inspired blue tones, simplified interface structures, and calm geometric forms to communicate clarity, trust, exploration, and environmental awareness across both digital and promotional applications.</p>
 </div>
 <div class="visual-design-layout">
 <div class="visual-logo">
@@ -2487,9 +2729,9 @@
 </div>
 </div>
 </section>
-<section class="section">
+<section class="section" id="features">
 <div class="section-header">
-<h2>Innovative Features</h2>
+<h2>Feature Strategy</h2>
 </div>
 <div class="feature-hero">
 <img alt="App overview" src="images/project-2-17.png"/>
@@ -2622,7 +2864,7 @@
 </div>
 </div>
 </section>
-<section class="section">
+<section class="section" id="interface">
 <div class="app-section-title">
 <h2>App Interface</h2>
 </div>
@@ -2846,7 +3088,7 @@
 </div>
 </div>
 </section>
-<section class="section">
+<section class="section" id="outcome">
 <div class="section-header">
 <h2>Usage Process</h2>
 </div>
@@ -2876,6 +3118,15 @@
 </div>
 </section>
 <!-- ── FOOTER ── -->
+
+<nav aria-label="Page sections" id="float-nav">
+<a class="fc-item fc-active" href="#overview">Overview</a>
+<a class="fc-item" href="#research">Research</a>
+<a class="fc-item" href="#identity">Identity</a>
+<a class="fc-item" href="#features">Features</a>
+<a class="fc-item" href="#interface">Interface</a>
+<a class="fc-item" href="#outcome">Outcome</a>
+</nav>
 <footer>
 <div class="footer-shell">
 <div class="footer-head">
@@ -2977,5 +3228,24 @@
       });
     }
   </script>
-</body>
+<script>
+(function(){
+  const items = Array.from(document.querySelectorAll('#float-nav .fc-item'));
+  const sections = items.map(item => document.querySelector(item.getAttribute('href'))).filter(Boolean);
+  if (!items.length || !sections.length) return;
+  const setActive = () => {
+    let current = sections[0].id;
+    const y = window.scrollY + window.innerHeight * 0.35;
+    sections.forEach(section => {
+      if (section.offsetTop <= y) current = section.id;
+    });
+    items.forEach(item => {
+      item.classList.toggle('fc-active', item.getAttribute('href') === '#' + current);
+    });
+  };
+  window.addEventListener('scroll', setActive, { passive: true });
+  window.addEventListener('resize', setActive);
+  setActive();
+})();
+</script></body>
 </html>
