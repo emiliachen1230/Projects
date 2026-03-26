@@ -434,7 +434,7 @@
       align-items: center;
       justify-content: center;
       padding: 28px 20px;
-      min-height: 340px;
+      min-height: 420px;
       cursor: grab;
       overflow: hidden;
     }
@@ -631,8 +631,12 @@
     }
 
     /* Responsive: stack books on mobile */
+    @media (max-width: 900px) {
+      .book-stage { min-height: 360px; padding: 24px 14px; }
+    }
     @media (max-width: 700px) {
       .books-row { flex-direction: column; }
+      .book-stage { min-height: 320px; }
     }
   
     /* ═══════════════════════════════════════════════════════
@@ -1725,7 +1729,7 @@
   function buildFlip(containerId, pageEls, width, height, onFlip) {
     const container = document.getElementById(containerId);
     container.innerHTML = '';
-    container.style.width  = width  + 'px';
+    container.style.width  = (width * 2) + 'px';
     container.style.height = height + 'px';
 
     const pageFlip = new St.PageFlip(container, {
@@ -1735,7 +1739,7 @@
       minHeight: 180, maxHeight: 1200,
       drawShadow:   true,
       flippingTime: 700,
-      usePortrait:  true,
+      usePortrait:  false,
       startZIndex:  0,
       autoSize:     false,
       mobileScrollSupport: false,
@@ -1743,6 +1747,7 @@
       swipeDistance:       30,
       showPageCorners:     true,
       disableFlipByClick:  false,
+      maxShadowOpacity:    0.35,
     });
 
     pageFlip.loadFromHTML(pageEls);
@@ -1764,10 +1769,11 @@
     const expandBtn = document.getElementById(cfg.expandId);
 
     const stageW = stageEl.clientWidth;
-    const stageH = Math.max(300, Math.round(stageW * 0.65));
+    const stageH = Math.max(320, Math.round(stageW * 0.44));
     stageEl.style.minHeight = stageH + 'px';
-    const bookH = stageH - 56;
-    const bookW = Math.round(bookH * 0.71);
+    const availableW = Math.max(360, stageW - 40);
+    const bookW = Math.floor(Math.min((availableW / 2), 340));
+    const bookH = Math.round(bookW / 0.71);
 
     try {
       // ① 開啟 PDF，只讀 metadata（極快，不載入頁面內容）
@@ -1803,6 +1809,7 @@
       });
       fbState[key].pageFlip = pageFlip;
       document.getElementById(cfg.flipId).style.margin = '0 auto';
+      document.getElementById(cfg.flipId).style.maxWidth = '100%';
 
       // ④ 顯示
       loadingEl.classList.add('hidden');
@@ -1880,9 +1887,9 @@
 
     document.getElementById('modal-title').textContent = cfg.label;
 
-    const mw     = Math.min(modalStage.clientWidth  - 48, 800);
-    const mh     = Math.min(modalStage.clientHeight - 32, 1000);
-    const finalW = Math.min(Math.round(mh * 0.71), mw);
+    const mw = Math.max(720, modalStage.clientWidth - 48);
+    const mh = Math.min(modalStage.clientHeight - 32, 1000);
+    const finalW = Math.min(Math.floor((mw - 20) / 2), Math.round(mh * 0.71));
     const finalH = Math.round(finalW / 0.71);
 
     if (modalPageFlip) { try { modalPageFlip.destroy(); } catch(e){} }
