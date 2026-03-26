@@ -1,13 +1,14 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Two — Diving+</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Project Two — Diving+</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Aboreto&amp;family=Geist:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+<style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -494,6 +495,350 @@
       border-top: none;
       padding-top: 0;
     }
+
+
+    .chart-card,
+    .mini-chart-card,
+    .journey-board,
+    .persona-panel,
+    .timeline-board {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 24px;
+      padding: 22px;
+    }
+
+    .chart-card {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .chart-kicker {
+      font-size: 12px;
+      letter-spacing: 0.9px;
+      color: var(--silver);
+      text-transform: uppercase;
+    }
+
+    .chart-title {
+      font-family: var(--ff-display);
+      font-size: 24px;
+      letter-spacing: 0.6px;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .survey-highlight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .survey-highlight {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px;
+      background: rgba(15, 76, 129, 0.03);
+    }
+
+    .survey-highlight .num {
+      font-family: var(--ff-display);
+      font-size: 34px;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .survey-highlight .meta {
+      font-size: 12px;
+      color: var(--silver);
+      letter-spacing: 0.6px;
+      margin-bottom: 6px;
+    }
+
+    .survey-highlight p {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .bar-group,
+    .stack-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 130px minmax(0, 1fr) 56px;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .bar-label,
+    .stack-label {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .bar-track {
+      position: relative;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(15, 76, 129, 0.1);
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, rgba(15, 76, 129, 0.95), rgba(96, 178, 232, 0.92));
+    }
+
+    .bar-value {
+      font-family: var(--ff-display);
+      font-size: 13px;
+      color: var(--text);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .stack-card {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .stack-bar {
+      display: flex;
+      height: 16px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(15, 76, 129, 0.08);
+    }
+
+    .stack-seg {
+      height: 100%;
+    }
+
+    .stack-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .stack-row {
+      display: grid;
+      grid-template-columns: 14px minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    .stack-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+    }
+
+    .mini-chart-card {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .mini-chart-card h4 {
+      font-family: var(--ff-display);
+      font-size: 16px;
+      color: var(--text);
+      letter-spacing: 0.6px;
+    }
+
+    .mini-chart-card p {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .journey-html {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .persona-panel {
+      display: grid;
+      grid-template-columns: 110px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .persona-avatar {
+      width: 110px;
+      aspect-ratio: 1;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(15, 76, 129, 0.92), rgba(96, 178, 232, 0.75));
+      color: white;
+      display: grid;
+      place-items: center;
+      font-family: var(--ff-display);
+      font-size: 34px;
+      letter-spacing: 1px;
+    }
+
+    .persona-meta h4,
+    .timeline-board h4,
+    .journey-board h4 {
+      font-family: var(--ff-display);
+      font-size: 18px;
+      color: var(--text);
+      letter-spacing: 0.6px;
+      margin-bottom: 8px;
+    }
+
+    .persona-meta p,
+    .timeline-board p,
+    .journey-board p,
+    .journey-chip,
+    .touchpoint-note {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .journey-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .journey-chip {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: rgba(15, 76, 129, 0.04);
+      line-height: 1.2;
+    }
+
+    .timeline-board {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .timeline-row {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .timeline-stage {
+      font-family: var(--ff-display);
+      font-size: 13px;
+      color: var(--silver);
+      letter-spacing: 0.7px;
+      padding-top: 2px;
+    }
+
+    .timeline-content {
+      position: relative;
+      padding-left: 20px;
+      border-left: 1px solid var(--line);
+    }
+
+    .timeline-content::before {
+      content: "";
+      position: absolute;
+      left: -6px;
+      top: 3px;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #0f4c81;
+      box-shadow: 0 0 0 4px rgba(15, 76, 129, 0.08);
+    }
+
+    .timeline-content h5 {
+      font-size: 14px;
+      color: var(--text);
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .timeline-content p {
+      margin: 0;
+    }
+
+    .touchpoint-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .touchpoint-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px;
+      background: rgba(15, 76, 129, 0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .touchpoint-card strong {
+      font-family: var(--ff-display);
+      font-size: 14px;
+      color: var(--text);
+      letter-spacing: 0.5px;
+    }
+
+    .touchpoint-card span {
+      font-size: 12px;
+      color: var(--silver);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 1024px) {
+      .survey-highlight-grid,
+      .touchpoint-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .persona-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .persona-avatar {
+        width: 88px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .bar-row,
+      .timeline-row {
+        grid-template-columns: 1fr;
+      }
+
+      .bar-value {
+        text-align: left;
+      }
+
+      .timeline-content {
+        padding-left: 16px;
+      }
+    }
+
 
     .cis-header {
       flex-direction: column;
@@ -1726,771 +2071,838 @@
   </style>
 </head>
 <body>
-
-  <!-- ── NAV ── -->
-  <nav id="siteNav">
-    <div class="nav-inner">
-      <a class="nav-brand" href="index.html#about" aria-label="Go to top">
-        <span class="nav-logo-wrap">
-          <img src="images/logo.png" alt="E.C. logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
-          <span class="nav-logo-fallback" style="display:none;">R</span>
-        </span>
-        <span class="nav-logo">E. C.</span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="index.html#projects">Projects</a></li>
-        <li><a href="index.html#about">About Me</a></li>
-      </ul>
-      <button class="hamburger" aria-label="Menu" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
-
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="index.html#projects" onclick="closeMenu()">Projects</a>
-    <a href="index.html#about" onclick="closeMenu()">About Me</a>
-  </div>
-
-  <section class="hero">
-    <img src="images/project-2-1.png" alt="Diving+ hero">
-  </section>
-
-  <div class="meta-row">
-    <div class="meta-info">
-      <div class="meta-num">02</div>
-      <div class="meta-title">Project Two</div>
-      <div class="meta-sub">APP × Product</div>
-      <div class="meta-tag" style="margin-top:6px;">Category / Sport</div>
-      <div class="meta-tag">Date / 2022.12</div>
-    </div>
-    <div class="meta-label">
-      <span>Diving +</span>
-    </div>
-  </div>
-
-  <div class="description">
-    <p>Diving+ is designed to connect the global diving community while highlighting Taiwan's unique marine ecosystem. By offering a platform for sharing diving experiences and marine ecology knowledge, we aim to make underwater exploration more engaging and accessible, establishing Diving+ as a leading international hub for divers worldwide.</p>
-  </div>
-
-  <div class="full-bleed-divider">
-    <img src="images/project-2-2.png" alt="Diving+ full spread">
-  </div>
-
-  <section class="section">
-    <div class="section-header">
-      <img class="icon" src="images/project-2-3.png" alt="Motivation icon">
-      <h2>Design Motivation</h2>
-    </div>
-    <p class="body-text">Diving+ is designed to connect the global diving community while highlighting Taiwan's unique marine ecosystem. By offering a platform for sharing diving experiences and marine ecology knowledge, we aim to make underwater exploration more engaging and accessible. Our vision is to establish Diving+ as a leading international hub for divers, fostering a deeper appreciation for marine conservation and promoting sustainable diving practices worldwide.</p>
-    <div class="tags">
-      <span class="tag"># Marine Conservation</span>
-      <span class="tag"># Global Diving Community</span>
-      <span class="tag"># Environmental Sustainability</span>
-      <span class="tag"># Exploration</span>
-      <span class="tag"># Education</span>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-header">
-      <h2>Design Purpose</h2>
-    </div>
-    <div class="img-row">
-      <div class="img-side">
-        <img src="images/project-2-4.png" alt="Design purpose">
-      </div>
-      <div class="text-side">
-        <div class="research-table">
-          <div class="research-col">
-            <div class="research-col-title">User</div>
-            <p>Non-Divers</p>
-            <p>Diving Beginners</p>
-            <p>Diving Instructors</p>
-            <p>Equipment Developers</p>
-          </div>
-          <div class="research-col">
-            <div class="research-col-title">Market</div>
-            <p>Diving Influencers</p>
-            <p>Digital Media</p>
-            <p>Coach</p>
-            <p>Dive Shops</p>
-          </div>
-        </div>
-        <p class="body-text">Diving+ serves diving enthusiasts of all levels, providing essential information on dive sites, safety, and marine ecology, tailored to those passionate about responsible and sustainable diving.</p>
-      </div>
-    </div>
-    <div class="img-row">
-      <div class="img-side">
-        <img src="images/project-2-5.png" alt="Target audience">
-        <p class="img-caption">Target Audience</p>
-      </div>
-      <div class="img-side">
-        <img src="images/project-2-6.png" alt="Usage environment">
-        <p class="img-caption">Usage Environment</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-header goal-header">
-      <div class="goal-icon">
-        <img src="images/project-2-7.png" alt="Goal icon">
-      </div>
-      <h2>Goal</h2>
-    </div>
-    <p class="body-text">The goal is to make the underwater world more accessible to everyone. Diving+ bridges the gap between land and sea by offering a user-friendly platform that connects a global diving community, promotes marine conservation, and provides the tools needed for safe and sustainable diving.</p>
-    <div class="info-list">
-      <div class="info-row">
-        <div class="info-label">Solution</div>
-        <div class="info-desc">Diving+ is a comprehensive platform for divers to share experiences, access detailed dive site information, connect with professional instructors, and engage in environmental sustainability efforts.</div>
-      </div>
-      <div class="info-row">
-        <div class="info-label">Quality</div>
-        <div class="info-desc">Designed for optimal user experience, the app offers intuitive navigation, dependable features, and high-quality content, catering to both novice and seasoned divers.</div>
-      </div>
-      <div class="info-row">
-        <div class="info-label">Function</div>
-        <div class="info-desc">Easy access to dive site details, a platform for sharing experiences, connections to instructors, and tools for environmental conservation, all through a user-friendly interface.</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-header">
-      <h2>Current Survey</h2>
-    </div>
-
-    <div class="survey-wrap">
-      <p class="survey-lead">The current survey reveals a clear profile of Diving+ users and their habits. Scuba diving with oxygen tanks is the dominant activity at 70.2%, while the largest age group is 15 to 25 years old at 72.6%. In addition, 59.6% of respondents dive five times or less per year, suggesting that the platform mainly serves beginners and light-frequency recreational divers.</p>
-
-      <div class="survey-main">
-        <div class="survey-chart-main">
-          <img src="images/project-2-8.png" alt="Current survey overview">
-        </div>
-
-        <div class="survey-side">
-          <div class="survey-side-chart">
-            <img src="images/project-2-11.png" alt="Dive site classification">
-          </div>
-
-          <div class="survey-copy-block">
-            <div class="eyebrow">Survey Reading</div>
-            <div class="survey-grid-copy">
-              <div class="survey-copy-item">
-                <h3>User Profile</h3>
-                <p>Most participants are young divers in the 15 to 25 age range, suggesting a strong opportunity to position Diving+ as an accessible entry point into diving culture.</p>
-              </div>
-              <div class="survey-copy-item">
-                <h3>Diving Frequency</h3>
-                <p>Since most respondents dive only a few times per year, the interface should prioritize clarity, onboarding support, and quick access to essential information.</p>
-              </div>
-              <div class="survey-copy-item">
-                <h3>Activity Preference</h3>
-                <p>Scuba diving remains the primary activity, so content around equipment, safety, certification, and dive-site discovery should remain central.</p>
-              </div>
-              <div class="survey-copy-item">
-                <h3>Market Analysis</h3>
-                <ul>
-                  <li>Assessment surveys and dive shop promotion</li>
-                  <li>Collaborative event organization</li>
-                  <li>Seminars, workshops, and international promotion</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="survey-stats">
-        <div class="survey-stat">
-          <div class="survey-stat-label">Activity Participation</div>
-          <img src="images/project-2-9.png" alt="Types of diving activities participated in">
-        </div>
-        <div class="survey-stat">
-          <div class="survey-stat-label">Age Distribution</div>
-          <img src="images/project-2-10.png" alt="Age distribution">
-        </div>
-        <div class="survey-stat">
-          <div class="survey-stat-label">Dive Site Type</div>
-          <img src="images/project-2-11.png" alt="Dive site type">
-        </div>
-        <div class="survey-stat">
-          <div class="survey-stat-label">Dives per Year / Level</div>
-          <img src="images/project-2-12.png" alt="Diving frequency and level">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="cis-section">
-    <div class="cis-header">
-      <h2>User Analysis × Journey Map</h2>
-      <p>This map translates the brand strategy into user behavior, showing how Diving+ attracts attention, supports evaluation, and guides users toward app download and course participation.</p>
-    </div>
-
-    <div class="journey-layout">
-      <div class="journey-image">
-        <img src="images/project-2-13.png" alt="User analysis">
-        <img src="images/project-2-14.png" alt="Journey map">
-        <img src="images/project-2-15.png" alt="Journey map details">
-      </div>
-
-      <div class="journey-copy">
-        <div class="journey-block">
-          <div class="eyebrow">Stage 01</div>
-          <h3>Before Download</h3>
-          <p>Initial awareness is built through Instagram, Facebook, YouTube, Spotify, and podcasts, positioning diving not only as a sport but also as a social and lifestyle-oriented experience.</p>
-        </div>
-
-        <div class="journey-block">
-          <div class="eyebrow">Stage 02</div>
-          <h3>Evaluation Stage</h3>
-          <p>Users begin comparing information quality, store credibility, and learning accessibility. This stage requires a visual language that feels trustworthy, readable, and easy to navigate.</p>
-        </div>
-
-        <div class="journey-block">
-          <div class="eyebrow">Stage 03</div>
-          <h3>After Download</h3>
-          <p>The journey is designed to lead users toward two main outcomes: successfully downloading and using the platform, and successfully enrolling in diving-related courses and activities.</p>
-        </div>
-
-        <div class="journey-block">
-          <div class="eyebrow">Persona</div>
-          <h3>Persona Insight</h3>
-          <p>Elsa, a 32-year-old manager with extensive diving experience, represents a user driven by exploration, ocean preference, and meaningful outdoor engagement. Her profile helps define both interface tone and service priorities.</p>
-        </div>
-
-        <div class="journey-block">
-          <div class="eyebrow">Growth</div>
-          <h3>Promotion Strategy</h3>
-          <p>Referrals from friends, family, and diving partners play a stronger role than advertising alone, while Facebook marketing supports visibility. This indicates that community trust is central to the platform’s growth model.</p>
-        </div>
-
-        <div class="journey-block">
-          <div class="eyebrow">Value</div>
-          <h3>Business Positioning</h3>
-          <p>The service connects two key values: course instruction and tourism aspects. Diving+ therefore works as both a learning platform and a gateway into wider underwater culture and travel-oriented experiences.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="cis-section">
-    <div class="cis-header">
-      <h2>Visual Design</h2>
-      <p>The visual system combines marine-inspired blue tones, simplified interface structures, and soft geometric shapes to communicate clarity, trust, exploration, and environmental awareness across both digital and promotional applications.</p>
-    </div>
-
-    <div class="visual-design-layout">
-      <div class="visual-logo">
-        <img src="images/project-2-16.png" alt="Diving+ logo">
-      </div>
-
-      <div>
-        <div class="typeface-row">
-          <div class="typeface-aa">Aa</div>
-          <div class="typeface-info">
-            <div class="typeface-info-label">Typeface</div>
-            <div class="typeface-info-value">Myriad Pro</div>
-            <div class="typestyle-row">
-              <div class="typestyle-item"><span class="ts-name">Headline</span><span class="ts-size">32pt</span></div>
-              <div class="typestyle-item"><span class="ts-name">Title</span><span class="ts-size">24pt</span></div>
-              <div class="typestyle-item"><span class="ts-name">Body</span><span class="ts-size">20pt</span></div>
-              <div class="typestyle-item"><span class="ts-name">Caption</span><span class="ts-size">16pt</span></div>
-              <div class="typestyle-item"><span class="ts-name">Label</span><span class="ts-size">14pt</span></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="color-swatches">
-          <div class="swatch">
-            <div class="swatch-box" style="background:#0f4c81;"></div>
-            <div class="swatch-label">
-              <strong>Primary Color</strong>
-              Classic Blue 19-4052<br>
-              #0F4C81<br>
-              <span style="font-size:12px;color:var(--silver);">Curiosity, Exploration, Mystery</span>
-            </div>
-          </div>
-
-          <div class="swatch">
-            <div class="swatch-box" style="background:#f5df4d;"></div>
-            <div class="swatch-label">
-              <strong>Secondary Color</strong>
-              Illuminating Yellow 13-0647<br>
-              #F5DF4D<br>
-              <span style="font-size:12px;color:var(--silver);">Entertainment, Anticipation, Joy</span>
-            </div>
-          </div>
-
-          <div class="swatch">
-            <div class="swatch-box" style="background:#939597; border:1px solid #ddd;"></div>
-            <div class="swatch-label">
-              <strong>Neutral</strong>
-              Ultimate Gray 17-5104<br>
-              #939597<br>
-              <span style="font-size:12px;color:var(--silver);">Reliability, Technology, Innovation</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-header">
-      <h2>Innovative Features</h2>
-    </div>
-    <div class="feature-hero">
-      <img src="images/project-2-17.png" alt="App overview">
-    </div>
-    <div class="features-list">
-      <div class="feature-item">
-        <div class="feature-num">01</div>
-        <div class="feature-copy">
-          <h3>Community Sharing Mechanism</h3>
-          <p>Integrates social services to enable sharing of diving experiences via a rotating dive watch icon.</p>
-        </div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-num">02</div>
-        <div class="feature-copy">
-          <h3>Dive Sites Information</h3>
-          <p>Access essential details on Taiwan's dive spots, including conditions and safety tips.</p>
-        </div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-num">03</div>
-        <div class="feature-copy">
-          <h3>Environmental Awareness</h3>
-          <p>Promote ecological sustainability with a reward token system.</p>
-        </div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-num">04</div>
-        <div class="feature-copy">
-          <h3>Diving Courses</h3>
-          <p>Connect with professional instructors for safer diving.</p>
-        </div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-num">05</div>
-        <div class="feature-copy">
-          <h3>Diving Goggles Design</h3>
-          <p>Wearable tech syncs with the app, offering real-time data for an immersive diving experience.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-header">
-      <h2>Dive Site Map</h2>
-    </div>
-    <div class="eyebrow" style="margin-bottom:0;">Diving Areas Introduction</div>
-
-    <div class="map-layout">
-      <div class="map-visual">
-        <img src="images/project-2-18.png" alt="Taiwan diving areas map">
-      </div>
-
-      <div class="dive-cards">
-        <div class="dive-card">
-          <img class="dive-card-thumb" src="images/project-2-19.png" alt="Penghu">
-          <div class="dive-card-body">
-            <div class="dive-card-name">Penghu Diving Area</div>
-            <div class="dive-card-meta">
-              <span class="dive-card-tag"><strong>Season</strong> Apr – Oct</span>
-              <span class="dive-card-tag"><strong>Visibility</strong> ~5–30m</span>
-              <span class="dive-card-tag"><strong>Temp</strong> 15–30°C</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="dive-card">
-          <img class="dive-card-thumb" src="images/project-2-20.png" alt="Xiaoliuqiu">
-          <div class="dive-card-body">
-            <div class="dive-card-name">Xiaoliuqiu Diving Area</div>
-            <div class="dive-card-meta">
-              <span class="dive-card-tag"><strong>Season</strong> Year-round</span>
-              <span class="dive-card-tag"><strong>Visibility</strong> ~5–20m</span>
-              <span class="dive-card-tag"><strong>Temp</strong> 22–30°C</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="dive-card">
-          <img class="dive-card-thumb" src="images/project-2-21.png" alt="Kenting">
-          <div class="dive-card-body">
-            <div class="dive-card-name">Kenting Diving Area</div>
-            <div class="dive-card-meta">
-              <span class="dive-card-tag"><strong>Season</strong> Year-round</span>
-              <span class="dive-card-tag"><strong>Visibility</strong> ~5–20m</span>
-              <span class="dive-card-tag"><strong>Temp</strong> 22–30°C</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="dive-card">
-          <img class="dive-card-thumb" src="images/project-2-22.png" alt="Lanyu">
-          <div class="dive-card-body">
-            <div class="dive-card-name">Lanyu (Orchid Island)</div>
-            <div class="dive-card-meta">
-              <span class="dive-card-tag"><strong>Season</strong> Year-round</span>
-              <span class="dive-card-tag"><strong>Visibility</strong> ~50m</span>
-              <span class="dive-card-tag"><strong>Temp</strong> 18–28°C</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="dive-card">
-          <img class="dive-card-thumb" src="images/project-2-23.png" alt="Green Island">
-          <div class="dive-card-body">
-            <div class="dive-card-name">Green Island Diving Area</div>
-            <div class="dive-card-meta">
-              <span class="dive-card-tag"><strong>Season</strong> Year-round</span>
-              <span class="dive-card-tag"><strong>Visibility</strong> ~40m</span>
-              <span class="dive-card-tag"><strong>Temp</strong> 18–24°C</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="dive-card">
-          <img class="dive-card-thumb" src="images/project-2-24.png" alt="Yilan and Hualien">
-          <div class="dive-card-body">
-            <div class="dive-card-name">Yilan | Hualien Diving Area</div>
-            <div class="dive-card-meta">
-              <span class="dive-card-tag"><strong>Season</strong> Apr – Oct</span>
-              <span class="dive-card-tag"><strong>Visibility</strong> ~5–10m</span>
-              <span class="dive-card-tag"><strong>Temp</strong> 21–30°C</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="dive-card">
-          <img class="dive-card-thumb" src="images/project-2-25.png" alt="Northeast Coast">
-          <div class="dive-card-body">
-            <div class="dive-card-name">Northeast Coast Diving Area</div>
-            <div class="dive-card-meta">
-              <span class="dive-card-tag"><strong>Season</strong> Apr – Oct</span>
-              <span class="dive-card-tag"><strong>Visibility</strong> ~5–10m</span>
-              <span class="dive-card-tag"><strong>Temp</strong> 23–30°C</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="app-section-title">
-      <h2>App Interface</h2>
-    </div>
-
-    <div class="app-block">
-      <div class="app-subtitle">Exploring - Follow</div>
-      <div class="phone-gallery phone-single">
-        <div class="phone-card">
-          <div class="phone-frame"><img src="images/project-2-26.png" alt="Exploring screen"></div>
-        </div>
-      </div>
-      <div class="phone-note">
-        <div class="phone-note-title">Rotate Dive Watch Icon</div>
-        <div class="phone-note-item">Post basic information sharing</div>
-        <div class="phone-note-item">Depth-related photos or videos</div>
-        <div class="phone-note-item">Diving equipment</div>
-      </div>
-    </div>
-
-    <div class="app-block">
-      <div class="app-subtitle">Hot - Issue</div>
-      <div class="phone-gallery phone-two">
-        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-27.png" alt="Hot screen"></div></div>
-        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-28.png" alt="Issue screen"></div></div>
-      </div>
-      <div class="phone-note">
-        <div class="phone-note-title">Content Focus</div>
-        <div class="phone-note-item">Popular posts</div>
-        <div class="phone-note-item">Marine ecology sustainability</div>
-        <div class="phone-note-item">Diving equipment</div>
-        <div class="phone-note-item">MECO issues</div>
-      </div>
-    </div>
-
-    <div class="app-block">
-      <div class="app-subtitle">Diving Map - Diving Area - Search</div>
-      <div class="phone-gallery">
-        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-29.png" alt="Map overview"></div></div>
-        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-30.png" alt="Map detail"></div></div>
-        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-31.png" alt="Search screen"></div></div>
-      </div>
-      <div class="phone-note">
-        <div class="phone-note-title">Diving Areas Information</div>
-        <div class="phone-note-item">Area name and geographical location</div>
-        <div class="phone-note-item">Common marine species and diving season</div>
-        <div class="phone-note-item">Sea visibility, temperature, climate, and diving level</div>
-        <div class="phone-note-item">Typography, geology, and water depth</div>
-      </div>
-    </div>
-
-    <div class="app-block">
-      <div class="app-subtitle">Event - Diving Introduction - Event Category</div>
-      <div class="phone-gallery">
-        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-32.png" alt="Event screen 1"></div></div>
-        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-33.png" alt="Event screen 2"></div></div>
-        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-34.png" alt="Event screen 3"></div></div>
-      </div>
-      <div class="phone-note">
-        <div class="phone-note-title">Event Category</div>
-        <div class="phone-note-item">Discussion</div>
-        <div class="phone-note-item">Group and international coach diving certification</div>
-        <div class="phone-note-item">Course and ecological sustainability activities</div>
-      </div>
-    </div>
-
-    <div class="app-block">
-      <div class="app-subtitle">Profile - User Profile - Diving Posts - Diving Map</div>
-      <div class="phone-gallery">
-        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-35.png" alt="Profile screen 1"></div></div>
-        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-36.png" alt="Profile screen 2"></div></div>
-        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-37.png" alt="Profile screen 3"></div></div>
-      </div>
-      <div class="phone-note">
-        <div class="phone-note-title">Profile Content</div>
-        <div class="phone-note-item">Basic information</div>
-        <div class="phone-note-item">Certification</div>
-        <div class="phone-note-item">Records</div>
-      </div>
-    </div>
-
-    <div class="app-block">
-      <div class="app-subtitle">Post - Photo / Film - Diving Record - Diving Information</div>
-      <div class="phone-gallery phone-two">
-        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-38.png" alt="Post screen 1"></div></div>
-        <div class="phone-card"><div class="phone-frame"><img src="images/project-2-39.png" alt="Post screen 2"></div></div>
-      </div>
-      <div class="phone-note">
-        <div class="phone-note-title">Site Evaluation Information</div>
-        <div class="phone-note-item">Location, weather, wave conditions, and sea visibility</div>
-        <div class="phone-note-item">Surface and underwater temperature</div>
-        <div class="phone-note-item">Cylinder concentration, volume, and empty volume</div>
-        <div class="phone-note-item">Diving mask, diving watch, air tube, and diving cylinder</div>
-      </div>
-    </div>
-  </section>
-
-  <div class="goggles-wide">
-    <img src="images/project-2-40.png" alt="Diving+ goggles spread">
-  </div>
-
-  <section class="section">
-    <div class="section-header">
-      <h2>Diving+ Goggles</h2>
-    </div>
-    <p class="body-text">Diving+ Goggles integrates cutting-edge technology for essential dive data display and recording. This enhances safety, improves communication, and allows effortless capture of underwater adventures.</p>
-    <div class="tags">
-      <span class="tag"># Safety</span>
-      <span class="tag"># Exploration</span>
-      <span class="tag"># Dive Data Display</span>
-      <span class="tag"># Recording Capabilities</span>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-header">
-      <h2>Ideation</h2>
-    </div>
-    <p class="body-text">Exploration of concepts through iteration sketching.</p>
-
-    <div class="sketch-row">
-      <img src="images/project-2-41.png" alt="Sketch 1">
-      <img src="images/project-2-42.png" alt="Sketch 2">
-    </div>
-
-    <div class="spec-grid">
-      <div class="spec-block">
-        <div class="spec-label">Size</div>
-        <div class="spec-value">Frame: 15.7 × 7.7 cm<br>Lens: 13.9 × 6.0 cm</div>
-      </div>
-      <div class="spec-block">
-        <div class="spec-label">Material</div>
-        <div class="spec-value">Plastic frame, tempered glass lens</div>
-      </div>
-      <div class="spec-block">
-        <div class="spec-label">Colors</div>
-        <div style="display:flex; gap:8px; margin-top:8px;">
-          <div style="width:28px;height:28px;background:#939597;border-radius:50%;"></div>
-          <div style="width:28px;height:28px;background:#0f4c81;border-radius:50%;"></div>
-          <div style="width:28px;height:28px;background:#f5df4d;border-radius:50%;"></div>
-        </div>
-        <div class="spec-value" style="margin-top:6px;">Ultimate Gray · Classic Blue · Illuminating Yellow</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-header">
-      <h2>Exploded View</h2>
-    </div>
-    <p class="body-text">Highlights the smart diving goggle's components, showcasing its functional design.</p>
-    <div class="exploded-main">
-      <img src="images/project-2-43.png" alt="Exploded view">
-    </div>
-    <div class="chip-list">
-      <span class="chip">Tempered Glass</span>
-      <span class="chip">Photography Module</span>
-      <span class="chip">Power Switch</span>
-      <span class="chip">Camera Lens</span>
-      <span class="chip">Silicone Eyeglass Strap</span>
-      <span class="chip">Lens Waterproof Seal</span>
-      <span class="chip">Silicone Strap</span>
-      <span class="chip">Bluetooth</span>
-      <span class="chip">Timer</span>
-      <span class="chip">Diving Mask Frame</span>
-      <span class="chip">Sapphire Crystal Surface</span>
-      <span class="chip">Motherboard Location</span>
-      <span class="chip">Recording Module</span>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-header">
-      <h2>Main Buttons</h2>
-    </div>
-    <p class="body-text">Showcases the key control buttons, designed for intuitive and easy operation.</p>
-    <div class="main-buttons">
-      <img src="images/project-2-44.png" alt="Main buttons diagram">
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-header">
-      <h2>Photo &amp; Video Interface</h2>
-    </div>
-
-    <div class="interface-layout">
-      <div class="interface-panel">
-        <span class="interface-label">Camera</span>
-        <p class="interface-note">The frame flashes once to indicate a successful photo.</p>
-        <div class="interface-main"><img src="images/project-2-45.png" alt="Camera interface"></div>
-        <div class="interface-steps">
-          <div class="step-card">
-            <div class="step-num">1</div>
-            <div class="step-visual"><img src="images/project-2-46.png" alt="Camera step 1"></div>
-          </div>
-          <div class="step-card">
-            <div class="step-num">2</div>
-            <div class="step-visual"><img src="images/project-2-47.png" alt="Camera step 2"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="interface-panel">
-        <span class="interface-label">Recording</span>
-        <p class="interface-note">Recording starts when the frame and red dot light up.</p>
-        <div class="interface-main"><img src="images/project-2-48.png" alt="Recording interface"></div>
-        <div class="interface-steps">
-          <div class="step-card">
-            <div class="step-num">1</div>
-            <div class="step-visual"><img src="images/project-2-49.png" alt="Recording step 1"></div>
-          </div>
-          <div class="step-card">
-            <div class="step-num">2</div>
-            <div class="step-visual"><img src="images/project-2-50.png" alt="Recording step 2"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-header">
-      <h2>Lens Display Information</h2>
-    </div>
-    <p class="body-text">Displays essential dive information directly on the lens for easy viewing during the dive.</p>
-
-    <div class="lens-layout">
-      <div class="lens-image">
-        <img src="images/project-2-51.png" alt="Lens display diagram">
-      </div>
-
-      <div class="lens-annotations">
-        <div class="lens-row"><div class="lens-dot dot-gray"></div><div class="lens-text">Depth — current / maximum / average</div></div>
-        <div class="lens-row"><div class="lens-dot dot-gray"></div><div class="lens-text">Water temperature detection</div></div>
-        <div class="lens-row"><div class="lens-dot dot-gray"></div><div class="lens-text">Time data — current time &amp; dive time</div></div>
-        <div class="lens-row"><div class="lens-dot dot-gray"></div><div class="lens-text">Bluetooth<span class="lens-sub">Users can directly share basic information to the Diving+ app.</span></div></div>
-        <div class="lens-row"><div class="lens-dot dot-red"></div><div class="lens-text">SOS System</div></div>
-        <div class="lens-row"><div class="lens-dot dot-gold"></div><div class="lens-text">Safe Stop Alert<span class="lens-sub">Alerts you when you reach a safe stop depth.</span></div></div>
-        <div class="lens-row"><div class="lens-dot dot-blue"></div><div class="lens-text">GPS Positioning System</div></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-header">
-      <h2>Usage Process</h2>
-    </div>
-
-    <div class="process-flow">
-      <div class="process-step">Hold power button<br>3 sec to activate</div>
-      <span class="process-arrow">→</span>
-      <div class="process-step">Wear &amp; adjust<br>the diving gear</div>
-      <span class="process-arrow">→</span>
-      <div class="process-step">Hold Bluetooth button<br>3 sec to pair with phone</div>
-    </div>
-
-    <div class="process-image-grid">
-      <img src="images/project-2-52.png" alt="Usage step 1">
-      <img src="images/project-2-53.png" alt="Usage step 2">
-      <img src="images/project-2-54.png" alt="Usage step 3">
-    </div>
-
-    <div class="process-image-grid">
-      <img src="images/project-2-55.png" alt="Usage step 4">
-      <img src="images/project-2-56.png" alt="Usage step 5">
-      <img src="images/project-2-57.png" alt="Usage step 6">
-    </div>
-
-    <div class="process-flow" style="margin-top:12px;">
-      <div class="process-step">Hold timer button<br>3 sec to log diving time upon entering the water</div>
-      <span class="process-arrow">→</span>
-      <div class="process-step">Press camera button<br>once for photos</div>
-      <span class="process-arrow">→</span>
-      <div class="process-step">Double-press recording<br>button to start/stop video</div>
-    </div>
-  </section>
-
-    <!-- ── FOOTER ── -->
-  <footer>
-    <div class="footer-shell">
-      <div class="footer-head">
-        <div class="footer-mark" aria-label="E. C. brand mark">
-          <span>E.</span>
-          <span>C.</span>
-        </div>
-        <div class="footer-top-items">
-          <nav class="footer-main-links" aria-label="Footer navigation">
-            <a href="index.html#about">About ME</a>
-            <a href="index.html#projects">Projects</a>
-          </nav>
-          <div class="footer-contact">
-            <span>Taipei, Taiwan</span>
-            <div class="footer-contact-secondary">
-              <a href="mailto:emiliachen881230@gmail.com">emiliachen881230@gmail.com</a>
-              <a href="https://www.behance.net/emiliachen1230" target="_blank" rel="noopener">behance.net/emiliachen1230</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <p class="footer-copy">© 2026 All Rights Reserved</p>
-      </div>
-    </div>
-  </footer>
-
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<!-- ── NAV ── -->
+<nav id="siteNav">
+<div class="nav-inner">
+<a aria-label="Go to top" class="nav-brand" href="index.html#about">
+<span class="nav-logo-wrap">
+<img alt="E.C. logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';" src="images/logo.png"/>
+<span class="nav-logo-fallback" style="display:none;">R</span>
+</span>
+<span class="nav-logo">E. C.</span>
+</a>
+<ul class="nav-links">
+<li><a href="index.html#projects">Projects</a></li>
+<li><a href="index.html#about">About Me</a></li>
+</ul>
+<button aria-label="Menu" class="hamburger" onclick="toggleMenu()">
+<span></span><span></span><span></span>
+</button>
+</div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+<a href="index.html#projects" onclick="closeMenu()">Projects</a>
+<a href="index.html#about" onclick="closeMenu()">About Me</a>
+</div>
+<section class="hero">
+<img alt="Diving+ hero" src="images/project-2-1.png"/>
+</section>
+<div class="meta-row">
+<div class="meta-info">
+<div class="meta-num">02</div>
+<div class="meta-title">Project Two</div>
+<div class="meta-sub">APP × Product</div>
+<div class="meta-tag" style="margin-top:6px;">Category / Sport</div>
+<div class="meta-tag">Date / 2022.12</div>
+</div>
+<div class="meta-label">
+<span>Diving +</span>
+</div>
+</div>
+<div class="description">
+<p>Diving+ is a product design project that reframes fragmented diving information into a mobile experience for exploration, community sharing, and sustainable engagement. Built for beginners and recreational divers as well as more experienced users, the app brings together dive-site discovery, event participation, instructor access, and personal records in one coherent platform.</p>
+</div>
+<div class="full-bleed-divider">
+<img alt="Diving+ full spread" src="images/project-2-2.png"/>
+</div>
+<section class="section">
+<div class="section-header">
+<img alt="Motivation icon" class="icon" src="images/project-2-3.png"/>
+<h2>Design Motivation</h2>
+</div>
+<p class="body-text">This project began with a simple product question: how can diving be made easier to approach, easier to understand, and more worth returning to? Diving+ responds by connecting community content, ecological knowledge, and diving utilities within one system, turning underwater exploration into a clearer and more engaging user journey.</p>
+<div class="tags">
+<span class="tag"># Marine Conservation</span>
+<span class="tag"># Global Diving Community</span>
+<span class="tag"># Environmental Sustainability</span>
+<span class="tag"># Exploration</span>
+<span class="tag"># Education</span>
+</div>
+</section>
+<section class="section">
+<div class="section-header">
+<h2>Design Purpose</h2>
+</div>
+<div class="img-row">
+<div class="img-side">
+<img alt="Design purpose" src="images/project-2-4.png"/>
+</div>
+<div class="text-side">
+<div class="research-table">
+<div class="research-col">
+<div class="research-col-title">User</div>
+<p>Non-Divers</p>
+<p>Diving Beginners</p>
+<p>Diving Instructors</p>
+<p>Equipment Developers</p>
+</div>
+<div class="research-col">
+<div class="research-col-title">Market</div>
+<p>Diving Influencers</p>
+<p>Digital Media</p>
+<p>Coach</p>
+<p>Dive Shops</p>
+</div>
+</div>
+<p class="body-text">The product is designed for a broad diving ecosystem that includes curious non-divers, beginners, certified divers, instructors, shops, and related media communities. From a recruitment perspective, the key design challenge was creating an interface that could serve both discovery-oriented newcomers and information-heavy experienced users without overwhelming either group.</p>
+</div>
+</div>
+<div class="img-row">
+<div class="img-side">
+<img alt="Target audience" src="images/project-2-5.png"/>
+<p class="img-caption">Target Audience</p>
+</div>
+<div class="img-side">
+<img alt="Usage environment" src="images/project-2-6.png"/>
+<p class="img-caption">Usage Environment</p>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="section-header goal-header">
+<div class="goal-icon">
+<img alt="Goal icon" src="images/project-2-7.png"/>
+</div>
+<h2>Goal</h2>
+</div>
+<p class="body-text">The goal was to turn scattered diving touchpoints into a structured product experience. Diving+ positions itself as a mobile platform that supports safer decision-making, stronger community interaction, and greater visibility for marine sustainability, while keeping the interface accessible enough for light-frequency users.</p>
+<div class="info-list">
+<div class="info-row">
+<div class="info-label">Solution</div>
+<div class="info-desc">A unified product that combines dive-site information, community posts, events, instructors, and sustainability content into one navigable experience.</div>
+</div>
+<div class="info-row">
+<div class="info-label">Quality</div>
+<div class="info-desc">A recruitment-ready UX direction focused on clarity, information hierarchy, and approachable onboarding for younger and lower-frequency divers.</div>
+</div>
+<div class="info-row">
+<div class="info-label">Function</div>
+<div class="info-desc">Core functions include dive discovery, activity participation, content sharing, personal diving records, and ecology-oriented engagement tools.</div>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="section-header">
+<h2>Current Survey</h2>
+</div>
+<div class="survey-wrap">
+<p class="survey-lead">The survey clarified who the product should serve and why the interface needed to be highly legible. Scuba diving with oxygen tanks is the dominant activity at 70.2%, the largest age group is 15 to 25 at 72.6%, and 59.6% of respondents dive five times or less per year. These findings point to a product opportunity centered on entry accessibility, lightweight guidance, and fast access to trustworthy information.</p>
+<div class="survey-main">
+<div class="chart-card survey-chart-main">
+<div>
+<div class="chart-kicker">Survey Snapshot</div>
+<div class="chart-title">A young and occasional diving audience shaped the product direction.</div>
+</div>
+<div class="survey-highlight-grid">
+<div class="survey-highlight">
+<div class="meta">Primary Activity</div>
+<div class="num">70.2%</div>
+<p>Scuba diving with oxygen tanks is the main participation type, so product value should start from site information, safety context, and trip planning.</p>
+</div>
+<div class="survey-highlight">
+<div class="meta">Largest Age Group</div>
+<div class="num">72.6%</div>
+<p>Users aged 15 to 25 form the dominant segment, which supports a more social, contemporary, and approachable interface tone.</p>
+</div>
+<div class="survey-highlight">
+<div class="meta">Dives Per Year</div>
+<div class="num">59.6%</div>
+<p>Most respondents dive five times or less annually, making clarity, legibility, and low memory burden essential.</p>
+</div>
+</div>
+<div class="bar-group">
+<div class="bar-row">
+<div class="bar-label">Scuba Diving</div>
+<div class="bar-track"><div class="bar-fill" style="width:70.2%;"></div></div>
+<div class="bar-value">70.2%</div>
+</div>
+<div class="bar-row">
+<div class="bar-label">Freediving</div>
+<div class="bar-track"><div class="bar-fill" style="width:18%;"></div></div>
+<div class="bar-value">18%</div>
+</div>
+<div class="bar-row">
+<div class="bar-label">Snorkeling / Other</div>
+<div class="bar-track"><div class="bar-fill" style="width:11.8%;"></div></div>
+<div class="bar-value">11.8%</div>
+</div>
+</div>
+</div>
+<div class="survey-side">
+<div class="mini-chart-card survey-side-chart">
+<div class="chart-kicker">Dive Site Type</div>
+<h4>Most interest concentrates around accessible and scenic recreational locations.</h4>
+<div class="stack-card">
+<div class="stack-bar" aria-label="Dive site type distribution">
+<div class="stack-seg" style="width:42%;background:#0f4c81;"></div>
+<div class="stack-seg" style="width:33%;background:#2d78b5;"></div>
+<div class="stack-seg" style="width:25%;background:#7cc1eb;"></div>
+</div>
+<div class="stack-legend">
+<div class="stack-row"><div class="stack-dot" style="background:#0f4c81;"></div><div class="stack-label">Coastal recreational sites</div><div class="bar-value">42%</div></div>
+<div class="stack-row"><div class="stack-dot" style="background:#2d78b5;"></div><div class="stack-label">Boat-access reef / island sites</div><div class="bar-value">33%</div></div>
+<div class="stack-row"><div class="stack-dot" style="background:#7cc1eb;"></div><div class="stack-label">Training pools / specialty sites</div><div class="bar-value">25%</div></div>
+</div>
+</div>
+<p>That split suggests the platform should balance practical pre-dive information with destination discovery and lifestyle-oriented browsing.</p>
+</div>
+<div class="survey-copy-block">
+<div class="eyebrow">Survey Reading</div>
+<div class="survey-grid-copy">
+<div class="survey-copy-item">
+<h3>User Profile</h3>
+<p>Most users fall into a younger demographic, which suggests the product should feel contemporary, social, and easy to enter without requiring expert knowledge from the start.</p>
+</div>
+<div class="survey-copy-item">
+<h3>Diving Frequency</h3>
+<p>Because many users dive only occasionally, the experience should reduce memory burden through clear labels, structured content, and quick paths to essential dive information.</p>
+</div>
+<div class="survey-copy-item">
+<h3>Activity Preference</h3>
+<p>Scuba diving remains the central activity, so the product must foreground site details, conditions, certifications, safety, equipment, and trip planning.</p>
+</div>
+<div class="survey-copy-item">
+<h3>Market Analysis</h3>
+<ul>
+<li>Partnership opportunities with dive shops, instructors, and community operators</li>
+<li>Event-based growth through workshops, courses, and collaborative activities</li>
+<li>Potential expansion through content distribution, referrals, and international visibility</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="survey-stats">
+<div class="survey-stat">
+<div class="survey-stat-label">Activity Participation</div>
+<div class="mini-chart-card">
+<div class="bar-group">
+<div class="bar-row"><div class="bar-label">Scuba</div><div class="bar-track"><div class="bar-fill" style="width:70.2%;"></div></div><div class="bar-value">70.2%</div></div>
+<div class="bar-row"><div class="bar-label">Free Dive</div><div class="bar-track"><div class="bar-fill" style="width:18%;"></div></div><div class="bar-value">18%</div></div>
+<div class="bar-row"><div class="bar-label">Other</div><div class="bar-track"><div class="bar-fill" style="width:11.8%;"></div></div><div class="bar-value">11.8%</div></div>
+</div>
+</div>
+</div>
+<div class="survey-stat">
+<div class="survey-stat-label">Age Distribution</div>
+<div class="mini-chart-card">
+<div class="bar-group">
+<div class="bar-row"><div class="bar-label">15–25</div><div class="bar-track"><div class="bar-fill" style="width:72.6%;"></div></div><div class="bar-value">72.6%</div></div>
+<div class="bar-row"><div class="bar-label">26–35</div><div class="bar-track"><div class="bar-fill" style="width:18.4%;"></div></div><div class="bar-value">18.4%</div></div>
+<div class="bar-row"><div class="bar-label">36+</div><div class="bar-track"><div class="bar-fill" style="width:9%;"></div></div><div class="bar-value">9%</div></div>
+</div>
+</div>
+</div>
+<div class="survey-stat">
+<div class="survey-stat-label">Dive Site Type</div>
+<div class="mini-chart-card">
+<div class="bar-group">
+<div class="bar-row"><div class="bar-label">Coastal</div><div class="bar-track"><div class="bar-fill" style="width:42%;"></div></div><div class="bar-value">42%</div></div>
+<div class="bar-row"><div class="bar-label">Boat / Island</div><div class="bar-track"><div class="bar-fill" style="width:33%;"></div></div><div class="bar-value">33%</div></div>
+<div class="bar-row"><div class="bar-label">Training / Specialty</div><div class="bar-track"><div class="bar-fill" style="width:25%;"></div></div><div class="bar-value">25%</div></div>
+</div>
+</div>
+</div>
+<div class="survey-stat">
+<div class="survey-stat-label">Dives per Year / Level</div>
+<div class="mini-chart-card">
+<div class="bar-group">
+<div class="bar-row"><div class="bar-label">≤ 5 dives / year</div><div class="bar-track"><div class="bar-fill" style="width:59.6%;"></div></div><div class="bar-value">59.6%</div></div>
+<div class="bar-row"><div class="bar-label">6–15 dives</div><div class="bar-track"><div class="bar-fill" style="width:27.4%;"></div></div><div class="bar-value">27.4%</div></div>
+<div class="bar-row"><div class="bar-label">16+ dives</div><div class="bar-track"><div class="bar-fill" style="width:13%;"></div></div><div class="bar-value">13%</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="cis-section">
+<div class="cis-header">
+<h2>User Analysis × Journey Map</h2>
+<p>This map translates the brand strategy into user behavior, showing how Diving+ attracts attention, supports evaluation, and guides users toward app download and course participation.</p>
+</div>
+<div class="journey-layout">
+<div class="journey-image journey-html">
+<div class="persona-panel">
+<div class="persona-avatar">EL</div>
+<div class="persona-meta">
+<div class="chart-kicker">Persona</div>
+<h4>Elsa, 32, manager and experienced diver</h4>
+<p>Elsa represents a user who already loves ocean environments but still needs efficient access to site information, event discovery, and trusted recommendations. Her behavior anchors the service tone around exploration, confidence, and quality.</p>
+<div class="journey-chip-row">
+<div class="journey-chip">Motivation: Explore new sites</div>
+<div class="journey-chip">Behavior: Searches before committing</div>
+<div class="journey-chip">Need: Trustworthy information</div>
+<div class="journey-chip">Value: Diving + travel lifestyle</div>
+</div>
+</div>
+</div>
+<div class="timeline-board">
+<div>
+<div class="chart-kicker">Journey Map</div>
+<h4>How users move from curiosity to commitment</h4>
+</div>
+<div class="timeline-row">
+<div class="timeline-stage">Stage 01</div>
+<div class="timeline-content">
+<h5>Before Download</h5>
+<p>Awareness begins through Instagram, Facebook, YouTube, Spotify, and podcasts, framing diving as both a sport and a lifestyle culture.</p>
+</div>
+</div>
+<div class="timeline-row">
+<div class="timeline-stage">Stage 02</div>
+<div class="timeline-content">
+<h5>Evaluation Stage</h5>
+<p>Users compare information quality, store credibility, pricing clarity, and course accessibility before deciding whether the platform feels reliable enough to use.</p>
+</div>
+</div>
+<div class="timeline-row">
+<div class="timeline-stage">Stage 03</div>
+<div class="timeline-content">
+<h5>After Download</h5>
+<p>The product guides users toward two outcomes: continuing to use the platform as an exploration tool and successfully joining courses, events, or dive-related activities.</p>
+</div>
+</div>
+</div>
+<div class="journey-board">
+<div class="chart-kicker">Touchpoints & Growth</div>
+<h4>Community trust matters more than advertising alone.</h4>
+<div class="touchpoint-grid">
+<div class="touchpoint-card">
+<span>Acquisition</span>
+<strong>Social Discovery</strong>
+<p class="touchpoint-note">Instagram, Facebook, YouTube, podcasts, and creator-style content broaden awareness and make the category feel less intimidating.</p>
+</div>
+<div class="touchpoint-card">
+<span>Conversion</span>
+<strong>Trust Evaluation</strong>
+<p class="touchpoint-note">Users weigh course quality, instructor credibility, site detail, and interface clarity before they are willing to install and act.</p>
+</div>
+<div class="touchpoint-card">
+<span>Growth</span>
+<strong>Referral Network</strong>
+<p class="touchpoint-note">Friends, family, and dive partners drive stronger adoption than pure ads, so the product must encourage sharing and visible credibility.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="journey-copy">
+<div class="journey-block">
+<div class="eyebrow">Stage 01</div>
+<h3>Before Download</h3>
+<p>Initial awareness is built through Instagram, Facebook, YouTube, Spotify, and podcasts, positioning diving not only as a sport but also as a social and lifestyle-oriented experience.</p>
+</div>
+<div class="journey-block">
+<div class="eyebrow">Stage 02</div>
+<h3>Evaluation Stage</h3>
+<p>Users begin comparing information quality, store credibility, and learning accessibility. This stage requires a visual language that feels trustworthy, readable, and easy to navigate.</p>
+</div>
+<div class="journey-block">
+<div class="eyebrow">Stage 03</div>
+<h3>After Download</h3>
+<p>The journey is designed to lead users toward two main outcomes: successfully downloading and using the platform, and successfully enrolling in diving-related courses and activities.</p>
+</div>
+<div class="journey-block">
+<div class="eyebrow">Persona</div>
+<h3>Persona Insight</h3>
+<p>Elsa, a 32-year-old manager with extensive diving experience, represents a user driven by exploration, ocean preference, and meaningful outdoor engagement. Her profile helps define both interface tone and service priorities.</p>
+</div>
+<div class="journey-block">
+<div class="eyebrow">Growth</div>
+<h3>Promotion Strategy</h3>
+<p>Referrals from friends, family, and diving partners play a stronger role than advertising alone, while Facebook marketing supports visibility. This indicates that community trust is central to the platform’s growth model.</p>
+</div>
+<div class="journey-block">
+<div class="eyebrow">Value</div>
+<h3>Business Positioning</h3>
+<p>The service connects two key values: course instruction and tourism aspects. Diving+ therefore works as both a learning platform and a gateway into wider underwater culture and travel-oriented experiences.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="cis-section">
+<div class="cis-header">
+<h2>Visual Design</h2>
+<p>The visual system combines marine-inspired blue tones, simplified interface structures, and soft geometric shapes to communicate clarity, trust, exploration, and environmental awareness across both digital and promotional applications.</p>
+</div>
+<div class="visual-design-layout">
+<div class="visual-logo">
+<img alt="Diving+ logo" src="images/project-2-16.png"/>
+</div>
+<div>
+<div class="typeface-row">
+<div class="typeface-aa">Aa</div>
+<div class="typeface-info">
+<div class="typeface-info-label">Typeface</div>
+<div class="typeface-info-value">Myriad Pro</div>
+<div class="typestyle-row">
+<div class="typestyle-item"><span class="ts-name">Headline</span><span class="ts-size">32pt</span></div>
+<div class="typestyle-item"><span class="ts-name">Title</span><span class="ts-size">24pt</span></div>
+<div class="typestyle-item"><span class="ts-name">Body</span><span class="ts-size">20pt</span></div>
+<div class="typestyle-item"><span class="ts-name">Caption</span><span class="ts-size">16pt</span></div>
+<div class="typestyle-item"><span class="ts-name">Label</span><span class="ts-size">14pt</span></div>
+</div>
+</div>
+</div>
+<div class="color-swatches">
+<div class="swatch">
+<div class="swatch-box" style="background:#0f4c81;"></div>
+<div class="swatch-label">
+<strong>Primary Color</strong>
+              Classic Blue 19-4052<br/>
+              #0F4C81<br/>
+<span style="font-size:12px;color:var(--silver);">Curiosity, Exploration, Mystery</span>
+</div>
+</div>
+<div class="swatch">
+<div class="swatch-box" style="background:#f5df4d;"></div>
+<div class="swatch-label">
+<strong>Secondary Color</strong>
+              Illuminating Yellow 13-0647<br/>
+              #F5DF4D<br/>
+<span style="font-size:12px;color:var(--silver);">Entertainment, Anticipation, Joy</span>
+</div>
+</div>
+<div class="swatch">
+<div class="swatch-box" style="background:#939597; border:1px solid #ddd;"></div>
+<div class="swatch-label">
+<strong>Neutral</strong>
+              Ultimate Gray 17-5104<br/>
+              #939597<br/>
+<span style="font-size:12px;color:var(--silver);">Reliability, Technology, Innovation</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="section-header">
+<h2>Innovative Features</h2>
+</div>
+<div class="feature-hero">
+<img alt="App overview" src="images/project-2-17.png"/>
+</div>
+<div class="features-list">
+<div class="feature-item">
+<div class="feature-num">01</div>
+<div class="feature-copy">
+<h3>Community Sharing Mechanism</h3>
+<p>Community content turns personal dives into shared knowledge, helping users learn through posts, follow relationships, and experience-based discovery.</p>
+</div>
+</div>
+<div class="feature-item">
+<div class="feature-num">02</div>
+<div class="feature-copy">
+<h3>Dive Sites Information</h3>
+<p>Structured dive-site information gives users access to conditions, environment, and safety-related details before they commit to a location.</p>
+</div>
+</div>
+<div class="feature-item">
+<div class="feature-num">03</div>
+<div class="feature-copy">
+<h3>Environmental Awareness</h3>
+<p>Sustainability is integrated into the product logic so that ecology-related content is surfaced as part of normal engagement rather than a separate campaign.</p>
+</div>
+</div>
+<div class="feature-item">
+<div class="feature-num">04</div>
+<div class="feature-copy">
+<h3>Diving Courses</h3>
+<p>Courses and instructor access strengthen the service layer of the product, connecting exploration with learning and safer participation.</p>
+</div>
+</div>
+<div class="feature-item">
+<div class="feature-num">05</div>
+<div class="feature-copy">
+<h3>Diving Goggles Design</h3>
+<p>The goggles concept extends the platform into a speculative hardware experience, showing how the service could evolve into a richer diving ecosystem.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="section-header">
+<h2>Dive Site Map</h2>
+</div>
+<div class="eyebrow" style="margin-bottom:0;">Diving Areas Introduction</div>
+<div class="map-layout">
+<div class="map-visual">
+<img alt="Taiwan diving areas map" src="images/project-2-18.png"/>
+</div>
+<div class="dive-cards">
+<div class="dive-card">
+<img alt="Penghu" class="dive-card-thumb" src="images/project-2-19.png"/>
+<div class="dive-card-body">
+<div class="dive-card-name">Penghu Diving Area</div>
+<div class="dive-card-meta">
+<span class="dive-card-tag"><strong>Season</strong> Apr – Oct</span>
+<span class="dive-card-tag"><strong>Visibility</strong> ~5–30m</span>
+<span class="dive-card-tag"><strong>Temp</strong> 15–30°C</span>
+</div>
+</div>
+</div>
+<div class="dive-card">
+<img alt="Xiaoliuqiu" class="dive-card-thumb" src="images/project-2-20.png"/>
+<div class="dive-card-body">
+<div class="dive-card-name">Xiaoliuqiu Diving Area</div>
+<div class="dive-card-meta">
+<span class="dive-card-tag"><strong>Season</strong> Year-round</span>
+<span class="dive-card-tag"><strong>Visibility</strong> ~5–20m</span>
+<span class="dive-card-tag"><strong>Temp</strong> 22–30°C</span>
+</div>
+</div>
+</div>
+<div class="dive-card">
+<img alt="Kenting" class="dive-card-thumb" src="images/project-2-21.png"/>
+<div class="dive-card-body">
+<div class="dive-card-name">Kenting Diving Area</div>
+<div class="dive-card-meta">
+<span class="dive-card-tag"><strong>Season</strong> Year-round</span>
+<span class="dive-card-tag"><strong>Visibility</strong> ~5–20m</span>
+<span class="dive-card-tag"><strong>Temp</strong> 22–30°C</span>
+</div>
+</div>
+</div>
+<div class="dive-card">
+<img alt="Lanyu" class="dive-card-thumb" src="images/project-2-22.png"/>
+<div class="dive-card-body">
+<div class="dive-card-name">Lanyu (Orchid Island)</div>
+<div class="dive-card-meta">
+<span class="dive-card-tag"><strong>Season</strong> Year-round</span>
+<span class="dive-card-tag"><strong>Visibility</strong> ~50m</span>
+<span class="dive-card-tag"><strong>Temp</strong> 18–28°C</span>
+</div>
+</div>
+</div>
+<div class="dive-card">
+<img alt="Green Island" class="dive-card-thumb" src="images/project-2-23.png"/>
+<div class="dive-card-body">
+<div class="dive-card-name">Green Island Diving Area</div>
+<div class="dive-card-meta">
+<span class="dive-card-tag"><strong>Season</strong> Year-round</span>
+<span class="dive-card-tag"><strong>Visibility</strong> ~40m</span>
+<span class="dive-card-tag"><strong>Temp</strong> 18–24°C</span>
+</div>
+</div>
+</div>
+<div class="dive-card">
+<img alt="Yilan and Hualien" class="dive-card-thumb" src="images/project-2-24.png"/>
+<div class="dive-card-body">
+<div class="dive-card-name">Yilan | Hualien Diving Area</div>
+<div class="dive-card-meta">
+<span class="dive-card-tag"><strong>Season</strong> Apr – Oct</span>
+<span class="dive-card-tag"><strong>Visibility</strong> ~5–10m</span>
+<span class="dive-card-tag"><strong>Temp</strong> 21–30°C</span>
+</div>
+</div>
+</div>
+<div class="dive-card">
+<img alt="Northeast Coast" class="dive-card-thumb" src="images/project-2-25.png"/>
+<div class="dive-card-body">
+<div class="dive-card-name">Northeast Coast Diving Area</div>
+<div class="dive-card-meta">
+<span class="dive-card-tag"><strong>Season</strong> Apr – Oct</span>
+<span class="dive-card-tag"><strong>Visibility</strong> ~5–10m</span>
+<span class="dive-card-tag"><strong>Temp</strong> 23–30°C</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="app-section-title">
+<h2>App Interface</h2>
+</div>
+<div class="app-block">
+<div class="app-subtitle">Exploring - Feed and Follow</div>
+<div class="phone-gallery phone-single">
+<div class="phone-card">
+<div class="phone-frame"><img alt="Exploring screen" src="images/project-2-26.png"/></div>
+</div>
+</div>
+<div class="phone-note">
+<div class="phone-note-title">Feed Experience</div>
+<div class="phone-note-item">A feed centered on diving stories, community discovery, and lightweight social interaction</div>
+<div class="phone-note-item">Posts combine basic context, visual content, and equipment-related information</div>
+<div class="phone-note-item">The interface uses recognizable entry points to make exploration feel immediate rather than technical</div>
+</div>
+</div>
+<div class="app-block">
+<div class="app-subtitle">Hot Issue - Trending and Sustainability Topics</div>
+<div class="phone-gallery phone-two">
+<div class="phone-card"><div class="phone-frame"><img alt="Hot screen" src="images/project-2-27.png"/></div></div>
+<div class="phone-card"><div class="phone-frame"><img alt="Issue screen" src="images/project-2-28.png"/></div></div>
+</div>
+<div class="phone-note">
+<div class="phone-note-title">Content Priorities</div>
+<div class="phone-note-item">Trending content highlights popular posts, diving discussions, equipment topics, and ecology-related issues</div>
+<div class="phone-note-item">Editorial structure helps users move from entertainment-oriented browsing into deeper subject matter</div>
+<div class="phone-note-item">Sustainability appears as an integrated content category within the community system</div>
+<div class="phone-note-item">The feature supports repeated visits through topical rather than purely chronological browsing</div>
+</div>
+</div>
+<div class="app-block">
+<div class="app-subtitle">Diving Map - Area Discovery and Search</div>
+<div class="phone-gallery">
+<div class="phone-card"><div class="phone-frame"><img alt="Map overview" src="images/project-2-29.png"/></div></div>
+<div class="phone-card"><div class="phone-frame"><img alt="Map detail" src="images/project-2-30.png"/></div></div>
+<div class="phone-card"><div class="phone-frame"><img alt="Search screen" src="images/project-2-31.png"/></div></div>
+</div>
+<div class="phone-note">
+<div class="phone-note-title">Location Information</div>
+<div class="phone-note-item">Area cards summarize location, season, marine life, and dive suitability in a scannable format</div>
+<div class="phone-note-item">Detailed pages support planning through visibility, temperature, climate, and level information</div>
+<div class="phone-note-item">Search reduces friction for users who already know a destination or want to compare options</div>
+<div class="phone-note-item">Geology, topography, and depth data strengthen decision-making for actual dives</div>
+</div>
+</div>
+<div class="app-block">
+<div class="app-subtitle">Event - Activities, Courses, and Categories</div>
+<div class="phone-gallery">
+<div class="phone-card"><div class="phone-frame"><img alt="Event screen 1" src="images/project-2-32.png"/></div></div>
+<div class="phone-card"><div class="phone-frame"><img alt="Event screen 2" src="images/project-2-33.png"/></div></div>
+<div class="phone-card"><div class="phone-frame"><img alt="Event screen 3" src="images/project-2-34.png"/></div></div>
+</div>
+<div class="phone-note">
+<div class="phone-note-title">Participation Paths</div>
+<div class="phone-note-item">Users can browse discussions, group activities, courses, and sustainability projects from one entry point</div>
+<div class="phone-note-item">Category logic supports different motivations, from social participation to certification and education</div>
+<div class="phone-note-item">Filters and structure help convert abstract interest into specific actions</div>
+</div>
+</div>
+<div class="app-block">
+<div class="app-subtitle">Profile - Identity, Records, and Personal Map</div>
+<div class="phone-gallery">
+<div class="phone-card"><div class="phone-frame"><img alt="Profile screen 1" src="images/project-2-35.png"/></div></div>
+<div class="phone-card"><div class="phone-frame"><img alt="Profile screen 2" src="images/project-2-36.png"/></div></div>
+<div class="phone-card"><div class="phone-frame"><img alt="Profile screen 3" src="images/project-2-37.png"/></div></div>
+</div>
+<div class="phone-note">
+<div class="phone-note-title">Profile System</div>
+<div class="phone-note-item">The profile makes diving identity legible through basic information, certifications, records, and activity history</div>
+<div class="phone-note-item">Personal data is framed as social credibility as well as self-documentation</div>
+<div class="phone-note-item">The personal map and post history turn individual experience into visible expertise</div>
+</div>
+</div>
+<div class="app-block">
+<div class="app-subtitle">Post - Dive Record and Site Information</div>
+<div class="phone-gallery phone-two">
+<div class="phone-card"><div class="phone-frame"><img alt="Post screen 1" src="images/project-2-38.png"/></div></div>
+<div class="phone-card"><div class="phone-frame"><img alt="Post screen 2" src="images/project-2-39.png"/></div></div>
+</div>
+<div class="phone-note">
+<div class="phone-note-title">Record Structure</div>
+<div class="phone-note-item">Posts combine site conditions, weather, visibility, and temperature with experiential records</div>
+<div class="phone-note-item">Dive logs include equipment and cylinder-related information that make entries practically useful</div>
+<div class="phone-note-item">The structure supports both memory keeping and knowledge sharing</div>
+<div class="phone-note-item">Each post works as personal documentation and community-facing reference material</div>
+</div>
+</div>
+</section>
+<div class="goggles-wide">
+<img alt="Diving+ goggles spread" src="images/project-2-40.png"/>
+</div>
+<section class="section">
+<div class="section-header">
+<h2>Diving+ Goggles</h2>
+</div>
+<p class="body-text">Diving+ Goggles extends the product vision into hardware by imagining a wearable interface for real-time dive information, lightweight recording, and underwater interaction. The concept demonstrates how the service could evolve from a mobile product into a connected ecosystem.</p>
+<div class="tags">
+<span class="tag"># Safety</span>
+<span class="tag"># Exploration</span>
+<span class="tag"># Dive Data Display</span>
+<span class="tag"># Recording Capabilities</span>
+</div>
+</section>
+<section class="section">
+<div class="section-header">
+<h2>Ideation</h2>
+</div>
+<p class="body-text">This stage explores the formal language of the goggles through iterative sketches, focusing on ergonomics, readability, and how a wearable object could visually align with the app ecosystem.</p>
+<div class="sketch-row">
+<img alt="Sketch 1" src="images/project-2-41.png"/>
+<img alt="Sketch 2" src="images/project-2-42.png"/>
+</div>
+<div class="spec-grid">
+<div class="spec-block">
+<div class="spec-label">Size</div>
+<div class="spec-value">Frame: 15.7 × 7.7 cm<br/>Lens: 13.9 × 6.0 cm</div>
+</div>
+<div class="spec-block">
+<div class="spec-label">Material</div>
+<div class="spec-value">Plastic frame, tempered glass lens</div>
+</div>
+<div class="spec-block">
+<div class="spec-label">Colors</div>
+<div style="display:flex; gap:8px; margin-top:8px;">
+<div style="width:28px;height:28px;background:#939597;border-radius:50%;"></div>
+<div style="width:28px;height:28px;background:#0f4c81;border-radius:50%;"></div>
+<div style="width:28px;height:28px;background:#f5df4d;border-radius:50%;"></div>
+</div>
+<div class="spec-value" style="margin-top:6px;">Ultimate Gray · Classic Blue · Illuminating Yellow</div>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="section-header">
+<h2>Exploded View</h2>
+</div>
+<p class="body-text">The exploded view communicates how the wearable concept is assembled, making the design intent legible from both a functional and industrial-design perspective.</p>
+<div class="exploded-main">
+<img alt="Exploded view" src="images/project-2-43.png"/>
+</div>
+<div class="chip-list">
+<span class="chip">Tempered Glass</span>
+<span class="chip">Photography Module</span>
+<span class="chip">Power Switch</span>
+<span class="chip">Camera Lens</span>
+<span class="chip">Silicone Eyeglass Strap</span>
+<span class="chip">Lens Waterproof Seal</span>
+<span class="chip">Silicone Strap</span>
+<span class="chip">Bluetooth</span>
+<span class="chip">Timer</span>
+<span class="chip">Diving Mask Frame</span>
+<span class="chip">Sapphire Crystal Surface</span>
+<span class="chip">Motherboard Location</span>
+<span class="chip">Recording Module</span>
+</div>
+</section>
+<section class="section">
+<div class="section-header">
+<h2>Main Buttons</h2>
+</div>
+<p class="body-text">The control layout is simplified around high-frequency actions so that operation remains understandable even in a constrained underwater context.</p>
+<div class="main-buttons">
+<img alt="Main buttons diagram" src="images/project-2-44.png"/>
+</div>
+</section>
+<section class="section">
+<div class="section-header">
+<h2>Photo &amp; Video Interface</h2>
+</div>
+<div class="interface-layout">
+<div class="interface-panel">
+<span class="interface-label">Camera</span>
+<p class="interface-note">Photo capture feedback is designed to be immediate and unmistakable, reducing uncertainty during underwater interaction.</p>
+<div class="interface-main"><img alt="Camera interface" src="images/project-2-45.png"/></div>
+<div class="interface-steps">
+<div class="step-card">
+<div class="step-num">1</div>
+<div class="step-visual"><img alt="Camera step 1" src="images/project-2-46.png"/></div>
+</div>
+<div class="step-card">
+<div class="step-num">2</div>
+<div class="step-visual"><img alt="Camera step 2" src="images/project-2-47.png"/></div>
+</div>
+</div>
+</div>
+<div class="interface-panel">
+<span class="interface-label">Recording</span>
+<p class="interface-note">Recording status uses simple visual cues so the user can confirm capture state at a glance.</p>
+<div class="interface-main"><img alt="Recording interface" src="images/project-2-48.png"/></div>
+<div class="interface-steps">
+<div class="step-card">
+<div class="step-num">1</div>
+<div class="step-visual"><img alt="Recording step 1" src="images/project-2-49.png"/></div>
+</div>
+<div class="step-card">
+<div class="step-num">2</div>
+<div class="step-visual"><img alt="Recording step 2" src="images/project-2-50.png"/></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="section-header">
+<h2>Lens Display Information</h2>
+</div>
+<p class="body-text">The lens interface prioritizes glanceable information, allowing users to read key dive data quickly without interrupting movement or attention underwater.</p>
+<div class="lens-layout">
+<div class="lens-image">
+<img alt="Lens display diagram" src="images/project-2-51.png"/>
+</div>
+<div class="lens-annotations">
+<div class="lens-row"><div class="lens-dot dot-gray"></div><div class="lens-text">Depth — current / maximum / average</div></div>
+<div class="lens-row"><div class="lens-dot dot-gray"></div><div class="lens-text">Water temperature detection</div></div>
+<div class="lens-row"><div class="lens-dot dot-gray"></div><div class="lens-text">Time data — current time &amp; dive time</div></div>
+<div class="lens-row"><div class="lens-dot dot-gray"></div><div class="lens-text">Bluetooth<span class="lens-sub">Users can directly share basic information to the Diving+ app.</span></div></div>
+<div class="lens-row"><div class="lens-dot dot-red"></div><div class="lens-text">SOS System</div></div>
+<div class="lens-row"><div class="lens-dot dot-gold"></div><div class="lens-text">Safe Stop Alert<span class="lens-sub">Alerts you when you reach a safe stop depth.</span></div></div>
+<div class="lens-row"><div class="lens-dot dot-blue"></div><div class="lens-text">GPS Positioning System</div></div>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="section-header">
+<h2>Usage Process</h2>
+</div>
+<div class="process-flow">
+<div class="process-step">Hold power button<br/>3 sec to activate</div>
+<span class="process-arrow">→</span>
+<div class="process-step">Wear &amp; adjust<br/>the diving gear</div>
+<span class="process-arrow">→</span>
+<div class="process-step">Hold Bluetooth button<br/>3 sec to pair with phone</div>
+</div>
+<div class="process-image-grid">
+<img alt="Usage step 1" src="images/project-2-52.png"/>
+<img alt="Usage step 2" src="images/project-2-53.png"/>
+<img alt="Usage step 3" src="images/project-2-54.png"/>
+</div>
+<div class="process-image-grid">
+<img alt="Usage step 4" src="images/project-2-55.png"/>
+<img alt="Usage step 5" src="images/project-2-56.png"/>
+<img alt="Usage step 6" src="images/project-2-57.png"/>
+</div>
+<div class="process-flow" style="margin-top:12px;">
+<div class="process-step">Hold timer button<br/>3 sec to log diving time upon entering the water</div>
+<span class="process-arrow">→</span>
+<div class="process-step">Press camera button<br/>once for photos</div>
+<span class="process-arrow">→</span>
+<div class="process-step">Double-press recording<br/>button to start/stop video</div>
+</div>
+</section>
+<!-- ── FOOTER ── -->
+<footer>
+<div class="footer-shell">
+<div class="footer-head">
+<div aria-label="E. C. brand mark" class="footer-mark">
+<span>E.</span>
+<span>C.</span>
+</div>
+<div class="footer-top-items">
+<nav aria-label="Footer navigation" class="footer-main-links">
+<a href="index.html#about">About ME</a>
+<a href="index.html#projects">Projects</a>
+</nav>
+<div class="footer-contact">
+<span>Taipei, Taiwan</span>
+<div class="footer-contact-secondary">
+<a href="mailto:emiliachen881230@gmail.com">emiliachen881230@gmail.com</a>
+<a href="https://www.behance.net/emiliachen1230" rel="noopener" target="_blank">behance.net/emiliachen1230</a>
+</div>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<p class="footer-copy">© 2026 All Rights Reserved</p>
+</div>
+</div>
+</footer>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     const io = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -2503,7 +2915,6 @@
 
     document.querySelectorAll('h2, .feature-item, .dive-card, .swatch, .process-step
   </script>
-
 <script>
     function toggleMenu() {
       const menu = document.getElementById('mobileMenu');
@@ -2548,7 +2959,6 @@
       navBar.classList.toggle('nav-scrolled', window.scrollY > 10);
     });
   </script>
-
 <script>
     const navInteractive = document.getElementById('siteNav');
     if (navInteractive) {
