@@ -23,18 +23,41 @@
       --f-body:    "Geist", Helvetica, sans-serif;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: auto; height: 100%; }
 
     body {
+      min-height: 100%;
       background: var(--bg-light);
       color: var(--text);
       font-family: var(--f-body);
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+      position: relative;
+      isolation: isolate;
+
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: #000000;
+      opacity: var(--page-dark-progress, 0);
+      pointer-events: none;
+      z-index: 9;
+      transition: opacity 0.08s linear;
     }
 
     a { text-decoration: none; color: inherit; }
     img { display: block; max-width: 100%; }
+
+    .hero,
+    .projects-section,
+    .transition-about-section,
+    footer {
+      scroll-margin-top: 0;
+    }
+
 
     /* ── NAV ── */
     nav {
@@ -156,6 +179,7 @@
       align-items: flex-start;
       padding-top: 2px;
       margin-top: 0;
+      isolation: isolate;
     }
 
     .nav-links a {
@@ -269,13 +293,13 @@
     /* ── HERO ── */
     .hero {
       position: relative;
-      padding: 160px 40px 88px;
+      padding: 35px 40px 88px;
       max-width: 1260px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
-      gap: 44px;
-      align-items: start;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+      gap: 64px;
+      align-items: center;
     }
 
     .hero::after {
@@ -285,14 +309,17 @@
     .hero-media {
       position: static;
       top: auto;
-      align-self: start;
+      align-self: center;
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
+      perspective: 1600px;
+      perspective-origin: center center;
+      order: 2;
     }
 
     .hero-profile {
-      width: min(100%, 300px);
-      max-width: 300px;
+      width: min(100%, 360px);
+      max-width: 360px;
       height: auto;
       aspect-ratio: auto;
       object-fit: contain;
@@ -302,45 +329,90 @@
       box-shadow: none;
       background: transparent;
       transition: none;
-      transform: none;
+      transform-origin: center center;
+      transform-style: preserve-3d;
+      backface-visibility: visible;
       filter: none;
+      animation: none;
+      will-change: transform, opacity;
+      opacity: 0;
+    }
+
+    body.is-ready .hero-profile {
+  animation: heroProfileSpin 0.9s cubic-bezier(0.22, 0.8, 0.2, 1) 0.02s 1 both;
+}
+
+    @keyframes heroProfileSpin {
+      0% {
+        opacity: 0;
+        transform: rotateX(-8deg) rotateY(0deg) scale(0.96);
+      }
+      68% {
+        opacity: 1;
+        transform: rotateX(5deg) rotateY(1740deg) scale(1.015);
+      }
+      100% {
+        opacity: 1;
+        transform: rotateX(0deg) rotateY(1800deg) scale(1);
+      }
+    }
+
+    @keyframes heroProfileSpinMobile {
+      0% {
+        opacity: 0;
+        transform: translate3d(0, 16px, 0) scale(0.9);
+      }
+      62% {
+        opacity: 1;
+        transform: translate3d(0, -4px, 0) scale(1.03);
+      }
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+      }
     }
 
     .hero-copy {
       display: flex;
       flex-direction: column;
-      gap: 22px;
-      padding-top: 10px;
+      gap: 0;
+      padding-top: 2px;
       min-width: 0;
+      max-width: 760px;
+      align-self: center;
+      justify-self: start;
+      order: 1;
     }
 
     .hero-kicker {
-      font-family: var(--f-display);
-      font-size: clamp(28px, 3.2vw, 44px);
-      letter-spacing: 1.2px;
-      line-height: 1.25;
-      color: var(--dark-green);
-      opacity: 0.96;
-      max-width: none;
-      white-space: normal;
-      text-wrap: balance;
+      font-family: var(--f-body);
+      font-size: clamp(18px, 1.6vw, 24px);
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      line-height: 1.1;
+      color: rgba(18, 24, 18, 0.92);
+      text-transform: uppercase;
+      margin-bottom: 22px;
     }
 
     .hero-name {
       font-family: var(--f-display);
-      font-size: clamp(44px, 6vw, 72px);
-      letter-spacing: 2px;
-      line-height: 1.08;
-      margin: 0;
+      font-size: clamp(78px, 11vw, 164px);
+      letter-spacing: 0.05em;
+      line-height: 0.86;
+      margin: 0 0 26px;
       max-width: none;
-      white-space: nowrap;
+      white-space: normal;
+      text-transform: uppercase;
     }
 
     .hero-bio {
-      font-size: clamp(15px, 1.45vw, 18px);
+      font-size: clamp(15px, 1.22vw, 18px);
       line-height: 1.9;
-      color: #313131;
-      max-width: 720px;
+      color: rgba(29,35,28,0.74);
+      max-width: 680px;
+      padding-top: 2px;
+      margin-bottom: 26px;
     }
 
     .hero-bio .cap {
@@ -354,34 +426,48 @@
     .hero-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      padding-top: 2px;
+      gap: 12px;
+      padding-top: 0;
+      max-width: 620px;
     }
 
     .hero-pill {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 34px;
-      padding: 8px 14px;
-      border: 1px solid rgba(38,48,37,0.16);
+      min-height: 38px;
+      padding: 9px 16px;
+      border: 1px solid rgba(38,48,37,0.12);
       border-radius: 999px;
       font-size: 12px;
-      letter-spacing: 0.24px;
-      color: rgba(29,35,28,0.82);
-      background: rgba(255,255,255,0.72);
+      letter-spacing: 0.08em;
+      color: rgba(29,35,28,0.78);
+      background: rgba(255,255,255,0.9);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
     }
 
     /* ── PROJECTS GRID ── */
     .projects-section {
-      padding: 40px 40px 132px;
+      position: relative;
+      min-height: 250vh;
+      padding: 0 40px 132px;
+    }
+
+    .projects-stage {
+      position: sticky;
+      top: 94px;
+      max-width: 1260px;
+      margin: 0 auto;
+      min-height: calc(100vh - 94px);
+      padding: 34px 0 72px;
+      display: flex;
+      flex-direction: column;
     }
 
     .projects-header {
-      max-width: 1260px;
-      margin: 0 auto 38px;
+      max-width: none;
+      margin: 0 0 30px;
       display: flex;
       align-items: end;
       justify-content: space-between;
@@ -406,11 +492,18 @@
     }
 
     .projects-grid {
+      position: relative;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 26px;
       max-width: 1260px;
       margin: 0 auto;
+      transform: translate3d(0, var(--projects-grid-shift, 0px), 0) scale(var(--projects-grid-scale, 1));
+      transform-origin: center top;
+      opacity: var(--projects-grid-opacity, 1);
+      filter: blur(var(--projects-grid-blur, 0px));
+      will-change: transform, opacity, filter;
+      contain: layout paint style;
     }
 
     /* ── PROJECT CARD ── */
@@ -503,13 +596,28 @@
 
     .project-link {
       display: block;
+      backface-visibility: hidden;
       color: inherit;
+      transform: translate3d(var(--stack-x, 0px), var(--stack-y, 0px), 0) rotate(var(--stack-r, 0deg)) scale(var(--stack-s, 1));
+      transform-origin: center center;
+      opacity: var(--stack-o, 1);
+      z-index: var(--stack-z, 1);
+      will-change: transform;
+      transition: opacity 0.18s ease;
+      contain: layout paint;
     }
 
     .project-card {
       position: relative;
-      transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease, border-color 0.35s ease;
+      transition: transform 0.22s cubic-bezier(0.22, 0.8, 0.2, 1), box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
       will-change: transform;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+    }
+
+    .projects-grid.is-measuring .project-link,
+    .projects-grid.is-measuring .project-card {
+      transition: none !important;
     }
 
     .project-link:hover .project-card,
@@ -595,22 +703,26 @@
 
     /* ── FOOTER ── */
     footer {
+      position: relative;
+      z-index: 40;
       background: #000000;
       color: #ffffff;
-      padding: 40px 40px 0;
+      padding: 56px 40px 0;
+      margin-top: 0;
+      isolation: isolate;
     }
 
     .footer-shell {
       display: flex;
       flex-direction: column;
-      gap: 241px;
+      gap: 120px;
       width: 100%;
     }
 
     .footer-head {
       display: flex;
       align-items: flex-start;
-      justify-content: space-between;
+      justify-content: flex-start;
       width: 100%;
       gap: 40px;
     }
@@ -736,6 +848,175 @@
       color: var(--muted);
     }
 
+
+
+    /* ── HORIZONTAL ABOUT TRANSITION ── */
+    .transition-about-section {
+      position: relative;
+      min-height: 180vh;
+      margin-top: -24vh;
+      padding: 0;
+      overflow: clip;
+      isolation: isolate;
+      background: transparent;
+      z-index: 12;
+      margin-bottom: 0;
+    }
+
+    .transition-about-stage {
+      position: sticky;
+      top: 94px;
+      min-height: max(calc(100vh - 94px), 980px);
+      overflow: visible;
+      background: transparent;
+      z-index: 2;
+      transition: background 0.12s linear;
+    }
+
+    .about-slide-shell {
+      position: relative;
+      inset: auto;
+      min-height: 100%;
+      background: transparent;
+      color: #ffffff;
+      transform: none;
+      display: flex;
+      align-items: stretch;
+    }
+
+    .about-slide-shell::before {
+      content: none;
+    }
+
+    .about-slide-inner {
+      position: relative;
+      z-index: 1;
+      width: min(1260px, calc(100% - 128px));
+      margin: 0 auto;
+      min-height: max(100%, 980px);
+      padding: 72px 0 84px;
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 56px;
+      align-items: start;
+    }
+
+    .about-slide-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      min-height: 100%;
+      gap: 72px;
+      padding-left: 8px;
+      padding-top: 4vh;
+    }
+
+    .about-slide-label {
+      font-family: var(--f-display);
+      font-size: 14px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.54);
+      margin-bottom: 18px;
+    }
+
+    .about-motion-item {
+      opacity: var(--about-item-o, 0);
+      transform: translate3d(var(--about-item-x, 220px), 0, 0);
+      will-change: transform, opacity, filter;
+      transition: none;
+      backface-visibility: hidden;
+      filter: blur(var(--about-item-blur, 0px));
+      pointer-events: auto;
+    }
+
+
+    .about-slide-title-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .about-slide-title-line {
+      font-family: var(--f-display);
+      font-size: clamp(48px, 8vw, 128px);
+      line-height: 0.88;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: block;
+      white-space: nowrap;
+    }
+
+    .about-slide-title-line + .about-slide-title-line {
+      padding-left: 0.08em;
+    }
+
+    .about-slide-caption {
+      font-size: 13px;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.52);
+      max-width: 26ch;
+      padding-right: 16px;
+    }
+
+    .about-slide-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 16px;
+      min-height: 100%;
+      padding-top: 6vh;
+      padding-right: 32px;
+    }
+
+    .about-slide-text {
+      font-size: clamp(15px, 1.18vw, 20px);
+      line-height: 1.72;
+      color: rgba(255,255,255,0.88);
+      max-width: 36ch;
+    }
+
+    .about-slide-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      max-width: 520px;
+    }
+
+    .about-slide-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 36px;
+      padding: 7px 14px;
+      border: 1px solid rgba(255,255,255,0.16);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.72);
+      background: transparent;
+    }
+
+    .about-slide-link {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 42px;
+      padding: 10px 0;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.76);
+      border-bottom: 1px solid rgba(255,255,255,0.26);
+      transition: color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .about-slide-link:hover {
+      color: #ffffff;
+      border-color: rgba(255,255,255,0.72);
+    }
+
     /* ── TABLET 800–1279px ── */
     @media (max-width: 1279px) and (min-width: 800px) {
       .projects-grid {
@@ -744,14 +1025,20 @@
       }
 
       .hero {
-        grid-template-columns: 240px minmax(0, 1fr);
-        gap: 28px;
-        padding: 132px 24px 74px;
+        grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
+        gap: 36px;
+        padding: 24px 24px 74px;
       }
       .hero::after { left: 24px; right: 24px; }
-      .hero-media { position: static; }
+      .hero-media {
+        position: static;
+        justify-content: flex-end;
+        order: 2;
+      }
       .hero-name { max-width: none; white-space: nowrap; }
-      .projects-section { padding: 32px 24px 108px; }
+      .projects-section { min-height: auto; padding: 32px 24px 108px; }
+      .projects-stage { position: static; min-height: auto; padding: 0; }
+      .project-link { transform: none !important; opacity: 1 !important; }
       .projects-header {
         margin-bottom: 28px;
         gap: 16px;
@@ -759,12 +1046,23 @@
       .projects-note {
         max-width: 320px;
       }
+      .transition-about-section { min-height: auto; margin-top: 0; padding: 0; }
+      .transition-about-stage { position: static; min-height: auto; }
+      .about-slide-inner { width: min(1260px, calc(100% - 80px)); gap: 44px; }
+      .about-slide-left { padding-left: 0; gap: 72px; }
+      .about-slide-right { padding-right: 0; }
+      .about-slide-shell { position: relative; transform: none !important; }
+      .about-slide-inner { width: min(100%, calc(100% - 48px)); padding: 56px 0 64px; grid-template-columns: 1fr; gap: 32px; }
+      .about-slide-right { padding-top: 0; padding-right: 0; }
+      .about-slide-left, .about-slide-right { gap: 28px; }
+      .about-slide-right { padding-top: 0; }
+      .about-slide-text { max-width: 38ch; }
 
       footer { padding: 40px 40px 0; }
-      .footer-shell { gap: 241px; }
+      .footer-shell { gap: 120px; }
       .footer-head {
         flex-direction: column;
-        gap: 150px;
+        gap: 64px;
         align-items: flex-start;
       }
       .footer-mark {
@@ -789,37 +1087,49 @@
 
       .hero {
         grid-template-columns: 1fr;
-        gap: 24px;
-        padding: 108px 20px 58px;
+        gap: 28px;
+        padding: 34px 20px 58px;
       }
       .hero::after { left: 20px; right: 20px; }
       .hero-media {
         position: static;
+        justify-content: center;
+        order: 2;
       }
       .hero-profile {
         width: min(100%, 220px);
         aspect-ratio: 4 / 5;
         border-radius: 0;
         box-shadow: none;
+
       }
+
+      body.is-ready .hero-profile {
+  animation: heroProfileSpin 0.9s cubic-bezier(0.22, 0.8, 0.2, 1) 0.02s 1 both;
+}
       .hero-copy {
-        gap: 18px;
-        padding-top: 0;
+        gap: 0;
+        padding-top: 6px;
+        order: 1;
       }
       .hero-kicker {
-        font-size: 22px;
-        line-height: 1.2;
-        letter-spacing: 1.2px;
+        font-size: clamp(15px, 4.2vw, 20px);
+        line-height: 1.28;
+        letter-spacing: 0.08em;
+        margin-bottom: 18px;
       }
       .hero-name {
-        font-size: 32px;
-        letter-spacing: 2px;
+        font-size: clamp(68px, 18vw, 94px);
+        letter-spacing: 0.04em;
+        line-height: 0.88;
+        margin-bottom: 24px;
         max-width: none;
       }
 
       .hero-bio {
-        font-size: 14px;
-        line-height: 1.8;
+        font-size: 15px;
+        line-height: 1.85;
+        margin-bottom: 22px;
       }
 
       .hero-meta {
@@ -832,7 +1142,9 @@
         font-size: 11px;
       }
 
-      .projects-section { padding: 28px 20px 84px; }
+      .projects-section { min-height: auto; padding: 28px 20px 84px; }
+      .projects-stage { position: static; min-height: auto; padding: 0; }
+      .project-link { transform: none !important; opacity: 1 !important; }
       .projects-header {
         flex-direction: column;
         align-items: flex-start;
@@ -861,12 +1173,19 @@
 
       .card-category { font-size: 26px; }
       .card-description { max-width: 100%; }
+      .transition-about-section { min-height: auto; margin-top: 0; padding: 28px 20px 84px; }
+      .transition-about-stage { position: static; min-height: auto; padding: 0; }
+      .about-slide-inner { width: 100%; padding: 28px 0 24px; gap: 28px; }
+      .about-slide-left { padding-left: 0; gap: 28px; }
+      .about-slide-right { padding-top: 0; padding-right: 0; gap: 18px; }
+      .about-side-panel { width: 100%; min-width: 0; min-height: auto; transform: none !important; opacity: 1 !important; padding: 24px 20px; }
+      .about-side-bottom { flex-direction: column; align-items: flex-start; }
 
       footer { padding: 40px 40px 0; }
-      .footer-shell { gap: 150px; }
+      .footer-shell { gap: 96px; }
       .footer-head {
         flex-direction: column;
-        gap: 150px;
+        gap: 64px;
         align-items: flex-start;
       }
       .footer-mark {
@@ -889,15 +1208,147 @@
         align-items: flex-start;
         padding: 40px 0;
       }
+
+      .about-slide-shell {
+        position: relative;
+        inset: auto;
+        color: #111111;
+        display: block;
+      }
+
+      .about-slide-title-line {
+        color: #111111;
+      }
+
+      .about-slide-caption,
+      .about-slide-text {
+        color: rgba(17, 17, 17, 0.78);
+      }
+
+      .about-slide-link {
+        color: rgba(17, 17, 17, 0.76);
+        border-bottom-color: rgba(17, 17, 17, 0.24);
+      }
+
+      .about-slide-pill {
+        color: rgba(17, 17, 17, 0.72);
+        border-color: rgba(17, 17, 17, 0.16);
+      }
+
+      .about-motion-item {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
     }
-  </style>
+  
+    .preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      display: grid;
+      place-items: center;
+      background: #000000;
+      color: #ffffff;
+      transition: opacity 0.7s ease, visibility 0.7s ease;
+    }
+
+    .preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .preloader-inner {
+      width: min(100vw - 48px, 1200px);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 10vh;
+      position: relative;
+    }
+
+    .preloader-count {
+      font-family: var(--f-display);
+      font-size: clamp(68px, 14vw, 160px);
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      font-weight: 400;
+    }
+
+    .preloader-visual {
+      position: absolute;
+      left: 50%;
+      top: 42%;
+      transform: translate(-50%, -50%);
+      width: min(26vw, 150px);
+      height: auto;
+      max-width: 150px;
+      max-height: 150px;
+      object-fit: contain;
+      opacity: 1;
+      pointer-events: none;
+      filter: invert(1);
+      animation: preloadSpin 1.8s linear infinite;
+      transform-origin: center center;
+    }
+
+    .preloader-label {
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      padding-bottom: 18px;
+    }
+
+    .preloader-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      background: rgba(255,255,255,0.16);
+      overflow: hidden;
+    }
+
+    .preloader-line::after {
+      content: "";
+      display: block;
+      width: calc(var(--progress, 0) * 1%);
+      height: 100%;
+      background: #ffffff;
+      transition: width 0.18s ease;
+    }
+
+    body.is-ready .preloader {
+      pointer-events: none;
+    }
+
+    @keyframes preloadSpin {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+</style>
 </head>
-<body>
+<body id="top">
+
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader-inner">
+      <img class="preloader-visual" src="images/logo.png" alt="Logo" onerror="this.style.display='none';" />
+      <div class="preloader-count" id="preloaderCount">0</div>
+      <div class="preloader-label">Loading</div>
+      <div class="preloader-line"></div>
+    </div>
+  </div>
+
+
 
   <!-- ── NAV ── -->
   <nav id="siteNav">
     <div class="nav-inner">
-      <a class="nav-brand" href="#about" aria-label="Go to top">
+      <a class="nav-brand" href="#top" aria-label="Go to top">
         <span class="nav-logo-wrap">
           <img src="images/logo.png" alt="E.C. logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
           <span class="nav-logo-fallback" style="display:none;">R</span>
@@ -906,7 +1357,7 @@
       </a>
       <ul class="nav-links">
         <li><a href="#projects">Projects</a></li>
-        <li><a href="#about">About Me</a></li>
+        <li><a href="#about-transition">About Me</a></li>
       </ul>
       <button class="hamburger" aria-label="Menu" onclick="toggleMenu()">
         <span></span><span></span><span></span>
@@ -916,7 +1367,7 @@
 
   <div class="mobile-menu" id="mobileMenu">
     <a href="#projects" onclick="closeMenu()">Projects</a>
-    <a href="#about" onclick="closeMenu()">About Me</a>
+    <a href="#about-transition" onclick="closeMenu()">About Me</a>
   </div>
 
   <!-- ── HERO ── -->
@@ -925,22 +1376,21 @@
       <img class="hero-profile" src="images/profile-emilia.png" alt="Profile Emilia">
     </div>
     <div class="hero-copy">
-      <div class="hero-kicker">Product Designer<br>UI/UX · Design Engineer</div>
-      <h1 class="hero-name">Emilia&nbsp;Chen</h1>
-      <p class="hero-bio">
-        <span class="cap">I</span>'m a passionate Product and UI/UX <span class="cap">D</span>esigner / <span class="cap">E</span>ngineer who builds user-centered experiences with clarity, structure, and visual sensitivity. From concept development to high-fidelity execution, the work focuses on interfaces and systems that feel intuitive, accessible, and precise while still carrying a strong visual identity.
-      </p>
+      <div class="hero-kicker">Product &amp; UI/UX Design Engineer</div>
+      <h1 class="hero-name">EMILIA<br>CHEN</h1>
+      <p class="hero-bio">Designing interfaces, systems, and visual structures with clarity, logic, and sensitivity. The work moves between product thinking, interaction design, and implementation, shaping experiences where research, flow, and visual language operate as one readable system.</p>
       <div class="hero-meta" aria-label="Key specialties">
         <span class="hero-pill">UI / UX Design</span>
         <span class="hero-pill">Product Systems</span>
         <span class="hero-pill">Brand &amp; Visual Identity</span>
-        <span class="hero-pill">Prototype &amp; Front-end</span>
+        <span class="hero-pill">Design-to-Code</span>
       </div>
     </div>
   </section>
 
   <!-- ── PROJECTS ── -->
   <section class="projects-section" id="projects">
+    <div class="projects-stage">
     <div class="projects-header reveal">
       <h2 class="projects-heading">Projects</h2>
       <p class="projects-note">A collection of interface, product, and brand projects developed through research, system thinking, and visual design.</p>
@@ -949,176 +1399,192 @@
 
       <!-- 01 -->
       <a class="project-link" href="project-one.html" aria-label="Open project-one.html">
-        <div class="project-card reveal">
+        <div class="project-card project-stage-card">
                 <img class="img" src="images/project-1.png" alt="Project One">
                 <div class="card-meta">
                   <div class="card-number">01</div>
                   <div class="card-title-row">
                     <div class="card-project-name">Project One</div>
                     <div class="card-category">UI/UX</div>
-                    <div class="card-subtitle">APP × System × CIS</div>
+                    <div class="card-subtitle">APP × System × Identity</div>
                   </div>
-                  <p class="card-description">End-to-end interface design — from wireframes and flows to high-fidelity prototypes. I focus on clear information hierarchy and intuitive interaction patterns that serve real user needs.</p>
+                  <p class="card-description">A service interface project built around age-inclusive interaction and time-banking logic, connecting product strategy, interface flow, and visual identity into one coherent user experience.</p>
                   <div class="card-tags">
-                    <span class="tag">Research</span>
-                    <span class="tag">Figma</span>
-                    <span class="tag">Prototype</span>
-                    <span class="tag">Wireframing</span>
+                    <span class="tag">Service Design</span>
+                    <span class="tag">UI System</span>
+                    <span class="tag">User Flow</span>
+                    <span class="tag">Visual Identity</span>
                   </div>
                 </div>
               </div>
       </a>
 <!-- 02 -->
       <a class="project-link" href="project-two.html" aria-label="Open project-two.html">
-        <div class="project-card reveal">
+        <div class="project-card project-stage-card">
                 <img class="img" src="images/project-2.png" alt="Project Two">
                 <div class="card-meta">
                   <div class="card-number">02</div>
                   <div class="card-title-row">
                     <div class="card-project-name">Project Two</div>
                     <div class="card-category">UI/UX</div>
-                    <div class="card-subtitle">APP × Product</div>
+                    <div class="card-subtitle">APP × Product × Safety</div>
                   </div>
-                  <p class="card-description">End-to-end interface design — from wireframes and flows to high-fidelity prototypes. I focus on clear information hierarchy and intuitive interaction patterns that serve real user needs.</p>
+                  <p class="card-description">A diving experience platform that combines underwater planning, on-site support, and product thinking, translating research into a clearer, safer, and more immersive journey for divers.</p>
                   <div class="card-tags">
-                    <span class="tag">Research</span>
-                    <span class="tag">Figma</span>
-                    <span class="tag">Prototype</span>
-                    <span class="tag">Wireframing</span>
+                    <span class="tag">UX Research</span>
+                    <span class="tag">Journey Map</span>
+                    <span class="tag">App Design</span>
+                    <span class="tag">Product Strategy</span>
                   </div>
                 </div>
               </div>
       </a>
 <!-- 03 -->
       <a class="project-link" href="project-three.html" aria-label="Open project-three.html">
-        <div class="project-card reveal">
+        <div class="project-card project-stage-card">
                 <img class="img" src="images/project-3.png" alt="Project Three">
                 <div class="card-meta">
                   <div class="card-number">03</div>
                   <div class="card-title-row">
                     <div class="card-project-name">Project Three</div>
                     <div class="card-category">UI/UX</div>
-                    <div class="card-subtitle">APP × System</div>
+                    <div class="card-subtitle">App × LINE × Merchant System</div>
                   </div>
-                  <p class="card-description">End-to-end interface design — from wireframes and flows to high-fidelity prototypes. I focus on clear information hierarchy and intuitive interaction patterns that serve real user needs.</p>
+                  <p class="card-description">A cross-platform food rescue service that links consumer app, LINE ordering assistant, and merchant dashboard, turning surplus food management into a connected operational system.</p>
                   <div class="card-tags">
-                    <span class="tag">Research</span>
-                    <span class="tag">Figma</span>
-                    <span class="tag">Prototype</span>
-                    <span class="tag">Wireframing</span>
+                    <span class="tag">System Design</span>
+                    <span class="tag">Cross Platform</span>
+                    <span class="tag">Dashboard</span>
+                    <span class="tag">Service Flow</span>
                   </div>
                 </div>
               </div>
       </a>
 <!-- 04 -->
       <a class="project-link" href="project-four.html" aria-label="Open project-four.html">
-        <div class="project-card reveal">
+        <div class="project-card project-stage-card">
                 <img class="img" src="images/project-4.png" alt="Project Four">
                 <div class="card-meta">
                   <div class="card-number">04</div>
                   <div class="card-title-row">
                     <div class="card-project-name">Project Four</div>
                     <div class="card-category">Product</div>
-                    <div class="card-subtitle">Appliance × PCB Design</div>
+                    <div class="card-subtitle">Appliance × Electronics × Prototype</div>
                   </div>
-                  <p class="card-description">Physical and digital product design grounded in engineering feasibility. I bridge the gap between concept and manufacture, designing products that are functional, beautiful, and buildable.</p>
+                  <p class="card-description">A hardware-oriented product project developed through structural studies, prototype electronics, and PCB logic, where form development and technical feasibility move together instead of living on separate planets.</p>
                   <div class="card-tags">
-                    <span class="tag">Research</span>
-                    <span class="tag">Figma</span>
+                    <span class="tag">Hardware Logic</span>
+                    <span class="tag">PCB Design</span>
                     <span class="tag">Prototype</span>
-                    <span class="tag">Wireframing</span>
+                    <span class="tag">Form Study</span>
                   </div>
                 </div>
               </div>
       </a>
 <!-- 05 -->
       <a class="project-link" href="project-five.html" aria-label="Open project-five.html">
-        <div class="project-card reveal">
+        <div class="project-card project-stage-card">
                 <img class="img" src="images/project-5.png" alt="Project Five">
                 <div class="card-meta">
                   <div class="card-number">05</div>
                   <div class="card-title-row">
                     <div class="card-project-name">Project Five</div>
                     <div class="card-category">Product</div>
-                    <div class="card-subtitle">Appliance</div>
+                    <div class="card-subtitle">Interactive Product × Sound Object</div>
                   </div>
-                  <p class="card-description">Physical and digital product design grounded in engineering feasibility. I bridge the gap between concept and manufacture, designing products that are functional, beautiful, and buildable.</p>
+                  <p class="card-description">An emotional doorbell concept that rethinks alert sound as shared language, shaping interaction through sound, placement context, and product form rather than treating the object as a mute appliance shell.</p>
                   <div class="card-tags">
-                    <span class="tag">Research</span>
-                    <span class="tag">Figma</span>
+                    <span class="tag">Interaction</span>
+                    <span class="tag">Sound Object</span>
                     <span class="tag">Prototype</span>
-                    <span class="tag">Wireframing</span>
+                    <span class="tag">CMF</span>
                   </div>
                 </div>
               </div>
       </a>
 <!-- 06 -->
       <a class="project-link" href="project-six.html" aria-label="Open project-six.html">
-        <div class="project-card reveal">
+        <div class="project-card project-stage-card">
                 <img class="img" src="images/project-6.png" alt="Project Six">
                 <div class="card-meta">
                   <div class="card-number">06</div>
                   <div class="card-title-row">
                     <div class="card-project-name">Project Six</div>
                     <div class="card-category">Product</div>
-                    <div class="card-subtitle">Furniture</div>
+                    <div class="card-subtitle">Furniture × Form × CMF</div>
                   </div>
-                  <p class="card-description">Physical and digital product design grounded in engineering feasibility. I bridge the gap between concept and manufacture, designing products that are functional, beautiful, and buildable.</p>
+                  <p class="card-description">A contemporary seating design project focused on proportion, ergonomics, and material language, developed through iterative sketching, structural refinement, and finish exploration.</p>
                   <div class="card-tags">
-                    <span class="tag">Research</span>
-                    <span class="tag">Figma</span>
-                    <span class="tag">Prototype</span>
-                    <span class="tag">Wireframing</span>
+                    <span class="tag">Furniture</span>
+                    <span class="tag">Form Development</span>
+                    <span class="tag">Ergonomics</span>
+                    <span class="tag">CMF</span>
                   </div>
                 </div>
               </div>
       </a>
 <!-- 07 -->
       <a class="project-link" href="project-seven.html" aria-label="Open project-seven.html">
-        <div class="project-card reveal">
+        <div class="project-card project-stage-card">
                 <img class="img" src="images/project-7.png" alt="Project Seven">
                 <div class="card-meta">
                   <div class="card-number">07</div>
                   <div class="card-title-row">
                     <div class="card-project-name">Project Seven</div>
                     <div class="card-category">Brand &amp; CIS</div>
-                    <div class="card-subtitle">CIS Guidelines</div>
+                    <div class="card-subtitle">Identity System × Applications</div>
                   </div>
-                  <p class="card-description">Corporate identity systems that express a clear visual voice across every touchpoint. From logo design to full brand guidelines, I ensure consistency and coherence at every scale.</p>
+                  <p class="card-description">A full identity system project extending from logo language into packaging, stationery, uniforms, signage, vehicles, and website touchpoints, building consistency as an actual operating system instead of a decorative guideline PDF.</p>
                   <div class="card-tags">
-                    <span class="tag">Research</span>
-                    <span class="tag">Figma</span>
-                    <span class="tag">Prototype</span>
-                    <span class="tag">Wireframing</span>
+                    <span class="tag">Brand Identity</span>
+                    <span class="tag">CIS Guide</span>
+                    <span class="tag">Packaging</span>
+                    <span class="tag">Applications</span>
                   </div>
                 </div>
               </div>
       </a>
 
     </div>
+    </div>
+  </section>
+
+  <section class="transition-about-section" id="about-transition">
+    <div class="transition-about-stage">
+      <div class="about-slide-shell">
+        <div class="about-slide-inner">
+          <div class="about-slide-left">
+            <div>
+              <div class="about-slide-title-stack">
+                <div class="about-slide-title-line about-motion-item" data-about-order="0">About</div>
+                <div class="about-slide-title-line about-motion-item" data-about-order="1">Me</div>
+              </div>
+            </div>
+            <p class="about-slide-caption about-motion-item" data-about-order="2">Designing interfaces, systems, and visual structures with clarity, logic, and sensitivity.</p>
+          </div>
+          <div class="about-slide-right">
+            <p class="about-slide-text about-motion-item" data-about-order="3">I’m a Product and UI/UX Design Engineer interested in building experiences where research, interaction flow, and visual language work as one system. My practice moves between interface design, product thinking, and design implementation, with a focus on clarity, structure, and precise execution.</p>
+            <p class="about-slide-text about-motion-item" data-about-order="4"><strong>Interface &amp; UX</strong><br>User flow, wireframing, information architecture, and high-fidelity interface design.</p>
+            <p class="about-slide-text about-motion-item" data-about-order="5"><strong>Product Thinking</strong><br>Research synthesis, service logic, scenario building, and concept development.</p>
+            <p class="about-slide-text about-motion-item" data-about-order="6"><strong>Visual Systems</strong><br>Brand extension, layout rhythm, and consistent design language across touchpoints.</p>
+            <p class="about-slide-text about-motion-item" data-about-order="7"><strong>Prototype &amp; Front-end</strong><br>HTML, CSS, JavaScript, and design-to-code translation for interactive prototypes.</p>
+            <p class="about-slide-text about-motion-item" data-about-order="8">I design by aligning logic, interaction, and form into one readable system.<br>I’m interested in work where design is not decoration, but structure made visible.</p>
+            <a class="about-slide-link about-motion-item" data-about-order="9" href="#about">Back to Top</a>
+          </div>
+        </div></div>
+      </div>
+    </div>
   </section>
 
   <!-- ── FOOTER ── -->
-  <footer>
+  <footer id="site-footer">
     <div class="footer-shell">
       <div class="footer-head">
         <div class="footer-mark" aria-label="E. C. brand mark">
           <span>E.</span>
           <span>C.</span>
         </div>
-        <div class="footer-top-items">
-          <nav class="footer-main-links" aria-label="Footer navigation">
-            <a href="#about">About ME</a>
-            <a href="#projects">Projects</a>
-          </nav>
-          <div class="footer-contact">
-            <span>Taipei, Taiwan</span>
-            <div class="footer-contact-secondary">
-              <a href="/cdn-cgi/l/email-protection#ef8a828683868e8c878a81d7d7dedddcdfaf88828e8683c18c8082"><span class="__cf_email__" data-cfemail="5b3e363237323a38333e3563636a69686b1b3c363a323775383436">[email&#160;protected]</span></a>
-              <a href="https://www.behance.net/emiliachen1230" target="_blank" rel="noopener">behance.net/emiliachen1230</a>
-            </div>
-          </div>
-        </div>
+
       </div>
 
       <div class="footer-bottom">
@@ -1127,32 +1593,30 @@
     </div>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
     function toggleMenu() {
       const menu = document.getElementById('mobileMenu');
       const btn = document.querySelector('.hamburger');
       menu.classList.toggle('open');
       btn.classList.toggle('open');
     }
+
     function closeMenu() {
       document.getElementById('mobileMenu').classList.remove('open');
       document.querySelector('.hamburger').classList.remove('open');
     }
-    // close menu on outside click
+
     document.addEventListener('click', function(e) {
       const menu = document.getElementById('mobileMenu');
       const btn = document.querySelector('.hamburger');
       if (!menu.contains(e.target) && !btn.contains(e.target)) {
         menu.classList.remove('open');
+        btn.classList.remove('open');
       }
     });
 
-    // Replace img-placeholder with actual images when they exist
-    // To use real images: replace <div class="img-placeholder"> with <img src="your-image.png" alt="...">
-
     const navBar = document.querySelector('nav');
     const revealEls = document.querySelectorAll('.reveal');
-
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -1169,9 +1633,622 @@
 
     window.addEventListener('scroll', () => {
       navBar.classList.toggle('nav-scrolled', window.scrollY > 10);
+    }, { passive: true });
+
+    function clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
+    }
+
+    const siteNav = document.getElementById('siteNav');
+    const projectSection = document.getElementById('projects');
+    const projectStage = projectSection ? projectSection.querySelector('.projects-stage') : null;
+    const projectHeader = projectSection ? projectSection.querySelector('.projects-header') : null;
+    const projectGrid = projectSection ? projectSection.querySelector('.projects-grid') : null;
+    const projectLinks = projectGrid ? Array.from(projectGrid.querySelectorAll('.project-link')) : [];
+
+    let projectStackMetrics = [];
+    let projectRowAnchors = [];
+    let projectRowShiftMetrics = [];
+    let projectAnimationFrame = 0;
+    let projectCurrentProgress = 0;
+    let projectTargetProgress = 0;
+    let projectCurrentGridShift = 0;
+    let projectTargetGridShift = 0;
+    let projectExitVisualProgress = 0;
+    let projectLockReleaseUntil = 0;
+    let isProgrammaticScroll = false;
+    let programmaticScrollRaf = 0;
+    let projectStageIndex = 0;
+    let projectExitArmed = false;
+    let projectScrollAnimationFrame = 0;
+    let projectScrollAnimationToken = 0;
+    let projectScrollTargetY = null;
+
+    const stageToProgress = {
+      0: 0,
+      1: 1,
+      2: 2,
+      3: 3,
+      4: 3,
+      5: 4,
+      6: 5,
+      7: 6,
+      8: 6,
+      9: 7,
+      10: 7
+    };
+
+    const stageToAnchor = {
+      0: 0,
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 1,
+      6: 1,
+      7: 1,
+      8: 1,
+      9: 2,
+      10: 2
+    };
+
+    const stageToGridShiftRow = {
+      0: 0,
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 1,
+      6: 1,
+      7: 1,
+      8: 1,
+      9: 2,
+      10: 2
+    };
+
+    const stageToGridShiftMode = {
+      0: 'top',
+      1: 'top',
+      2: 'top',
+      3: 'top',
+      4: 'bottom',
+      5: 'top',
+      6: 'top',
+      7: 'top',
+      8: 'bottom',
+      9: 'top',
+      10: 'bottom'
+    };
+
+    function getNavOffset() {
+      return siteNav ? Math.ceil(siteNav.getBoundingClientRect().height) : 0;
+    }
+
+    function clampScrollY(value) {
+      const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 0);
+      return clamp(value, 0, maxScroll);
+    }
+
+    function jumpToY(y) {
+      const target = clampScrollY(y);
+      if (!Number.isFinite(target)) return;
+      if (Math.abs(window.scrollY - target) < 1) return;
+      if (projectScrollAnimationFrame) {
+        cancelAnimationFrame(projectScrollAnimationFrame);
+        projectScrollAnimationFrame = 0;
+      }
+      projectScrollTargetY = null;
+      isProgrammaticScroll = true;
+      window.scrollTo({ top: target, behavior: 'auto' });
+      if (programmaticScrollRaf) cancelAnimationFrame(programmaticScrollRaf);
+      programmaticScrollRaf = requestAnimationFrame(() => {
+        isProgrammaticScroll = false;
+        programmaticScrollRaf = 0;
+      });
+    }
+
+    function glideToY(y, duration = 260) {
+      const target = clampScrollY(y);
+      if (!Number.isFinite(target)) return;
+      if (Math.abs(window.scrollY - target) < 1) return;
+      if (projectScrollTargetY !== null && Math.abs(projectScrollTargetY - target) < 1) return;
+
+      const startY = window.scrollY;
+      const distance = target - startY;
+      const startTime = performance.now();
+      const token = ++projectScrollAnimationToken;
+      projectScrollTargetY = target;
+
+      if (projectScrollAnimationFrame) {
+        cancelAnimationFrame(projectScrollAnimationFrame);
+        projectScrollAnimationFrame = 0;
+      }
+
+      isProgrammaticScroll = true;
+
+      const step = (now) => {
+        if (token !== projectScrollAnimationToken) return;
+        const elapsed = now - startTime;
+        const t = clamp(elapsed / duration, 0, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        window.scrollTo({ top: startY + (distance * eased), behavior: 'auto' });
+
+        if (t < 1) {
+          projectScrollAnimationFrame = requestAnimationFrame(step);
+          return;
+        }
+
+        window.scrollTo({ top: target, behavior: 'auto' });
+        projectScrollAnimationFrame = 0;
+        projectScrollTargetY = null;
+        if (programmaticScrollRaf) cancelAnimationFrame(programmaticScrollRaf);
+        programmaticScrollRaf = requestAnimationFrame(() => {
+          isProgrammaticScroll = false;
+          programmaticScrollRaf = 0;
+        });
+      };
+
+      projectScrollAnimationFrame = requestAnimationFrame(step);
+    }
+
+    function resetProjectStack() {
+      projectLinks.forEach((link, index) => {
+        link.style.setProperty('--stack-x', '0px');
+        link.style.setProperty('--stack-y', '0px');
+        link.style.setProperty('--stack-r', '0deg');
+        link.style.setProperty('--stack-s', '1');
+        link.style.setProperty('--stack-o', '1');
+        link.style.setProperty('--stack-z', String(index + 1));
+      });
+    }
+
+    function getGridShiftForStage(stageIndex) {
+      const rowIndex = stageToGridShiftRow[stageIndex] ?? 0;
+      const mode = stageToGridShiftMode[stageIndex] ?? 'top';
+      const metrics = projectRowShiftMetrics[rowIndex] || { top: 0, bottom: 0 };
+      return metrics[mode] ?? 0;
+    }
+
+    function applyProjectProgress(progress, gridShift = projectCurrentGridShift) {
+      const discrete = clamp(progress, 0, 7);
+      projectLinks.forEach((link, index) => {
+        const metric = projectStackMetrics[index];
+        if (!metric) return;
+        const cardIndex = index + 1;
+        const local = clamp(discrete - (cardIndex - 1), 0, 1);
+        const eased = 1 - Math.pow(1 - local, 3);
+        const tx = metric.dx * (1 - eased);
+        const ty = metric.dy * (1 - eased);
+        const scale = metric.scale + (1 - metric.scale) * eased;
+
+        link.style.setProperty('--stack-x', `${tx.toFixed(2)}px`);
+        link.style.setProperty('--stack-y', `${ty.toFixed(2)}px`);
+        link.style.setProperty('--stack-r', '0deg');
+        link.style.setProperty('--stack-s', scale.toFixed(3));
+        link.style.setProperty('--stack-z', String(20 - index));
+      });
+
+      if (projectGrid) {
+        projectGrid.style.setProperty('--projects-grid-shift', `${gridShift.toFixed(2)}px`);
+      }
+    }
+
+    function updateProjectExitVisual() {
+      if (!projectGrid || !projectSection || window.innerWidth < 800) {
+        if (projectGrid) {
+          projectGrid.style.setProperty('--projects-grid-scale', '1');
+          projectGrid.style.setProperty('--projects-grid-opacity', '1');
+          projectGrid.style.setProperty('--projects-grid-blur', '0px');
+        }
+        projectExitVisualProgress = 0;
+        return;
+      }
+
+      const anchors = getProjectAnchorPoints();
+      const finalAnchor = anchors[2] ?? 0;
+      const releaseDistance = Math.max(window.innerHeight * 0.34, 220);
+      const raw = clamp((window.scrollY - finalAnchor) / releaseDistance, 0, 1);
+      const eased = 1 - Math.pow(1 - raw, 2.2);
+      projectExitVisualProgress = projectExitArmed ? eased : 0;
+
+      const scale = 1 - (projectExitVisualProgress * 0.06);
+      const opacity = 1 - (projectExitVisualProgress * 0.82);
+      const blur = projectExitVisualProgress * 8;
+      projectGrid.style.setProperty('--projects-grid-scale', scale.toFixed(4));
+      projectGrid.style.setProperty('--projects-grid-opacity', opacity.toFixed(4));
+      projectGrid.style.setProperty('--projects-grid-blur', `${blur.toFixed(2)}px`);
+    }
+
+    function tickProjectAnimation() {
+      const progressDelta = projectTargetProgress - projectCurrentProgress;
+      const shiftDelta = projectTargetGridShift - projectCurrentGridShift;
+      if (Math.abs(progressDelta) < 0.001 && Math.abs(shiftDelta) < 0.25) {
+        projectCurrentProgress = projectTargetProgress;
+        projectCurrentGridShift = projectTargetGridShift;
+        applyProjectProgress(projectCurrentProgress, projectCurrentGridShift);
+        projectAnimationFrame = 0;
+        return;
+      }
+
+      const isFinalReleaseStage = projectStageIndex >= 10;
+      const progressEase = isFinalReleaseStage ? 0.045 : 0.135;
+      const shiftEase = isFinalReleaseStage ? 0.06 : 0.15;
+
+      projectCurrentProgress += progressDelta * progressEase;
+      projectCurrentGridShift += shiftDelta * shiftEase;
+      applyProjectProgress(projectCurrentProgress, projectCurrentGridShift);
+      projectAnimationFrame = requestAnimationFrame(tickProjectAnimation);
+    }
+
+    function animateToProjectStage() {
+      projectTargetProgress = stageToProgress[projectStageIndex] ?? 0;
+      projectTargetGridShift = getGridShiftForStage(projectStageIndex);
+      if (!projectAnimationFrame) {
+        projectAnimationFrame = requestAnimationFrame(tickProjectAnimation);
+      }
+    }
+
+    function measureProjectStack() {
+      if (!projectSection || !projectGrid || window.innerWidth < 800) {
+        projectStackMetrics = [];
+        projectRowAnchors = [];
+        resetProjectStack();
+        return;
+      }
+
+      projectGrid.classList.add('is-measuring');
+      resetProjectStack();
+      const gridRect = projectGrid.getBoundingClientRect();
+      const headerRect = projectHeader ? projectHeader.getBoundingClientRect() : null;
+      const stackBaseX = gridRect.width - Math.min(240, gridRect.width * 0.22);
+      const headerLineY = headerRect ? (headerRect.bottom - gridRect.top) : (gridRect.height * 0.08);
+      const stackBaseY = headerLineY + 243;
+
+      projectStackMetrics = projectLinks.map((link, index) => {
+        const rect = link.getBoundingClientRect();
+        const centerX = (rect.left - gridRect.left) + rect.width / 2;
+        const centerY = (rect.top - gridRect.top) + rect.height / 2;
+        const orderedOffsetX = -((projectLinks.length - 1 - index) * 24);
+        const orderedOffsetY = index * 2;
+
+        return {
+          dx: stackBaseX + orderedOffsetX - centerX,
+          dy: stackBaseY + orderedOffsetY - centerY,
+          scale: 0.5
+        };
+      });
+
+      const navOffset = getNavOffset();
+      const rowStartIndexes = [0, 3, 6];
+      const rowEndIndexes = [2, 5, 6];
+      projectRowAnchors = rowStartIndexes.map((index) => {
+        const link = projectLinks[index];
+        if (!link) return 0;
+        const rect = link.getBoundingClientRect();
+        return clampScrollY(window.scrollY + rect.top - navOffset - 8);
+      });
+
+      const stageRect = projectStage.getBoundingClientRect();
+      const stageHeight = stageRect.height;
+      projectRowShiftMetrics = rowStartIndexes.map((startIndex, rowIndex) => {
+        const startLink = projectLinks[startIndex];
+        const endLink = projectLinks[rowEndIndexes[rowIndex]];
+        if (!startLink || !endLink) return { top: 0, bottom: 0 };
+        const startRect = startLink.getBoundingClientRect();
+        const endRect = endLink.getBoundingClientRect();
+        const rowTop = startRect.top - stageRect.top;
+        const rowBottom = endRect.bottom - stageRect.top;
+        const cardHeight = startRect.height;
+        const bottomPadding = Math.max(22, Math.min(44, stageHeight * 0.045));
+
+        const alignBottomShift = (stageHeight - bottomPadding) - rowBottom;
+        const revealMoreShift = -(cardHeight * 0.42);
+        const minVisibleTopShift = -(rowTop + cardHeight * 0.58);
+        const strongBottomShift = Math.min(alignBottomShift, revealMoreShift);
+
+        return {
+          top: 0,
+          bottom: Math.min(0, Math.max(strongBottomShift, minVisibleTopShift))
+        };
+      });
+
+      projectCurrentProgress = stageToProgress[projectStageIndex] ?? 0;
+      projectTargetProgress = projectCurrentProgress;
+      projectCurrentGridShift = getGridShiftForStage(projectStageIndex);
+      projectTargetGridShift = projectCurrentGridShift;
+      applyProjectProgress(projectCurrentProgress, projectCurrentGridShift);
+      updateProjectExitVisual();
+      requestAnimationFrame(() => {
+        projectGrid.classList.remove('is-measuring');
+      });
+    }
+
+    function getProjectAnchorPoints() {
+      const navOffset = getNavOffset();
+      const base = projectSection ? clampScrollY(projectSection.offsetTop - navOffset) : 0;
+      return [
+        projectRowAnchors[0] ?? base,
+        projectRowAnchors[1] ?? base,
+        projectRowAnchors[2] ?? base
+      ];
+    }
+
+    function getCurrentProjectAnchor() {
+      const anchors = getProjectAnchorPoints();
+      return anchors[stageToAnchor[projectStageIndex] ?? 0] ?? anchors[0] ?? 0;
+    }
+
+    function isInsideProjectsLockZone() {
+      if (projectExitArmed) return false;
+      if (window.innerWidth < 800 || !projectSection || !projectStage) return false;
+      const rect = projectSection.getBoundingClientRect();
+      const navOffset = getNavOffset();
+      return rect.top <= navOffset + 24 && rect.bottom >= navOffset + Math.min(window.innerHeight * 0.5, 360);
+    }
+
+    function syncProjectStageFromScroll() {
+      if (window.innerWidth < 800 || !projectSection || !projectStage) return;
+      const navOffset = getNavOffset();
+      const sectionTop = clampScrollY(projectSection.offsetTop - navOffset);
+      const sectionRect = projectSection.getBoundingClientRect();
+      const insideProjects = sectionRect.top <= navOffset + 24 && sectionRect.bottom >= navOffset + Math.min(window.innerHeight * 0.5, 360);
+
+      const projectResetThreshold = sectionTop - Math.max(window.innerHeight * 0.38, 220);
+      if (window.scrollY < projectResetThreshold) {
+        projectStageIndex = 0;
+        projectExitArmed = false;
+        projectCurrentProgress = 0;
+        projectTargetProgress = 0;
+        projectCurrentGridShift = 0;
+        projectTargetGridShift = 0;
+        applyProjectProgress(0, 0);
+        updateProjectExitVisual();
+        return;
+      }
+
+      if (!projectExitArmed && insideProjects && projectStageIndex === 0) {
+        projectStageIndex = 1;
+        animateToProjectStage();
+        jumpToY(getCurrentProjectAnchor());
+        projectLockReleaseUntil = Date.now() + 120;
+      }
+    }
+
+    function moveProjectStage(direction) {
+      if (direction > 0 && projectStageIndex < 10) {
+        projectStageIndex += 1;
+        return true;
+      }
+      if (direction < 0 && projectStageIndex > 0) {
+        projectStageIndex -= 1;
+        return true;
+      }
+      return false;
+    }
+
+    function handleProjectsWheel(e) {
+      if (!isInsideProjectsLockZone()) return false;
+      if (Date.now() < projectLockReleaseUntil) {
+        e.preventDefault();
+        return true;
+      }
+      if (Math.abs(e.deltaY) < 12) return false;
+
+      const direction = e.deltaY > 0 ? 1 : -1;
+      const anchor = getCurrentProjectAnchor();
+
+      if (direction < 0) {
+        projectExitArmed = false;
+        return false;
+      }
+
+      if (direction > 0 && projectStageIndex === 10) {
+        projectExitArmed = true;
+        updateProjectExitVisual();
+        projectLockReleaseUntil = Date.now() + 90;
+        return false;
+      }
+
+      e.preventDefault();
+
+      if (Math.abs(window.scrollY - anchor) > 28) {
+        glideToY(anchor, 220);
+        projectLockReleaseUntil = Date.now() + 140;
+        return true;
+      }
+
+      const previousStageIndex = projectStageIndex;
+      const moved = moveProjectStage(direction);
+      projectExitArmed = false;
+      if (!moved) {
+        return false;
+      }
+
+      animateToProjectStage();
+      const nextAnchor = getCurrentProjectAnchor();
+      const currentAnchorIndex = stageToAnchor[previousStageIndex] ?? 0;
+      const nextAnchorIndex = stageToAnchor[projectStageIndex] ?? 0;
+      if (nextAnchorIndex !== currentAnchorIndex) {
+        glideToY(nextAnchor, 300);
+        projectLockReleaseUntil = Date.now() + 240;
+      } else if (Math.abs(window.scrollY - nextAnchor) > 24) {
+        glideToY(nextAnchor, 180);
+        projectLockReleaseUntil = Date.now() + 160;
+      } else {
+        projectLockReleaseUntil = Date.now() + 120;
+      }
+      updateProjectExitVisual();
+      return true;
+    }
+
+    window.addEventListener('wheel', (e) => {
+      handleProjectsWheel(e);
+    }, { passive: false });
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        measureProjectStack();
+        syncProjectStageFromScroll();
+      }, 80);
     });
+
+    window.addEventListener('resize', () => {
+      measureProjectStack();
+      updateProjectExitVisual();
+    });
+
+    window.addEventListener('scroll', () => {
+      if (isProgrammaticScroll) return;
+      syncProjectStageFromScroll();
+      const anchors = getProjectAnchorPoints();
+      const finalAnchor = anchors[2] ?? 0;
+      if (projectExitArmed && window.scrollY <= finalAnchor - 24) {
+        projectExitArmed = false;
+      }
+      updateProjectExitVisual();
+    }, { passive: true });
   </script>
 
+  <script>
+    const aboutTransitionSection = document.getElementById('about-transition');
+    const aboutTransitionStage = aboutTransitionSection ? aboutTransitionSection.querySelector('.transition-about-stage') : null;
+    const aboutSlideShell = aboutTransitionSection ? aboutTransitionSection.querySelector('.about-slide-shell') : null;
+    const aboutMotionItems = aboutTransitionSection ? Array.from(aboutTransitionSection.querySelectorAll('.about-motion-item')) : [];
+
+    let aboutTargetMotionProgress = 0;
+    let aboutCurrentMotionProgress = 0;
+    let aboutTargetDarkProgress = 0;
+    let aboutCurrentDarkProgress = 0;
+    let aboutMotionRaf = 0;
+
+    const aboutSequence = [
+      { start: 0.08, end: 0.24, shift: 520, blur: 12 },
+      { start: 0.16, end: 0.32, shift: 470, blur: 10 },
+      { start: 0.28, end: 0.42, shift: 320, blur: 8 },
+      { start: 0.40, end: 0.54, shift: 250, blur: 6 },
+      { start: 0.48, end: 0.62, shift: 235, blur: 5 },
+      { start: 0.56, end: 0.70, shift: 220, blur: 5 },
+      { start: 0.64, end: 0.78, shift: 205, blur: 4 },
+      { start: 0.72, end: 0.86, shift: 190, blur: 4 },
+      { start: 0.80, end: 0.93, shift: 175, blur: 3 },
+      { start: 0.88, end: 1.00, shift: 160, blur: 3 }
+    ];
+
+    function setAboutMotion(progress) {
+      aboutMotionItems.forEach((item, index) => {
+        const cfg = aboutSequence[index] || {
+          start: 0.88 + ((index - aboutSequence.length) * 0.03),
+          end: 1.00 + ((index - aboutSequence.length) * 0.03),
+          shift: 160,
+          blur: 3
+        };
+
+        const local = clamp((progress - cfg.start) / Math.max(cfg.end - cfg.start, 0.001), 0, 1);
+        const eased = 1 - Math.pow(1 - local, 3);
+        const residual = 1 - eased;
+        const shift = cfg.shift * Math.pow(residual, 1.02);
+        const blur = cfg.blur * Math.pow(residual, 1.12);
+        const opacity = 0.001 + (0.999 * eased);
+
+        item.style.setProperty('--about-item-x', `${shift.toFixed(2)}px`);
+        item.style.setProperty('--about-item-o', opacity.toFixed(3));
+        item.style.setProperty('--about-item-blur', `${blur.toFixed(2)}px`);
+      });
+    }
+
+    function renderAboutPanel() {
+      const motionDelta = aboutTargetMotionProgress - aboutCurrentMotionProgress;
+      const darkDelta = aboutTargetDarkProgress - aboutCurrentDarkProgress;
+
+      aboutCurrentMotionProgress += motionDelta * 0.11;
+      aboutCurrentDarkProgress += darkDelta * 0.13;
+
+      if (Math.abs(motionDelta) < 0.0008) aboutCurrentMotionProgress = aboutTargetMotionProgress;
+      if (Math.abs(darkDelta) < 0.0008) aboutCurrentDarkProgress = aboutTargetDarkProgress;
+
+      document.body.style.setProperty('--page-dark-progress', aboutCurrentDarkProgress.toFixed(3));
+      if (aboutTransitionStage) {
+        aboutTransitionStage.style.setProperty('--about-dark-progress', aboutCurrentDarkProgress.toFixed(3));
+      }
+      setAboutMotion(aboutCurrentMotionProgress);
+
+      if (
+        Math.abs(aboutTargetMotionProgress - aboutCurrentMotionProgress) > 0.0008 ||
+        Math.abs(aboutTargetDarkProgress - aboutCurrentDarkProgress) > 0.0008
+      ) {
+        aboutMotionRaf = requestAnimationFrame(renderAboutPanel);
+      } else {
+        aboutMotionRaf = 0;
+      }
+    }
+
+    function queueAboutRender() {
+      if (!aboutMotionRaf) {
+        aboutMotionRaf = requestAnimationFrame(renderAboutPanel);
+      }
+    }
+
+    function updateAboutPanel() {
+      if (!aboutTransitionSection || !aboutSlideShell) return;
+
+      if (window.innerWidth < 800) {
+        aboutTargetDarkProgress = 0;
+        aboutTargetMotionProgress = 1;
+        queueAboutRender();
+        return;
+      }
+
+      const rect = aboutTransitionSection.getBoundingClientRect();
+
+      // Keep dark fade early, but keep motion progress near zero until the about section
+      // itself starts entering the viewport.
+      const darkLeadDistance = window.innerHeight * 0.72;
+      const rawDarkProgress = clamp((darkLeadDistance - rect.top) / (window.innerHeight * 1.28), 0, 1);
+
+      const motionStartOffset = window.innerHeight * 0.12;
+      const motionTravel = window.innerHeight * 0.98;
+      const rawSectionMotion = clamp(((window.innerHeight - motionStartOffset) - rect.top) / motionTravel, 0, 1);
+
+      const exitBlendRaw = typeof projectExitVisualProgress === 'number'
+        ? projectExitVisualProgress
+        : 0;
+
+      const exitDarkLead = clamp((exitBlendRaw - 0.02) / 0.62, 0, 1);
+
+      aboutTargetDarkProgress = clamp(
+        Math.max(Math.pow(rawDarkProgress, 0.56) * 1.76, Math.pow(exitDarkLead, 0.90) * 0.94),
+        0,
+        1
+      );
+
+      // Important fix:
+      // do not let project 07 exit push the text too far in.
+      // only nudge the motion slightly so the first item begins to wake up.
+      const exitMotionNudge = clamp((exitBlendRaw - 0.12) / 0.88, 0, 1) * 0.10;
+      const sectionMotion = Math.pow(rawSectionMotion, 1.18) * 0.98;
+
+      aboutTargetMotionProgress = clamp(
+        Math.max(sectionMotion, exitMotionNudge),
+        0,
+        1
+      );
+
+      queueAboutRender();
+    }
+
+    setAboutMotion(0);
+    document.body.style.setProperty('--page-dark-progress', '0');
+    if (aboutTransitionStage) {
+      aboutTransitionStage.style.setProperty('--about-dark-progress', '0');
+    }
+
+    window.addEventListener('load', () => {
+      setTimeout(updateAboutPanel, 60);
+    });
+
+    window.addEventListener('resize', updateAboutPanel);
+    window.addEventListener('scroll', updateAboutPanel, { passive: true });
+  </script>
 
   <script>
     const navInteractive = document.getElementById('siteNav');
@@ -1190,6 +2267,54 @@
         navInteractive.style.setProperty('--mouse-opacity', '0');
       });
     }
+  </script>
+
+
+
+  <script>
+    (function () {
+      const preloader = document.getElementById('preloader');
+      const preloaderCount = document.getElementById('preloaderCount');
+      if (!preloader || !preloaderCount) return;
+
+      let progress = 0;
+      const tick = setInterval(() => {
+        progress += Math.random() * 14;
+        if (progress >= 100) progress = 100;
+
+        const value = Math.floor(progress);
+        preloaderCount.textContent = value;
+        document.documentElement.style.setProperty('--progress', String(value));
+
+        if (value >= 100) {
+          clearInterval(tick);
+          requestAnimationFrame(() => {
+            document.body.classList.add('is-ready');
+            preloader.classList.add('hidden');
+          });
+        }
+      }, 90);
+
+      window.addEventListener('pageshow', () => {
+        if (document.body.classList.contains('is-ready')) return;
+        document.documentElement.style.setProperty('--progress', '0');
+      });
+    })();
+  </script>
+
+
+  <script>
+    window.addEventListener('load', () => {
+      if (window.innerWidth < 800) {
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      }
+    });
+
+    window.addEventListener('pageshow', () => {
+      if (window.innerWidth < 800) {
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      }
+    });
   </script>
 </body>
 </html>
