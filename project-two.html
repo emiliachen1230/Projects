@@ -981,55 +981,77 @@
 
     .map-layout {
       display: grid;
-      grid-template-columns: minmax(320px, 360px) minmax(0, 1fr);
-      gap: 32px;
+      grid-template-columns: minmax(420px, 0.9fr) minmax(0, 1.1fr);
+      gap: 40px;
       align-items: start;
-      padding-top: 20px;
+      padding-top: 24px;
+    }
+
+    .map-visual {
+      padding-right: 8px;
+    }
+
+    .map-visual img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      display: block;
     }
 
     .dive-cards {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
+      gap: 16px 18px;
+      align-content: start;
     }
 
     .dive-card {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      overflow: hidden;
+      border: none;
+      border-radius: 0;
+      overflow: visible;
       display: flex;
-      min-height: 88px;
-      background: #fff;
+      align-items: stretch;
+      gap: 14px;
+      min-height: 112px;
+      background: transparent;
+      padding: 0 0 14px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
     }
 
     .dive-card-thumb {
-      width: 86px;
-      height: 100%;
+      width: 110px;
+      height: 110px;
       object-fit: cover;
       flex-shrink: 0;
     }
 
     .dive-card-body {
-      padding: 11px 14px;
+      padding: 2px 0 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 8px;
     }
 
     .dive-card-name {
       font-family: var(--ff-display);
-      font-size: 13px;
+      font-size: 15px;
       color: var(--text);
       letter-spacing: 0.5px;
-      margin-bottom: 6px;
+      margin-bottom: 0;
+      line-height: 1.4;
     }
 
     .dive-card-meta {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+      flex-direction: column;
+      gap: 4px;
     }
 
     .dive-card-tag {
       font-size: 12px;
       color: var(--silver);
+      line-height: 1.5;
     }
 
     .dive-card-tag strong {
@@ -1474,10 +1496,88 @@
       white-space: nowrap;
     }
 
-    @media (max-width: 1100px) {
+    
+    .section-subnote {
+      max-width: 860px;
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.85;
+      margin-bottom: 22px;
+    }
+
+    .decision-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      padding-top: 8px;
+    }
+
+    .decision-card {
+      border-top: 1px solid var(--black);
+      padding: 18px 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+
+    .decision-card strong {
+      font-family: var(--ff-display);
+      font-size: 13px;
+      color: var(--silver);
+      letter-spacing: 0.9px;
+      font-weight: 400;
+    }
+
+    .decision-card h3 {
+      font-size: 18px;
+      letter-spacing: 0.6px;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .decision-card p {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.78;
+      margin: 0;
+    }
+
+    .outcome-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .outcome-card {
+      padding-right: 10px;
+    }
+
+    .outcome-card strong {
+      display: block;
+      margin-bottom: 6px;
+      font-family: var(--ff-display);
+      font-size: 13px;
+      letter-spacing: 0.9px;
+      color: var(--silver);
+      font-weight: 400;
+    }
+
+    .outcome-card p {
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--text);
+      margin: 0;
+    }
+
+@media (max-width: 1100px) {
       .survey-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .phone-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .dive-cards { grid-template-columns: 1fr; }
+      .map-layout { grid-template-columns: 1fr; gap: 28px; }
+      .dive-cards { grid-template-columns: 1fr 1fr; }
       .process-image-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
@@ -1494,6 +1594,8 @@
       .lens-layout {
         grid-template-columns: 1fr;
       }
+      .dive-cards { grid-template-columns: 1fr; }
+      .dive-card-thumb { width: 96px; height: 96px; }
       .survey-grid-copy { grid-template-columns: 1fr; }
       .img-row { flex-direction: column; }
       .img-side { width: 100%; }
@@ -1741,7 +1843,9 @@
     .mobile-menu a {
       display: flex;
       align-items: center;
+      justify-content: flex-start;
       height: 76px;
+      min-height: 76px;
       flex-shrink: 0;
       box-sizing: border-box;
       font-size: 16px;
@@ -2199,48 +2303,217 @@
 
     /* ── FLOATING CAPSULE NAV (project-one aligned) ───────────────────────────── */
     #float-nav {
-      position: fixed;
-      left: 50%;
-      bottom: 24px;
-      transform: translateX(-50%);
-      display: flex;
+      /* anchor: bottom-centre, never moves */
+      position: fixed !important;
+      bottom: max(22px, env(safe-area-inset-bottom, 22px)) !important;
+      left: 50% !important;
+      top: auto !important;
+      right: auto !important;
+      transform: translateX(-50%) translateY(16px);
+      z-index: 200;
+      display: inline-flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
       align-items: center;
+      justify-content: center;
       gap: 10px;
-      padding: 8px;
+      width: max-content;
+      max-width: calc(100vw - 40px);
+      padding: 10px 14px !important;
+      background: linear-gradient(135deg, rgba(253,248,246,0.44) 0%, rgba(246,239,255,0.38) 22%, rgba(237,245,255,0.34) 46%, rgba(238,250,244,0.34) 70%, rgba(255,244,250,0.38) 100%) !important;
+      border: 1px solid rgba(255,255,255,0.46) !important;
+      box-shadow: 0 8px 28px rgba(120,132,154,0.14), inset 0 1px 0 rgba(255,255,255,0.52) !important;
+      backdrop-filter: blur(22px) saturate(150%) !important;
+      -webkit-backdrop-filter: blur(22px) saturate(150%) !important;
       border-radius: 999px;
-      background: rgba(255,255,255,0.62);
-      border: 1px solid rgba(255,255,255,0.55);
-      box-shadow: 0 12px 38px rgba(29,35,28,0.12);
-      backdrop-filter: blur(18px) saturate(140%);
-      -webkit-backdrop-filter: blur(18px) saturate(140%);
-      z-index: 110;
-      max-width: calc(100vw - 32px);
-      overflow-x: auto;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.40s ease, transform 0.40s cubic-bezier(0.4,0,0.2,1);
       scrollbar-width: none;
+      -ms-overflow-style: none;
+      isolation: isolate;
     }
     #float-nav::-webkit-scrollbar { display: none; }
+    #float-nav::before,
+    #float-nav::after {
+      content: '';
+      position: absolute;
+      top: 4px;
+      bottom: 4px;
+      width: 44px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.24s ease;
+      z-index: 3;
+      border-radius: 999px;
+      filter: blur(10px);
+    }
+    #float-nav::before {
+      left: 0;
+      background: linear-gradient(90deg,
+        rgba(250,247,248,0.74) 0%,
+        rgba(248,243,255,0.52) 28%,
+        rgba(241,246,255,0.24) 58%,
+        rgba(241,246,255,0.00) 100%);
+    }
+    #float-nav::after  {
+      right: 0;
+      background: linear-gradient(270deg,
+        rgba(250,247,248,0.74) 0%,
+        rgba(248,243,255,0.52) 28%,
+        rgba(241,246,255,0.24) 58%,
+        rgba(241,246,255,0.00) 100%);
+    }
+    #float-nav.fn-visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: all;
+    }
+    #float-nav.fn-hidden {
+      opacity: 0;
+      transform: translateX(-50%) translateY(16px);
+      pointer-events: none;
+    }
+
     .fc-item {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 44px;
-      padding: 0 20px;
+      padding: 10px 24px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.55);
-      background: rgba(244,241,248,0.7);
-      color: rgba(38,48,37,0.78);
-      font-family: var(--ff-display);
-      font-size: 12px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
       white-space: nowrap;
-      transition: background .25s ease, color .25s ease, transform .25s ease, box-shadow .25s ease;
+      flex-shrink: 0;
+      background:
+        linear-gradient(135deg,
+          rgba(255,243,240,0.80) 0%,
+          rgba(244,232,255,0.78) 22%,
+          rgba(230,243,255,0.74) 46%,
+          rgba(228,250,239,0.74) 70%,
+          rgba(255,237,247,0.78) 100%);
+      background-size: 300% 300%;
+      animation: fcGlass 18s ease-in-out infinite;
+      backdrop-filter: blur(32px) saturate(240%);
+      -webkit-backdrop-filter: blur(32px) saturate(240%);
+      border: 1px solid rgba(255,255,255,0.78);
+      box-shadow:
+        0 5px 20px rgba(120,132,154,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.86),
+        inset 0 -1px 0 rgba(255,255,255,0.26);
+      transition:
+        box-shadow   0.22s ease,
+        background   0.25s ease,
+        border-color 0.25s ease;
     }
-    .fc-item:hover { transform: translateY(-1px); }
+    .fc-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: linear-gradient(105deg, transparent 28%, rgba(255,255,255,0.54) 50%, transparent 72%);
+      transform: translateX(120%);
+      transition: transform 0.50s ease;
+      pointer-events: none;
+    }
+    .fc-item:hover::before { transform: translateX(-120%); }
+    .fc-item:hover {
+      box-shadow:
+        0 8px 28px rgba(120,132,154,0.22),
+        inset 0 1px 0 rgba(255,255,255,0.92);
+    }
     .fc-item.fc-active {
-      background: rgba(67,82,70,0.88);
-      color: #f5f5f2;
-      box-shadow: 0 6px 20px rgba(29,35,28,0.18);
+      background:
+        linear-gradient(135deg,
+          rgba(31,38,30,0.82) 0%,
+          rgba(45,58,44,0.78) 50%,
+          rgba(31,38,30,0.82) 100%);
+      background-size: 300% 300%;
+      animation: fcGlass 18s ease-in-out infinite;
+      border-color: rgba(255,255,255,0.24);
+      box-shadow:
+        0 4px 22px rgba(29,35,28,0.24),
+        inset 0 1px 0 rgba(255,255,255,0.22);
+    }
+    .fc-label {
+      font-family: var(--ff-display);
+      font-size: 13.5px;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+      color: rgba(38,48,37,0.72);
+      transition: color 0.22s ease;
+      position: relative;
+      z-index: 1;
+      white-space: nowrap;
+    }
+    .fc-item:hover .fc-label { color: rgba(38,48,37,0.92); }
+    .fc-item.fc-active .fc-label { color: rgba(255,255,255,0.94); }
+    .fc-letter {
+      display: none;
+      font-family: var(--ff-display);
+      font-size: 16px;
+      letter-spacing: 0.75px;
+      text-transform: uppercase;
+      color: rgba(38,48,37,0.72);
+      position: relative;
+      z-index: 1;
+      transition: color 0.22s ease;
+    }
+    .fc-item.fc-active .fc-letter { color: rgba(255,255,255,0.94); }
+    #float-nav.fn-compact .fc-item.fc-active {
+      width: auto;
+      height: auto;
+      min-height: 51px;
+      padding: 10px 24px;
+      border-radius: 999px;
+    }
+    #float-nav.fn-compact .fc-item.fc-active .fc-label { display: block; }
+    #float-nav.fn-compact .fc-item.fc-active .fc-letter { display: none; }
+    #float-nav.fn-compact { gap: 8px; }
+    #float-nav.fn-compact .fc-item {
+      width: 51px;
+      height: 51px;
+      padding: 0;
+      border-radius: 50%;
+    }
+    #float-nav.fn-compact .fc-label  { display: none; }
+    #float-nav.fn-compact .fc-letter { display: block; }
+
+    @media (max-width: 799px) {
+      #float-nav {
+        gap: 8px;
+        width: auto;
+        max-width: calc(100vw - 44px);
+        justify-content: flex-start;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 11px 14px !important;
+        border-radius: 999px;
+        scroll-snap-type: x proximity;
+        scroll-padding-inline: 22px;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+      }
+      #float-nav.fn-scrollable::before,
+      #float-nav.fn-scrollable::after {
+        opacity: 0.92;
+      }
+      #float-nav.fn-scrollable.fn-at-start::before { opacity: 0; }
+      #float-nav.fn-scrollable.fn-at-end::after { opacity: 0; }
+      .fc-item {
+        padding: 9px 18px;
+        scroll-snap-align: start;
+      }
+      .fc-label  { font-size: 12px; letter-spacing: 1.9px; }
+      #float-nav.fn-compact .fc-item { width: 45px; height: 45px; }
+      #float-nav.fn-compact .fc-item.fc-active {
+        min-height: 45px;
+        padding: 9px 16px;
+        max-width: calc(100vw - 120px);
+      }
     }
 
     @media (max-width: 980px) {
@@ -2270,6 +2543,2411 @@
         letter-spacing: 1.6px;
       }
     }
+
+    .persona-avatar-img {
+      width: 110px;
+      aspect-ratio: 1;
+      border-radius: 24px;
+      object-fit: cover;
+      display: block;
+      border: none;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .persona-store-panel {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .persona-store-label {
+      font-family: var(--ff-display);
+      font-size: 14px;
+      color: var(--text);
+      letter-spacing: 0.7px;
+    }
+
+    .persona-store-panel img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      border: none;
+      background: transparent;
+      box-shadow: none;
+      cursor: zoom-in;
+    }
+
+    .site-gallery {
+      padding-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .site-gallery-card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .site-gallery-frame {
+      border: none;
+      background: transparent;
+      padding: 0;
+      min-height: 0;
+      display: block;
+      cursor: zoom-in;
+    }
+
+    .site-gallery-frame img {
+      width: 100%;
+      height: auto;
+      max-height: none;
+      object-fit: contain;
+      display: block;
+    }
+
+    .dive-site-details-section {
+      background: #DFE7EA;
+    }
+
+    .exploded-notes {
+      padding-top: 20px;
+      max-width: 980px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px 28px;
+      list-style: none;
+      margin: 0;
+    }
+
+    .exploded-notes li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.75;
+    }
+
+    .exploded-notes li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--silver);
+    }
+
+    .full-bleed-media {
+      max-width: none !important;
+      width: calc(100% + 48px);
+      margin-left: -24px;
+      margin-right: -24px;
+      padding-top: 8px;
+    }
+
+    .full-bleed-media img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .exploded-main.full-bleed-media,
+    .lens-image.full-bleed-media {
+      max-width: none !important;
+      width: calc(100% + 48px) !important;
+      margin-left: -24px !important;
+      margin-right: -24px !important;
+      padding-top: 8px;
+    }
+
+    .lens-image.full-bleed-media {
+      display: block;
+      text-align: center;
+    }
+
+    .lens-image.full-bleed-media img {
+      width: 75%;
+      margin: 0 auto;
+    }
+
+    .exploded-main.full-bleed-media {
+      display: block;
+      text-align: center;
+    }
+
+    .exploded-main.full-bleed-media img {
+      width: 75%;
+      margin: 0 auto;
+    }
+
+    .store-persona-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .store-metric-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+      background: rgba(15, 76, 129, 0.04);
+    }
+
+    .store-metric-card .metric-top {
+      font-family: var(--ff-display);
+      font-size: 22px;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .store-metric-card .metric-label {
+      font-size: 12px;
+      color: var(--silver);
+      letter-spacing: 0.5px;
+      line-height: 1.5;
+    }
+
+    .store-business-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .store-business-item {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text);
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .store-business-item::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--silver);
+    }
+
+    .method-key-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+      padding-top: 20px;
+    }
+
+    .method-key-card {
+      border-top: 1px solid var(--black);
+      padding-top: 14px;
+    }
+
+    .method-key-card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      letter-spacing: 0.8px;
+      color: var(--text);
+    }
+
+    .method-key-card p {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.85;
+    }
+
+    .dual-persona-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 56px;
+      padding: 10px 0 8px;
+    }
+
+    .dual-persona-grid .persona-panel {
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 32px;
+      align-items: start;
+      padding: 30px;
+      border: 1px solid rgba(0,0,0,0.08);
+      background: rgba(255,255,255,0.9);
+    }
+
+    .dual-persona-grid .persona-panel:first-child {
+      border-top: 1px solid rgba(0,0,0,0.08);
+      padding-top: 30px;
+    }
+
+    .persona-figure {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .persona-avatar-img {
+      width: 100%;
+      max-width: 220px;
+      aspect-ratio: 1 / 1;
+      border-radius: 0;
+      object-fit: cover;
+    }
+
+    .persona-aside-label {
+      font-family: var(--ff-display);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--silver);
+      line-height: 1.5;
+    }
+
+    .persona-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      min-width: 0;
+      padding-right: 10px;
+    }
+
+    .persona-meta-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: end;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .persona-meta-head .chart-kicker {
+      margin-bottom: 10px;
+    }
+
+    .persona-index {
+      font-family: Georgia, serif;
+      font-size: 54px;
+      line-height: 0.95;
+      color: rgba(38,48,37,0.24);
+      white-space: nowrap;
+      align-self: start;
+    }
+
+    .persona-summary {
+      max-width: 720px;
+      padding-right: 8px;
+    }
+
+    .persona-detail-grid {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr);
+      gap: 18px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .persona-detail-label {
+      font-family: var(--ff-display);
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--silver);
+      line-height: 1.6;
+    }
+
+    .persona-detail-content {
+      min-width: 0;
+    }
+
+    .persona-store-card .store-business-list,
+    .persona-store-card .store-persona-metrics,
+    .persona-store-card .journey-chip-row,
+    .persona-store-card .persona-summary {
+      margin-top: 0;
+    }
+
+    .method-flow-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 30px;
+      padding-top: 22px;
+    }
+
+    .method-flow-card {
+      border: 1px solid rgba(0,0,0,0.08);
+      background: rgba(255,255,255,0.72);
+      padding: 22px;
+    }
+
+    .method-mini-flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .method-step {
+      position: relative;
+      border: 1px solid rgba(0,0,0,0.08);
+      background: rgba(15, 76, 129, 0.03);
+      padding: 14px 12px;
+      min-height: 132px;
+    }
+
+    .method-step:not(:last-child)::after {
+      content: '→';
+      position: absolute;
+      right: -10px;
+      top: 14px;
+      color: rgba(38,48,37,0.32);
+      font-size: 18px;
+    }
+
+    .method-step-no {
+      font-family: Georgia, serif;
+      font-size: 28px;
+      line-height: 1;
+      color: rgba(38,48,37,0.28);
+      margin-bottom: 10px;
+    }
+
+    .method-step h4,
+    .challenge-block h4 {
+      font-family: var(--ff-display);
+      font-size: 14px;
+      color: var(--text);
+      letter-spacing: 0.7px;
+      margin-bottom: 8px;
+    }
+
+    .method-step p,
+    .challenge-block p {
+      font-size: 14px;
+      line-height: 1.72;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .challenge-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .challenge-block {
+      border-top: 1px solid rgba(0,0,0,0.08);
+      padding-top: 14px;
+    }
+
+    .workflow-copy {
+      max-width: 760px;
+      margin-bottom: 18px;
+    }
+
+
+    @media (max-width: 900px) {
+      .method-key-grid,
+      .store-persona-metrics,
+      .method-flow-grid,
+      .method-mini-flow,
+      .persona-meta-head,
+      .persona-detail-grid {
+        grid-template-columns: 1fr;
+      }
+      .dual-persona-grid .persona-panel {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+      .persona-avatar-img {
+        max-width: 180px;
+      }
+      .method-step:not(:last-child)::after {
+        display: none;
+      }
+    }
+
+    .usage-process-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      padding-top: 18px;
+    }
+
+    .usage-process-grid img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      background: #fff;
+    }
+
+    @media (max-width: 1024px) {
+      .site-gallery,
+      .store-gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .site-gallery,
+      .store-gallery,
+      .usage-process-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .exploded-notes {
+        grid-template-columns: 1fr;
+      }
+    }
+
+
+    .store-gallery {
+      padding-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .store-gallery img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      cursor: zoom-in;
+      border: none;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      z-index: 400;
+    }
+
+    .lightbox.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox img {
+      max-width: min(1200px, 92vw);
+      max-height: 88vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      border: none;
+      background: transparent;
+      color: #fff;
+      font-size: 36px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+
+
+    .recruitment-intro {
+      max-width: 1080px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.92fr);
+      gap: 24px;
+      padding-top: 8px;
+      align-items: start;
+    }
+    .recruitment-lead,
+    .recruitment-sidecard,
+    .principle-card,
+    .ecosystem-card {
+      border: 1px solid rgba(0,0,0,0.08);
+      background: rgba(255,255,255,0.78);
+      padding: 22px;
+    }
+    .recruitment-lead h3,
+    .recruitment-sidecard h3,
+    .principle-card h3,
+    .ecosystem-card h3 {
+      font-size: 18px;
+      color: var(--text);
+      letter-spacing: 0.6px;
+      margin-bottom: 10px;
+    }
+    .recruitment-lead p,
+    .recruitment-sidecard p,
+    .principle-card p,
+    .ecosystem-card p,
+    .decision-list li {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--text);
+    }
+    .question-list,
+    .decision-list { margin-top: 12px; padding-left: 18px; }
+    .question-list li,
+    .decision-list li { margin-bottom: 8px; }
+    .ecosystem-grid {
+      display: grid;
+      gap: 16px;
+      padding-top: 8px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .ecosystem-card strong {
+      display: inline-block;
+      font-family: var(--ff-display);
+      font-size: 13px;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      color: var(--silver);
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+    .ecosystem-card h3 { min-height: 46px; }
+    .keyscreens-wrap {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 34px;
+      padding-top: 12px;
+      padding-left: 34px;
+    }
+    .keyscreens-wrap::before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 18px;
+      bottom: 18px;
+      width: 1px;
+      background: rgba(0,0,0,0.14);
+    }
+    .keyscreen-block {
+      position: relative;
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 28px;
+      align-items: start;
+      padding-top: 24px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+    .keyscreen-block::before {
+      content: "";
+      position: absolute;
+      left: -31px;
+      top: 34px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.22);
+      box-shadow: 0 0 0 4px #ffffff;
+    }
+    .keyscreen-block:first-child {
+      padding-top: 0;
+      border-top: none;
+    }
+    .keyscreen-block:first-child::before {
+      top: 10px;
+    }
+    .keyscreen-meta strong {
+      display: block;
+      font-family: var(--ff-display);
+      font-size: 12px;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: var(--silver);
+      margin-bottom: 10px;
+      font-weight: 400;
+    }
+    .keyscreen-meta h3 {
+      font-size: 24px;
+      line-height: 1.3;
+      letter-spacing: 0.8px;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .keyscreen-meta p {
+      font-size: 15px;
+      line-height: 1.85;
+      color: var(--text);
+      margin: 0;
+    }
+    .keyscreen-gallery {
+      display: block;
+      align-items: start;
+      width: 100%;
+    }
+    .keyscreen-flow {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      width: 100%;
+    }
+    .screen-node {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .screen-node img {
+      width: 100%;
+      height: 520px;
+      object-fit: contain;
+      object-position: center top;
+      display: block;
+      border: none;
+      background: transparent;
+      box-shadow: none;
+    }
+    .flow-connector {
+      width: 72px;
+      height: 520px;
+      flex: 0 0 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: visible;
+    }
+    .flow-connector::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 1px;
+      background: rgba(0,0,0,0.18);
+      display: block;
+    }
+    .flow-connector::after {
+      content: "";
+      position: absolute;
+      right: -1px;
+      top: 50%;
+      width: 10px;
+      height: 10px;
+      border-top: 1px solid rgba(0,0,0,0.22);
+      border-right: 1px solid rgba(0,0,0,0.22);
+      transform: translateY(-50%) rotate(45deg);
+      background: transparent;
+    }
+    .flow-connector span {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 26px;
+      padding: 0 10px;
+      background: #ffffff;
+      font-family: var(--ff-display);
+      font-size: 10px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--silver);
+      white-space: nowrap;
+    }
+    .section-subnote {
+      max-width: 820px;
+      font-size: 15px;
+      line-height: 1.85;
+      color: var(--text);
+      margin-top: 4px;
+    }
+    @media (max-width: 980px) {
+      .recruitment-intro,
+      .ecosystem-grid { grid-template-columns: 1fr; }
+      .keyscreens-wrap {
+        padding-left: 28px;
+      }
+      .keyscreens-wrap::before {
+        left: 7px;
+      }
+      .keyscreen-block {
+        grid-template-columns: 1fr;
+      }
+      .keyscreen-block::before {
+        left: -25px;
+        top: 12px;
+      }
+      .keyscreen-gallery {
+        overflow-x: auto;
+        overflow-y: visible;
+        padding-bottom: 10px;
+        padding-left: 2px;
+        margin-right: -4px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .keyscreen-gallery::-webkit-scrollbar { display: none; }
+      .keyscreen-flow {
+        flex-direction: row;
+        align-items: center;
+        width: max-content;
+        min-width: 100%;
+        gap: 14px;
+      }
+      .screen-node {
+        flex: 0 0 auto;
+        width: min(78vw, 320px);
+      }
+      .screen-node img {
+        height: 500px;
+      }
+      .flow-connector {
+        width: 76px;
+        height: 500px;
+        flex: 0 0 76px;
+      }
+      .flow-connector::before {
+        left: 0;
+        right: 0;
+        top: 50%;
+        width: auto;
+        height: 1px;
+      }
+      .flow-connector::after {
+        right: -1px;
+        top: 50%;
+        bottom: auto;
+        transform: translateY(-50%) rotate(45deg);
+      }
+      .flow-connector span {
+        font-size: 9px;
+        letter-spacing: 1px;
+        padding: 0 8px;
+      }
+    }
+    @media (max-width: 640px) {
+      .keyscreens-wrap {
+        padding-left: 24px;
+      }
+      .keyscreens-wrap::before {
+        left: 6px;
+      }
+      .keyscreen-block::before {
+        left: -20px;
+        top: 10px;
+        width: 13px;
+        height: 13px;
+      }
+      .screen-node {
+        width: 82vw;
+      }
+      .screen-node img {
+        height: 500px;
+      }
+      .flow-connector {
+        width: 64px;
+        height: 500px;
+        flex-basis: 64px;
+      }
+    }
+
+
+    /* ── MOBILE REFINEMENT v17 ───────────────────────────── */
+    @media (max-width: 799px) {
+      body {
+        font-size: 15px;
+      }
+
+      .hero {
+        height: 54vw;
+        min-height: 240px;
+        max-height: 360px;
+      }
+
+      .meta-info {
+        min-width: 0;
+        padding: 22px 18px;
+      }
+
+      .meta-label {
+        padding: 0;
+      }
+
+      .meta-label > div {
+        padding: 22px 18px !important;
+        gap: 18px;
+      }
+
+      .meta-label > div > div:last-child {
+        gap: 14px !important;
+      }
+
+      .description,
+      .section,
+      .cis-section,
+      .project-snapshot {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .description {
+        padding-top: 34px;
+        padding-bottom: 34px;
+      }
+
+      .section,
+      .cis-section {
+        padding-bottom: 32px;
+      }
+
+      .section-header,
+      .cis-header,
+      .app-section-title {
+        padding-top: 28px;
+        padding-bottom: 14px;
+        gap: 12px;
+      }
+
+      h2 {
+        font-size: clamp(24px, 7vw, 34px);
+        letter-spacing: 1.2px;
+      }
+
+      .section-subnote,
+      .survey-lead,
+      .cis-header p,
+      .body-text,
+      .description p,
+      .workflow-copy {
+        font-size: 14px;
+        line-height: 1.8;
+      }
+
+      .research-col p,
+      .survey-copy-item p,
+      .journey-block p,
+      .feature-copy p,
+      .info-desc,
+      .spec-value,
+      .interface-note,
+      .lens-text,
+      .phone-note-item,
+      .snapshot-item span,
+      .challenge-item span,
+      .method-key-card p,
+      .challenge-block p,
+      .persona-summary,
+      .persona-detail-content,
+      .store-business-item,
+      .store-metric-card p,
+      .store-metric-card span {
+        font-size: 14px;
+        line-height: 1.8;
+      }
+
+      .tags,
+      .chip-list,
+      .journey-chip-row,
+      .color-swatches,
+      .typestyle-row {
+        gap: 10px;
+      }
+
+      .tag,
+      .journey-chip,
+      .chip {
+        font-size: 12px;
+      }
+
+      .img-row,
+      .research-table,
+      .features-list,
+      .info-list,
+      .survey-wrap,
+      .journey-copy,
+      .typeface-row,
+      .spec-grid {
+        gap: 20px;
+      }
+
+      .survey-highlight-grid,
+      .survey-stats,
+      .touchpoint-grid,
+      .ecosystem-grid,
+      .usage-process-grid,
+      .method-key-grid,
+      .challenge-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .chart-card,
+      .mini-chart-card,
+      .journey-board,
+      .timeline-board,
+      .snapshot-card,
+      .methodology-card,
+      .method-flow-card,
+      .persona-panel,
+      .survey-highlight,
+      .touchpoint-card,
+      .ecosystem-card,
+      .store-metric-card {
+        padding: 16px;
+      }
+
+      .dual-persona-grid {
+        gap: 28px;
+        padding-top: 6px;
+      }
+
+      .dual-persona-grid .persona-panel {
+        padding: 18px;
+        gap: 14px;
+      }
+
+      .persona-avatar-img {
+        max-width: 140px;
+      }
+
+      .persona-meta {
+        gap: 14px;
+        padding-right: 0;
+      }
+
+      .persona-meta-head {
+        gap: 10px;
+        padding-bottom: 10px;
+      }
+
+      .persona-index {
+        font-size: 38px;
+      }
+
+      .persona-detail-grid {
+        gap: 8px;
+        padding-top: 10px;
+      }
+
+      .method-flow-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding-top: 14px;
+      }
+
+      .method-mini-flow {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .method-step {
+        min-height: unset;
+      }
+
+      .map-layout,
+      .visual-design-layout,
+      .survey-main,
+      .journey-layout,
+      .interface-layout,
+      .lens-layout,
+      .recruitment-intro {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .dive-cards {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .dive-card {
+        min-height: 0;
+      }
+
+      .dive-card-thumb {
+        width: 92px;
+      }
+
+      .phone-gallery,
+      .phone-two,
+      .phone-single,
+      .process-image-grid,
+      .sketch-row {
+        grid-template-columns: 1fr;
+      }
+
+      .phone-gallery,
+      .process-image-grid,
+      .usage-process-grid {
+        gap: 12px;
+      }
+
+      .phone-frame {
+        min-height: 0;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+      }
+
+      .phone-frame img {
+        max-height: none;
+        width: 100%;
+        height: auto;
+      }
+
+      .phone-note {
+        padding-left: 12px;
+        margin-top: 10px;
+      }
+
+      .exploded-main,
+      .main-buttons,
+      .lens-image,
+      .feature-hero,
+      .full-bleed-media,
+      .workflow-full {
+        max-width: none !important;
+        width: 100%;
+        padding-top: 0;
+      }
+
+      .full-bleed-divider img,
+      .exploded-main img,
+      .main-buttons img,
+      .lens-image img,
+      .workflow-full img,
+      .goggles-wide img,
+      .feature-hero img,
+      .map-visual img,
+      .visual-logo img,
+      .survey-main img,
+      .journey-image img,
+      .usage-process-grid img,
+      .process-image-grid img {
+        width: 100%;
+        height: auto;
+      }
+
+      .keyscreens-wrap {
+        padding-left: 22px;
+        gap: 26px;
+      }
+
+      .keyscreens-wrap::before {
+        left: 5px;
+      }
+
+      .keyscreen-block {
+        gap: 12px;
+        padding-top: 18px;
+      }
+
+      .keyscreen-block::before {
+        left: -18px;
+        top: 8px;
+        width: 11px;
+        height: 11px;
+        box-shadow: 0 0 0 3px #ffffff;
+      }
+
+      .keyscreen-meta strong {
+        margin-bottom: 6px;
+        font-size: 11px;
+      }
+
+      .keyscreen-meta h3 {
+        font-size: 20px;
+        margin-bottom: 6px;
+      }
+
+      .keyscreen-meta p {
+        font-size: 14px;
+        line-height: 1.76;
+      }
+
+      .keyscreen-gallery {
+        padding-bottom: 8px;
+      }
+
+      .keyscreen-flow {
+        min-width: max-content;
+        gap: 12px;
+      }
+
+      .screen-node {
+        width: min(86vw, 360px);
+      }
+
+      .screen-node img {
+        height: 420px;
+      }
+
+      .flow-connector {
+        width: 58px;
+        height: 420px;
+        flex-basis: 58px;
+      }
+
+      .flow-connector span {
+        font-size: 9px;
+        letter-spacing: 0.9px;
+        padding: 0 6px;
+      }
+
+      .footer-shell {
+        gap: 80px;
+      }
+
+      .footer-head {
+        gap: 48px;
+      }
+
+      .footer-mark {
+        font-size: 24px;
+        height: auto;
+        gap: 16px;
+      }
+
+      .footer-top-items {
+        gap: 28px;
+      }
+
+      .footer-bottom {
+        gap: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .description,
+      .section,
+      .cis-section,
+      .project-snapshot {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .meta-info,
+      .meta-label > div {
+        padding: 18px 14px !important;
+      }
+
+      .hero {
+        height: 58vw;
+        min-height: 220px;
+      }
+
+      .screen-node {
+        width: min(88vw, 340px);
+      }
+
+      .screen-node img {
+        height: 380px;
+      }
+
+      .flow-connector {
+        width: 52px;
+        height: 380px;
+        flex-basis: 52px;
+      }
+
+      .persona-avatar-img {
+        max-width: 124px;
+      }
+
+      .chart-card,
+      .mini-chart-card,
+      .journey-board,
+      .timeline-board,
+      .snapshot-card,
+      .methodology-card,
+      .method-flow-card,
+      .persona-panel,
+      .survey-highlight,
+      .touchpoint-card,
+      .ecosystem-card,
+      .store-metric-card {
+        padding: 14px;
+      }
+    }
+
+
+    @media (max-width: 799px) {
+      .main-buttons.full-bleed-media {
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
+        width: 100vw;
+        max-width: 100vw;
+        padding-left: 0;
+        padding-right: 0;
+      }
+      .main-buttons.full-bleed-media img {
+        width: 100vw;
+        max-width: none;
+        height: auto;
+        display: block;
+      }
+      .process-image-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+      }
+      .process-image-grid img {
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+      }
+    }
+
+
+
+/* ── FOOTER ──────────────────────────────────────── */
+
+    footer { background: var(--dark); color: var(--bg); padding: 60px 40px 0; }
+    .footer-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 48px; padding-bottom: 80px; }
+    .footer-logo { font-family: var(--ff-display); font-size: 28px; letter-spacing: 4px; color: var(--bg); line-height: 1; }
+    .footer-nav, .footer-contact { display: flex; flex-direction: column; gap: 6px; }
+    .footer-nav a, .footer-contact span, .footer-contact a { font-size: 16px; line-height: 1.6; color: var(--bg); letter-spacing: -0.2px; opacity: 0.85; }
+    .footer-nav a:hover, .footer-contact a:hover { opacity: 1; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.15); padding: 24px 0 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-socials { display: flex; gap: 20px; align-items: center; }
+    .footer-socials a { opacity: 0.7; transition: opacity .2s; display: flex; align-items: center; }
+    .footer-socials a:hover { opacity: 1; }
+    .footer-socials svg { width: 18px; height: 18px; fill: var(--bg); display: block; }
+    .footer-copy { font-size: 13px; color: var(--bg); opacity: 0.6; }
+
+/* ── DESIGN DECISION / FOOTER OVERRIDES ───────────────────────── */
+.section-subnote {
+  max-width: 860px;
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.85;
+  margin-bottom: 22px;
+}
+.decision-note {
+  margin: 0 0 18px;
+  padding: 12px 16px;
+  border-left: 2px solid var(--black);
+  background: #fafafa;
+  max-width: 860px;
+}
+.decision-note strong {
+  font-family: var(--ff-display);
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--dark);
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 400;
+}
+.decision-note span {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.75;
+}
+.decision-grid {
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  border:1px solid var(--black);
+}
+.dc {
+  display:grid;
+  grid-template-columns:200px 1fr 1fr;
+  border-bottom:1px solid var(--line);
+}
+.dc:last-child { border-bottom:none; }
+.dc-label {
+  padding:28px 24px;
+  border-right:1px solid var(--line);
+  display:flex;
+  align-items:flex-start;
+}
+.dc-label span {
+  font-family:var(--ff-display);
+  font-size:13px;
+  letter-spacing:.5px;
+  color:var(--text);
+  line-height:1.4;
+}
+.dc-before, .dc-after {
+  padding:28px 24px;
+  font-size:14px;
+  color:var(--text);
+  line-height:1.75;
+}
+.dc-before {
+  border-right:1px solid var(--line);
+  background:#fafafa;
+}
+.dc-before-lbl, .dc-after-lbl {
+  font-family:var(--ff-display);
+  font-size:9px;
+  letter-spacing:1.5px;
+  color:var(--silver);
+  margin-bottom:8px;
+  display:block;
+}
+.dc-after-lbl { color:var(--dark); }
+.dc-after { background:#fff; }
+
+footer {
+  background: var(--dark) !important;
+  color: var(--bg) !important;
+  padding: 40px 40px 0 !important;
+  margin-top: 44px;
+}
+footer .footer-shell {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 241px !important;
+  width: 100% !important;
+}
+footer .footer-head {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  gap: 40px !important;
+}
+footer .footer-mark {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 450px !important;
+  height: 30px !important;
+  flex: 0 0 auto !important;
+  font-family: var(--f-display) !important;
+  font-size: 30px !important;
+  line-height: 1.5 !important;
+  color: #ffffff !important;
+  white-space: nowrap !important;
+}
+footer .footer-top-items {
+  display: grid !important;
+  grid-template-columns: 297px minmax(220px, 1fr) !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+  column-gap: 48px !important;
+  width: 557px !important;
+  max-width: 100% !important;
+  flex: 0 0 auto !important;
+  color: #ffffff !important;
+}
+footer .footer-main-links {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+  align-items: flex-start !important;
+  width: 297px !important;
+  min-width: 160px !important;
+}
+footer .footer-main-links a {
+  display: block !important;
+  font-family: var(--f-display) !important;
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  opacity: 1 !important;
+}
+footer .footer-contact {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 40px !important;
+  align-items: flex-start !important;
+}
+footer .footer-contact span,
+footer .footer-contact a {
+  font-family: var(--f-body) !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  opacity: 1 !important;
+}
+footer .footer-contact-secondary {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+  align-items: flex-start !important;
+}
+footer .footer-bottom {
+  align-items: flex-end !important;
+  align-self: stretch !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  padding: 40px 0 !important;
+  width: 100% !important;
+  gap: 20px !important;
+  border-top: none !important;
+}
+footer .footer-copy {
+  color: #ffffff !important;
+  font-size: 16px !important;
+  letter-spacing: -0.16px !important;
+  line-height: 16px !important;
+  white-space: nowrap !important;
+  opacity: 1 !important;
+}
+
+@media (max-width: 900px) {
+  .dc {
+    grid-template-columns: 1fr;
+  }
+  .dc-label,
+  .dc-before {
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+  footer {
+    padding: 40px 20px 0 !important;
+  }
+  footer .footer-shell {
+    gap: 150px !important;
+  }
+  footer .footer-head {
+    flex-direction: column !important;
+    gap: 80px !important;
+  }
+  footer .footer-mark {
+    width: min(450px, 100%) !important;
+  }
+  footer .footer-top-items {
+    width: 100% !important;
+    grid-template-columns: 1fr !important;
+    row-gap: 58px !important;
+  }
+  footer .footer-bottom {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+  }
+}
+
+
+/* ── FINAL FIXES v2 ────────────────────────────────── */
+.hero {
+  margin-top: 0 !important;
+  height: clamp(360px, 65svh, 760px) !important;
+  min-height: 360px !important;
+  max-height: none !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  background: #f4f4f1;
+}
+.hero img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  display: block !important;
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    height: clamp(340px, 62svh, 680px) !important;
+    min-height: 340px !important;
+  }
+}
+
+@media (max-width: 799px) {
+  #siteNav {
+    min-height: auto !important;
+    padding: 12px 14px !important;
+    align-items: flex-start !important;
+  }
+  .nav-inner {
+    min-height: auto !important;
+    align-items: flex-start !important;
+  }
+  .nav-links {
+    display: none !important;
+  }
+  .hamburger {
+    display: flex !important;
+  }
+  .mobile-menu {
+    top: 76px !important;
+    margin-top: 0 !important;
+  }
+  .hero {
+    height: clamp(320px, 58svh, 560px) !important;
+    min-height: 320px !important;
+    max-height: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    height: clamp(300px, 54svh, 460px) !important;
+    min-height: 300px !important;
+  }
+}
+
+
+/* ── MOBILE MENU CONTENT FIX ───────────────────────── */
+.mobile-menu {
+  display: flex !important;
+  flex-direction: column !important;
+}
+.mobile-menu a {
+  display: block !important;
+  padding: 16px 18px !important;
+  font-family: var(--ff-display) !important;
+  font-size: 16px !important;
+  line-height: 1.2 !important;
+  color: rgba(29, 35, 28, 0.86) !important;
+  text-decoration: none !important;
+  border-top: 1px solid rgba(29, 35, 28, 0.08) !important;
+  background: transparent !important;
+}
+.mobile-menu a:hover {
+  background: rgba(255,255,255,0.32) !important;
+  color: #1d231c !important;
+}
+.mobile-menu.open {
+  max-height: 220px !important;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  pointer-events: auto !important;
+}
+
+/* ── USE SCENARIO GRID FIX ─────────────────────────── */
+.usage-process-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+  margin-top: 18px !important;
+}
+.usage-process-grid img {
+  width: 100% !important;
+  aspect-ratio: 4 / 5 !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+@media (max-width: 799px) {
+  .usage-process-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+  .usage-process-grid img {
+    aspect-ratio: 3 / 4 !important;
+  }
+}
+
+
+/* ── USE SCENARIO IMAGE FIT FIX ───────────────────── */
+.usage-process-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+  margin-top: 18px !important;
+}
+.usage-process-grid img {
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: 4 / 5 !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  display: block !important;
+  background: transparent !important;
+}
+@media (max-width: 799px) {
+  .usage-process-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+  .usage-process-grid img {
+    aspect-ratio: 3 / 4 !important;
+    object-fit: contain !important;
+  }
+}
+
+
+/* ── PHOTO & VIDEO INTERFACE ALIGN FIX ────────────── */
+#photo-video-interface .interface-layout,
+#photo-video .interface-layout {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 28px !important;
+  align-items: start !important;
+}
+
+#photo-video-interface .interface-panel,
+#photo-video .interface-panel {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 14px !important;
+  height: 100% !important;
+}
+
+#photo-video-interface .interface-label,
+#photo-video .interface-label {
+  align-self: flex-start !important;
+  margin: 0 !important;
+}
+
+#photo-video-interface .interface-note,
+#photo-video .interface-note {
+  margin: 0 !important;
+  min-height: 84px !important;
+}
+
+#photo-video-interface .interface-main,
+#photo-video .interface-main {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 250px !important;
+  padding: 12px !important;
+}
+
+#photo-video-interface .interface-steps,
+#photo-video .interface-steps {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  align-items: start !important;
+}
+
+#photo-video-interface .step-card,
+#photo-video .step-card {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 8px !important;
+}
+
+#photo-video-interface .step-visual,
+#photo-video .step-visual {
+  min-height: 110px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+@media (max-width: 900px) {
+  #photo-video-interface .interface-layout,
+  #photo-video .interface-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  #photo-video-interface .interface-note,
+  #photo-video .interface-note {
+    min-height: auto !important;
+  }
+}
+
+@media (max-width: 640px) {
+  #photo-video-interface .interface-steps,
+  #photo-video .interface-steps {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+/* ── PHOTO & VIDEO INTERFACE: EQUAL HEIGHT + NO BORDER ───────── */
+#photo-video-interface .interface-layout,
+#photo-video .interface-layout {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 28px !important;
+  align-items: stretch !important;
+}
+
+#photo-video-interface .interface-panel,
+#photo-video .interface-panel {
+  display: grid !important;
+  grid-template-rows: auto auto 1fr auto !important;
+  align-content: start !important;
+  gap: 14px !important;
+  min-height: 100% !important;
+}
+
+#photo-video-interface .interface-label,
+#photo-video .interface-label {
+  margin: 0 !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  color: var(--silver) !important;
+  background: transparent !important;
+}
+
+#photo-video-interface .interface-note,
+#photo-video .interface-note {
+  margin: 0 !important;
+  min-height: 86px !important;
+}
+
+#photo-video-interface .interface-main,
+#photo-video .interface-main {
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  min-height: 250px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+#photo-video-interface .interface-main img,
+#photo-video .interface-main img {
+  max-height: 230px !important;
+  width: auto !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+}
+
+#photo-video-interface .interface-steps,
+#photo-video .interface-steps {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  align-items: start !important;
+}
+
+#photo-video-interface .step-card,
+#photo-video .step-card {
+  display: flex !important;
+  gap: 8px !important;
+  align-items: flex-start !important;
+}
+
+#photo-video-interface .step-num,
+#photo-video .step-num {
+  flex: 0 0 24px !important;
+}
+
+#photo-video-interface .step-visual,
+#photo-video .step-visual {
+  flex: 1 1 auto !important;
+  min-height: 110px !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+#photo-video-interface .step-visual img,
+#photo-video .step-visual img {
+  max-height: 92px !important;
+  width: auto !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+}
+
+@media (max-width: 900px) {
+  #photo-video-interface .interface-layout,
+  #photo-video .interface-layout {
+    grid-template-columns: 1fr !important;
+    align-items: start !important;
+  }
+
+  #photo-video-interface .interface-panel,
+  #photo-video .interface-panel {
+    grid-template-rows: auto auto auto auto !important;
+  }
+
+  #photo-video-interface .interface-note,
+  #photo-video .interface-note {
+    min-height: auto !important;
+  }
+}
+
+@media (max-width: 640px) {
+  #photo-video-interface .interface-steps,
+  #photo-video .interface-steps {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+/* ── PHOTO & VIDEO INTERFACE: IMAGE ALIGN + NO GRAY BORDER ───── */
+#photo-video-interface .interface-layout,
+#photo-video .interface-layout {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 28px !important;
+  align-items: stretch !important;
+}
+
+#photo-video-interface .interface-panel,
+#photo-video .interface-panel {
+  display: grid !important;
+  grid-template-rows: auto auto 250px auto !important;
+  gap: 14px !important;
+  align-content: start !important;
+  min-height: 100% !important;
+}
+
+#photo-video-interface .interface-main,
+#photo-video .interface-main {
+  height: 250px !important;
+  min-height: 250px !important;
+  max-height: 250px !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+#photo-video-interface .interface-main img,
+#photo-video .interface-main img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  display: block !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+#photo-video-interface .interface-steps,
+#photo-video .interface-steps {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  align-items: start !important;
+}
+
+#photo-video-interface .step-card,
+#photo-video .step-card {
+  display: grid !important;
+  grid-template-columns: 24px minmax(0, 1fr) !important;
+  gap: 8px !important;
+  align-items: start !important;
+}
+
+#photo-video-interface .step-visual,
+#photo-video .step-visual {
+  height: 110px !important;
+  min-height: 110px !important;
+  max-height: 110px !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+#photo-video-interface .step-visual img,
+#photo-video .step-visual img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  display: block !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+#photo-video-interface .interface-main *,
+#photo-video .interface-main *,
+#photo-video-interface .step-visual *,
+#photo-video .step-visual * {
+  border-color: transparent !important;
+}
+
+@media (max-width: 900px) {
+  #photo-video-interface .interface-layout,
+  #photo-video .interface-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  #photo-video-interface .interface-panel,
+  #photo-video .interface-panel {
+    grid-template-rows: auto auto 250px auto !important;
+  }
+}
+
+@media (max-width: 640px) {
+  #photo-video-interface .interface-steps,
+  #photo-video .interface-steps {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+/* ── REAL FIX: PHOTO & VIDEO INTERFACE ───────────────────────── */
+h2 + .interface-layout {
+  display: grid;
+}
+
+/* target the actual section whose title is Photo & Video Interface */
+.section .section-header + .interface-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  align-items: stretch;
+}
+
+.section .section-header + .interface-layout .interface-panel {
+  display: grid;
+  grid-template-rows: auto auto 250px auto;
+  gap: 14px;
+  align-content: start;
+  min-height: 100%;
+}
+
+.section .section-header + .interface-layout .interface-label {
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--silver);
+}
+
+.section .section-header + .interface-layout .interface-note {
+  margin: 0;
+  min-height: 86px;
+}
+
+.section .section-header + .interface-layout .interface-main {
+  height: 250px;
+  min-height: 250px;
+  max-height: 250px;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  box-shadow: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section .section-header + .interface-layout .interface-main img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  display: block;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+.section .section-header + .interface-layout .interface-steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+
+.section .section-header + .interface-layout .step-card {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+}
+
+.section .section-header + .interface-layout .step-visual {
+  height: 110px;
+  min-height: 110px;
+  max-height: 110px;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  box-shadow: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section .section-header + .interface-layout .step-visual img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  display: block;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+.section .section-header + .interface-layout .interface-main *,
+.section .section-header + .interface-layout .step-visual * {
+  border-color: transparent !important;
+}
+
+@media (max-width: 900px) {
+  .section .section-header + .interface-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .section .section-header + .interface-layout .interface-panel {
+    grid-template-rows: auto auto 250px auto;
+  }
+
+  .section .section-header + .interface-layout .interface-note {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .section .section-header + .interface-layout .interface-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ── FINAL LABEL BORDER RESTORE ───────────────────── */
+.section .section-header + .interface-layout .interface-label,
+.interface-layout .interface-label {
+  display: inline-block !important;
+  align-self: flex-start !important;
+  padding: 4px 12px !important;
+  border: 1px solid var(--silver) !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  color: var(--silver) !important;
+  font-size: 14px !important;
+  line-height: 1.2 !important;
+}
+
+
+/* ── PRECISE FIX: PHOTO & VIDEO LABELS ───────────────────────── */
+.section .section-header + .interface-layout .interface-label,
+.interface-layout .interface-label {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  align-self: flex-start !important;
+  margin: 0 !important;
+  padding: 4px 12px !important;
+  min-height: 28px !important;
+  border: 1px solid var(--silver) !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  color: var(--silver) !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
+  box-sizing: border-box !important;
+}
+
+/* ── PRECISE FIX: PERSONA & DECISION JOURNEY SPACING ─────────── */
+.dual-persona-grid,
+.decision-journey-grid {
+  display: grid !important;
+  gap: 18px !important;
+}
+
+.dual-persona-grid > *,
+.decision-journey-grid > * {
+  margin: 0 !important;
+}
+
+.persona-panel,
+.journey-board,
+.timeline-board,
+.mini-chart-card {
+  margin: 0 !important;
+}
+
+.journey-image.journey-html,
+.journey-copy {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 18px !important;
+}
+
+.persona-panel + .persona-panel,
+.journey-board + .journey-board,
+.timeline-board + .timeline-board,
+.mini-chart-card + .mini-chart-card {
+  margin-top: 0 !important;
+}
+
+@media (max-width: 900px) {
+  .dual-persona-grid,
+  .decision-journey-grid,
+  .journey-image.journey-html,
+  .journey-copy {
+    gap: 16px !important;
+  }
+}
+
+
+/* ── FINAL HERO COVER + FLOAT NAV FIX ───────────────────────── */
+#float-nav .fc-item[href="#overview"] {
+  scroll-margin-top: 120px;
+}
+
+.hero {
+  width: 100% !important;
+  margin-top: 0 !important;
+  overflow: hidden !important;
+  background: #f4f4f1 !important;
+}
+.hero img {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    height: clamp(360px, 65svh, 760px) !important;
+    min-height: 360px !important;
+    max-height: none !important;
+  }
+  .hero img {
+    object-fit: cover !important;
+    object-position: center center !important;
+  }
+}
+
+@media (max-width: 799px) {
+  .hero {
+    height: clamp(340px, 62svh, 640px) !important;
+    min-height: 340px !important;
+    max-height: none !important;
+  }
+  .hero img {
+    object-fit: cover !important;
+    object-position: center center !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    height: clamp(320px, 58svh, 560px) !important;
+    min-height: 320px !important;
+    max-height: none !important;
+  }
+  .hero img {
+    object-fit: cover !important;
+    object-position: center center !important;
+  }
+}
+
+
+/* ── HERO FULL BLEED: MATCH PROJECT01 ───────────────────────── */
+.hero {
+  margin-top: 0 !important;
+  height: clamp(360px, 65svh, 760px) !important;
+  min-height: 360px !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  position: relative !important;
+  isolation: isolate !important;
+  background: #f4f4f1 !important;
+}
+.hero img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  display: block !important;
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    height: clamp(360px, 65svh, 760px) !important;
+    min-height: 360px !important;
+  }
+  .hero img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+  }
+}
+
+@media (max-width: 799px) {
+  .hero {
+    height: clamp(360px, 65svh, 760px) !important;
+    min-height: 360px !important;
+  }
+  .hero img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    height: clamp(360px, 65svh, 760px) !important;
+    min-height: 360px !important;
+  }
+  .hero img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+  }
+}
+
+
+/* ── ABSOLUTE FINAL HERO FIX ──────────────────────── */
+@media (max-width: 1024px) {
+  section.hero[style] {
+    height: clamp(360px, 65svh, 760px) !important;
+    min-height: 360px !important;
+  }
+  section.hero[style] > img[style] {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+  }
+}
+@media (max-width: 799px) {
+  section.hero[style] {
+    height: clamp(360px, 65svh, 760px) !important;
+    min-height: 360px !important;
+  }
+  section.hero[style] > img[style] {
+    width: auto !important;
+    height: 100% !important;
+    max-width: none !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+  }
+}
+@media (max-width: 640px) {
+  section.hero[style] {
+    height: clamp(360px, 65svh, 760px) !important;
+    min-height: 360px !important;
+  }
+  section.hero[style] > img[style] {
+    width: auto !important;
+    height: 100% !important;
+    max-width: none !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+  }
+}
+
+
+/* ── MOBILE HERO IMG WIDTH AUTO ───────────────────── */
+@media (max-width: 799px) {
+  .hero > img,
+  section.hero[style] > img,
+  section.hero[style] > img[style] {
+    width: auto !important;
+    height: 100% !important;
+    max-width: none !important;
+  }
+}
+
+
+    /* ── NAV BAR FIX ───────────────────────────── */
+    #siteNav {
+      min-height: 100px;
+      height: auto;
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 10px 22px;
+      z-index: 120;
+    }
+    #siteNav .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 34px;
+      align-items: flex-start;
+      padding-top: 2px;
+      margin: 0;
+    }
+    #siteNav .nav-links li { list-style: none; }
+    #siteNav .nav-links a {
+      font-family: var(--f-display);
+      font-size: 16px;
+      line-height: 1;
+      color: rgba(29, 35, 28, 0.72);
+      letter-spacing: 0.2px;
+      transition: color 0.25s ease, opacity 0.25s ease;
+    }
+    #siteNav .nav-links a:hover { color: var(--text); opacity: 1; }
+    #siteNav .nav-brand,
+    #siteNav .nav-logo { color: var(--text); }
+    #siteNav.nav-scrolled {
+      box-shadow: 0 14px 42px rgba(120,132,154,0.10), inset 0 1px 0 rgba(255,255,255,0.48), inset 0 -1px 0 rgba(255,255,255,0.18);
+      border-bottom-color: rgba(255,255,255,0.48);
+      background: linear-gradient(135deg, rgba(253, 248, 246, 0.72) 0%, rgba(246, 239, 255, 0.68) 22%, rgba(237, 245, 255, 0.64) 46%, rgba(238, 250, 244, 0.64) 70%, rgba(255, 244, 250, 0.68) 100%);
+    }
+    @media (max-width: 799px) {
+      #siteNav { min-height: auto; padding: 12px 14px; }
+      #siteNav .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu { top: 76px; margin-top: 0; }
+    }
+
+</style>
+
+<style>
+@media (max-width: 799px) {
+  .mobile-menu a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    height: 76px !important;
+    min-height: 76px !important;
+    padding: 0 18px !important;
+    line-height: 1 !important;
+    box-sizing: border-box !important;
+    border-top: 1px solid rgba(29, 35, 28, 0.08) !important;
+    border-bottom: 0 !important;
+  }
+  .mobile-menu a + a {
+    border-top: 1px solid rgba(29, 35, 28, 0.08) !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -2285,7 +4963,7 @@
 </a>
 <ul class="nav-links">
 <li><a href="index.html#projects">Projects</a></li>
-<li><a href="index.html#about">About Me</a></li>
+<li><a href="index.html#about-transition">About Me</a></li>
 </ul>
 <button aria-label="Menu" class="hamburger" onclick="toggleMenu()">
 <span></span><span></span><span></span>
@@ -2294,10 +4972,10 @@
 </nav>
 <div class="mobile-menu" id="mobileMenu">
 <a href="index.html#projects" onclick="closeMenu()">Projects</a>
-<a href="index.html#about" onclick="closeMenu()">About Me</a>
+<a href="index.html#about-transition" onclick="closeMenu()">About Me</a>
 </div>
-<section class="hero">
-<img alt="Diving+ hero" src="images/project-2-1.png"/>
+<section class="hero" style="margin-top:0;width:100%;height:clamp(360px,65svh,760px);min-height:360px;overflow:hidden;position:relative;isolation:isolate;background:#f4f4f1;">
+<img alt="Diving+ hero" src="images/project-2-1.png" style="width:100%;height:100%;display:block;object-fit:cover;object-position:center center;"/>
 </section>
 <div class="meta-row">
 <div class="meta-info">
@@ -2310,9 +4988,8 @@
 <div class="meta-label"><div style="display:flex;flex-direction:column;justify-content:space-between;padding:24px 32px;width:100%;"><span style="font-family:var(--ff-display);font-size:20px;color:var(--text);letter-spacing:1px;">Diving+ / Dive Discovery App &amp; Service Direction</span><div style="display:flex;gap:24px;padding-bottom:4px;flex-wrap:wrap;row-gap:10px;"><div><div style="font-family:var(--ff-display);font-size:11px;color:var(--silver);letter-spacing:1px;margin-bottom:4px;">Role</div><div style="font-family:var(--ff-display);font-size:13px;color:var(--text);letter-spacing:0.5px;">UX Research · Product Strategy · App Design</div></div><div><div style="font-family:var(--ff-display);font-size:11px;color:var(--silver);letter-spacing:1px;margin-bottom:4px;">Year</div><div style="font-family:var(--ff-display);font-size:13px;color:var(--text);letter-spacing:0.5px;">2022</div></div><div><div style="font-family:var(--ff-display);font-size:11px;color:var(--silver);letter-spacing:1px;margin-bottom:4px;">Platform</div><div style="font-family:var(--ff-display);font-size:13px;color:var(--text);letter-spacing:0.5px;">iOS · Android · Service Concept</div></div><div><div style="font-family:var(--ff-display);font-size:11px;color:var(--silver);letter-spacing:1px;margin-bottom:4px;">Scope</div><div style="font-family:var(--ff-display);font-size:13px;color:var(--text);letter-spacing:0.5px;">Solo Project — Independent</div></div></div></div></div>
 </div>
 <div class="description">
-<p>Diving+ reframes fragmented dive-site information, activity discovery, and community participation into a clearer mobile product. Positioned as a recruitment-ready case, the project moves from market observation and survey synthesis to interface structure, feature prioritisation, and a speculative hardware extension that demonstrates broader product thinking.</p>
+<p>Diving+ reorganizes fragmented dive-site information, course discovery, and community participation into a clearer decision journey for occasional and entry-level divers. As a recruitment-focused case, the project demonstrates UX research synthesis, information architecture, feature prioritization, and ecosystem-level product extension.</p>
 </div>
-
 <section aria-labelledby="snapshot-title" class="project-snapshot reveal" id="snapshot">
 <div class="snapshot-grid">
 <div class="snapshot-card">
@@ -2328,41 +5005,15 @@
 </div>
 </div>
 </section>
-<section aria-labelledby="methodology-title" class="project-snapshot reveal" id="methodology" style="border-top:none;">
-<div class="methodology-grid">
-<div class="methodology-card">
-<div class="methodology-eyebrow">Methodology</div>
-<h3 id="methodology-title">From fragmented category insight to product structure</h3>
-<p>The project was developed as a staged design process that began with category observation and progressively narrowed into clearer information design decisions. Rather than treating the interface as styling alone, the work focused on what users need to trust, compare, and act on before entering a relatively infrequent and information-sensitive activity.</p>
-<div aria-label="Methodology flow chart" class="methodology-flow">
-<div class="flow-step"><div class="step-no">01</div><h4>Observe</h4><p>Mapped the diving ecosystem through audience types, market actors, and participation contexts to define the real service surface.</p></div>
-<div class="flow-step"><div class="step-no">02</div><h4>Synthesize</h4><p>Used survey signals and journey mapping to identify trust, readability, and information access as the primary design constraints.</p></div>
-<div class="flow-step"><div class="step-no">03</div><h4>Structure</h4><p>Translated insights into product layers such as dive sites, activities, courses, community content, and personal records.</p></div>
-<div class="flow-step"><div class="step-no">04</div><h4>Extend</h4><p>Expanded the system into a speculative goggles concept to show how the service logic could evolve beyond the mobile screen.</p></div>
-</div>
-</div>
-<div aria-label="Recruitment-facing challenge notes" class="methodology-card challenge-list">
-<div>
-<div class="challenge-eyebrow">Key Challenge Notes</div>
-<h3>Signals that make the case feel stronger for recruitment</h3>
-</div>
-<div class="challenge-item"><strong>Product Judgment</strong><span>Prioritised trust-building and navigability over novelty, because occasional divers need reassurance before they need more features.</span></div>
-<div class="challenge-item"><strong>Audience Range</strong><span>Balanced the needs of curious beginners and more experienced users without turning the interface into an expert-only tool.</span></div>
-<div class="challenge-item"><strong>System Thinking</strong><span>Connected information, participation, and sustainability into one service narrative rather than presenting isolated screens.</span></div>
-<div class="challenge-item"><strong>Portfolio Signal</strong><span>The case communicates research synthesis, product framing, visual coherence, and concept extension in one readable storyline.</span></div>
-<p class="challenge-note">For a recruitment portfolio, this section foregrounds how the work thinks: not only what the screens look like, but how research was converted into priorities, structure, and a scalable product direction.</p>
-</div>
-</div>
-</section>
 <div class="full-bleed-divider">
 <img alt="Diving+ full spread" src="images/project-2-2.png"/>
 </div>
 <section class="section" id="overview">
 <div class="section-header">
 <img alt="Motivation icon" class="icon" src="images/project-2-3.png"/>
-<h2>Project Overview</h2>
+<h2>Problem &amp; Opportunity</h2>
 </div>
-<p class="body-text">This project started from a practical product question: how can diving be made easier to approach, easier to understand, and more worth returning to? Diving+ answers that question by connecting community content, ecological knowledge, and dive utilities into one service system, turning underwater exploration into a clearer and more engaging decision journey.</p>
+<p class="body-text">The category opportunity came from a gap between enthusiasm and decision clarity. Diving is visually attractive and culturally rich, yet site information, participation routes, and trust signals are often scattered across stores, social channels, and word-of-mouth networks. Diving+ reframes that fragmentation as a product problem: how to help users evaluate where to go, whom to trust, and what to do next without overwhelming them.</p>
 <div class="tags">
 <span class="tag"># Marine Conservation</span>
 <span class="tag"># Global Diving Community</span>
@@ -2373,7 +5024,7 @@
 </section>
 <section class="section">
 <div class="section-header">
-<h2>Product Framing</h2>
+<h2>Audience &amp; Service Scope</h2>
 </div>
 <div class="img-row">
 <div class="img-side">
@@ -2396,7 +5047,7 @@
 <p>Dive Shops</p>
 </div>
 </div>
-<p class="body-text">The product is designed for a broad diving ecosystem that includes curious non-divers, beginners, certified divers, instructors, shops, and related media communities. From a recruitment perspective, the key design challenge was creating an interface that could serve both discovery-oriented newcomers and information-heavy experienced users without overwhelming either group.</p>
+<p class="body-text">The service targets two linked audiences. On the user side, it supports curious beginners and occasional divers who need readable information before acting. On the business side, it gives dive stores and instructors a clearer surface for discovery, credibility, and course conversion. That two-sided scope is what turns the project from an app concept into a service ecosystem.</p>
 </div>
 </div>
 <div class="img-row">
@@ -2415,21 +5066,21 @@
 <div class="goal-icon">
 <img alt="Goal icon" src="images/project-2-7.png"/>
 </div>
-<h2>Goal</h2>
+<h2>Design Principles</h2>
 </div>
-<p class="body-text">The goal was to turn scattered diving touchpoints into a structured product experience. Diving+ positions itself as a mobile platform that supports safer decision-making, stronger community interaction, and greater visibility for marine sustainability, while keeping the interface accessible enough for light-frequency users.</p>
+<p class="body-text">The research suggested that the product should not compete on feature density alone. It needed a smaller set of strong product rules that could make browsing, evaluating, and committing feel easier for lower-frequency users while still supporting business-side visibility.</p>
 <div class="info-list">
 <div class="info-row">
-<div class="info-label">Solution</div>
-<div class="info-desc">A unified product that combines dive-site information, community posts, events, instructors, and sustainability content into one navigable experience.</div>
+<div class="info-label">Reduce memory burden</div>
+<div class="info-desc">Occasional divers should be able to re-enter the product without relearning terminology, flows, or site information from scratch.</div>
 </div>
 <div class="info-row">
-<div class="info-label">Quality</div>
-<div class="info-desc">A recruitment-ready UX direction focused on clarity, information hierarchy, and approachable onboarding for younger and lower-frequency divers.</div>
+<div class="info-label">Make trust visible</div>
+<div class="info-desc">Store credibility, activity quality, and site conditions need to be legible early, because evaluation happens before users are willing to commit.</div>
 </div>
 <div class="info-row">
-<div class="info-label">Function</div>
-<div class="info-desc">Core functions include dive discovery, activity participation, content sharing, personal diving records, and ecology-oriented engagement tools.</div>
+<div class="info-label">Connect discovery to action</div>
+<div class="info-desc">Destination inspiration, courses, events, and participation paths should belong to the same ecosystem rather than separate browsing silos.</div>
 </div>
 </div>
 </section>
@@ -2437,7 +5088,7 @@
 <div class="section-header">
 <h2>Research Insights</h2>
 </div>
-<div class="survey-wrap">
+<div class="survey-wrap"><div class="recruitment-intro"><div class="recruitment-lead"><div class="eyebrow">Research Translation</div><h3>What the data means for product direction</h3><p>The survey points toward a younger, lower-frequency audience, which changes the product brief. The real challenge is not to create more diving content, but to make information easier to trust, compare, and act on. That insight shaped the decision to foreground destination browsing, service clarity, and community-supported confidence instead of building a forum-first experience.</p></div><div class="recruitment-sidecard"><div class="eyebrow">Research Questions</div><h3>Questions that guided the interface decisions</h3><ul class="question-list"><li>How might occasional divers quickly judge whether a site or activity feels suitable and trustworthy?</li><li>What information reduces hesitation before booking a course or joining an event?</li><li>How can community content support decision-making instead of becoming noise?</li></ul></div></div>
 <p class="survey-lead">The survey clarified who the product should serve and why the interface needed to be highly legible. Scuba diving with oxygen tanks is the dominant activity at 70.2%, the largest age group is 15 to 25 at 72.6%, and 59.6% of respondents dive five times or less per year. These findings point to a product opportunity centered on entry accessibility, lightweight guidance, and fast access to trustworthy information.</p>
 <div class="survey-main">
 <div class="chart-card survey-chart-main">
@@ -2571,22 +5222,77 @@
 </section>
 <section class="cis-section">
 <div class="cis-header">
-<h2>User Analysis × Decision Journey</h2>
-<p>This journey translates brand strategy into user behavior, showing how Diving+ attracts attention, supports evaluation, and guides users toward app download and course participation. It frames the product as a trust-building service, not just an information archive.</p>
+<h2>Persona &amp; Decision Journey</h2>
+<p>This section frames the case through two linked viewpoints: Elsa as an end-user persona and Fun Dive Diving Center as a service-side persona. Together they show how Diving+ had to support both user trust and partner-store visibility inside the same ecosystem.</p>
 </div>
 <div class="journey-layout">
 <div class="journey-image journey-html">
+<div class="dual-persona-grid">
 <div class="persona-panel">
-<div class="persona-avatar">EL</div>
+<div class="persona-figure">
+<img alt="Persona EL portrait" class="persona-avatar-img" src="images/project-2-66.png"/>
+<div class="persona-aside-label">End-user viewpoint</div>
+</div>
 <div class="persona-meta">
-<div class="chart-kicker">Persona</div>
+<div class="persona-meta-head">
+<div>
+<div class="chart-kicker">Persona 01</div>
 <h4>Elsa, 32, manager and experienced diver</h4>
-<p>Elsa represents a user who already loves ocean environments but still needs efficient access to site information, event discovery, and trusted recommendations. Her behavior anchors the service tone around exploration, confidence, and quality.</p>
+</div>
+<div class="persona-index">01</div>
+</div>
+<p class="persona-summary">Elsa represents a user who already loves ocean environments but still needs efficient access to site information, event discovery, and trusted recommendations. Her behavior anchors the service tone around exploration, confidence, and quality.</p>
+<div class="persona-detail-grid">
+<div class="persona-detail-label">User Signals</div>
+<div class="persona-detail-content">
 <div class="journey-chip-row">
 <div class="journey-chip">Motivation: Explore new sites</div>
 <div class="journey-chip">Behavior: Searches before committing</div>
 <div class="journey-chip">Need: Trustworthy information</div>
 <div class="journey-chip">Value: Diving + travel lifestyle</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="persona-panel persona-store-card">
+<div class="persona-figure">
+<img alt="Fun Dive Diving Center store persona" class="persona-avatar-img" src="images/project-2-67.png"/>
+<div class="persona-aside-label">Partner-store viewpoint</div>
+</div>
+<div class="persona-meta">
+<div class="persona-meta-head">
+<div>
+<div class="chart-kicker">Persona 02</div>
+<h4>Fun Dive Diving Center</h4>
+</div>
+<div class="persona-index">02</div>
+</div>
+<p class="persona-summary">This store persona adds the service-provider perspective to the ecosystem. The business relies much more on referrals from friends, family, and diving partners than on Facebook marketing alone, which means product trust, local visibility, and conversion clarity are crucial for partner stores.</p>
+<div class="persona-detail-grid">
+<div class="persona-detail-label">Promotion Strategy</div>
+<div class="persona-detail-content">
+<div class="store-persona-metrics">
+<div class="store-metric-card">
+<div class="metric-top">20%</div>
+<div class="metric-label">Promotion strategy from Facebook marketing channels</div>
+</div>
+<div class="store-metric-card">
+<div class="metric-top">80%</div>
+<div class="metric-label">Promotion strategy from referrals by friends, family, and diving partners</div>
+</div>
+</div>
+</div>
+</div>
+<div class="persona-detail-grid">
+<div class="persona-detail-label">Business Positioning</div>
+<div class="persona-detail-content">
+<div class="store-business-list">
+<div class="store-business-item"><strong>#1 Course Instruction</strong> as the main conversion and credibility driver.</div>
+<div class="store-business-item"><strong>#2 Tourism Aspects</strong> as the broader experience layer and destination value.</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -2673,6 +5379,44 @@
 </div>
 </div>
 </section>
+<section class="section" id="methodology-notes">
+<div class="section-header">
+<h2>Methodology &amp; Key Challenge Notes</h2>
+</div>
+<p class="body-text">This section isolates the project logic behind Diving+, showing how observation, research, and service-side signals were translated into product decisions. For a recruitment portfolio, the value lies in making the reasoning chain explicit rather than leaving it implied by polished screens.</p>
+<div class="method-flow-grid">
+<div class="method-flow-card">
+<div class="eyebrow">Methodology</div>
+<h3>From observation to product translation</h3>
+<p>The project moved through four connected stages. Each stage narrowed a broad leisure category into a more legible product system, then extended that system into interface structure and business-facing workflow thinking.</p>
+<div class="method-mini-flow">
+<div class="method-step"><div class="method-step-no">01</div><h4>Observe</h4><p>Mapped divers, instructors, shops, media touchpoints, and participation contexts.</p></div>
+<div class="method-step"><div class="method-step-no">02</div><h4>Synthesize</h4><p>Used survey findings and persona logic to identify trust, clarity, and accessibility as the main design constraints.</p></div>
+<div class="method-step"><div class="method-step-no">03</div><h4>Structure</h4><p>Converted insights into dive maps, activity flows, community features, and profile-based records.</p></div>
+<div class="method-step"><div class="method-step-no">04</div><h4>Extend</h4><p>Expanded the system into workflow logic and hardware concepts to show broader product thinking.</p></div>
+</div>
+</div>
+<div class="method-flow-card">
+<div class="eyebrow">Key Challenge Notes</div>
+<h3>Why the design problem is larger than interface styling</h3>
+<div class="challenge-grid">
+<div class="challenge-block"><h4>Occasional-user readability</h4><p>Most users are not high-frequency divers, so the interface needed to reduce memory burden and make key information quickly scannable.</p></div>
+<div class="challenge-block"><h4>Trust before action</h4><p>Dive sites, courses, and stores all depend on credibility. Product structure therefore had to support evaluation before conversion.</p></div>
+<div class="challenge-block"><h4>Two-sided ecosystem</h4><p>The system serves both divers and partner stores, which means user exploration and business visibility have to be designed together.</p></div>
+<div class="challenge-block"><h4>Portfolio signal</h4><p>The final output demonstrates research synthesis, service framing, interface hierarchy, and concept extension in one continuous narrative.</p></div>
+</div>
+</div>
+</div>
+</section>
+<section class="section" id="workflow">
+<div class="section-header">
+<h2>DIVING+ WORK FLOW</h2>
+</div>
+<p class="body-text workflow-copy">This workflow visual makes the service model legible. It shows how referral-heavy growth, course-oriented value, and tourism-related positioning connect to the partner-store side of the Diving+ ecosystem.</p>
+<div class="workflow-fullbleed">
+<img alt="DIVING+ work flow" onclick="openLightbox('images/project-2-68.png')" src="images/project-2-68.png"/>
+</div>
+</section>
 <section class="cis-section" id="identity">
 <div class="cis-header">
 <h2>Identity System</h2>
@@ -2729,56 +5473,56 @@
 </div>
 </div>
 </section>
-<section class="section" id="features">
+<section class="section" id="ecosystem"><div class="section-header"><h2>Product Ecosystem</h2></div><p class="section-subnote">To make the case read more clearly for recruitment, the product can be understood as four connected layers instead of a flat list of features. This framing shows how the system supports both user-side exploration and service-side conversion.</p><div class="ecosystem-grid"><div class="ecosystem-card"><strong>Layer 01</strong><h3>Discovery Layer</h3><p>Dive-site maps, area cards, and detail imagery help users compare destinations, read conditions, and understand place character before committing.</p></div><div class="ecosystem-card"><strong>Layer 02</strong><h3>Participation Layer</h3><p>Courses, activities, and events turn abstract interest into a concrete path for learning, booking, and joining diving-related experiences.</p></div><div class="ecosystem-card"><strong>Layer 03</strong><h3>Identity &amp; Retention</h3><p>Profiles, posts, and dive records transform individual experience into visible credibility, repeat engagement, and community contribution.</p></div><div class="ecosystem-card"><strong>Layer 04</strong><h3>Ecosystem Extension</h3><p>The goggles concept extends the service beyond the mobile screen, showing how the product logic could evolve into underwater use scenarios and wearable interaction.</p></div></div></section><section class="section" id="features">
 <div class="section-header">
-<h2>Feature Strategy</h2>
+<h2>Product Structure</h2>
 </div>
 <div class="feature-hero">
 <img alt="App overview" src="images/project-2-17.png"/>
-</div>
+</div><p class="section-subnote">The core structure of Diving+ is organized around what users need to discover, evaluate, join, and keep. Each part of the product supports a different stage of the decision journey rather than functioning as an isolated feature bucket.</p>
 <div class="features-list">
 <div class="feature-item">
 <div class="feature-num">01</div>
 <div class="feature-copy">
-<h3>Community Sharing Mechanism</h3>
-<p>Community content turns personal dives into shared knowledge, helping users learn through posts, follow relationships, and experience-based discovery.</p>
+<h3>Community as Confidence Layer</h3>
+<p>Community content is framed as a confidence-building layer where posts and shared records help users understand places through experience rather than abstract data alone.</p>
 </div>
 </div>
 <div class="feature-item">
 <div class="feature-num">02</div>
 <div class="feature-copy">
-<h3>Dive Sites Information</h3>
-<p>Structured dive-site information gives users access to conditions, environment, and safety-related details before they commit to a location.</p>
+<h3>Destination Information</h3>
+<p>Dive-site information gives users visibility into conditions, environment, and suitability before they commit to a location or operator.</p>
 </div>
 </div>
 <div class="feature-item">
 <div class="feature-num">03</div>
 <div class="feature-copy">
-<h3>Environmental Awareness</h3>
-<p>Sustainability is integrated into the product logic so that ecology-related content is surfaced as part of normal engagement rather than a separate campaign.</p>
+<h3>Environmental Context</h3>
+<p>Ecology-oriented content is placed inside the browsing experience so that environmental awareness becomes part of normal product engagement.</p>
 </div>
 </div>
 <div class="feature-item">
 <div class="feature-num">04</div>
 <div class="feature-copy">
-<h3>Diving Courses</h3>
-<p>Courses and instructor access strengthen the service layer of the product, connecting exploration with learning and safer participation.</p>
+<h3>Participation Pathways</h3>
+<p>Courses and activities convert interest into action, connecting browsing behavior to learning, scheduling, and real participation.</p>
 </div>
 </div>
 <div class="feature-item">
 <div class="feature-num">05</div>
 <div class="feature-copy">
-<h3>Diving Goggles Design</h3>
-<p>The goggles concept extends the platform into a speculative hardware experience, showing how the service could evolve into a richer diving ecosystem.</p>
+<h3>Wearable Extension</h3>
+<p>The goggles concept demonstrates how the service logic could continue beyond the phone and into an underwater interface context.</p>
 </div>
 </div>
 </div>
-</section>
+</section><section class="section" id="key-screens"><div class="section-header"><h2>Key Screens</h2></div><p class="section-subnote">The interface should read as a set of core product surfaces rather than a single compressed mockup. This layout restores the major screen groups from the original case and presents them with a cleaner editorial structure closer to project01, while keeping the images borderless. The connecting labels indicate how users move from one surface to the next. On mobile, each flow turns into a horizontal swipe sequence so the screens can be read step by step.</p><div class="keyscreens-wrap"><div class="keyscreen-block"><div class="keyscreen-meta"><strong>Surface 01</strong><h3>Exploration Feed</h3><p>The feed establishes tone and first-touch discovery through community posts, lifestyle cues, and lightweight social browsing. It gives entry-level users a softer on-ramp before they move into more technical dive planning content.</p></div><div class="keyscreen-gallery"><div class="keyscreen-flow"><div class="screen-node"><img alt="Exploration feed screen" src="images/project-2-26.png"/></div></div></div></div><div class="keyscreen-block"><div class="keyscreen-meta"><strong>Surface 02</strong><h3>Topics & Sustainability</h3><p>Trending issues and sustainability topics keep the product from becoming a static directory. They support repeat visits and make environmental content part of the main browsing flow rather than a detached education tab.</p></div><div class="keyscreen-gallery"><div class="keyscreen-flow"><div class="screen-node"><img alt="Hot issue screen" src="images/project-2-27.png"/></div><div class="flow-connector"><span>Shift Topic</span></div><div class="screen-node"><img alt="Sustainability topic screen" src="images/project-2-28.png"/></div></div></div></div><div class="keyscreen-block"><div class="keyscreen-meta"><strong>Surface 03</strong><h3>Destination Discovery</h3><p>Map-based exploration, site details, and search work together as the main decision surface for destination comparison. This is where curiosity becomes practical planning through visibility, climate, geology, and level cues.</p></div><div class="keyscreen-gallery"><div class="keyscreen-flow"><div class="screen-node"><img alt="Dive map overview" src="images/project-2-29.png"/></div><div class="flow-connector"><span>Browse Area</span></div><div class="screen-node"><img alt="Dive site detail" src="images/project-2-30.png"/></div><div class="flow-connector"><span>Refine Search</span></div><div class="screen-node"><img alt="Dive destination search" src="images/project-2-31.png"/></div></div></div></div><div class="keyscreen-block"><div class="keyscreen-meta"><strong>Surface 04</strong><h3>Activities & Courses</h3><p>Events and course pathways convert interest into participation. The structure helps users move from inspiration to concrete next steps such as joining a course, discussing a trip, or participating in sustainability-related activities.</p></div><div class="keyscreen-gallery"><div class="keyscreen-flow"><div class="screen-node"><img alt="Activities screen" src="images/project-2-32.png"/></div><div class="flow-connector"><span>Compare Paths</span></div><div class="screen-node"><img alt="Courses screen" src="images/project-2-33.png"/></div><div class="flow-connector"><span>Choose Type</span></div><div class="screen-node"><img alt="Category screen" src="images/project-2-34.png"/></div></div></div></div><div class="keyscreen-block"><div class="keyscreen-meta"><strong>Surface 05</strong><h3>Profile & Records</h3><p>The profile system makes identity, certification, and personal dive history visible. It turns user records into both self-documentation and social credibility, which strengthens retention and peer trust.</p></div><div class="keyscreen-gallery"><div class="keyscreen-flow"><div class="screen-node"><img alt="Profile overview" src="images/project-2-35.png"/></div><div class="flow-connector"><span>View Map</span></div><div class="screen-node"><img alt="Personal map" src="images/project-2-36.png"/></div><div class="flow-connector"><span>Check History</span></div><div class="screen-node"><img alt="Activity history" src="images/project-2-37.png"/></div></div></div></div><div class="keyscreen-block"><div class="keyscreen-meta"><strong>Surface 06</strong><h3>Post & Dive Log</h3><p>Posts combine visual storytelling with practical information such as weather, temperature, equipment, and visibility. This makes each post work as both a memory object and a usable reference for the wider diving community.</p></div><div class="keyscreen-gallery"><div class="keyscreen-flow"><div class="screen-node"><img alt="Dive post screen" src="images/project-2-38.png"/></div><div class="flow-connector"><span>Open Log</span></div><div class="screen-node"><img alt="Dive log details" src="images/project-2-39.png"/></div></div></div></div></div></section>
 <section class="section">
 <div class="section-header">
-<h2>Dive Site Map</h2>
+<h2>Destination Discovery System</h2>
 </div>
-<div class="eyebrow" style="margin-bottom:0;">Diving Areas Introduction</div>
+<div class="eyebrow" style="margin-bottom:0;">Destination Discovery</div><p class="section-subnote">This part of the product translates dive planning into a visual system. The map creates geographical orientation, while the adjacent cards expose the practical filters that matter when users compare where to go next.</p>
 <div class="map-layout">
 <div class="map-visual">
 <img alt="Taiwan diving areas map" src="images/project-2-18.png"/>
@@ -2864,94 +5608,20 @@
 </div>
 </div>
 </section>
-<section class="section" id="interface">
-<div class="app-section-title">
-<h2>App Interface</h2>
+<section class="section dive-site-details-section">
+<div class="section-header">
+<h2>Dive Site Details</h2>
 </div>
-<div class="app-block">
-<div class="app-subtitle">Exploring - Feed and Follow</div>
-<div class="phone-gallery phone-single">
-<div class="phone-card">
-<div class="phone-frame"><img alt="Exploring screen" src="images/project-2-26.png"/></div>
-</div>
-</div>
-<div class="phone-note">
-<div class="phone-note-title">Feed Experience</div>
-<div class="phone-note-item">A feed centered on diving stories, community discovery, and lightweight social interaction</div>
-<div class="phone-note-item">Posts combine basic context, visual content, and equipment-related information</div>
-<div class="phone-note-item">The interface uses recognizable entry points to make exploration feel immediate rather than technical</div>
-</div>
-</div>
-<div class="app-block">
-<div class="app-subtitle">Hot Issue - Trending and Sustainability Topics</div>
-<div class="phone-gallery phone-two">
-<div class="phone-card"><div class="phone-frame"><img alt="Hot screen" src="images/project-2-27.png"/></div></div>
-<div class="phone-card"><div class="phone-frame"><img alt="Issue screen" src="images/project-2-28.png"/></div></div>
-</div>
-<div class="phone-note">
-<div class="phone-note-title">Content Priorities</div>
-<div class="phone-note-item">Trending content highlights popular posts, diving discussions, equipment topics, and ecology-related issues</div>
-<div class="phone-note-item">Editorial structure helps users move from entertainment-oriented browsing into deeper subject matter</div>
-<div class="phone-note-item">Sustainability appears as an integrated content category within the community system</div>
-<div class="phone-note-item">The feature supports repeated visits through topical rather than purely chronological browsing</div>
-</div>
-</div>
-<div class="app-block">
-<div class="app-subtitle">Diving Map - Area Discovery and Search</div>
-<div class="phone-gallery">
-<div class="phone-card"><div class="phone-frame"><img alt="Map overview" src="images/project-2-29.png"/></div></div>
-<div class="phone-card"><div class="phone-frame"><img alt="Map detail" src="images/project-2-30.png"/></div></div>
-<div class="phone-card"><div class="phone-frame"><img alt="Search screen" src="images/project-2-31.png"/></div></div>
-</div>
-<div class="phone-note">
-<div class="phone-note-title">Location Information</div>
-<div class="phone-note-item">Area cards summarize location, season, marine life, and dive suitability in a scannable format</div>
-<div class="phone-note-item">Detailed pages support planning through visibility, temperature, climate, and level information</div>
-<div class="phone-note-item">Search reduces friction for users who already know a destination or want to compare options</div>
-<div class="phone-note-item">Geology, topography, and depth data strengthen decision-making for actual dives</div>
-</div>
-</div>
-<div class="app-block">
-<div class="app-subtitle">Event - Activities, Courses, and Categories</div>
-<div class="phone-gallery">
-<div class="phone-card"><div class="phone-frame"><img alt="Event screen 1" src="images/project-2-32.png"/></div></div>
-<div class="phone-card"><div class="phone-frame"><img alt="Event screen 2" src="images/project-2-33.png"/></div></div>
-<div class="phone-card"><div class="phone-frame"><img alt="Event screen 3" src="images/project-2-34.png"/></div></div>
-</div>
-<div class="phone-note">
-<div class="phone-note-title">Participation Paths</div>
-<div class="phone-note-item">Users can browse discussions, group activities, courses, and sustainability projects from one entry point</div>
-<div class="phone-note-item">Category logic supports different motivations, from social participation to certification and education</div>
-<div class="phone-note-item">Filters and structure help convert abstract interest into specific actions</div>
-</div>
-</div>
-<div class="app-block">
-<div class="app-subtitle">Profile - Identity, Records, and Personal Map</div>
-<div class="phone-gallery">
-<div class="phone-card"><div class="phone-frame"><img alt="Profile screen 1" src="images/project-2-35.png"/></div></div>
-<div class="phone-card"><div class="phone-frame"><img alt="Profile screen 2" src="images/project-2-36.png"/></div></div>
-<div class="phone-card"><div class="phone-frame"><img alt="Profile screen 3" src="images/project-2-37.png"/></div></div>
-</div>
-<div class="phone-note">
-<div class="phone-note-title">Profile System</div>
-<div class="phone-note-item">The profile makes diving identity legible through basic information, certifications, records, and activity history</div>
-<div class="phone-note-item">Personal data is framed as social credibility as well as self-documentation</div>
-<div class="phone-note-item">The personal map and post history turn individual experience into visible expertise</div>
-</div>
-</div>
-<div class="app-block">
-<div class="app-subtitle">Post - Dive Record and Site Information</div>
-<div class="phone-gallery phone-two">
-<div class="phone-card"><div class="phone-frame"><img alt="Post screen 1" src="images/project-2-38.png"/></div></div>
-<div class="phone-card"><div class="phone-frame"><img alt="Post screen 2" src="images/project-2-39.png"/></div></div>
-</div>
-<div class="phone-note">
-<div class="phone-note-title">Record Structure</div>
-<div class="phone-note-item">Posts combine site conditions, weather, visibility, and temperature with experiential records</div>
-<div class="phone-note-item">Dive logs include equipment and cylinder-related information that make entries practically useful</div>
-<div class="phone-note-item">The structure supports both memory keeping and knowledge sharing</div>
-<div class="phone-note-item">Each post works as personal documentation and community-facing reference material</div>
-</div>
+<p class="body-text">Detailed site imagery helps users compare environment, visibility mood, and place character before committing to a trip. This section extends the map into a more visual decision layer.</p>
+<div class="site-gallery">
+<div class="site-gallery-card"><div class="site-gallery-frame" onclick="openLightbox('images/project-2-58.png')"><img alt="Dive site detail 1" src="images/project-2-58.png"/></div></div>
+<div class="site-gallery-card"><div class="site-gallery-frame" onclick="openLightbox('images/project-2-59.png')"><img alt="Dive site detail 2" src="images/project-2-59.png"/></div></div>
+<div class="site-gallery-card"><div class="site-gallery-frame" onclick="openLightbox('images/project-2-60.png')"><img alt="Dive site detail 3" src="images/project-2-60.png"/></div></div>
+<div class="site-gallery-card"><div class="site-gallery-frame" onclick="openLightbox('images/project-2-61.png')"><img alt="Dive site detail 4" src="images/project-2-61.png"/></div></div>
+<div class="site-gallery-card"><div class="site-gallery-frame" onclick="openLightbox('images/project-2-62.png')"><img alt="Dive site detail 5" src="images/project-2-62.png"/></div></div>
+<div class="site-gallery-card"><div class="site-gallery-frame" onclick="openLightbox('images/project-2-63.png')"><img alt="Dive site detail 6" src="images/project-2-63.png"/></div></div>
+<div class="site-gallery-card"><div class="site-gallery-frame" onclick="openLightbox('images/project-2-64.png')"><img alt="Dive site detail 7" src="images/project-2-64.png"/></div></div>
+<div class="site-gallery-card"><div class="site-gallery-frame" onclick="openLightbox('images/project-2-65.png')"><img alt="Dive site detail 8" src="images/project-2-65.png"/></div></div>
 </div>
 </section>
 <div class="goggles-wide">
@@ -2959,9 +5629,9 @@
 </div>
 <section class="section">
 <div class="section-header">
-<h2>Diving+ Goggles</h2>
+<h2>Ecosystem Extension</h2>
 </div>
-<p class="body-text">Diving+ Goggles extends the product vision into hardware by imagining a wearable interface for real-time dive information, lightweight recording, and underwater interaction. The concept demonstrates how the service could evolve from a mobile product into a connected ecosystem.</p>
+<p class="body-text">The goggles concept is positioned here as an ecosystem extension rather than a separate project. It tests how Diving+ could move from pre-dive planning on mobile into real-time underwater assistance, lightweight recording, and wearable interaction.</p>
 <div class="tags">
 <span class="tag"># Safety</span>
 <span class="tag"># Exploration</span>
@@ -2973,7 +5643,7 @@
 <div class="section-header">
 <h2>Ideation</h2>
 </div>
-<p class="body-text">This stage explores the formal language of the goggles through iterative sketches, focusing on ergonomics, readability, and how a wearable object could visually align with the app ecosystem.</p>
+<p class="body-text">The ideation stage explores how a wearable object could inherit the visual language of the app while responding to underwater ergonomics, display readability, and action constraints.</p>
 <div class="sketch-row">
 <img alt="Sketch 1" src="images/project-2-41.png"/>
 <img alt="Sketch 2" src="images/project-2-42.png"/>
@@ -3000,34 +5670,28 @@
 </section>
 <section class="section">
 <div class="section-header">
-<h2>Exploded View</h2>
+<h2>Hardware Logic</h2>
 </div>
-<p class="body-text">The exploded view communicates how the wearable concept is assembled, making the design intent legible from both a functional and industrial-design perspective.</p>
-<div class="exploded-main">
+<p class="body-text">The hardware logic view makes the concept legible as a designed object rather than a speculative sketch alone. It clarifies how display protection, input, recording, sealing, and core electronics could be organized into one wearable form.</p>
+<div class="exploded-main full-bleed-media">
 <img alt="Exploded view" src="images/project-2-43.png"/>
 </div>
-<div class="chip-list">
-<span class="chip">Tempered Glass</span>
-<span class="chip">Photography Module</span>
-<span class="chip">Power Switch</span>
-<span class="chip">Camera Lens</span>
-<span class="chip">Silicone Eyeglass Strap</span>
-<span class="chip">Lens Waterproof Seal</span>
-<span class="chip">Silicone Strap</span>
-<span class="chip">Bluetooth</span>
-<span class="chip">Timer</span>
-<span class="chip">Diving Mask Frame</span>
-<span class="chip">Sapphire Crystal Surface</span>
-<span class="chip">Motherboard Location</span>
-<span class="chip">Recording Module</span>
-</div>
+<ul class="exploded-notes">
+<li>Tempered glass front lens for underwater visibility and pressure resistance.</li>
+<li>Photography module and camera lens integrated into the front body for quick capture.</li>
+<li>Power switch, timer control, and recording module arranged around high-frequency actions.</li>
+<li>Bluetooth module supports basic connection and data transfer to the Diving+ app.</li>
+<li>Lens waterproof seal and sapphire crystal surface strengthen sealing and display protection.</li>
+<li>Silicone eyeglass strap and silicone strap improve fit, retention, and long-wear comfort.</li>
+<li>Diving mask frame houses the motherboard location and core electronics structure.</li>
+</ul>
 </section>
 <section class="section">
 <div class="section-header">
 <h2>Main Buttons</h2>
 </div>
 <p class="body-text">The control layout is simplified around high-frequency actions so that operation remains understandable even in a constrained underwater context.</p>
-<div class="main-buttons">
+<div class="main-buttons full-bleed-media">
 <img alt="Main buttons diagram" src="images/project-2-44.png"/>
 </div>
 </section>
@@ -3070,28 +5734,62 @@
 </section>
 <section class="section">
 <div class="section-header">
-<h2>Lens Display Information</h2>
+<h2>Underwater Display Concept</h2>
 </div>
-<p class="body-text">The lens interface prioritizes glanceable information, allowing users to read key dive data quickly without interrupting movement or attention underwater.</p>
-<div class="lens-layout">
-<div class="lens-image">
+<p class="body-text">The underwater display concept focuses on what information deserves to remain visible in-context: dive status, environmental cues, and system feedback that can be read quickly without overloading the user.</p>
+<div class="lens-image full-bleed-media">
 <img alt="Lens display diagram" src="images/project-2-51.png"/>
 </div>
-<div class="lens-annotations">
-<div class="lens-row"><div class="lens-dot dot-gray"></div><div class="lens-text">Depth — current / maximum / average</div></div>
-<div class="lens-row"><div class="lens-dot dot-gray"></div><div class="lens-text">Water temperature detection</div></div>
-<div class="lens-row"><div class="lens-dot dot-gray"></div><div class="lens-text">Time data — current time &amp; dive time</div></div>
-<div class="lens-row"><div class="lens-dot dot-gray"></div><div class="lens-text">Bluetooth<span class="lens-sub">Users can directly share basic information to the Diving+ app.</span></div></div>
-<div class="lens-row"><div class="lens-dot dot-red"></div><div class="lens-text">SOS System</div></div>
-<div class="lens-row"><div class="lens-dot dot-gold"></div><div class="lens-text">Safe Stop Alert<span class="lens-sub">Alerts you when you reach a safe stop depth.</span></div></div>
-<div class="lens-row"><div class="lens-dot dot-blue"></div><div class="lens-text">GPS Positioning System</div></div>
+</section>
+<section class="section" id="design-decision">
+<div class="section-header">
+<h2>Design Decision</h2>
 </div>
+<div class="decision-note">
+<strong>Strategic Framing</strong>
+<span>Diving+ was shaped as a service ecosystem proposal rather than a single travel-booking interface, so each decision clarifies how the project shifts from fragmented dive information toward a more cultural, readable, and in-situ experience.</span>
+</div>
+<div class="decision-grid">
+  <div class="dc">
+    <div class="dc-label"><span>Decision 01<br/>Discovery Language</span></div>
+    <div class="dc-before">
+      <span class="dc-before-lbl">BEFORE</span>
+      Dive services are often introduced through dense specifications, certification terms, and scattered destination listings. The first impression feels technical, cold, and difficult for beginners to enter.
+    </div>
+    <div class="dc-after">
+      <span class="dc-after-lbl">AFTER</span>
+      The interface opens with an editorial feed, softer visual pacing, and lifestyle-oriented entry points so discovery begins from curiosity and atmosphere. The product therefore speaks in a more cultural and aspirational language before moving into operational detail.
+    </div>
+  </div>
+  <div class="dc">
+    <div class="dc-label"><span>Decision 02<br/>Information Structure</span></div>
+    <div class="dc-before">
+      <span class="dc-before-lbl">BEFORE</span>
+      Dive site, course, booking, and record content usually live in separate pages or even separate services. Users have to build their own path mentally, which makes planning and comparison feel discontinuous.
+    </div>
+    <div class="dc-after">
+      <span class="dc-after-lbl">AFTER</span>
+      Destination browsing, map reading, course selection, participation, and personal logs were reorganized into one sequential system. Instead of merely presenting screens, the project proposes a stepwise decision path from exploration to action.
+    </div>
+  </div>
+  <div class="dc">
+    <div class="dc-label"><span>Decision 03<br/>System Extension</span></div>
+    <div class="dc-before">
+      <span class="dc-before-lbl">BEFORE</span>
+      Most case studies stop at the phone interface, leaving the actual underwater moment disconnected from the service logic. The app becomes the end of the experience rather than the bridge to it.
+    </div>
+    <div class="dc-after">
+      <span class="dc-after-lbl">AFTER</span>
+      The wearable goggles concept keeps the same architecture alive inside the dive itself. Recording status, environmental cues, and display feedback move from mobile planning into underwater use, making the project read as a cross-device ecosystem instead of an isolated UI exercise.
+    </div>
+  </div>
 </div>
 </section>
-<section class="section" id="outcome">
+<section class="section" id="use-scenario">
 <div class="section-header">
-<h2>Usage Process</h2>
+<h2>Use Scenario</h2>
 </div>
+<p class="section-subnote">This sequence explains the operational flow of the diving goggles as a wearable interaction concept, from setup and pairing to underwater capture and logging. It functions as a usage tutorial and experience walkthrough rather than the final project outcome.</p>
 <div class="process-flow">
 <div class="process-step">Hold power button<br/>3 sec to activate</div>
 <span class="process-arrow">→</span>
@@ -3099,16 +5797,17 @@
 <span class="process-arrow">→</span>
 <div class="process-step">Hold Bluetooth button<br/>3 sec to pair with phone</div>
 </div>
-<div class="process-image-grid">
+<div class="usage-process-grid">
 <img alt="Usage step 1" src="images/project-2-52.png"/>
 <img alt="Usage step 2" src="images/project-2-53.png"/>
 <img alt="Usage step 3" src="images/project-2-54.png"/>
 </div>
-<div class="process-image-grid">
+<div class="usage-process-grid">
 <img alt="Usage step 4" src="images/project-2-55.png"/>
 <img alt="Usage step 5" src="images/project-2-56.png"/>
 <img alt="Usage step 6" src="images/project-2-57.png"/>
 </div>
+<p class="section-subnote" style="margin-top:22px;">The sequence demonstrates how onboarding, underwater interaction, and content capture could be experienced as one connected wearable-service flow.</p>
 <div class="process-flow" style="margin-top:12px;">
 <div class="process-step">Hold timer button<br/>3 sec to log diving time upon entering the water</div>
 <span class="process-arrow">→</span>
@@ -3117,42 +5816,66 @@
 <div class="process-step">Double-press recording<br/>button to start/stop video</div>
 </div>
 </section>
-<!-- ── FOOTER ── -->
 
+<section class="section" id="outcome">
+<div class="section-header">
+<h2>Outcome</h2>
+</div>
+<p class="section-subnote">The project outcome is the consolidation of research, service logic, interface design, and wearable extension into one recruitment-ready case. Rather than ending at individual screens, the proposal frames Diving+ as a coherent ecosystem with clearer product positioning and stronger storytelling value.</p>
+<div class="outcome-strip">
+<div class="outcome-card">
+<strong>Outcome 01</strong>
+<p>A clearer recruitment-facing narrative that connects UX research, service strategy, interface design, and speculative hardware into one continuous case structure.</p>
+</div>
+<div class="outcome-card">
+<strong>Outcome 02</strong>
+<p>A multi-surface system showing capability in information architecture, feature prioritization, cross-device thinking, and ecosystem-level product direction rather than isolated mockup production.</p>
+</div>
+<div class="outcome-card">
+<strong>Outcome 03</strong>
+<p>A future-facing vision where mobile planning, community records, and underwater wearable interaction share the same design language, product logic, and experiential rhythm.</p>
+</div>
+</div>
+</section>
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+<button aria-label="Close image preview" class="lightbox-close" onclick="closeLightbox(event)" type="button">×</button>
+<img alt="Expanded detail preview" id="lightboxImage" src=""/>
+</div>
+<!-- ── FOOTER ── -->
 <nav aria-label="Page sections" id="float-nav">
-<a class="fc-item fc-active" href="#overview">Overview</a>
-<a class="fc-item" href="#research">Research</a>
-<a class="fc-item" href="#identity">Identity</a>
-<a class="fc-item" href="#features">Features</a>
-<a class="fc-item" href="#interface">Interface</a>
-<a class="fc-item" href="#outcome">Outcome</a>
+<a class="fc-item" href="#overview" data-sections="overview" data-label="Overview"><span class="fc-label">Overview</span><span class="fc-letter">O</span></a>
+<a class="fc-item" href="#research" data-sections="research,methodology-notes" data-label="Research"><span class="fc-label">Research</span><span class="fc-letter">R</span></a>
+<a class="fc-item" href="#identity" data-sections="identity" data-label="Identity"><span class="fc-label">Identity</span><span class="fc-letter">Id</span></a>
+<a class="fc-item" href="#features" data-sections="ecosystem,features" data-label="Features"><span class="fc-label">Features</span><span class="fc-letter">F</span></a>
+<a class="fc-item" href="#key-screens" data-sections="key-screens" data-label="Interface"><span class="fc-label">Interface</span><span class="fc-letter">If</span></a>
+<a class="fc-item" href="#design-decision" data-sections="design-decision" data-label="Decision"><span class="fc-label">Decision</span><span class="fc-letter">Dd</span></a>
+<a class="fc-item" href="#outcome" data-sections="use-scenario,outcome" data-label="Outcome"><span class="fc-label">Outcome</span><span class="fc-letter">Ou</span></a>
 </nav>
 <footer>
-<div class="footer-shell">
-<div class="footer-head">
-<div aria-label="E. C. brand mark" class="footer-mark">
-<span>E.</span>
-<span>C.</span>
-</div>
-<div class="footer-top-items">
-<nav aria-label="Footer navigation" class="footer-main-links">
-<a href="index.html#about">About ME</a>
-<a href="index.html#projects">Projects</a>
+    <div class="footer-shell">
+      <div class="footer-head">
+        <div class="footer-mark" aria-label="E. C. brand mark">
+          <span>E.</span>
+          <span>C.</span>
+        </div>
+        <div class="footer-top-items">
+          <nav class="footer-main-links" aria-label="Footer navigation">
 </nav>
-<div class="footer-contact">
-<span>Taipei, Taiwan</span>
-<div class="footer-contact-secondary">
-<a href="mailto:emiliachen881230@gmail.com">emiliachen881230@gmail.com</a>
-<a href="https://www.behance.net/emiliachen1230" rel="noopener" target="_blank">behance.net/emiliachen1230</a>
-</div>
-</div>
-</div>
-</div>
-<div class="footer-bottom">
-<p class="footer-copy">© 2026 All Rights Reserved</p>
-</div>
-</div>
-</footer>
+          <div class="footer-contact">
+            <span>Taipei, Taiwan</span>
+            <div class="footer-contact-secondary">
+              <a href="mailto:emiliachen881230@gmail.com">emiliachen881230@gmail.com</a>
+              <a href="https://www.behance.net/emiliachen1230" target="_blank" rel="noopener">behance.net/emiliachen1230</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 All Rights Reserved</p>
+      </div>
+    </div>
+  </footer>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     const io = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -3183,6 +5906,7 @@
       const btn = document.querySelector('.hamburger');
       if (!menu.contains(e.target) && !btn.contains(e.target)) {
         menu.classList.remove('open');
+        btn.classList.remove('open');
       }
     });
 
@@ -3229,23 +5953,132 @@
     }
   </script>
 <script>
-(function(){
-  const items = Array.from(document.querySelectorAll('#float-nav .fc-item'));
-  const sections = items.map(item => document.querySelector(item.getAttribute('href'))).filter(Boolean);
-  if (!items.length || !sections.length) return;
-  const setActive = () => {
-    let current = sections[0].id;
-    const y = window.scrollY + window.innerHeight * 0.35;
-    sections.forEach(section => {
-      if (section.offsetTop <= y) current = section.id;
+(function () {
+  var nav = document.getElementById('float-nav');
+  var trigger = document.querySelector('.description');
+  if (!nav) return;
+
+  var items = nav.querySelectorAll('.fc-item');
+  var map = Array.prototype.map.call(items, function (item) {
+    var ids = (item.getAttribute('data-sections') || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+    return { item: item, els: ids.map(function (id) { return document.getElementById(id); }).filter(Boolean) };
+  });
+
+  items.forEach(function (item) {
+    item.addEventListener('click', function (e) {
+      var target = document.querySelector(item.getAttribute('href') || '');
+      if (!target) return;
+      e.preventDefault();
+      var siteNav = document.querySelector('nav#siteNav');
+      var navH = siteNav ? siteNav.getBoundingClientRect().height : 0;
+      window.scrollTo({
+        top: target.getBoundingClientRect().top + window.pageYOffset - navH - 20,
+        behavior: 'smooth'
+      });
     });
-    items.forEach(item => {
-      item.classList.toggle('fc-active', item.getAttribute('href') === '#' + current);
+  });
+
+  function updateScrollHints() {
+    var isMobile = window.matchMedia('(max-width: 799px)').matches;
+    if (!isMobile) {
+      nav.classList.remove('fn-scrollable', 'fn-at-start', 'fn-at-end');
+      nav.scrollLeft = 0;
+      return;
+    }
+
+    var overflow = nav.scrollWidth > nav.clientWidth + 2;
+    nav.classList.toggle('fn-scrollable', overflow);
+    if (!overflow) {
+      nav.classList.remove('fn-at-start', 'fn-at-end');
+      return;
+    }
+
+    var atStart = nav.scrollLeft <= 2;
+    var atEnd = nav.scrollLeft + nav.clientWidth >= nav.scrollWidth - 2;
+    nav.classList.toggle('fn-at-start', atStart);
+    nav.classList.toggle('fn-at-end', atEnd);
+  }
+
+  function checkCompact() {
+    var isMobile = window.matchMedia('(max-width: 799px)').matches;
+    if (isMobile) {
+      nav.classList.add('fn-compact');
+      updateScrollHints();
+      return;
+    }
+
+    var available = Math.max(window.innerWidth - 40, 0);
+    nav.classList.remove('fn-compact');
+    var needed = nav.scrollWidth;
+    nav.classList.toggle('fn-compact', needed > available);
+    updateScrollHints();
+  }
+
+  function update() {
+    var siteNav = document.querySelector('nav#siteNav');
+    var navH = siteNav ? siteNav.getBoundingClientRect().height : 0;
+    var threshold = window.pageYOffset + navH + window.innerHeight * 0.32;
+
+    var showAfter = trigger ? trigger.getBoundingClientRect().bottom + window.pageYOffset : 0;
+    var footer = document.querySelector('footer');
+    var hideAfter = footer ? footer.getBoundingClientRect().top + window.pageYOffset : Infinity;
+    var past = window.pageYOffset + window.innerHeight * 0.5 > showAfter;
+    var atFoot = window.pageYOffset + window.innerHeight >= hideAfter;
+
+    if (past && !atFoot) {
+      nav.classList.add('fn-visible');
+      nav.classList.remove('fn-hidden');
+    } else {
+      nav.classList.remove('fn-visible');
+      nav.classList.add('fn-hidden');
+    }
+
+    var current = null;
+    map.forEach(function (entry) {
+      entry.els.forEach(function (el) {
+        if (el && el.getBoundingClientRect().top + window.pageYOffset <= threshold) current = entry;
+      });
     });
-  };
-  window.addEventListener('scroll', setActive, { passive: true });
-  window.addEventListener('resize', setActive);
-  setActive();
+    items.forEach(function (item) { item.classList.remove('fc-active'); });
+    if (current) current.item.classList.add('fc-active');
+    updateScrollHints();
+  }
+
+  var rsTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(rsTimer);
+    rsTimer = setTimeout(checkCompact, 60);
+  });
+
+  window.addEventListener('scroll', update, { passive: true });
+  nav.addEventListener('scroll', updateScrollHints, { passive: true });
+
+  requestAnimationFrame(function () {
+    checkCompact();
+    update();
+  });
 })();
-</script></body>
+</script><script>
+function openLightbox(src) {
+  const box = document.getElementById('lightbox');
+  const img = document.getElementById('lightboxImage');
+  img.src = src;
+  box.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(event) {
+  if (event && event.target && event.target.id !== 'lightbox' && !event.target.classList.contains('lightbox-close')) return;
+  const box = document.getElementById('lightbox');
+  const img = document.getElementById('lightboxImage');
+  box.classList.remove('open');
+  img.src = '';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function (event) {
+  if (event.key === 'Escape') {
+    closeLightbox({ target: document.getElementById('lightbox') });
+  }
+});
+</script>
+</body>
 </html>
