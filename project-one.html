@@ -83,12 +83,12 @@
     .body-text { font-size: 16px; color: var(--text); line-height: 1.8; max-width: 720px; }
     .num { font-family: var(--ff-display); font-size: 14px; color: var(--silver); letter-spacing: 1px; }
 
-    /* ── PILLARS (p4 style) ──────────────────────────── */
+    /* ── PILLARS ──────────────────────────────────────── */
     .pillars { display: flex; flex-wrap: wrap; gap: 24px; padding: 28px 0; justify-content: center; }
     .pillar { width: 200px; height: 200px; border: 1px solid var(--black); border-radius: 100px; display: flex; align-items: center; justify-content: center; padding: 0 20px; }
     .pillar p { font-family: var(--ff-display); font-size: 14px; color: var(--black); text-align: center; letter-spacing: 0.7px; line-height: 1.6; }
 
-    /* ── SPLIT ROW (p4 style) ────────────────────────── */
+    /* ── SPLIT ROW ────────────────────────────────────── */
     .split-row { display: flex; border: 1px solid var(--black); overflow: hidden; }
     .split-left { width: 380px; flex-shrink: 0; }
     .split-left img { width: 100%; height: 100%; object-fit: cover; }
@@ -97,7 +97,7 @@
     .split-right img { width: 100%; height: 100%; object-fit: cover; }
     .split-right-overlay { position: absolute; inset: 0; background: var(--overlay); }
 
-    /* ── SERVICES GRID (p4 style) ────────────────────── */
+    /* ── SERVICES GRID ─────────────────────────────────── */
     .services-grid { display: flex; gap: 40px; padding: 20px 0; align-items: flex-start; flex-wrap: wrap; }
     .services-imgs { display: flex; flex-direction: column; gap: 20px; flex: 0 1 260px; min-width: 180px; max-width: 260px; }
     .services-imgs img { width: 100%; object-fit: contain; display: block; }
@@ -106,11 +106,11 @@
     .service-label { width: 220px; flex-shrink: 0; font-family: var(--ff-display); font-size: 18px; color: var(--text); letter-spacing: 1px; }
     .service-desc { flex: 1; font-size: 16px; color: var(--text); line-height: 1.75; }
 
-    /* ── BODY GRID (two columns, original) ──────────── */
+    /* ── BODY GRID ──────────────────────────────────────── */
     .body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: 980px; }
     .body-grid p { font-size: 16px; color: var(--text); line-height: 1.9; }
 
-    /* ── CARD GRIDS (original, cleaned up) ──────────── */
+    /* ── CARD GRIDS ─────────────────────────────────────── */
     .card-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .card-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
     .card-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
@@ -127,7 +127,7 @@
     .quote-block { padding: 32px var(--pad); border-top: 1px solid rgba(0,0,0,0.08); }
     .quote-block p { font-size: 16px; color: var(--text); line-height: 1.9; max-width: 820px; border-left: 2px solid rgba(0,0,0,0.25); padding-left: 20px; }
 
-    /* ── PORTRAIT PAIR (p4 style) ────────────────────── */
+    /* ── PORTRAIT PAIR ──────────────────────────────────── */
     .portrait-pair { display: flex; gap: 60px; justify-content: center; padding: 60px 80px 20px; }
     .portrait-pair img { width: calc(50% - 30px); max-width: 340px; aspect-ratio: 2/3; object-fit: cover; }
 
@@ -135,7 +135,7 @@
     .spread-images { display: flex; flex-wrap: wrap; }
     .spread-images img { flex: 1; min-width: 200px; aspect-ratio: 1; object-fit: cover; }
 
-    /* ── FEATURE LIST (original 2-col, cleaned) ─────── */
+    /* ── FEATURE LIST ───────────────────────────────────── */
     .features-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 40px; padding-top: 8px; }
     .feature-item { display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); align-items: flex-start; }
     .feature-num { font-family: var(--ff-display); font-size: 14px; color: var(--silver); letter-spacing: 1px; flex-shrink: 0; padding-top: 2px; width: 28px; }
@@ -891,7 +891,7 @@
 
 
 
-    /* ── PROJECT DECISION NOTES ───────────────────── */
+    /* ── DECISION NOTES ─────────────────────────────────── */
     .decision-note {
       margin: 0 0 18px;
       padding: 12px 16px;
@@ -1044,7 +1044,7 @@
     /* ── VISUAL RULE ─────────────────────────────────── */
     .v-rule { height:1px; background:var(--black); margin:0 var(--pad); }
 
-    /* ── CIS IMAGE PLACEHOLDERS ──────────────────────── */
+    /* ── CIS IMAGES ─────────────────────────────────────── */
     .cis-img-row {
       display:flex; gap:28px; margin-bottom:0;
     }
@@ -2261,7 +2261,7 @@
       <div class="snapshot-card">
         <div class="snapshot-eyebrow">Project Snapshot</div>
         <h3 id="snapshot-title">What this project demonstrates</h3>
-        <p>Soultime is positioned here not only as an interface exercise, but as a systems design case study. The project moves from social problem framing to research synthesis, interaction structure, visual identity, and a testable prototype, making the design rationale legible at each stage.</p>
+        <p>Soultime moves from social problem framing through research synthesis, interaction structure, and visual identity to a testable prototype — making the design rationale visible at each stage.</p>
       </div>
       <div class="snapshot-card snapshot-list" aria-label="Project highlights">
         <div class="snapshot-item"><strong>Problem Framing</strong><span>Translated aging society, care access, and participation gaps into a product opportunity grounded in service logic rather than feature accumulation.</span></div>
@@ -2666,7 +2666,7 @@
       <h2>User Flow</h2>
     </div>
     <p class="body-text reveal rd1" style="margin-bottom:28px;">Three primary task flows traced from app open through task completion and time currency reward. Decision nodes show where the system branches and how incomplete actions loop back.</p>
-    <div class="decision-note reveal rd2"><strong>Design Decision</strong><span>I decided to compress the system into three core flows because most other features are supporting layers. That framing makes the product feel learnable, and it tells recruiters exactly what the product is asking users to do.</span></div>
+    <div class="decision-note reveal rd2"><strong>Design Decision</strong><span>I decided to compress the system into three core flows because most other features are supporting layers. That framing makes the product feel learnable and communicates the core user task clearly.</span></div>
     <div class="flow-legend reveal rd1">
       <div class="fl-item"><div class="fl-dark"></div><span>Start / End</span></div>
       <div class="fl-item"><div class="fl-rect"></div><span>Screen</span></div>
@@ -2982,7 +2982,7 @@
       <h2>Key Design<br>Decisions</h2>
     </div>
     <p class="body-text reveal rd1" style="margin-bottom:28px;">Each decision traces back to a specific research finding. What follows is not a list of features — it is a record of how evidence was turned into design constraints.</p>
-    <div class="decision-note reveal rd2"><strong>Project Framing</strong><span>I decided to keep this section in a before-and-after format so the reasoning remains visible. For a hiring project, the point is not only what changed, but why a change was necessary and what trade-off it resolved.</span></div>
+    <div class="decision-note reveal rd2"><strong>Project Framing</strong><span>I kept this section in a before-and-after format so the reasoning stays visible — not only what changed, but why the change was necessary and what trade-off it resolved.</span></div>
     <div class="decision-grid reveal rd2">
       <div class="dc">
         <div class="dc-label"><span>Homepage<br>Entry Point</span></div>
@@ -3423,7 +3423,7 @@
     </div>
   </section>
 
-  <!-- DARK CLOSING SECTION (p4 style) -->
+  <!-- DARK CLOSING SECTION -->
   <section class="closing-section">
     <img src="images/project-1-59.png" alt="Soultime in use">
     <img src="images/project-1-60.png" alt="Soultime exhibition">
